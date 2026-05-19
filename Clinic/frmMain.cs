@@ -1,4 +1,4 @@
-﻿using Clinic.Login;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,14 +13,18 @@ namespace Clinic
 {
     public partial class frmMain : Form
     {
-        private frmLogin _frmLogin;
-        public frmMain(frmLogin frmLogin)
+      
+        //public frmMain(frmLogin frmLogin)
+        //{
+        //    InitializeComponent();
+        //    _CreateStatsCards();
+        //    _frmLogin = frmLogin;
+        //}
+
+        public frmMain()
         {
             InitializeComponent();
-            _CreateStatsCards();
-            _frmLogin = frmLogin;
         }
-
         private void frmMain_Load(object sender, EventArgs e)
         {
             timer1.Start();
@@ -28,7 +32,7 @@ namespace Clinic
 
         private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _frmLogin.ShowDialog();
+            //_frmLogin.ShowDialog();
             this.Close();
         }
 
@@ -38,6 +42,12 @@ namespace Clinic
             timer1.Interval = 1000;
             lblDateTime.Text = DateTime.Now.ToString();
           
+        }
+
+        private void peopleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmListPeople frm = new frmListPeople();
+            frm.ShowDialog();
         }
     }
 }

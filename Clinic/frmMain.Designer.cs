@@ -167,6 +167,7 @@ namespace Clinic
             this.peopleToolStripMenuItem.Name = "peopleToolStripMenuItem";
             this.peopleToolStripMenuItem.Size = new System.Drawing.Size(157, 68);
             this.peopleToolStripMenuItem.Text = "People";
+            this.peopleToolStripMenuItem.Click += new System.EventHandler(this.peopleToolStripMenuItem_Click);
             // 
             // PatientsToolStripMenuItem
             // 
@@ -299,7 +300,7 @@ namespace Clinic
             // 
             this.spring.AutoSize = false;
             this.spring.Name = "spring";
-            this.spring.Size = new System.Drawing.Size(1501, 44);
+            this.spring.Size = new System.Drawing.Size(1540, 44);
             this.spring.Spring = true;
             // 
             // lblDateTime
