@@ -20,11 +20,11 @@
 
 #### 📸 شاشة استعراض وقائمة الأشخاص (Manage People)
 واجهة متطورة لعرض السجلات البرمجية مع دعم التصفية الذكية والتحميل السلس للبيانات لضمان عدم تجمد الواجهة (Anti-Flickering & Double Buffering).
-![Manage People Interface](Clinic/Person/frmlistPeople.png)
+![Manage People Interface](Image/frmlistPeople.png)
 
 #### 📸 شاشة إضافة وتحديث بيانات شخص (Add/Update Person)
 نموذج إدخال تفاعلي مدمج بـ `ErrorProvider` للتحقق الفوري من المدخلات، مع تخصيص ذكي لخيارات الجنس (Gender) والبلد والاتصال، ودعم رفع الصور الشخصية ديناميكياً وحفظ مساراتها خارجياً لحفظ أداء قاعدة البيانات.
-![Add New Person Interface](Clinic/Person/frmaddUpdateperson.jpg)
+![Add New Person Interface](Image/frmaddUpdateperson.jpg)
 
 ---
 
