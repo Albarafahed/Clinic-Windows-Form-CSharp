@@ -493,6 +493,26 @@ namespace Clinic.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap delet_ {
+            get {
+                object obj = ResourceManager.GetObject("delet-", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Delete {
+            get {
+                object obj = ResourceManager.GetObject("Delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Delete_32 {
             get {
                 object obj = ResourceManager.GetObject("Delete 32", resourceCulture);
@@ -1123,6 +1143,26 @@ namespace Clinic.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap ResoreAll {
+            get {
+                object obj = ResourceManager.GetObject("ResoreAll", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Restrore1 {
+            get {
+                object obj = ResourceManager.GetObject("Restrore1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap role_32 {
             get {
                 object obj = ResourceManager.GetObject("role 32", resourceCulture);
@@ -1266,6 +1306,16 @@ namespace Clinic.Properties {
         public static System.Drawing.Bitmap tax_32 {
             get {
                 object obj = ResourceManager.GetObject("tax 32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Trash {
+            get {
+                object obj = ResourceManager.GetObject("Trash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

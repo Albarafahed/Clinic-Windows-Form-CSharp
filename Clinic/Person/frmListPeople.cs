@@ -1,4 +1,5 @@
 ﻿using Clinic.Person;
+using Clinic.Person.Controls;
 using Clinic_Business;
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,15 @@ namespace Clinic
 {
     public partial class frmListPeople : Form
     {
-        private DataTable _dtAllPeople=clsPerson.GetAllPersons();
-      
+        private DataTable _dtAllPeople = clsPerson.GetAllPersons();
 
 
 
-    public frmListPeople()
+
+        public frmListPeople()
         {
             InitializeComponent();
-          
+
         }
 
         private void frmListPeople_Load(object sender, EventArgs e)
@@ -85,25 +86,25 @@ namespace Clinic
             {
                 cbFilterGender.SelectedIndex = 0;
                 cbFilterBy.Focus();
-               
+
             }
             else
             {
                 cbFilterBy.Focus();
                 txtFilterValue.Text = "";
-               
+
             }
         }
 
         private void txtFilterValue_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(cbFilterBy.Text== "Person ID")
-                e.Handled= !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+            if (cbFilterBy.Text == "Person ID")
+                e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
         private void txtFilterValue_TextChanged(object sender, EventArgs e)
         {
-            if(_dtAllPeople==null) return;
+            if (_dtAllPeople == null) return;
             string FilterColumn = "";
             switch (cbFilterBy.Text)
             {
@@ -126,7 +127,7 @@ namespace Clinic
                     FilterColumn = "Email";
                     break;
                 default:
-                    FilterColumn= "None";
+                    FilterColumn = "None";
                     break;
             }
             if (txtFilterValue.Text == "" || FilterColumn == "None")
@@ -136,7 +137,7 @@ namespace Clinic
                 return;
             }
 
-            if(FilterColumn == "PersonID")
+            if (FilterColumn == "PersonID")
                 _dtAllPeople.DefaultView.RowFilter = $"{FilterColumn}={txtFilterValue.Text}";
             else
                 _dtAllPeople.DefaultView.RowFilter = $"{FilterColumn} LIKE '%{txtFilterValue.Text}%'";
@@ -147,11 +148,11 @@ namespace Clinic
         {
             if (_dtAllPeople == null)
                 return;
-            if(cbFilterGender.Text == "All")
+            if (cbFilterGender.Text == "All")
                 _dtAllPeople.DefaultView.RowFilter = string.Empty;
             else
                 _dtAllPeople.DefaultView.RowFilter = $"Gender = '{cbFilterGender.Text}'";
-               
+
             lblRecordsCount.Text = _dtAllPeople.Rows.Count.ToString();
         }
 
@@ -162,11 +163,11 @@ namespace Clinic
 
         private void btnAddPerson_Click(object sender, EventArgs e)
         {
-            frmAddUpdatePerson frm=new frmAddUpdatePerson();
+            frmAddUpdatePerson frm = new frmAddUpdatePerson();
             frm.DataBack += _DatatBackToAdd;
             frm.ShowDialog();
             frmListPeople_Load(null, null);
-            
+
         }
 
         private void _DatatBackToAdd(object sender, int PersonID)
@@ -181,7 +182,7 @@ namespace Clinic
 
                 // 3. نمر على الأعمدة بالاسم لنسخ البيانات بأمان تام دون الاعتماد على الترتيب الرقمي
                 foreach (DataColumn column in _dtAllPeople.Columns)
-                { 
+                {
 
                     NewRow[column.ColumnName] = CurrentRow[column.ColumnName];
                 }
@@ -222,6 +223,65 @@ namespace Clinic
         {
             frmAddUpdatePerson frm = new frmAddUpdatePerson((int)dgvPeople.CurrentRow.Cells[0].Value);
             frm.DataBack += _DataBackToUpdate;
+            frm.ShowDialog();
+        }
+
+        private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int PersonID = (int)dgvPeople.CurrentRow.Cells[0].Value;
+            frmShowPersonInfo frm = new frmShowPersonInfo(PersonID);
+            frm.ShowDialog();
+            _DataBackToUpdate(null, PersonID);
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (MessageBox.Show("Are you sure you want to delete Person [" + dgvPeople.CurrentRow.Cells[0].Value + "]", "Confirm Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+
+            {
+
+                int PersonID = (int)dgvPeople.CurrentRow.Cells[0].Value;
+                //Perform Delele and refresh
+                if (clsPerson.SoftDelete(PersonID))
+                {
+                    MessageBox.Show("Person Deleted Successfully.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _DataBackToDelete(PersonID);
+                }
+
+                else
+                    MessageBox.Show("Person was not deleted because it has data linked to it.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
+
+        private void _DataBackToDelete(int PersonID)
+        {
+            DataRow row = _dtAllPeople.Rows.Find(PersonID);
+            if (row != null)
+            {
+                _dtAllPeople.Rows.Remove(row);
+                _dtAllPeople.AcceptChanges();
+                lblRecordsCount.Text = _dtAllPeople.Rows.Count.ToString();
+            }
+        }
+
+        private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This Feature Is Not Implemented Yet!", "Not Ready!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        private void phoneCallToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This Feature Is Not Implemented Yet!", "Not Ready!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+     
+
+        private void btnTrash_Click(object sender, EventArgs e)
+        {
+            frmTrashPeople frm = new frmTrashPeople();
+            frm.DataBack += _DatatBackToAdd;
             frm.ShowDialog();
         }
     }

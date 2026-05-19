@@ -149,7 +149,32 @@ namespace Clinic_DataAccess
             return IsDeleted;
         }
 
-        public static DataTable GetAllPersons()
+        public static bool DeleteAllForTrash()
+        {
+            bool IsDeleted = false;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = @"DELETE FROM Persons WHERE IsDeleted = 1";
+            SqlCommand command = new SqlCommand(query, connection);
+          
+            try
+            {
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+                IsDeleted = rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (ex) as needed
+                IsDeleted = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return IsDeleted;
+        }
+
+        public static DataTable GetAllPersons(int IsDeleted=0)
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
@@ -158,8 +183,9 @@ namespace Clinic_DataAccess
                Persons.PhoneNumber, Persons.Email, Persons.Address
                     , Countries.CountryName FROM Persons
                     INNER JOIN Countries ON Persons.NationalityCountryID = Countries.CountryID
-                    WHERE Persons.IsDeleted = 0";
+                    WHERE Persons.IsDeleted = @IsDeleted";
             SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@IsDeleted", IsDeleted);
             try
             {
                 connection.Open();

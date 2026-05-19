@@ -70,9 +70,13 @@ namespace Clinic_Business
             return clsPersonData.UpdatePerson(PersonID, Name, DateOfBirth, Gender, PhoneNumber, Email, Address, ImagePath, NationalityCountryID);
         }
 
-        public bool Delete()
+        public static bool Delete(int PersonID)
         {
             return clsPersonData.DeletePerson(PersonID);
+        }
+        public static bool DeleteAllForTrash()
+        {
+            return clsPersonData.DeleteAllForTrash();
         }
 
         public static clsPerson Find(int PersonID)
@@ -102,6 +106,11 @@ namespace Clinic_Business
         public static DataTable GetAllPersons()
         {
             return clsPersonData.GetAllPersons();
+        }
+
+        public static DataTable GetAllPersonsToTrash()
+        {
+            return clsPersonData.GetAllPersons(1);
         }
 
         public static DataRow GetPersonByID(int PersonID)
