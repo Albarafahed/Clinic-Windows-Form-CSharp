@@ -104,7 +104,11 @@ namespace Clinic_Business
             return clsPersonData.GetAllPersons();
         }
 
-      
+        public static DataRow GetPersonByID(int PersonID)
+        {
+            return clsPersonData.GetPersonByID(PersonID);
+        }
+
         public static bool SoftDelete(int PersonID)
         {
             return clsPersonData.SoftDeletePerson(PersonID);

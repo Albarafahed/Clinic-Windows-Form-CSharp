@@ -180,7 +180,7 @@ namespace Clinic_DataAccess
             return dt;
         }
 
-        public static DataRow GetPerson(int PersonID)
+        public static DataRow GetPersonByID(int PersonID)
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
