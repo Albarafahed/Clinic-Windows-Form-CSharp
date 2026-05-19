@@ -24,7 +24,7 @@
 
 #### 📸 شاشة إضافة وتحديث بيانات شخص (Add/Update Person)
 نموذج إدخال تفاعلي مدمج بـ `ErrorProvider` للتحقق الفوري من المدخلات، مع تخصيص ذكي لخيارات الجنس (Gender) والبلد والاتصال، ودعم رفع الصور الشخصية ديناميكياً وحفظ مساراتها خارجياً لحفظ أداء قاعدة البيانات.
-![Add New Person Interface](Image/frmaddUpdateperson.jpg)
+![Add New Person Interface](Image/frmaddUpdateperson.png)
 
 ---
 
