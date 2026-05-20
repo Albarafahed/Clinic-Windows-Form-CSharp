@@ -39,9 +39,10 @@ namespace Clinic_Business
             this.PhoneNumber = phoneNumber;
             this.Email = email;
             this.NationalityCountryID = nationalityCountryID;
+            this.ImagePath = imagePath;
             CountryInfo = clsCountry.Find(nationalityCountryID);
             Mode = enMode.Update;
-            ImagePath = imagePath;
+           
         }
 
         public clsPerson()
@@ -68,6 +69,11 @@ namespace Clinic_Business
         private bool _UpdatePerson()
         {
             return clsPersonData.UpdatePerson(PersonID, Name, DateOfBirth, Gender, PhoneNumber, Email, Address, ImagePath, NationalityCountryID);
+        }
+
+        public bool Delete()
+        {
+            return clsPersonData.DeletePerson(this.PersonID);
         }
 
         public static bool Delete(int PersonID)

@@ -1,4 +1,5 @@
 ﻿
+using Clinic.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,6 +48,12 @@ namespace Clinic
         private void peopleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmListPeople frm = new frmListPeople();
+            frm.ShowDialog();
+        }
+
+        private void UsersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmlistUser frm=new frmlistUser();
             frm.ShowDialog();
         }
     }
