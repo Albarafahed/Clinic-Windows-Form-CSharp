@@ -16,6 +16,8 @@ namespace Clinic.User
         // سحب البيانات من طبقة الـ Business
         private DataTable _dtAllUsers = clsUser.GetAllUsers();
 
+        
+
         public frmlistUser()
         {
             InitializeComponent();

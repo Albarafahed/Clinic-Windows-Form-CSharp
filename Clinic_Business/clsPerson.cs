@@ -40,7 +40,7 @@ namespace Clinic_Business
             this.Email = email;
             this.NationalityCountryID = nationalityCountryID;
             this.ImagePath = imagePath;
-            CountryInfo = clsCountry.Find(nationalityCountryID);
+            CountryInfo = clsCountry.FindByID(nationalityCountryID);
             Mode = enMode.Update;
            
         }

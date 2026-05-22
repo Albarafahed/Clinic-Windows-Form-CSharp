@@ -1,5 +1,7 @@
 ﻿
 using Clinic_DataAccess;
+using System;
+using System.Collections.Generic;
 using System.Data;
 
 
@@ -8,13 +10,14 @@ namespace Clinic_Business
     public class clsCountry
     {
 
-        public int ID { set; get; }
+        public int CountryID { set; get; }
         public string CountryName { set; get; }
 
+        private static List<clsCountry> _CountriesCache = new List<clsCountry>();
         public clsCountry()
 
         {
-            this.ID = -1;
+            this.CountryID = -1;
             this.CountryName = "";
 
         }
@@ -22,11 +25,11 @@ namespace Clinic_Business
         private clsCountry(int ID, string CountryName)
 
         {
-            this.ID = ID;
+            this.CountryID = ID;
             this.CountryName = CountryName;
         }
 
-        public static clsCountry Find(int ID)
+        public static clsCountry FindByID(int ID)
         {
             string CountryName = "";
 
@@ -55,6 +58,28 @@ namespace Clinic_Business
         {
             return clsCountryData.GetAllCountries();
 
+        }
+
+        public static List<clsCountry> GetAllCountriesList()
+        {
+            // إذا كانت القائمة فارغة (أول مرة يطلبها البرنامج)، اذهب واجلبها من قاعدة البيانات
+            if (_CountriesCache.Count == 0)
+            {
+                // نطلب الـ DataTable من طبقة الـ DataAccess
+                DataTable dt = clsCountryData.GetAllCountries();
+
+                // تحويل الأسطر (DataRows) إلى كائنات (Objects) وإضافتها للـ Cache في الذاكرة
+                foreach (DataRow row in dt.Rows)
+                {
+                    _CountriesCache.Add(new clsCountry(
+                        Convert.ToInt32(row["CountryID"]),
+                        row["CountryName"].ToString()
+                    ));
+                }
+            }
+
+            // في المرات القادمة، سيرجع القائمة مباشرة من الـ RAM دون لمس السيرفر
+            return _CountriesCache;
         }
 
     }

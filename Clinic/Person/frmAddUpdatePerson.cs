@@ -47,12 +47,13 @@ namespace Clinic.Person
 
         private void _FillCountriesInComoboBox()
         {
-            DataTable dtCountries = clsCountry.GetAllCountries();
+            List<clsCountry> countries = clsCountry.GetAllCountriesList();
 
-            cbCountry.DataSource = dtCountries;
+            cbCountry.DataSource = countries;
 
             cbCountry.DisplayMember = "CountryName";
             cbCountry.ValueMember = "CountryID";
+            
 
         }
 

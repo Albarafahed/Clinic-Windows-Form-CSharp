@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinic_Business;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace Clinic
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            clsCountry.GetAllCountriesList();
             Application.Run(new frmMain());
         }
     }
