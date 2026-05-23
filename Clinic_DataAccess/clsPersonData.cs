@@ -6,7 +6,7 @@ namespace Clinic_DataAccess
 {
     public class clsPersonData
     {
-        public static bool GetPersonByPersonID(int PersonID, ref string FullName, ref DateTime DateOfBirth, ref short Gendor, ref string PhoneNumber,ref string Email,
+        public static bool GetPersonByPersonID(int PersonID, ref string FullName, ref DateTime DateOfBirth, ref short Gender, ref string PhoneNumber,ref string Email,
                                                ref string Address, ref int NationalityCountryID, ref string ImagePath)
         {
             bool Isfound = false;
@@ -22,7 +22,7 @@ namespace Clinic_DataAccess
                 {
                     FullName = reader["FullName"].ToString();
                     DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]);
-                    Gendor = Convert.ToInt16(reader["Gendor"]);
+                    Gender = Convert.ToInt16(reader["Gender"]);
                     PhoneNumber = reader["PhoneNumber"].ToString();
                     if (reader["Email"] != DBNull.Value)
                         Email = reader["Email"].ToString();
@@ -51,18 +51,18 @@ namespace Clinic_DataAccess
             return Isfound;
         }
 
-        public static int AddNewPerson(string FullName, DateTime DateOfBirth, short Gendor, string PhoneNumber, string Email,
+        public static int AddNewPerson(string FullName, DateTime DateOfBirth, short Gender, string PhoneNumber, string Email,
                                                string Address, string ImagePath, int NationalityCountryID)
         {
             int PersonID = -1;
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = @"INSERT INTO Persons (FullName, DateOfBirth, Gendor, PhoneNumber, Email, Address, ImagePath, NationalityCountryID)
-                             VALUES (@FullName, @DateOfBirth, @Gendor, @PhoneNumber, @Email, @Address, @ImagePath, @NationalityCountryID);
+            string query = @"INSERT INTO Persons (FullName, DateOfBirth, Gender, PhoneNumber, Email, Address, ImagePath, NationalityCountryID)
+                             VALUES (@FullName, @DateOfBirth, @Gender, @PhoneNumber, @Email, @Address, @ImagePath, @NationalityCountryID);
                              SELECT SCOPE_IDENTITY();";
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@FullName", FullName);
             command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
-            command.Parameters.AddWithValue("@Gendor", Gendor);
+            command.Parameters.AddWithValue("@Gender", Gender);
             command.Parameters.AddWithValue("@PhoneNumber", PhoneNumber);
             command.Parameters.AddWithValue("@Email", Email ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@Address", Address);
@@ -89,19 +89,19 @@ namespace Clinic_DataAccess
             return PersonID;
         }
 
-        public static bool UpdatePerson(int PersonID, string FullName, DateTime DateOfBirth, short Gendor, string PhoneNumber, string Email,
+        public static bool UpdatePerson(int PersonID, string FullName, DateTime DateOfBirth, short Gender, string PhoneNumber, string Email,
                                                string Address, string ImagePath, int NationalityCountryID)
         {
             bool IsUpdated = false;
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = @"UPDATE Persons SET FullName = @FullName, DateOfBirth = @DateOfBirth, Gendor = @Gendor,
+            string query = @"UPDATE Persons SET FullName = @FullName, DateOfBirth = @DateOfBirth, Gender = @Gender,
                              PhoneNumber = @PhoneNumber, Email = @Email, Address = @Address, ImagePath = @ImagePath,
                              NationalityCountryID = @NationalityCountryID WHERE PersonID = @PersonID";
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@PersonID", PersonID);
             command.Parameters.AddWithValue("@FullName", FullName);
             command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
-            command.Parameters.AddWithValue("@Gendor", Gendor);
+            command.Parameters.AddWithValue("@Gender", Gender);
             command.Parameters.AddWithValue("@PhoneNumber", PhoneNumber);
             command.Parameters.AddWithValue("@Email", Email ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@Address", Address);
@@ -149,17 +149,43 @@ namespace Clinic_DataAccess
             return IsDeleted;
         }
 
-        public static DataTable GetAllPersons()
+        public static bool DeleteAllForTrash()
+        {
+            bool IsDeleted = false;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = @"DELETE FROM Persons WHERE IsDeleted = 1";
+            SqlCommand command = new SqlCommand(query, connection);
+          
+            try
+            {
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+                IsDeleted = rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (ex) as needed
+                IsDeleted = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return IsDeleted;
+        }
+
+        public static DataTable GetAllPersons(int IsDeleted=0)
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
             string query = @"SELECT Persons.PersonID, Persons.FullName, Persons.DateOfBirth, 
-               GenderCaption = CASE Persons.Gendor WHEN 0 THEN 'Male' ELSE 'Female' END,
+               GenderCaption = CASE Persons.Gender WHEN 0 THEN 'Male' ELSE 'Female' END,
                Persons.PhoneNumber, Persons.Email, Persons.Address
                     , Countries.CountryName FROM Persons
                     INNER JOIN Countries ON Persons.NationalityCountryID = Countries.CountryID
-                    WHERE Persons.IsDeleted = 0";
+                    WHERE Persons.IsDeleted = @IsDeleted";
             SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@IsDeleted", IsDeleted);
             try
             {
                 connection.Open();
@@ -180,12 +206,12 @@ namespace Clinic_DataAccess
             return dt;
         }
 
-        public static DataRow GetPerson(int PersonID)
+        public static DataRow GetPersonByID(int PersonID)
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
             string query = @"SELECT Persons.PersonID, Persons.FullName, Persons.DateOfBirth, 
-               GenderCaption = CASE Persons.Gendor WHEN 0 THEN 'Male' ELSE 'Female' END,
+               GenderCaption = CASE Persons.Gender WHEN 0 THEN 'Male' ELSE 'Female' END,
                Persons.PhoneNumber, Persons.Email, Persons.Address
                     , Countries.CountryName FROM Persons
                     INNER JOIN Countries ON Persons.NationalityCountryID = Countries.CountryID
