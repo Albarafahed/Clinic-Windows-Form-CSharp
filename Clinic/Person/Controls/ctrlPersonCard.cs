@@ -1,4 +1,5 @@
-﻿using Clinic.Properties;
+﻿using Clinic.Person;
+using Clinic.Properties;
 using Clinic_Business;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Clinic.Person.Controls
+namespace Clinic.Controls
 {
     public partial class ctrlPersonCard : UserControl
     {
@@ -92,10 +93,14 @@ namespace Clinic.Person.Controls
 
         private void llEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmAddUpdatePerson frm= new frmAddUpdatePerson(_PersonID);
+            frmAddUpdatePerson frm = new frmAddUpdatePerson(_PersonID);
             frm.ShowDialog();
             LoadPersonInfo(_PersonID);
         }
-       
+
+        private void lblAddress_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

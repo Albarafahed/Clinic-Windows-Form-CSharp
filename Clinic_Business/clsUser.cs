@@ -138,13 +138,18 @@ namespace Clinic_Business
             return clsUserData.GetAllUsers();
         }
 
+        public static bool IsUserExistForPersonID(int PersonID)
+        {
+            return clsUserData.IsUserExistForPersonID(PersonID);
+        }
+
+        public static bool IsUserExist(string UserName)
+        {
+            return clsUserData.IsUserExist(UserName);
+        }
+
         public bool Save()
         {
-            base.Mode = (clsPerson.enMode)_Mode;
-
-            if(!base.Save()) 
-                return false;
-
             switch(_Mode)
             {
                 case enMode.AddNew:

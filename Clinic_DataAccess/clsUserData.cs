@@ -12,7 +12,8 @@ namespace Clinic_DataAccess
 
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                string query = "SELECT * FROM Users WHERE UserID = @UserID";
+                // تحسين: تحديد أسماء الأعمدة صراحة بدلاً من * لرفع الأداء
+                string query = "SELECT UserID, PersonID, UserName, Password, IsActive, RoleID FROM Users WHERE UserID = @UserID";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -49,7 +50,8 @@ namespace Clinic_DataAccess
 
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                string query = "SELECT * FROM Users WHERE PersonID = @PersonID";
+                // تحسين: تحديد الأعمدة بدقة
+                string query = "SELECT UserID, PersonID, UserName, Password, IsActive, RoleID FROM Users WHERE PersonID = @PersonID";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -88,7 +90,7 @@ namespace Clinic_DataAccess
             {
                 string query = @"INSERT INTO Users (PersonID, UserName, Password, IsActive, RoleID)
                                  VALUES (@PersonID, @UserName, @Password, @IsActive, @RoleID);
-                                 SELECT SCOPE_IDENTITY();"; // جلب الـ ID المولد تلقائياً
+                                 SELECT SCOPE_IDENTITY();";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -179,6 +181,7 @@ namespace Clinic_DataAccess
             }
             return rowsAffected > 0;
         }
+
         public static bool DeleteUserByPersonID(int PersonID)
         {
             int rowsAffected = 0;
@@ -211,7 +214,6 @@ namespace Clinic_DataAccess
 
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                // الاستعلام الاحترافي الخاص بك مدمج بالكامل هنا
                 string query = @"SELECT U.UserID, P.PersonID, P.FullName, U.UserName, R.RoleName, U.IsActive 
                                  FROM Users U 
                                  INNER JOIN Persons P ON U.PersonID = P.PersonID
@@ -227,17 +229,107 @@ namespace Clinic_DataAccess
                         {
                             if (reader.HasRows)
                             {
-                                dt.Load(reader); // تعبئة سريعة جداً ومباشرة
+                                dt.Load(reader);
                             }
                         }
                     }
                     catch (Exception)
                     {
-                        // إرجاع جدول فارغ بسلام في حالة حدوث أي مشكلة في الاتصال
+                        // إرجاع جدول فارغ بسلام
                     }
                 }
             }
             return dt;
+        }
+
+        public static bool IsUserExist(string UserName)
+        {
+            bool isFound = false;
+
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                string query = "SELECT TOP 1 1 FROM Users WHERE UserName = @UserName";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserName", UserName);
+
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null)
+                        {
+                            isFound = true;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        isFound = false;
+                    }
+                }
+            }
+
+            return isFound;
+        }
+
+        public static bool IsUserExistForPersonID(int PersonID)
+        {
+            bool isFound = false;
+
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                string query = "SELECT TOP 1 1 FROM Users WHERE PersonID = @PersonID";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PersonID", PersonID);
+
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null)
+                        {
+                            isFound = true;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        isFound = false;
+                    }
+                }
+            }
+
+            return isFound;
+        }
+
+        public static bool ChangePassword(int UserID, string NewPassword)
+        {
+            int rowsAffected = 0;
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                string query = @"UPDATE Users 
+                                 SET Password = @Password
+                                 WHERE UserID = @UserID";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserID", UserID);
+                    // إصلاح: تم إضافة البارامتر المفقود لضمان عمل الدالة دون انهيار
+                    command.Parameters.AddWithValue("@Password", NewPassword);
+
+                    try
+                    {
+                        connection.Open();
+                        rowsAffected = command.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return (rowsAffected > 0);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Clinic.Person.Controls
+﻿namespace Clinic.Controls
 {
     partial class ctrlPersonCardWithFilter
     {
@@ -36,7 +36,7 @@
             this.txtFilterValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.ctrlPersonCard1 = new Clinic.Person.Controls.ctrlPersonCard();
+            this.ctrlPersonCard1 = new Clinic.Controls.ctrlPersonCard();
             this.gbFilters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();

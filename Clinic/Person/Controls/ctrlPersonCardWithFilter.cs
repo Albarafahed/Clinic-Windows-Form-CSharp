@@ -1,4 +1,5 @@
-﻿using Clinic_Business;
+﻿using Clinic.Person;
+using Clinic_Business;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Clinic.Person.Controls
+namespace Clinic.Controls
 {
     public partial class ctrlPersonCardWithFilter : UserControl
     {

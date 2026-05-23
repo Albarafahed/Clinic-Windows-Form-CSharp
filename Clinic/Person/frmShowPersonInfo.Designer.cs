@@ -1,4 +1,6 @@
-﻿namespace Clinic.Person.Controls
+﻿using Clinic.Controls;
+
+namespace Clinic.Person.Controls
 {
     partial class frmShowPersonInfo
     {
@@ -30,7 +32,7 @@
         {
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
-            this.ctrlPersonCard1 = new Clinic.Person.Controls.ctrlPersonCard();
+            this.ctrlPersonCard1 = new Clinic.Controls.ctrlPersonCard();
             this.SuspendLayout();
             // 
             // lblTitle

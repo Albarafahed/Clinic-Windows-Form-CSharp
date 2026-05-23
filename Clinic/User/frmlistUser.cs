@@ -1,4 +1,5 @@
-﻿using Clinic_Business;
+﻿using Clinic.Person.Controls;
+using Clinic_Business;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,7 +28,12 @@ namespace Clinic.User
         {
             this.Close();
         }
+        private void _ResetDevult()
+        {
+            _dtAllUsers=clsUser.GetAllUsers();
+            lblRecordsCount.Text=_dtAllUsers.Rows.Count.ToString();
 
+        }
         private void frmlistUser_Load(object sender, EventArgs e)
         {
             dgvUsers.DataSource = _dtAllUsers;
@@ -176,6 +182,35 @@ namespace Clinic.User
                 // السماح بالأرقام وأزرار التحكم كـ Backspace فقط
                 e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
             }
+        }
+
+        private void btnAddUser_Click(object sender, EventArgs e)
+        {
+            frmAddUpdateUser frm=new frmAddUpdateUser();
+            frm.ShowDialog();
+            _ResetDevult();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmAddUpdateUser frm = new frmAddUpdateUser();
+            frm.ShowDialog();
+            _ResetDevult();
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int UserID =(int) dgvUsers.CurrentRow.Cells[0].Value;
+            frmAddUpdateUser frm = new frmAddUpdateUser(UserID);
+            frm.ShowDialog();
+            _ResetDevult();
+        }
+
+        private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int UserID = (int)dgvUsers.CurrentRow.Cells[0].Value;
+            frmUserInfo frm=new frmUserInfo(UserID);
+            frm.ShowDialog();
         }
     }
 }

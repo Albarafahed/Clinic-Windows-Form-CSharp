@@ -69,7 +69,7 @@ namespace Clinic_Business
                 DataTable dt = clsCountryData.GetAllCountries();
 
                 // تحويل الأسطر (DataRows) إلى كائنات (Objects) وإضافتها للـ Cache في الذاكرة
-                foreach (DataRow row in dt.Rows)
+                foreach ( DataRow row in dt.Rows)
                 {
                     _CountriesCache.Add(new clsCountry(
                         Convert.ToInt32(row["CountryID"]),
