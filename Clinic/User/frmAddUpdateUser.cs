@@ -13,6 +13,10 @@ namespace Clinic.User
         private int _UserID = -1;
         private clsUser _User;
 
+        public delegate void DataBackEventHandler(object sender, int UserID);
+
+        // Declare an event using the delegate
+        public event DataBackEventHandler DataBack;
         public frmAddUpdateUser()
         {
             InitializeComponent();
@@ -210,7 +214,7 @@ namespace Clinic.User
 
                 lblTitle.Text = "Update User";
                 this.Text = "Update User";
-
+                DataBack?.Invoke(this,_User.UserID);
                 MessageBox.Show("Data Saved Successfully.", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -232,6 +236,6 @@ namespace Clinic.User
             }
         }
 
-      
+       
     }
 }

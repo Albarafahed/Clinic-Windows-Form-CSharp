@@ -17,7 +17,7 @@ namespace Clinic.User
         {
             InitializeComponent();
             _UserID = UserID;
-            ctrlUserCard1.LoadUserInfo(_UserID);
+            ctrCardUserInfo1.LoadUserInfo(_UserID);
         }
 
         private void btnClose_Click(object sender, EventArgs e)

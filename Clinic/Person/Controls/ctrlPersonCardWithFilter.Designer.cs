@@ -50,7 +50,7 @@
             this.gbFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.gbFilters.Location = new System.Drawing.Point(11, 9);
             this.gbFilters.Name = "gbFilters";
-            this.gbFilters.Size = new System.Drawing.Size(820, 71);
+            this.gbFilters.Size = new System.Drawing.Size(895, 71);
             this.gbFilters.TabIndex = 17;
             this.gbFilters.TabStop = false;
             this.gbFilters.Text = "Filter";
@@ -61,7 +61,7 @@
             this.btnAddNewPerson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewPerson.Image = global::Clinic.Properties.Resources.AddPerson_32;
             this.btnAddNewPerson.Location = new System.Drawing.Point(676, 22);
-            this.btnAddNewPerson.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAddNewPerson.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddNewPerson.Name = "btnAddNewPerson";
             this.btnAddNewPerson.Size = new System.Drawing.Size(55, 36);
             this.btnAddNewPerson.TabIndex = 20;
@@ -85,7 +85,7 @@
             this.txtFilterValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFilterValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.txtFilterValue.Location = new System.Drawing.Point(202, 27);
-            this.txtFilterValue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFilterValue.Margin = new System.Windows.Forms.Padding(4);
             this.txtFilterValue.Name = "txtFilterValue";
             this.txtFilterValue.Size = new System.Drawing.Size(382, 30);
             this.txtFilterValue.TabIndex = 17;
@@ -109,11 +109,11 @@
             // ctrlPersonCard1
             // 
             this.ctrlPersonCard1.BackColor = System.Drawing.Color.White;
-            this.ctrlPersonCard1.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.ctrlPersonCard1.Location = new System.Drawing.Point(11, 86);
+            this.ctrlPersonCard1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctrlPersonCard1.Location = new System.Drawing.Point(11, 87);
             this.ctrlPersonCard1.Name = "ctrlPersonCard1";
-            this.ctrlPersonCard1.Size = new System.Drawing.Size(820, 307);
-            this.ctrlPersonCard1.TabIndex = 21;
+            this.ctrlPersonCard1.Size = new System.Drawing.Size(895, 288);
+            this.ctrlPersonCard1.TabIndex = 18;
             // 
             // ctrlPersonCardWithFilter
             // 
@@ -123,9 +123,9 @@
             this.Controls.Add(this.ctrlPersonCard1);
             this.Controls.Add(this.gbFilters);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ctrlPersonCardWithFilter";
-            this.Size = new System.Drawing.Size(857, 391);
+            this.Size = new System.Drawing.Size(916, 375);
             this.gbFilters.ResumeLayout(false);
             this.gbFilters.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

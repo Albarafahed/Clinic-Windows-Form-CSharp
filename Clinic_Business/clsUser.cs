@@ -118,12 +118,12 @@ namespace Clinic_Business
             return clsUserData.UpdateUser(this.UserID,this.PersonID, this.UserName, this.Password, this.IsActive, this.RoleID);
         }
 
-        public  bool DeleteUser(int UserID)
+        public  bool DeleteUser()
         {
             bool IsUserDeleted = false;
             bool IsBasePersonDeleted = false;
 
-            IsUserDeleted=clsUserData.DeleteUser(UserID);
+            IsUserDeleted=clsUserData.DeleteUser(this.UserID);
 
             if (!IsUserDeleted)
                 return false;
@@ -146,6 +146,11 @@ namespace Clinic_Business
         public static bool IsUserExist(string UserName)
         {
             return clsUserData.IsUserExist(UserName);
+        }
+
+        public static DataRow GetUserByID(int UserID)
+        {
+            return clsUserData.GetUserByID(UserID);
         }
 
         public bool Save()

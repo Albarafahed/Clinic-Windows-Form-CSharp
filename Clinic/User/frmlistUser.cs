@@ -17,8 +17,6 @@ namespace Clinic.User
         // سحب البيانات من طبقة الـ Business
         private DataTable _dtAllUsers = clsUser.GetAllUsers();
 
-        
-
         public frmlistUser()
         {
             InitializeComponent();
@@ -28,18 +26,26 @@ namespace Clinic.User
         {
             this.Close();
         }
-        private void _ResetDevult()
-        {
-            _dtAllUsers=clsUser.GetAllUsers();
-            lblRecordsCount.Text=_dtAllUsers.Rows.Count.ToString();
 
+        private void _ResetDefault()
+        {
+            _dtAllUsers = clsUser.GetAllUsers();
+            dgvUsers.DataSource = _dtAllUsers;
+            lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
         }
+
         private void frmlistUser_Load(object sender, EventArgs e)
         {
             dgvUsers.DataSource = _dtAllUsers;
-            cbFilterBy.SelectedIndex = 0; // سيقوم تلقائياً باستدعاء حدث SelectedIndexChanged لتنسيق العناصر
 
-            lblRecordsCount.Text = dgvUsers.Rows.Count.ToString();
+            // تعيين المفتاح الأساسي للـ DataTable لتمكين خاصية Rows.Find من العمل بنجاح
+            if (_dtAllUsers.Columns.Contains("UserID"))
+            {
+                _dtAllUsers.PrimaryKey = new DataColumn[] { _dtAllUsers.Columns["UserID"] };
+            }
+
+            cbFilterBy.SelectedIndex = 0; // سيقوم تلقائياً باستدعاء حدث SelectedIndexChanged لتنسيق العناصر
+            lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
 
             // تنسيق أعمدة الـ DataGridView حتى لو لم يكن هناك صفوف
             if (dgvUsers.Rows.Count > 0)
@@ -67,14 +73,14 @@ namespace Clinic.User
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
             bool IsNone = cbFilterBy.Text == "None";
-            bool IsActive = cbFilterBy.Text == "IsActive" || cbFilterBy.Text == "Is Active"; // تحسباً للمسافة
+            bool IsActive = cbFilterBy.Text == "IsActive" || cbFilterBy.Text == "Is Active";
 
             txtFilterValue.Visible = !IsActive && !IsNone;
             cbIsActive.Visible = IsActive && !IsNone;
 
             // إعادة تعيين الفلتر عند تغيير العمود المراد البحث به
             _dtAllUsers.DefaultView.RowFilter = "";
-            lblRecordsCount.Text = dgvUsers.Rows.Count.ToString();
+            lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
 
             if (txtFilterValue.Visible)
             {
@@ -115,7 +121,6 @@ namespace Clinic.User
             else
                 _dtAllUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", FilterColumn, FilterValue);
 
-            // جلب العدد من الـ DataView المفلتر بدقة
             lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
         }
 
@@ -145,15 +150,13 @@ namespace Clinic.User
                     break;
             }
 
-            // إذا كان النص فارغاً أو الفلتر None، نقوم بإعادة تصفير الفلترة
             if (txtFilterValue.Text.Trim() == "" || FilterColumn == "None")
             {
                 _dtAllUsers.DefaultView.RowFilter = "";
-                lblRecordsCount.Text = dgvUsers.Rows.Count.ToString();
+                lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
                 return;
             }
 
-            // 💡 الحماية الحديدية: التأكد من أن القيمة رقمية للأعمدة الرقمية لمنع الكراش
             if (FilterColumn == "UserID" || FilterColumn == "PersonID")
             {
                 if (int.TryParse(txtFilterValue.Text.Trim(), out _))
@@ -162,13 +165,12 @@ namespace Clinic.User
                 }
                 else
                 {
-                    _dtAllUsers.DefaultView.RowFilter = "1=0"; // إخفاء الصفوف في حال إدخال قيمة خاطئة مؤقتاً
+                    _dtAllUsers.DefaultView.RowFilter = "1=0";
                 }
             }
             else
             {
-                // الفلترة النصية المباشرة باستخدام LIKE
-                _dtAllUsers.DefaultView.RowFilter = string.Format("[{0}] LIKE '{1}%'", FilterColumn, txtFilterValue.Text.Trim().Replace("'", "''")); // تأمين ضد الـ Single Quotes
+                _dtAllUsers.DefaultView.RowFilter = string.Format("[{0}] LIKE '{1}%'", FilterColumn, txtFilterValue.Text.Trim().Replace("'", "''"));
             }
 
             lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
@@ -176,41 +178,130 @@ namespace Clinic.User
 
         private void txtFilterValue_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // 💡 تصحيح الفحص ليعتمد على قيمة الـ ComboBox لتحديد منع الحروف
             if (cbFilterBy.Text == "Person ID" || cbFilterBy.Text == "User ID")
             {
-                // السماح بالأرقام وأزرار التحكم كـ Backspace فقط
                 e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
             }
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)
         {
-            frmAddUpdateUser frm=new frmAddUpdateUser();
+            frmAddUpdateUser frm = new frmAddUpdateUser();
+            frm.DataBack += _DatatBackToAdd;
             frm.ShowDialog();
-            _ResetDevult();
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             frmAddUpdateUser frm = new frmAddUpdateUser();
+            frm.DataBack += _DatatBackToAdd;
             frm.ShowDialog();
-            _ResetDevult();
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int UserID =(int) dgvUsers.CurrentRow.Cells[0].Value;
+            int UserID = (int)dgvUsers.CurrentRow.Cells[0].Value;
             frmAddUpdateUser frm = new frmAddUpdateUser(UserID);
+            frm.DataBack += _DataBackToUpdate;
             frm.ShowDialog();
-            _ResetDevult();
         }
 
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int UserID = (int)dgvUsers.CurrentRow.Cells[0].Value;
-            frmUserInfo frm=new frmUserInfo(UserID);
+            frmUserInfo frm = new frmUserInfo(UserID);
             frm.ShowDialog();
+        }
+
+        private void ChangePasswordtoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int UserID = (int)dgvUsers.CurrentRow.Cells[0].Value;
+            frmChangePassword frm = new frmChangePassword(UserID);
+            frm.ShowDialog();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to delete User [" + dgvUsers.CurrentRow.Cells[0].Value + "]", "Confirm Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                int UserID = (int)dgvUsers.CurrentRow.Cells[0].Value;
+                clsUser User = clsUser.Find(UserID);
+                if (User == null)
+                    return;
+
+                if (User.DeleteUser())
+                {
+                    MessageBox.Show("User Deleted Successfully.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _DataBackToDelete(UserID); // تمرير الـ UserID وليس الـ PersonID
+                }
+                else
+                {
+                    MessageBox.Show("User was not deleted because it has data linked to it.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void _DatatBackToAdd(object sender, int UserID)
+        {
+            DataRow CurrentRow = clsUser.GetUserByID(UserID);
+
+            if (CurrentRow != null)
+            {
+                DataRow NewRow = _dtAllUsers.NewRow();
+
+                foreach (DataColumn column in _dtAllUsers.Columns)
+                {
+                    NewRow[column.ColumnName] = CurrentRow[column.ColumnName];
+                }
+
+                _dtAllUsers.Rows.Add(NewRow);
+            }
+
+            lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
+        }
+
+        private void _DataBackToUpdate(object sender, int UserID)
+        {
+            DataRow CurrentRow = clsUser.GetUserByID(UserID);
+            if (CurrentRow != null)
+            {
+                DataRow OldRow = _dtAllUsers.Rows.Find(UserID);
+                if (OldRow != null)
+                {
+                    foreach (DataColumn column in _dtAllUsers.Columns)
+                    {
+                        if (column.ColumnName == "UserID" || column.ColumnName == "PersonID")
+                            continue;
+
+                        OldRow[column.ColumnName] = CurrentRow[column.ColumnName];
+                    }
+
+                    _dtAllUsers.AcceptChanges();
+                }
+            }
+            lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
+        }
+
+        // 💡 تم تصحيح اسم المتغير لـ UserID ليتطابق مع الـ Find والـ PrimaryKey الخاص بجدول المستخدمين المفتوح بالشاشة
+        private void _DataBackToDelete(int UserID)
+        {
+            DataRow row = _dtAllUsers.Rows.Find(UserID);
+            if (row != null)
+            {
+                _dtAllUsers.Rows.Remove(row);
+                _dtAllUsers.AcceptChanges();
+                lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
+            }
+        }
+
+        private void sendEmailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This Feature Is Not Implemented Yet!", "Not Ready!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        private void phoneCallToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This Feature Is Not Implemented Yet!", "Not Ready!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
 }

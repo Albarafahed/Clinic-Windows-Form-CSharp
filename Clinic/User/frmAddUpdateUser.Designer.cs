@@ -72,7 +72,7 @@ namespace Clinic.User
             this.tcUserInfo.Location = new System.Drawing.Point(12, 97);
             this.tcUserInfo.Name = "tcUserInfo";
             this.tcUserInfo.SelectedIndex = 0;
-            this.tcUserInfo.Size = new System.Drawing.Size(859, 498);
+            this.tcUserInfo.Size = new System.Drawing.Size(931, 474);
             this.tcUserInfo.TabIndex = 117;
             this.tcUserInfo.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tcUserInfo_Selecting);
             // 
@@ -83,7 +83,7 @@ namespace Clinic.User
             this.tpPersonalInfo.Location = new System.Drawing.Point(4, 34);
             this.tpPersonalInfo.Name = "tpPersonalInfo";
             this.tpPersonalInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPersonalInfo.Size = new System.Drawing.Size(851, 460);
+            this.tpPersonalInfo.Size = new System.Drawing.Size(923, 436);
             this.tpPersonalInfo.TabIndex = 0;
             this.tpPersonalInfo.Text = "Personal Info";
             this.tpPersonalInfo.UseVisualStyleBackColor = true;
@@ -93,7 +93,7 @@ namespace Clinic.User
             this.btnPersonInfoNext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnPersonInfoNext.Image = global::Clinic.Properties.Resources.Next_32;
             this.btnPersonInfoNext.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPersonInfoNext.Location = new System.Drawing.Point(711, 420);
+            this.btnPersonInfoNext.Location = new System.Drawing.Point(764, 388);
             this.btnPersonInfoNext.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnPersonInfoNext.Name = "btnPersonInfoNext";
             this.btnPersonInfoNext.Size = new System.Drawing.Size(126, 37);
@@ -122,7 +122,7 @@ namespace Clinic.User
             this.tpLoginInfo.Location = new System.Drawing.Point(4, 34);
             this.tpLoginInfo.Name = "tpLoginInfo";
             this.tpLoginInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tpLoginInfo.Size = new System.Drawing.Size(851, 460);
+            this.tpLoginInfo.Size = new System.Drawing.Size(912, 460);
             this.tpLoginInfo.TabIndex = 1;
             this.tpLoginInfo.Text = "LoginInfo";
             this.tpLoginInfo.UseVisualStyleBackColor = true;
@@ -288,7 +288,7 @@ namespace Clinic.User
             // lblTitle
             // 
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
             this.lblTitle.Location = new System.Drawing.Point(12, 35);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(863, 39);
@@ -332,15 +332,14 @@ namespace Clinic.User
             // 
             // ctrlPersonCardWithFilter1
             // 
-            this.ctrlPersonCardWithFilter1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
-            this.ctrlPersonCardWithFilter1.FilterEnabled = true;
-            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(11, 11);
-            this.ctrlPersonCardWithFilter1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ctrlPersonCardWithFilter1.FilterEnabled = false;
+            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(4, 4);
+            this.ctrlPersonCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
             this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
-            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(833, 399);
-            this.ctrlPersonCardWithFilter1.TabIndex = 121;
+            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(916, 375);
+            this.ctrlPersonCardWithFilter1.TabIndex = 119;
             // 
             // frmAddUpdateUser
             // 
@@ -350,7 +349,7 @@ namespace Clinic.User
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(923, 665);
+            this.ClientSize = new System.Drawing.Size(987, 665);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.tcUserInfo);
             this.Controls.Add(this.btnClose);
@@ -397,8 +396,8 @@ namespace Clinic.User
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button btnPersonInfoNext;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private Controls.ctrlPersonCardWithFilter ctrlPersonCardWithFilter1;
         private ComboBox cbRoles;
         private Label label5;
+        private Controls.ctrlPersonCardWithFilter ctrlPersonCardWithFilter1;
     }
 }

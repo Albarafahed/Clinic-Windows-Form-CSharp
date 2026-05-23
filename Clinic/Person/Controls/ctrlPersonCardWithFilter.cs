@@ -113,5 +113,6 @@ namespace Clinic.Controls
         {
             txtFilterValue.Focus();
         }
+
     }
 }

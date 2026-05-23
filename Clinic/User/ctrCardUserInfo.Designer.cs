@@ -40,7 +40,7 @@ namespace Clinic.Controls
             this.lblUserID = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.ctrlPersonCard2 = new Clinic.Controls.ctrlPersonCard();
+            this.ctrlPersonCard1 = new Clinic.Controls.ctrlPersonCard();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +65,7 @@ namespace Clinic.Controls
             // 
             this.lbRoleName.AutoSize = true;
             this.lbRoleName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbRoleName.Location = new System.Drawing.Point(607, 37);
+            this.lbRoleName.Location = new System.Drawing.Point(546, 37);
             this.lbRoleName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbRoleName.Name = "lbRoleName";
             this.lbRoleName.Size = new System.Drawing.Size(48, 25);
@@ -76,7 +76,7 @@ namespace Clinic.Controls
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(514, 37);
+            this.label5.Location = new System.Drawing.Point(453, 37);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(130, 25);
@@ -109,7 +109,7 @@ namespace Clinic.Controls
             // 
             this.lblUserName.AutoSize = true;
             this.lblUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserName.Location = new System.Drawing.Point(434, 37);
+            this.lblUserName.Location = new System.Drawing.Point(373, 37);
             this.lblUserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(48, 25);
@@ -120,7 +120,7 @@ namespace Clinic.Controls
             // 
             this.lblUserID.AutoSize = true;
             this.lblUserID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserID.Location = new System.Drawing.Point(238, 37);
+            this.lblUserID.Location = new System.Drawing.Point(177, 37);
             this.lblUserID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUserID.Name = "lblUserID";
             this.lblUserID.Size = new System.Drawing.Size(48, 25);
@@ -131,7 +131,7 @@ namespace Clinic.Controls
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(152, 37);
+            this.label4.Location = new System.Drawing.Point(91, 37);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(103, 25);
@@ -142,34 +142,33 @@ namespace Clinic.Controls
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(338, 37);
+            this.label1.Location = new System.Drawing.Point(277, 37);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(117, 25);
             this.label1.TabIndex = 130;
             this.label1.Text = "Username:";
             // 
-            // ctrlPersonCard2
+            // ctrlPersonCard1
             // 
-            this.ctrlPersonCard2.BackColor = System.Drawing.Color.White;
-            this.ctrlPersonCard2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctrlPersonCard2.Location = new System.Drawing.Point(0, 0);
-            this.ctrlPersonCard2.Name = "ctrlPersonCard2";
-            this.ctrlPersonCard2.Size = new System.Drawing.Size(895, 288);
-            this.ctrlPersonCard2.TabIndex = 2;
+            this.ctrlPersonCard1.BackColor = System.Drawing.Color.White;
+            this.ctrlPersonCard1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctrlPersonCard1.Location = new System.Drawing.Point(0, 0);
+            this.ctrlPersonCard1.Name = "ctrlPersonCard1";
+            this.ctrlPersonCard1.Size = new System.Drawing.Size(895, 288);
+            this.ctrlPersonCard1.TabIndex = 2;
             // 
             // ctrCardUserInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.ctrlPersonCard2);
+            this.Controls.Add(this.ctrlPersonCard1);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ctrCardUserInfo";
             this.Size = new System.Drawing.Size(923, 404);
-            this.Load += new System.EventHandler(this.ctrCardUserInfo_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -184,9 +183,9 @@ namespace Clinic.Controls
         private System.Windows.Forms.Label lblUserID;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
-        private ctrlPersonCard ctrlPersonCard1;
+   
         private System.Windows.Forms.Label lbRoleName;
         private System.Windows.Forms.Label label5;
-        private ctrlPersonCard ctrlPersonCard2;
+        private ctrlPersonCard ctrlPersonCard1;
     }
 }

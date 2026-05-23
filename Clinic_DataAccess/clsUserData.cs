@@ -242,6 +242,41 @@ namespace Clinic_DataAccess
             return dt;
         }
 
+        public static DataRow GetUserByID(int UserID)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                string query = @"SELECT U.UserID, P.PersonID, P.FullName, U.UserName, R.RoleName, U.IsActive 
+                                 FROM Users U 
+                                 INNER JOIN Persons P ON U.PersonID = P.PersonID
+                                 INNER JOIN Roles R ON U.RoleID = R.RoleID
+                                 WHERE U.UserID=@UserID and P.IsDeleted = 0;";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserID", UserID);
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                dt.Load(reader);
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // إرجاع جدول فارغ بسلام
+                    }
+                }
+            }
+            return dt.Rows[0];
+        }
+
         public static bool IsUserExist(string UserName)
         {
             bool isFound = false;

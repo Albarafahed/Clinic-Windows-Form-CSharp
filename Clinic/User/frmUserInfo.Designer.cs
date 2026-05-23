@@ -31,19 +31,10 @@ namespace Clinic.User
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctrlUserCard1 = new Clinic.Controls.ctrCardUserInfo();
             this.btnClose = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.ctrCardUserInfo1 = new Clinic.Controls.ctrCardUserInfo();
             this.SuspendLayout();
-            // 
-            // ctrlUserCard1
-            // 
-            this.ctrlUserCard1.BackColor = System.Drawing.Color.White;
-            this.ctrlUserCard1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctrlUserCard1.Location = new System.Drawing.Point(13, 14);
-            this.ctrlUserCard1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ctrlUserCard1.Name = "ctrlUserCard1";
-            this.ctrlUserCard1.Size = new System.Drawing.Size(934, 399);
-            this.ctrlUserCard1.TabIndex = 0;
             // 
             // btnClose
             // 
@@ -51,7 +42,7 @@ namespace Clinic.User
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(776, 423);
+            this.btnClose.Location = new System.Drawing.Point(780, 512);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(126, 37);
@@ -60,6 +51,28 @@ namespace Clinic.User
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // lblTitle
+            // 
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
+            this.lblTitle.Location = new System.Drawing.Point(224, 9);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(429, 76);
+            this.lblTitle.TabIndex = 92;
+            this.lblTitle.Text = "User Details";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ctrCardUserInfo1
+            // 
+            this.ctrCardUserInfo1.BackColor = System.Drawing.Color.White;
+            this.ctrCardUserInfo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctrCardUserInfo1.Location = new System.Drawing.Point(3, 90);
+            this.ctrCardUserInfo1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ctrCardUserInfo1.Name = "ctrCardUserInfo1";
+            this.ctrCardUserInfo1.Size = new System.Drawing.Size(923, 404);
+            this.ctrCardUserInfo1.TabIndex = 93;
+            // 
             // frmUserInfo
             // 
             this.AcceptButton = this.btnClose;
@@ -67,9 +80,10 @@ namespace Clinic.User
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(960, 462);
+            this.ClientSize = new System.Drawing.Size(960, 563);
+            this.Controls.Add(this.ctrCardUserInfo1);
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.ctrlUserCard1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -81,8 +95,8 @@ namespace Clinic.User
         }
 
         #endregion
-
-        private Controls.ctrCardUserInfo ctrlUserCard1;
         private System.Windows.Forms.Button btnClose;
+        private Label lblTitle;
+        private Controls.ctrCardUserInfo ctrCardUserInfo1;
     }
 }

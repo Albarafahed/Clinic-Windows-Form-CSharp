@@ -41,7 +41,6 @@ namespace Clinic.Controls
 
         private void _FillUserInfo()
         {
-
             ctrlPersonCard1.LoadPersonInfo(_User.PersonID);
             lblUserID.Text = _User.UserID.ToString();
             lblUserName.Text = _User.UserName.ToString();
@@ -58,14 +57,5 @@ namespace Clinic.Controls
             lblIsActive.Text = "[???]";
         }
 
-        private void ctrCardUserInfo_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ctrlPersonCard1_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
