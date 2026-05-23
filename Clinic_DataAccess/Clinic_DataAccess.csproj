@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsBloodTypeData.cs" />
     <Compile Include="clsCountryData.cs" />
     <Compile Include="clsDataAccessSettings.cs" />
+    <Compile Include="clsPatientData.cs" />
     <Compile Include="clsPersonData.cs" />
     <Compile Include="clsRoleData.cs" />
     <Compile Include="clsUserData.cs" />

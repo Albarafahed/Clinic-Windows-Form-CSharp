@@ -1,4 +1,6 @@
-﻿using Clinic_DataAccess;
+﻿
+
+using Clinic_DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,52 +22,56 @@ namespace Clinic_Business
         public clsBloodType BloodTypeInfo { get; set; }
         public string MedicalHistory { get; set; }
 
+        public int CreatedByUserID { get; set; }
+
         public clsPatient()
         {
             this.PatientID = -1;
             this.EmergencyContact = "";
             this.BloodTypeID = -1;
             this.MedicalHistory = "";
+            this.CreatedByUserID = -1;
             _Mode = enMode.AddNew;
         }
 
-        public clsPatient(int PatientID,string emergencyContact,int bloodTypeID,string medicalHistory,int personID, string name, DateTime dateOfBirth,
-                short gendor, string address, string phoneNumber, string email,int nationalityCountryID,string imagePath) 
+        public clsPatient(int PatientID,string EmergencyContact,int BloodTypeID,string MedicalHistory,int CreatedByUserID,int PersonID, string Name, DateTime DateOfBirth,
+                short Gender, string Address, string PhoneNumber, string Email,int NationalityCountryID,string ImagePath) 
                    
         {
             this.PatientID = PatientID;
-            this.EmergencyContact = emergencyContact;
-            this.BloodTypeID = bloodTypeID;
-            this.BloodTypeInfo=clsBloodType.Find(bloodTypeID);
-            this.MedicalHistory = medicalHistory;
-            this.PersonID = personID;
-            this.Name = name;
-            this.DateOfBirth = dateOfBirth;
-            this.Gendor = gendor;
-            this.Address = address;
-            this.PhoneNumber = phoneNumber;
-            this.Email = email;
-            this.NationalityCountryID = nationalityCountryID;
-            this.ImagePath = imagePath;
+            this.EmergencyContact = EmergencyContact;
+            this.BloodTypeID = BloodTypeID;
+            this.BloodTypeInfo=clsBloodType.Find(BloodTypeID);
+            this.MedicalHistory = MedicalHistory;
+            this.CreatedByUserID = CreatedByUserID;
+            this.PersonID = PersonID;
+            this.Name = Name;
+            this.DateOfBirth = DateOfBirth;
+            this.Gender = Gender;
+            this.Address = Address;
+            this.PhoneNumber = PhoneNumber;
+            this.Email = Email;
+            this.NationalityCountryID = NationalityCountryID;
+            this.ImagePath = ImagePath;
 
             _Mode = enMode.Update;
         }
 
         private bool _AddNewPatient()
         {
-            this.PatientID = clsPatinetData.AddNewPatient(this.PersonID, this.EmergencyContact, this.BloodTypeID, this.MedicalHistory);
-
+            // تم تحديث اسم كلاس الداتا إلى clsPatientData طبقاً للتصحيح السابق
+            this.PatientID = clsPatientData.AddNewPatient(this.PersonID, this.EmergencyContact, this.BloodTypeID, this.MedicalHistory,this.CreatedByUserID);
             return this.PatientID > 0;
         }
 
         private bool _UpdatePatient()
         {
-            return clsPatinetData.UpdatePatient(this.PatientID, this.PersonID, this.EmergencyContact, this.BloodTypeID, this.MedicalHistory);
+            return clsPatientData.UpdatePatient(this.PatientID, this.PersonID, this.EmergencyContact, this.BloodTypeID, this.MedicalHistory,this.CreatedByUserID);
         }
 
         public static bool Delete(int PatientID)
         {
-            return clsPatinetData.DeletePatient(PatientID);
+            return clsPatientData.DeletePatient(PatientID);
         }
 
         public static clsPatient Find(int PatientID)
@@ -73,46 +79,46 @@ namespace Clinic_Business
             string EmergencyContact = "";
             int BloodTypeID = -1;
             string MedicalHistory = "";
+            int CreatedByUserID = -1;
+
             int PersonID = -1;
             string Name = "";
             DateTime DateOfBirth = DateTime.Now;
-            short Gendor = 0;
+            short Gender = 0;
             string Address = "";
             string PhoneNumber = "";
             string Email = "";
             int NationalityCountryID = -1;
-            string imagePath = "";
+            string ImagePath = "";
 
-            if(clsPatinetData.GetPatientByPatientID(PatientID,ref PersonID,ref EmergencyContact, ref BloodTypeID,ref MedicalHistory))
+            if (clsPatientData.GetPatientByPatientID(PatientID, ref PersonID, ref EmergencyContact, ref BloodTypeID, ref MedicalHistory,ref CreatedByUserID))
             {
-                if (clsPersonData.GetPersonByPersonID(PersonID, ref Name, ref DateOfBirth, ref Gendor, ref PhoneNumber, ref Email, ref Address, ref NationalityCountryID, ref imagePath))
-
-                    return new clsPatient(PatientID, EmergencyContact, BloodTypeID, MedicalHistory, PersonID, Name, DateOfBirth, Gendor, Address, PhoneNumber, Email, NationalityCountryID, imagePath);
-
-                else
+                if (clsPersonData.GetPersonByPersonID(PersonID, ref Name, ref DateOfBirth, ref Gender, ref PhoneNumber, ref Email, ref Address, ref NationalityCountryID, ref ImagePath))
                 {
-                    return null;
+                    return new clsPatient(PatientID, EmergencyContact, BloodTypeID, MedicalHistory, CreatedByUserID, PersonID, Name, DateOfBirth, Gender, Address, PhoneNumber, Email, NationalityCountryID, ImagePath);
                 }
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
-        public static DataTable GetAllPationts()
+        public static DataTable GetAllPatients()
         {
-           return clsPatinetData.GetAllPationtes();
+            // تم تصحيح استدعاء الدالة لتطابق اسم GetAllPatients المصحح
+            return clsPatientData.GetAllPatients();
         }
 
-        public static DataRow GetPatientData(int PersonID)
+
+        public static DataRow GetPatientData(int PatientID)
         {
-            return clsPatinetData.GetPationte(PersonID);
+            return clsPatientData.GetPatientByID(PatientID);
         }
 
         public bool Save()
         {
-            base.Mode=(clsPerson.enMode)_Mode;
+            // مزامنة الـ Mode الخاص بالابن ليقود حالة الـ Mode الخاصة بالأب clsPerson
+            base.Mode = (clsPerson.enMode)_Mode;
+
+            // حفظ بيانات الشخص الأساسية أولاً في قاعدة البيانات
             if (!base.Save())
                 return false;
 

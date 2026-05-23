@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clinic_Business
 {
@@ -29,15 +26,14 @@ namespace Clinic_Business
             _Mode = enMode.Update;
         }
 
-        public static clsBloodType Find(int BloodtTypeID)
+        public static clsBloodType Find(int BloodTypeID)
         {
             string BloodTypeName = "";
 
-            if (clsBloodTypeData.FindBloodTypeByID(BloodtTypeID, ref BloodTypeName))
+            if (clsBloodTypeData.FindBloodTypeByID(BloodTypeID, ref BloodTypeName))
             {
-                return new clsBloodType(BloodtTypeID, BloodTypeName);
+                return new clsBloodType(BloodTypeID, BloodTypeName);
             }
-
             return null;
         }
 
@@ -49,7 +45,6 @@ namespace Clinic_Business
             {
                 return new clsBloodType(BloodTypeID, BloodTypeName);
             }
-
             return null;
         }
 

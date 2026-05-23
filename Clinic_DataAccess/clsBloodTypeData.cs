@@ -13,18 +13,15 @@ namespace Clinic_DataAccess
         public static bool FindBloodTypeByID(int BloodTypeID, ref string BloodTypeName)
         {
             bool Isfound = false;
-
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
             string query = "SELECT BloodTypeName FROM BloodTypes WHERE BloodTypeID = @BloodTypeID";
-
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@BloodTypeID", BloodTypeID);
             try
             {
                 connection.Open();
                 object result = command.ExecuteScalar();
-                if (result !=null)
+                if (result != null)
                 {
                     BloodTypeName = result.ToString();
                     Isfound = true;
@@ -32,12 +29,12 @@ namespace Clinic_DataAccess
             }
             catch
             {
+                Isfound = false;
             }
             finally
             {
                 connection.Close();
             }
-
             return Isfound;
         }
 
@@ -60,19 +57,18 @@ namespace Clinic_DataAccess
             }
             catch
             {
+                Isfound = false;
             }
             finally
             {
                 connection.Close();
             }
-
             return Isfound;
         }
 
         public static DataTable GetAllBloodTypes()
         {
             DataTable dt = new DataTable();
-            
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
             string query = "SELECT * FROM BloodTypes";
             SqlCommand command = new SqlCommand(query, connection);
@@ -80,7 +76,7 @@ namespace Clinic_DataAccess
             {
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
                     dt.Load(reader);
                 }
@@ -88,7 +84,7 @@ namespace Clinic_DataAccess
             }
             catch
             {
-                dt=null;
+                // 💡 ترك الجدول فارغاً بدلاً من إرجاع null يمنع انهيار الواجهات (UI Crashes)
             }
             finally
             {
