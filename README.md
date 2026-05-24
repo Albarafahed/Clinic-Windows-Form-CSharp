@@ -52,6 +52,7 @@ Clinic_System/
 | **قائمة المرضى** | ![List Patients](Image/Patient/frmListPatients.png) |
 | **إضافة/تعديل مريض** | ![Add/Update Patient](Image/Patient/frmAddUpdatePatient.png) |
 | **تفاصيل المريض** | ![Show Patient](Image/Patient/frmShowPatients.png) |
+| **بحث عن المريض** | ![Show Patient](Image/Patient/frmFindPatient.png) |
 
 ---
 
