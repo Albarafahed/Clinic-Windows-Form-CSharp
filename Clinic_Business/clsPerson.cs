@@ -19,7 +19,7 @@ namespace Clinic_Business
         public int PersonID { get; set; }
         public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public short Gendor { set; get; }
+        public short Gender { set; get; }
         public string Address { set; get; }
         public string PhoneNumber { set; get; }
         public string Email { set; get; }
@@ -29,19 +29,20 @@ namespace Clinic_Business
         public clsCountry CountryInfo { set; get; }
         public string ImagePath { set; get; }
 
-        private clsPerson(int personID, string name, DateTime dateOfBirth, short gendor, string address, string phoneNumber, string email, int nationalityCountryID, string imagePath)
+        private clsPerson(int personID, string name, DateTime dateOfBirth, short Gender, string address, string phoneNumber, string email, int nationalityCountryID, string imagePath)
         {
             this.PersonID = personID;
             this.Name = name;
             this.DateOfBirth = dateOfBirth;
-            this.Gendor = gendor;
+            this.Gender = Gender;
             this.Address = address;
             this.PhoneNumber = phoneNumber;
             this.Email = email;
             this.NationalityCountryID = nationalityCountryID;
-            CountryInfo = clsCountry.Find(nationalityCountryID);
+            this.ImagePath = imagePath;
+            CountryInfo = clsCountry.FindByID(nationalityCountryID);
             Mode = enMode.Update;
-            ImagePath = imagePath;
+           
         }
 
         public clsPerson()
@@ -50,7 +51,7 @@ namespace Clinic_Business
             this.NationalityCountryID = -1;
             this.Name = "";
             this.DateOfBirth = DateTime.Now;
-            this.Gendor = 0;
+            this.Gender = 0;
             this.Address = "";
             this.PhoneNumber = "";
             this.Email = "";
@@ -61,34 +62,43 @@ namespace Clinic_Business
 
         private bool _AddNewPerson()
         {
-            this.PersonID = clsPersonData.AddNewPerson(Name, DateOfBirth, Gendor, PhoneNumber, Email, Address, ImagePath, NationalityCountryID);
+            this.PersonID = clsPersonData.AddNewPerson(Name, DateOfBirth, Gender, PhoneNumber, Email, Address, ImagePath, NationalityCountryID);
             return this.PersonID > 0;
         }
 
         private bool _UpdatePerson()
         {
-            return clsPersonData.UpdatePerson(PersonID, Name, DateOfBirth, Gendor, PhoneNumber, Email, Address, ImagePath, NationalityCountryID);
+            return clsPersonData.UpdatePerson(PersonID, Name, DateOfBirth, Gender, PhoneNumber, Email, Address, ImagePath, NationalityCountryID);
         }
 
         public bool Delete()
         {
+            return clsPersonData.DeletePerson(this.PersonID);
+        }
+
+        public static bool Delete(int PersonID)
+        {
             return clsPersonData.DeletePerson(PersonID);
+        }
+        public static bool DeleteAllForTrash()
+        {
+            return clsPersonData.DeleteAllForTrash();
         }
 
         public static clsPerson Find(int PersonID)
         {
             string name = "";
             DateTime dateOfBirth = DateTime.Now;
-            short gendor = 0;
+            short Gender = 0;
             string address = "";
             string phoneNumber = "";
             string email = "";
             int nationalcontry = -1;
             string imagePath = "";
 
-          if(clsPersonData.GetPersonByPersonID(PersonID, ref name, ref dateOfBirth, ref gendor, ref phoneNumber, ref email, ref address, ref nationalcontry, ref imagePath))
+          if(clsPersonData.GetPersonByPersonID(PersonID, ref name, ref dateOfBirth, ref Gender, ref phoneNumber, ref email, ref address, ref nationalcontry, ref imagePath))
             {
-                return new clsPerson(PersonID, name, dateOfBirth, gendor, address, phoneNumber, email, nationalcontry, imagePath);
+                return new clsPerson(PersonID, name, dateOfBirth, Gender, address, phoneNumber, email, nationalcontry, imagePath);
             }
             else
             {
@@ -104,7 +114,16 @@ namespace Clinic_Business
             return clsPersonData.GetAllPersons();
         }
 
-      
+        public static DataTable GetAllPersonsToTrash()
+        {
+            return clsPersonData.GetAllPersons(1);
+        }
+
+        public static DataRow GetPersonByID(int PersonID)
+        {
+            return clsPersonData.GetPersonByID(PersonID);
+        }
+
         public static bool SoftDelete(int PersonID)
         {
             return clsPersonData.SoftDeletePerson(PersonID);
