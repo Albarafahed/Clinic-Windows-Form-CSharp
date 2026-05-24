@@ -41,6 +41,7 @@ Clinic_System/
 | **قائمة الأشخاص** | ![List People](Image/Person/frmlistPeople.png) |
 | **إضافة/تعديل شخص** | ![Add/Update Person](Image/Person/frmaddUpdateperson.png) |
 | **تفاصيل الشخص** | ![Show Person](Image/Person/frmShowPerson.png) |
+| **سلة المحذوفات** | ![Show Person](Image/Person/frmTrashPeople.png) |
 
 ---
 
