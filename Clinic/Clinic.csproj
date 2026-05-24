@@ -46,6 +46,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Patient\Controls\ctrlPatienCardtInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\Controls\ctrlPatienCardtInfo.Designer.cs">
+      <DependentUpon>ctrlPatienCardtInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\Controls\ctrlPatientCardWithFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\Controls\ctrlPatientCardWithFilter.Designer.cs">
+      <DependentUpon>ctrlPatientCardWithFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\frmAddUpdatePatient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Patient\frmAddUpdatePatient.Designer.cs">
+      <DependentUpon>frmAddUpdatePatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\frmListPatient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Patient\frmListPatient.Designer.cs">
+      <DependentUpon>frmListPatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\frmPatientInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Patient\frmPatientInfo.Designer.cs">
+      <DependentUpon>frmPatientInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Person\frmTrashPeople.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +154,21 @@
     <Compile Include="User\frmUserInfo.Designer.cs">
       <DependentUpon>frmUserInfo.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Patient\Controls\ctrlPatienCardtInfo.resx">
+      <DependentUpon>ctrlPatienCardtInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\Controls\ctrlPatientCardWithFilter.resx">
+      <DependentUpon>ctrlPatientCardWithFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\frmAddUpdatePatient.resx">
+      <DependentUpon>frmAddUpdatePatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\frmListPatient.resx">
+      <DependentUpon>frmListPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\frmPatientInfo.resx">
+      <DependentUpon>frmPatientInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Person\frmTrashPeople.resx">
       <DependentUpon>frmTrashPeople.cs</DependentUpon>
     </EmbeddedResource>

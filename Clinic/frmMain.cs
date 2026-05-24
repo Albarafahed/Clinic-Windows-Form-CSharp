@@ -1,4 +1,5 @@
 ﻿
+using Clinic.Patient;
 using Clinic.User;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,24 @@ namespace Clinic
         private void UsersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmlistUser frm=new frmlistUser();
+            frm.ShowDialog();
+        }
+
+        private void PatientsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmListPatient frm=new frmListPatient();
+            frm.ShowDialog();
+        }
+
+        private void currentUserInfoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmUserInfo frm = new frmUserInfo(clsGlobal.CurrentUser.UserID);
+            frm.ShowDialog();
+        }
+
+        private void Password32ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmChangePassword frm = new frmChangePassword(clsGlobal.CurrentUser.UserID);
             frm.ShowDialog();
         }
     }

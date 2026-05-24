@@ -176,6 +176,7 @@ namespace Clinic
             this.PatientsToolStripMenuItem.Name = "PatientsToolStripMenuItem";
             this.PatientsToolStripMenuItem.Size = new System.Drawing.Size(168, 68);
             this.PatientsToolStripMenuItem.Text = "Patients";
+            this.PatientsToolStripMenuItem.Click += new System.EventHandler(this.PatientsToolStripMenuItem_Click);
             // 
             // DoctorsStripMenuItem1
             // 
@@ -215,7 +216,7 @@ namespace Clinic
             this.MangementStripMenuItem.Image = global::Clinic.Properties.Resources.mange_32;
             this.MangementStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MangementStripMenuItem.Name = "MangementStripMenuItem";
-            this.MangementStripMenuItem.Size = new System.Drawing.Size(223, 38);
+            this.MangementStripMenuItem.Size = new System.Drawing.Size(236, 38);
             this.MangementStripMenuItem.Text = "Mangement";
             // 
             // manageServicesToolStripMenuItem
@@ -242,7 +243,7 @@ namespace Clinic
             this.UserOptiontoolStripMenuItem.Image = global::Clinic.Properties.Resources.User_Options_32;
             this.UserOptiontoolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.UserOptiontoolStripMenuItem.Name = "UserOptiontoolStripMenuItem";
-            this.UserOptiontoolStripMenuItem.Size = new System.Drawing.Size(223, 38);
+            this.UserOptiontoolStripMenuItem.Size = new System.Drawing.Size(236, 38);
             this.UserOptiontoolStripMenuItem.Text = "UserOption";
             // 
             // currentUserInfoToolStripMenuItem1
@@ -252,6 +253,7 @@ namespace Clinic
             this.currentUserInfoToolStripMenuItem1.Name = "currentUserInfoToolStripMenuItem1";
             this.currentUserInfoToolStripMenuItem1.Size = new System.Drawing.Size(286, 38);
             this.currentUserInfoToolStripMenuItem1.Text = "&Current User Info";
+            this.currentUserInfoToolStripMenuItem1.Click += new System.EventHandler(this.currentUserInfoToolStripMenuItem1_Click);
             // 
             // Password32ToolStripMenuItem
             // 
@@ -260,18 +262,19 @@ namespace Clinic
             this.Password32ToolStripMenuItem.Name = "Password32ToolStripMenuItem";
             this.Password32ToolStripMenuItem.Size = new System.Drawing.Size(286, 38);
             this.Password32ToolStripMenuItem.Text = "Change Password";
+            this.Password32ToolStripMenuItem.Click += new System.EventHandler(this.Password32ToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(220, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(233, 6);
             // 
             // signOutToolStripMenuItem
             // 
             this.signOutToolStripMenuItem.Image = global::Clinic.Properties.Resources.sign_out_32__2;
             this.signOutToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(223, 38);
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(236, 38);
             this.signOutToolStripMenuItem.Text = "Sign &Out";
             this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
             // 
@@ -342,7 +345,7 @@ namespace Clinic
             // 
             // btnSearchPat
             // 
-            this.btnSearchPat.Image = global::Clinic.Properties.Resources.Next_32;
+            this.btnSearchPat.Image = global::Clinic.Properties.Resources.patient;
             this.btnSearchPat.Name = "btnSearchPat";
             this.btnSearchPat.Size = new System.Drawing.Size(121, 36);
             this.btnSearchPat.Text = "Find Patient";

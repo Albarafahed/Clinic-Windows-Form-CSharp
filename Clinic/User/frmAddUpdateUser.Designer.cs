@@ -48,7 +48,7 @@ namespace Clinic.User
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
@@ -60,7 +60,7 @@ namespace Clinic.User
             this.tpLoginInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -69,6 +69,7 @@ namespace Clinic.User
             // 
             this.tcUserInfo.Controls.Add(this.tpPersonalInfo);
             this.tcUserInfo.Controls.Add(this.tpLoginInfo);
+            this.tcUserInfo.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.tcUserInfo.Location = new System.Drawing.Point(12, 97);
             this.tcUserInfo.Name = "tcUserInfo";
             this.tcUserInfo.SelectedIndex = 0;
@@ -78,19 +79,24 @@ namespace Clinic.User
             // 
             // tpPersonalInfo
             // 
+            this.tpPersonalInfo.BackColor = System.Drawing.Color.White;
             this.tpPersonalInfo.Controls.Add(this.ctrlPersonCardWithFilter1);
             this.tpPersonalInfo.Controls.Add(this.btnPersonInfoNext);
-            this.tpPersonalInfo.Location = new System.Drawing.Point(4, 34);
+            this.tpPersonalInfo.Location = new System.Drawing.Point(4, 32);
             this.tpPersonalInfo.Name = "tpPersonalInfo";
             this.tpPersonalInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPersonalInfo.Size = new System.Drawing.Size(923, 436);
+            this.tpPersonalInfo.Size = new System.Drawing.Size(923, 438);
             this.tpPersonalInfo.TabIndex = 0;
             this.tpPersonalInfo.Text = "Personal Info";
-            this.tpPersonalInfo.UseVisualStyleBackColor = true;
             // 
             // btnPersonInfoNext
             // 
-            this.btnPersonInfoNext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnPersonInfoNext.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPersonInfoNext.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
+            this.btnPersonInfoNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            this.btnPersonInfoNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPersonInfoNext.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
+            this.btnPersonInfoNext.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnPersonInfoNext.Image = global::Clinic.Properties.Resources.Next_32;
             this.btnPersonInfoNext.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnPersonInfoNext.Location = new System.Drawing.Point(764, 388);
@@ -98,12 +104,13 @@ namespace Clinic.User
             this.btnPersonInfoNext.Name = "btnPersonInfoNext";
             this.btnPersonInfoNext.Size = new System.Drawing.Size(126, 37);
             this.btnPersonInfoNext.TabIndex = 119;
-            this.btnPersonInfoNext.Text = "Next";
+            this.btnPersonInfoNext.Text = "Next   ";
             this.btnPersonInfoNext.UseVisualStyleBackColor = true;
             this.btnPersonInfoNext.Click += new System.EventHandler(this.btnPersonInfoNext_Click);
             // 
             // tpLoginInfo
             // 
+            this.tpLoginInfo.BackColor = System.Drawing.Color.White;
             this.tpLoginInfo.Controls.Add(this.label5);
             this.tpLoginInfo.Controls.Add(this.cbRoles);
             this.tpLoginInfo.Controls.Add(this.pictureBox2);
@@ -117,181 +124,201 @@ namespace Clinic.User
             this.tpLoginInfo.Controls.Add(this.label2);
             this.tpLoginInfo.Controls.Add(this.txtPassword);
             this.tpLoginInfo.Controls.Add(this.pictureBox1);
-            this.tpLoginInfo.Controls.Add(this.pictureBox8);
+            this.tpLoginInfo.Controls.Add(this.pictureBox6);
             this.tpLoginInfo.Controls.Add(this.pictureBox3);
-            this.tpLoginInfo.Location = new System.Drawing.Point(4, 34);
+            this.tpLoginInfo.Location = new System.Drawing.Point(4, 32);
             this.tpLoginInfo.Name = "tpLoginInfo";
             this.tpLoginInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tpLoginInfo.Size = new System.Drawing.Size(912, 460);
+            this.tpLoginInfo.Size = new System.Drawing.Size(923, 438);
             this.tpLoginInfo.TabIndex = 1;
-            this.tpLoginInfo.Text = "LoginInfo";
-            this.tpLoginInfo.UseVisualStyleBackColor = true;
+            this.tpLoginInfo.Text = "Login Info";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.label5.Location = new System.Drawing.Point(505, 71);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(118, 25);
+            this.label5.Size = new System.Drawing.Size(113, 25);
             this.label5.TabIndex = 132;
-            this.label5.Text = "RoleName:";
+            this.label5.Text = "Role Name:";
             // 
             // cbRoles
             // 
+            this.cbRoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbRoles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbRoles.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.cbRoles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.cbRoles.FormattingEnabled = true;
-            this.cbRoles.Location = new System.Drawing.Point(630, 71);
+            this.cbRoles.Location = new System.Drawing.Point(630, 68);
             this.cbRoles.Name = "cbRoles";
-            this.cbRoles.Size = new System.Drawing.Size(168, 33);
+            this.cbRoles.Size = new System.Drawing.Size(185, 31);
             this.cbRoles.TabIndex = 131;
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Clinic.Properties.Resources.BloodType_32;
+            this.pictureBox3.Location = new System.Drawing.Point(228, 179);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 147;
+            this.pictureBox3.TabStop = false;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::Clinic.Properties.Resources.Number_32;
-            this.pictureBox2.Location = new System.Drawing.Point(193, 58);
+            this.pictureBox2.Image = global::Clinic.Properties.Resources.ID_32;
+            this.pictureBox2.Location = new System.Drawing.Point(229, 58);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(31, 26);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 130;
+            this.pictureBox2.TabIndex = 144;
             this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::Clinic.Properties.Resources.Emergency_Contact_32;
+            this.pictureBox6.Location = new System.Drawing.Point(228, 120);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 136;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox1.Image = global::Clinic.Properties.Resources.Medical_History_32;
+            this.pictureBox1.Name = "pictureBox4";
+            this.pictureBox1.Location = new System.Drawing.Point(229, 242);
+            this.pictureBox1.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 132;
+            this.pictureBox1.TabStop = false;
             // 
             // lblUserID
             // 
             this.lblUserID.AutoSize = true;
-            this.lblUserID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserID.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblUserID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.lblUserID.Location = new System.Drawing.Point(233, 58);
             this.lblUserID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUserID.Name = "lblUserID";
-            this.lblUserID.Size = new System.Drawing.Size(48, 25);
+            this.lblUserID.Size = new System.Drawing.Size(42, 25);
             this.lblUserID.TabIndex = 129;
             this.lblUserID.Text = "???";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.label4.Location = new System.Drawing.Point(102, 58);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 25);
+            this.label4.Size = new System.Drawing.Size(77, 25);
             this.label4.TabIndex = 128;
-            this.label4.Text = "UserID:";
+            this.label4.Text = "User ID:";
             // 
             // chkIsActive
             // 
             this.chkIsActive.AutoSize = true;
             this.chkIsActive.Checked = true;
             this.chkIsActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIsActive.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F);
+            this.chkIsActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.chkIsActive.Location = new System.Drawing.Point(231, 214);
             this.chkIsActive.Name = "chkIsActive";
-            this.chkIsActive.Size = new System.Drawing.Size(108, 29);
+            this.chkIsActive.Size = new System.Drawing.Size(102, 28);
             this.chkIsActive.TabIndex = 127;
             this.chkIsActive.Text = "Is Active";
             this.chkIsActive.UseVisualStyleBackColor = true;
             // 
             // txtUserName
             // 
-            this.txtUserName.Location = new System.Drawing.Point(231, 96);
+            this.txtUserName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtUserName.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.txtUserName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.txtUserName.Location = new System.Drawing.Point(231, 94);
             this.txtUserName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtUserName.MaxLength = 50;
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(167, 30);
+            this.txtUserName.Size = new System.Drawing.Size(185, 31);
             this.txtUserName.TabIndex = 118;
             this.txtUserName.Validating += new System.ComponentModel.CancelEventHandler(this.txtUserName_Validating);
             // 
             // txtConfirmPassword
             // 
-            this.txtConfirmPassword.Location = new System.Drawing.Point(231, 168);
+            this.txtConfirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtConfirmPassword.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.txtConfirmPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.txtConfirmPassword.Location = new System.Drawing.Point(231, 166);
             this.txtConfirmPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtConfirmPassword.MaxLength = 50;
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.PasswordChar = '*';
-            this.txtConfirmPassword.Size = new System.Drawing.Size(167, 30);
+            this.txtConfirmPassword.Size = new System.Drawing.Size(185, 31);
             this.txtConfirmPassword.TabIndex = 124;
             this.txtConfirmPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txtConfirmPassword_Validating);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.label1.Location = new System.Drawing.Point(75, 96);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 25);
+            this.label1.Size = new System.Drawing.Size(111, 25);
             this.label1.TabIndex = 120;
-            this.label1.Text = "UserName:";
+            this.label1.Text = "User Name:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.label3.Location = new System.Drawing.Point(15, 168);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(194, 25);
+            this.label3.Size = new System.Drawing.Size(177, 25);
             this.label3.TabIndex = 125;
             this.label3.Text = "Confirm Password:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.label2.Location = new System.Drawing.Point(82, 132);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 25);
+            this.label2.Size = new System.Drawing.Size(102, 25);
             this.label2.TabIndex = 121;
             this.label2.Text = "Password:";
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(231, 132);
+            this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            this.txtPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.txtPassword.Location = new System.Drawing.Point(231, 130);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtPassword.MaxLength = 50;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(167, 30);
+            this.txtPassword.Size = new System.Drawing.Size(185, 31);
             this.txtPassword.TabIndex = 119;
             this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txtPassword_Validating);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Clinic.Properties.Resources.Number_32;
-            this.pictureBox1.Location = new System.Drawing.Point(193, 168);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 126;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = global::Clinic.Properties.Resources.Person_32;
-            this.pictureBox8.Location = new System.Drawing.Point(193, 94);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox8.TabIndex = 123;
-            this.pictureBox8.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::Clinic.Properties.Resources.Number_32;
-            this.pictureBox3.Location = new System.Drawing.Point(193, 131);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 122;
-            this.pictureBox3.TabStop = false;
+           
             // 
             // lblTitle
             // 
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.lblTitle.Location = new System.Drawing.Point(12, 35);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.lblTitle.Location = new System.Drawing.Point(12, 25);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(863, 39);
+            this.lblTitle.Size = new System.Drawing.Size(931, 45);
             this.lblTitle.TabIndex = 118;
             this.lblTitle.Text = "Add New User";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -302,31 +329,41 @@ namespace Clinic.User
             // 
             // btnSave
             // 
+            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Enabled = false;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSave.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
+            this.btnSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
+            this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnSave.Image = global::Clinic.Properties.Resources.Save_32;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(745, 603);
+            this.btnSave.Location = new System.Drawing.Point(813, 590);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(126, 37);
             this.btnSave.TabIndex = 112;
-            this.btnSave.Text = "Save";
+            this.btnSave.Text = "   Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnClose
             // 
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
+            this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
+            this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(611, 603);
+            this.btnClose.Location = new System.Drawing.Point(679, 590);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(126, 37);
             this.btnClose.TabIndex = 113;
-            this.btnClose.Text = "Close";
+            this.btnClose.Text = "   Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -334,7 +371,7 @@ namespace Clinic.User
             // 
             this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
             this.ctrlPersonCardWithFilter1.FilterEnabled = false;
-            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(4, 4);
             this.ctrlPersonCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
             this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
@@ -344,17 +381,17 @@ namespace Clinic.User
             // frmAddUpdateUser
             // 
             this.AcceptButton = this.btnSave;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(987, 665);
+            this.ClientSize = new System.Drawing.Size(960, 650);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.tcUserInfo);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmAddUpdateUser";
@@ -367,11 +404,10 @@ namespace Clinic.User
             this.tpLoginInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -387,7 +423,7 @@ namespace Clinic.User
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label lblTitle;
