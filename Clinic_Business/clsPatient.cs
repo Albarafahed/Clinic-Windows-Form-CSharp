@@ -22,6 +22,7 @@ namespace Clinic_Business
         public clsBloodType BloodTypeInfo { get; set; }
         public string MedicalHistory { get; set; }
 
+        public DateTime CreatedDate { get;private set;  }
         public int CreatedByUserID { get; set; }
 
         public clsPatient()
@@ -34,7 +35,7 @@ namespace Clinic_Business
             _Mode = enMode.AddNew;
         }
 
-        public clsPatient(int PatientID,string EmergencyContact,int BloodTypeID,string MedicalHistory,int CreatedByUserID,int PersonID, string Name, DateTime DateOfBirth,
+        public clsPatient(int PatientID,string EmergencyContact,int BloodTypeID,string MedicalHistory,DateTime CreatedDate, int CreatedByUserID,int PersonID, string Name, DateTime DateOfBirth,
                 short Gender, string Address, string PhoneNumber, string Email,int NationalityCountryID,string ImagePath) 
                    
         {
@@ -43,7 +44,9 @@ namespace Clinic_Business
             this.BloodTypeID = BloodTypeID;
             this.BloodTypeInfo=clsBloodType.Find(BloodTypeID);
             this.MedicalHistory = MedicalHistory;
+            this.CreatedDate = CreatedDate;
             this.CreatedByUserID = CreatedByUserID;
+
             this.PersonID = PersonID;
             this.Name = Name;
             this.DateOfBirth = DateOfBirth;
@@ -60,7 +63,7 @@ namespace Clinic_Business
         private bool _AddNewPatient()
         {
             // تم تحديث اسم كلاس الداتا إلى clsPatientData طبقاً للتصحيح السابق
-            this.PatientID = clsPatientData.AddNewPatient(this.PersonID, this.EmergencyContact, this.BloodTypeID, this.MedicalHistory,this.CreatedByUserID);
+            this.PatientID = clsPatientData.AddNewPatient(this.PersonID, this.EmergencyContact, this.BloodTypeID, this.MedicalHistory,DateTime.Now,this.CreatedByUserID);
             return this.PatientID > 0;
         }
 
@@ -69,9 +72,18 @@ namespace Clinic_Business
             return clsPatientData.UpdatePatient(this.PatientID, this.PersonID, this.EmergencyContact, this.BloodTypeID, this.MedicalHistory,this.CreatedByUserID);
         }
 
-        public static bool Delete(int PatientID)
+        public  bool DeletePatient()
         {
-            return clsPatientData.DeletePatient(PatientID);
+            bool IsUserDeleted = false;
+            bool IsBasePersonDeleted = false;
+
+            IsUserDeleted = clsPatientData.DeletePatient(this.PatientID);
+
+            if (!IsUserDeleted)
+                return false;
+            IsBasePersonDeleted = base.Delete();
+
+            return IsBasePersonDeleted;
         }
 
         public static clsPatient Find(int PatientID)
@@ -79,6 +91,7 @@ namespace Clinic_Business
             string EmergencyContact = "";
             int BloodTypeID = -1;
             string MedicalHistory = "";
+            DateTime CreatedDate = DateTime.Now;
             int CreatedByUserID = -1;
 
             int PersonID = -1;
@@ -91,11 +104,11 @@ namespace Clinic_Business
             int NationalityCountryID = -1;
             string ImagePath = "";
 
-            if (clsPatientData.GetPatientByPatientID(PatientID, ref PersonID, ref EmergencyContact, ref BloodTypeID, ref MedicalHistory,ref CreatedByUserID))
+            if (clsPatientData.GetPatientByPatientID(PatientID, ref PersonID, ref EmergencyContact, ref BloodTypeID, ref MedicalHistory,ref CreatedDate, ref CreatedByUserID))
             {
                 if (clsPersonData.GetPersonByPersonID(PersonID, ref Name, ref DateOfBirth, ref Gender, ref PhoneNumber, ref Email, ref Address, ref NationalityCountryID, ref ImagePath))
                 {
-                    return new clsPatient(PatientID, EmergencyContact, BloodTypeID, MedicalHistory, CreatedByUserID, PersonID, Name, DateOfBirth, Gender, Address, PhoneNumber, Email, NationalityCountryID, ImagePath);
+                    return new clsPatient(PatientID, EmergencyContact, BloodTypeID, MedicalHistory,CreatedDate, CreatedByUserID, PersonID, Name, DateOfBirth, Gender, Address, PhoneNumber, Email, NationalityCountryID, ImagePath);
                 }
             }
             return null;
@@ -108,19 +121,20 @@ namespace Clinic_Business
         }
 
 
-        public static DataRow GetPatientData(int PatientID)
+        public static DataRow GetPatientByID(int PatientID)
         {
             return clsPatientData.GetPatientByID(PatientID);
         }
 
+        public static bool IsPatientExistForPersonID(int PersonID)
+        {
+            // استدعاء الدالة مباشرة من طبقة البيانات
+            return clsPatientData.IsPatientExistForPersonID(PersonID);
+        }
+
         public bool Save()
         {
-            // مزامنة الـ Mode الخاص بالابن ليقود حالة الـ Mode الخاصة بالأب clsPerson
-            base.Mode = (clsPerson.enMode)_Mode;
-
-            // حفظ بيانات الشخص الأساسية أولاً في قاعدة البيانات
-            if (!base.Save())
-                return false;
+ 
 
             switch (_Mode)
             {

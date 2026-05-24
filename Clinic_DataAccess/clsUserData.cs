@@ -366,5 +366,36 @@ namespace Clinic_DataAccess
             }
             return (rowsAffected > 0);
         }
+
+        public static string GetFullName(int UserID)
+        {
+            string query = @"SELECT P.FullName 
+                     FROM Persons P 
+                     INNER JOIN Users U ON P.PersonID = U.PersonID 
+                     WHERE U.UserID = @UserID;";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserID", UserID);
+
+                   
+                    connection.Open();
+
+                    // 2. تخزين النتيجة في كائن للتحقق منه قبل تحويله لنص
+                    object result = command.ExecuteScalar();
+
+                    // 3. التحقق بأمان: إذا كانت النتيجة ليست فارغة نعيد الاسم، وإلا نعيد نص فارغ
+                    return (result != null) ? result.ToString() : "";
+                }
+            }
+            catch (Exception)
+            {
+                // في حال حدوث أي خطأ في الاتصال، يعود بنص فارغ بأمان دون توقف البرنامج
+                return "";
+            }
+        }
+
     }
 }

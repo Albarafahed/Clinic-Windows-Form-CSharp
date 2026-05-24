@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -153,6 +154,10 @@ namespace Clinic_Business
             return clsUserData.GetUserByID(UserID);
         }
 
+        public static string GetFullName(int UserID)
+        {
+            return clsUserData.GetFullName(UserID);
+        }
         public bool Save()
         {
             switch(_Mode)

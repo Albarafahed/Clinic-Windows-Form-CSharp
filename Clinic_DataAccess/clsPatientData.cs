@@ -6,17 +6,14 @@ namespace Clinic_DataAccess
 {
     public class clsPatientData
     {
-        public static bool GetPatientByPatientID(int PatientID, ref int PersonID, ref string EmergencyContact, ref int BloodTypeID, ref string MedicalHistory, ref int CreatedByUserID)
+        public static bool GetPatientByPatientID(int PatientID, ref int PersonID, ref string EmergencyContact, ref int BloodTypeID, ref string MedicalHistory, ref DateTime CreatedDate, ref int CreatedByUserID)
         {
-            string query = @"SELECT 
-                                Patients.PersonID, 
-                                Patients.EmergencyContact, 
-                                Patients.BloodTypeID, 
-                                Patients.MedicalHistory, 
-                                Patients.CreatedByUserID 
-                             FROM Patients 
-                             INNER JOIN Persons ON Patients.PersonID = Persons.PersonID 
-                             WHERE Patients.PatientID = @PatientID AND Persons.IsDeleted = 0";
+            // إضافة الفاصلة المفقودة بين الأعمدة
+            string query = @"SELECT Patients.PersonID, Patients.EmergencyContact, Patients.BloodTypeID, 
+                            Patients.MedicalHistory, Patients.CreatedDate, Patients.CreatedByUserID 
+                     FROM Patients 
+                     INNER JOIN Persons ON Patients.PersonID = Persons.PersonID 
+                     WHERE Patients.PatientID = @PatientID AND Persons.IsDeleted = 0";
 
             try
             {
@@ -30,25 +27,26 @@ namespace Clinic_DataAccess
                     {
                         if (reader.Read())
                         {
-                            PersonID = Convert.ToInt32(reader["PersonID"]);
-                            EmergencyContact = reader["EmergencyContact"] != DBNull.Value ? reader["EmergencyContact"].ToString() : string.Empty;
-                            BloodTypeID = reader["BloodTypeID"] != DBNull.Value ? Convert.ToInt32(reader["BloodTypeID"]) : -1;
-                            MedicalHistory = reader["MedicalHistory"] != DBNull.Value ? reader["MedicalHistory"].ToString() : string.Empty;
-                            CreatedByUserID = Convert.ToInt32(reader["CreatedByUserID"]);
-                            return true; // نخرج فوراً بمجرد إيجاد وقراءة البيانات
+                            PersonID = (int)reader["PersonID"];
+                            EmergencyContact = reader["EmergencyContact"] != DBNull.Value ? (string)reader["EmergencyContact"] : string.Empty;
+                            BloodTypeID = reader["BloodTypeID"] != DBNull.Value ? (int)reader["BloodTypeID"] : -1;
+                            MedicalHistory = reader["MedicalHistory"] != DBNull.Value ? (string)reader["MedicalHistory"] : string.Empty;
+                            // تحويل آمن للتاريخ
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? (DateTime)reader["CreatedDate"] : DateTime.Now;
+                            CreatedByUserID = reader["CreatedByUserID"] != DBNull.Value ? (int)reader["CreatedByUserID"] : -1;
+                            return true;
                         }
                     }
                 }
             }
-            catch (Exception) { }
-
+            catch (Exception ex) { /* يفضل تسجيل الخطأ: log.Error(ex.Message); */ }
             return false;
         }
 
-        public static int AddNewPatient(int PersonID, string EmergencyContact, int BloodTypeID, string MedicalHistory, int CreatedByUserID)
+        public static int AddNewPatient(int PersonID, string EmergencyContact, int BloodTypeID, string MedicalHistory,DateTime CreatedDate, int CreatedByUserID)
         {
-            string query = @"INSERT INTO Patients (PersonID, EmergencyContact, BloodTypeID, MedicalHistory, CreatedByUserID)
-                             VALUES (@PersonID, @EmergencyContact, @BloodTypeID, @MedicalHistory, @CreatedByUserID);
+            string query = @"INSERT INTO Patients (PersonID, EmergencyContact, BloodTypeID, MedicalHistory,CreatedDate, CreatedByUserID)
+                             VALUES (@PersonID, @EmergencyContact, @BloodTypeID, @MedicalHistory,@CreatedDate, @CreatedByUserID);
                              SELECT SCOPE_IDENTITY();";
 
             try
@@ -60,8 +58,8 @@ namespace Clinic_DataAccess
                     cmd.Parameters.AddWithValue("@EmergencyContact", string.IsNullOrEmpty(EmergencyContact) ? (object)DBNull.Value : EmergencyContact);
                     cmd.Parameters.AddWithValue("@BloodTypeID", BloodTypeID <= 0 ? (object)DBNull.Value : BloodTypeID);
                     cmd.Parameters.AddWithValue("@MedicalHistory", string.IsNullOrEmpty(MedicalHistory) ? (object)DBNull.Value : MedicalHistory);
+                    cmd.Parameters.AddWithValue("@CreatedDate", CreatedDate);
                     cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
-
                     conn.Open();
                     object result = cmd.ExecuteScalar();
 
@@ -129,7 +127,7 @@ namespace Clinic_DataAccess
         {
             DataTable dt = new DataTable();
             string query = @"SELECT Patients.PatientID, Persons.PersonID, Persons.FullName,
-                             Patients.MedicalHistory, Countries.CountryName,
+                             Patients.MedicalHistory,Patients.CreatedDate, Countries.CountryName,
                              BloodTypes.BloodTypeName, Patients.EmergencyContact
                              FROM Persons 
                              INNER JOIN Patients ON Persons.PersonID = Patients.PersonID
@@ -159,7 +157,7 @@ namespace Clinic_DataAccess
         {
             DataTable dt = new DataTable();
             string query = @"SELECT Patients.PatientID, Persons.PersonID, Persons.FullName,
-                             Patients.MedicalHistory, Countries.CountryName,
+                             Patients.MedicalHistory,Patients.CreatedDate, Countries.CountryName,
                              BloodTypes.BloodTypeName, Patients.EmergencyContact
                              FROM Persons 
                              INNER JOIN Patients ON Persons.PersonID = Patients.PersonID
@@ -184,6 +182,29 @@ namespace Clinic_DataAccess
             catch (Exception) { }
 
             return (dt.Rows.Count > 0) ? dt.Rows[0] : null;
+        }
+
+        public static bool IsPatientExistForPersonID(int PersonID)
+        {
+            // استخدام TOP 1 1 هي الطريقة الأكثر احترافية للتحقق من الوجود
+            string query = "SELECT TOP 1 1 FROM Patients WHERE PersonID = @PersonID;";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PersonID", PersonID);
+                    connection.Open();
+
+                    // ExecuteScalar هنا ستعيد 1 إذا وجد السجل، أو null إذا لم يوجد
+                    return (command.ExecuteScalar() != null);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

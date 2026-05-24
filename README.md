@@ -1,59 +1,68 @@
 # Clinic Management System 🏥
 
-نظام إدارة عيادة طبية متكامل ومحكم مبني باستخدام لغة **C# WinForms** واعتماد معمارية الطبقات الثلاث (**3-Tier Architecture**) الرصينة. يهدف النظام إلى أتمتة العمليات الطبية، وإدارة شؤون المرضى، والأطباء، والمواعيد بكفاءة عالية وأمان فائق.
+نظام إدارة عيادة طبية متكامل ومحكم مبني باستخدام لغة **C# WinForms** واعتماد معمارية الطبقات الثلاث (**3-Tier Architecture**). يهدف النظام إلى أتمتة العمليات الطبية، وإدارة شؤون المرضى، والأطباء، والمستخدمين بكفاءة عالية وأمان فائق.
 
 ---
 
-## 🏗️ البنية المعمارية وهندسة النظام (Architecture & Code Quality)
-
-تم بناء النظام بالكامل وفق المعايير البرمجية للشركات الكبرى لضمان القابلية للتوسع (Scalability) وسهولة الصيانة، مع عزل كامل لكل طبقة:
-- **Presentation Layer (Clinic_Presentation):** واجهات المستخدم المستقرة والتفاعلية بالاعتماد على نموذج التصميم المسطح والأيقونات المعبرة.
-- **Business Logic Layer (Clinic_Business):** إدارة الكائنات وتطبيق قواعد العمل الصارمة (Business Rules) والتحقق التلقائي من صحة البيانات (Validation).
-- **Data Access Layer (Clinic_DataAccess):** التعامل مع قاعدة البيانات (SQL Server) باستخدام **Stored Procedures** حصرياً لتوفير أقصى درجات السرعة والحماية التامة ضد ثغرات الاختراق (SQL Injection).
-
----
-
-## 📅 التحديثات البرمجية والميزات الحالية (Features & Updates)
-
-### 👥 ميزة إدارة الأشخاص (Person Management Feature) - [2026-05-19]
-تم الانتهاء من تطبيق الهيكلية العمودية الكاملة (Vertical Slicing) لإدارة البيانات الأساسية للأشخاص في النظام (مرضى، أطباء، مستخدمين):
-
-#### 📸 شاشة استعراض وقائمة الأشخاص (Manage People)
-واجهة متطورة لعرض السجلات البرمجية مع دعم التصفية الذكية والتحميل السلس للبيانات لضمان عدم تجمد الواجهة (Anti-Flickering & Double Buffering).
-![Manage People Interface](Image/frmlistPeople.png)
-
-#### 📸 شاشة إضافة وتحديث بيانات شخص (Add/Update Person)
-نموذج إدخال تفاعلي مدمج بـ `ErrorProvider` للتحقق الفوري من المدخلات، مع تخصيص ذكي لخيارات الجنس (Gender) والبلد والاتصال، ودعم رفع الصور الشخصية ديناميكياً وحفظ مساراتها خارجياً لحفظ أداء قاعدة البيانات.
-![Add New Person Interface](Image/frmaddUpdateperson.png)
+## 🏗️ البنية المعمارية وهندسة النظام
+تم بناء النظام بمعايير برمجية تضمن القابلية للتوسع (Scalability) وسهولة الصيانة:
+* **Presentation Layer:** واجهات مستخدم احترافية وتفاعلية.
+* **Business Logic Layer:** تطبيق قواعد العمل الصارمة (Business Rules) والتحقق التلقائي.
+* **Data Access Layer:** تعامل آمن ومباشر مع SQL Server لضمان أداء عالٍ وحماية ضد ثغرات الاختراق.
 
 ---
 
-### 💻 شاشة القائمة الرئيسية (Main Dashboard) - [2026-05-14]
-الواجهة الأساسية للنظام لتوفير تجربة مستخدم سلسة واحترافية للوصول السريع لكافة أقسام العيادة.
+## 📅 التحديثات والميزات (Module Showcase)
 
-#### ✨ المميزات:
-- **القائمة الرئيسية (MenuStrip):** تنظيم الوصول إلى الخدمات الطبية، المرضى، الأطباء، والمستخدمين بأيقونات عالية الجودة.
-- **شريط الوصول السريع (Quick Access):** أزرار مباشرة لإضافة موعد جديد أو تسجيل دفع مالي.
-- **لوحة الإحصائيات (Live Stats Cards):** عرض فوري لعدد مواعيد اليوم، غرفة الانتظار، والدخل اليومي.
-- **شريط الحالة (Status Strip):** يعرض المستخدم الحالي، حالة الاتصال الفورية بقاعدة البيانات (DB Connected)، والوقت الفوري.
+### 👥 إدارة الأشخاص (Person Management)
+نظام مركزي لإدارة بيانات الأشخاص (مرضى، أطباء، مستخدمين).
 
-#### 📸 لقطة من الشاشة (Screenshot)
-![Main Dashboard Interface](Image/frmain.png)
-
----
-
-## 🛠️ التقنيات المستخدمة (Tech Stack)
-
-- **لغة البرمجة:** C# (Object-Oriented Programming)
-- **الإطار:** .NET WinForms / .NET Framework
-- **قاعدة البيانات:** Microsoft SQL Server (Stored Procedures, Non-Clustered Indexing)
-- **إدارة الشفرة:** Git/GitHub (Feature-Driven Workflow / Vertical Slicing)
-- **التصميم:** Custom UI Components, Translucent Panels & Flat Icon Design الهوية البصرية الموحدة.
+| الشاشة | اللقطة |
+| :--- | :--- |
+| **قائمة الأشخاص** | ![List People](Image/Person/frmlistPeople.png) |
+| **إضافة/تعديل شخص** | ![Add/Update Person](Image/Person/frmaddUpdateperson.png) |
+| **تفاصيل الشخص** | ![Show Person](Image/Person/frmShowPerson.png) |
 
 ---
 
-## 🚀 كيفية التشغيل والتهيئة (Setup & Installation)
+### 🩺 إدارة المرضى (Patient Management)
+إدارة كاملة للملفات الطبية للمرضى مع حماية ضد التكرار وتحقق من صحة البيانات.
 
-1. قم بعمل `Clone` للمستودع عبر الأمر التالي:
+| الشاشة | اللقطة |
+| :--- | :--- |
+| **قائمة المرضى** | ![List Patients](Image/Patient/frmListPatients.png) |
+| **إضافة/تعديل مريض** | ![Add/Update Patient](Image/Patient/frmAddUpdatePatient.png) |
+| **تفاصيل المريض** | ![Show Patient](Image/Patient/frmShowPatients.png) |
+
+---
+
+### 🔑 إدارة المستخدمين (User Management)
+تحكم كامل بصلاحيات الدخول وحماية الحسابات.
+
+| الشاشة | اللقطة |
+| :--- | :--- |
+| **قائمة المستخدمين** | ![List Users](Image/User/frmlistUser.png) |
+| **إضافة/تعديل مستخدم** | ![Add/Update User](Image/User/frmAddUpdateUser.png) |
+| **تغيير كلمة المرور** | ![Change Password](Image/User/frmChengePassword.png) |
+
+---
+
+## 🖥️ الواجهة الرئيسية (Dashboard)
+المركز العصبي للنظام الذي يربط كافة الأقسام.
+
+![Main Dashboard](Image/frmMain.png)
+
+---
+
+## 🛠️ التقنيات المستخدمة
+* **اللغة:** C# (.NET Framework)
+* **قاعدة البيانات:** Microsoft SQL Server
+* **نمط التصميم:** 3-Tier Architecture / Vertical Slicing
+* **إدارة المستودع:** Git
+
+---
+
+## 🚀 كيفية التشغيل
+1. قم بعمل `Clone` للمستودع:
    ```bash
    git clone [https://github.com/your-username/Clinic_System.git](https://github.com/your-username/Clinic_System.git)
