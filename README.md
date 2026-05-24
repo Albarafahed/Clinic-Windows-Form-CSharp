@@ -1,16 +1,35 @@
 # Clinic Management System 🏥
 
-نظام إدارة عيادة طبية متكامل ومحكم مبني باستخدام لغة **C# WinForms** واعتماد معمارية الطبقات الثلاث (**3-Tier Architecture**). يهدف النظام إلى أتمتة العمليات الطبية، وإدارة شؤون المرضى، والأطباء، والمستخدمين بكفاءة عالية وأمان فائق.
+نظام إدارة عيادة طبية متكامل ومحكم، مبني بمعمارية الطبقات الثلاث (**3-Tier Architecture**) لضمان الفصل التام بين منطق العمل، الوصول للبيانات، وواجهة المستخدم، مما يجعله نظاماً قابلاً للتوسع، الصيانة، والاختبار. يهدف النظام إلى أتمتة العمليات الطبية، وإدارة شؤون المرضى، والأطباء، والمستخدمين بكفاءة عالية وأمان فائق.
 
 ---
 
-## 🏗️ البنية المعمارية وهندسة النظام
-تم بناء النظام بمعايير برمجية تضمن القابلية للتوسع (Scalability) وسهولة الصيانة:
-* **Presentation Layer:** واجهات مستخدم احترافية وتفاعلية.
-* **Business Logic Layer:** تطبيق قواعد العمل الصارمة (Business Rules) والتحقق التلقائي.
-* **Data Access Layer:** تعامل آمن ومباشر مع SQL Server لضمان أداء عالٍ وحماية ضد ثغرات الاختراق.
+## 🏗️ هندسة النظام (System Architecture)
+يعتمد المشروع على توزيع المهام وفقاً للمسارات التالية:
+
+* **1. Presentation Layer (`/Clinic`):** الطبقة المسؤولة عن التفاعل مع المستخدم النهائي، تحتوي على نماذج (`WinForms`) وعناصر تحكم مخصصة (`User Controls`).
+* **2. Business Logic Layer (`/Clinic_Business`):** قلب النظام، حيث يتم تطبيق قواعد العمل الصارمة (`Business Rules`) والتحقق التلقائي من صحة البيانات.
+* **3. Data Access Layer (`/Clinic_DataAccess`):** الطبقة المسؤولة عن التواصل المباشر مع **SQL Server** باستخدام `Stored Procedures` لضمان السرعة والأمان التام ضد الحقن البرمجي.
 
 ---
+
+## 📂 هيكلية المشروع (Project Tree)
+```text
+Clinic_System/
+├── Clinic/                # Presentation Layer (Forms & Controls)
+│   ├── Patient/           # Patient Management Modules
+│   ├── Person/            # Person Management Modules
+│   ├── User/              # User Management & Security
+│   └── global classes/    # Utility & Helper Classes
+├── Clinic_Business/       # Business Logic Layer (Business Objects)
+├── Clinic_DataAccess/     # Data Access Layer (DB Interactions)
+└── Image/                 # Project Screenshots & DB Schema
+
+---
+
+## 🏗️ هيكلية قاعدة البيانات (Database Diagram)
+هذا المخطط يوضح العلاقات بين الجداول المختلفة في قاعدة بيانات العيادة (`ClinicDB`):
+![Database Schema](Image/DB/DBClinc3.png)
 
 ## 📅 التحديثات والميزات (Module Showcase)
 
