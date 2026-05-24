@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -38,29 +39,29 @@ namespace Clinic
                 cbFilterBy.SelectedIndex = 0;
                 if (dgvPeople.Rows.Count > 0)
                 {
-                    dgvPeople.Columns[0].HeaderText = "PersonID";
-                    dgvPeople.Columns[0].Width = 110;
+                    dgvPeople.Columns["PersonID"].HeaderText = "PersonID";
+                    dgvPeople.Columns["PersonID"].Width = 100;
 
-                    dgvPeople.Columns[1].HeaderText = "FullName";
-                    dgvPeople.Columns[1].Width = 300;
+                    dgvPeople.Columns["FullName"].HeaderText = "FullName";
+                    dgvPeople.Columns["FullName"].Width = 200;
 
-                    dgvPeople.Columns[2].HeaderText = "DateOfBirth";
-                    dgvPeople.Columns[2].Width = 150;
+                    dgvPeople.Columns["DateOfBirth"].HeaderText = "DateOfBirth";
+                    dgvPeople.Columns["DateOfBirth"].Width = 150;
 
-                    dgvPeople.Columns[3].HeaderText = "Gender";
-                    dgvPeople.Columns[3].Width = 120;
+                    dgvPeople.Columns["GenderCaption"].HeaderText = "Gender";
+                    dgvPeople.Columns["GenderCaption"].Width = 100;
 
-                    dgvPeople.Columns[4].HeaderText = "Phone";
-                    dgvPeople.Columns[4].Width = 170;
+                    dgvPeople.Columns["PhoneNumber"].HeaderText = "Phone";
+                    dgvPeople.Columns["PhoneNumber"].Width = 170;
 
-                    dgvPeople.Columns[5].HeaderText = "Country";
-                    dgvPeople.Columns[5].Width = 130;
+                    dgvPeople.Columns["CountryName"].HeaderText = "Country";
+                    dgvPeople.Columns["CountryName"].Width = 100;
 
-                    dgvPeople.Columns[6].HeaderText = "Address";
-                    dgvPeople.Columns[6].Width = 170;
+                    dgvPeople.Columns["Address"].HeaderText = "Address";
+                    dgvPeople.Columns["Address"].Width = 170;
 
-                    dgvPeople.Columns[7].HeaderText = "Email";
-                    dgvPeople.Columns[7].Width = 170;
+                    dgvPeople.Columns["Email"].HeaderText = "Email";
+                    dgvPeople.Columns["Email"].Width = 170;
 
 
                 }
@@ -70,6 +71,9 @@ namespace Clinic
 
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            _dtAllPeople.DefaultView.RowFilter = string.Empty;
+            lblRecordsCount.Text = _dtAllPeople.Rows.Count.ToString();
+
             bool None = cbFilterBy.Text == "None";
             bool Gender = cbFilterBy.Text == "Gender";
 
@@ -115,10 +119,10 @@ namespace Clinic
                     FilterColumn = "FullName";
                     break;
                 case "Phone":
-                    FilterColumn = "Phone";
+                    FilterColumn = "PhoneNumber";
                     break;
                 case "Country":
-                    FilterColumn = "Country";
+                    FilterColumn = "CountryName";
                     break;
                 case "Address":
                     FilterColumn = "Address";
@@ -151,7 +155,7 @@ namespace Clinic
             if (cbFilterGender.Text == "All")
                 _dtAllPeople.DefaultView.RowFilter = string.Empty;
             else
-                _dtAllPeople.DefaultView.RowFilter = $"Gender = '{cbFilterGender.Text}'";
+                _dtAllPeople.DefaultView.RowFilter = $"GenderCaption = '{cbFilterGender.Text}'";
 
             lblRecordsCount.Text = _dtAllPeople.Rows.Count.ToString();
         }

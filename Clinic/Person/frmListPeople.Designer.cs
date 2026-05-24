@@ -43,6 +43,12 @@ namespace Clinic
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cmsPeople = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.phoneCallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvPeople = new System.Windows.Forms.DataGridView();
             this.cbFilterGender = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,12 +56,6 @@ namespace Clinic
             this.btnClose = new System.Windows.Forms.Button();
             this.btnAddPerson = new System.Windows.Forms.Button();
             this.pbPersonImage = new System.Windows.Forms.PictureBox();
-            this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.phoneCallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsPeople.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPeople)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).BeginInit();
@@ -63,11 +63,12 @@ namespace Clinic
             // 
             // lblTitle
             // 
+            this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.lblTitle.Location = new System.Drawing.Point(593, 200);
+            this.lblTitle.Location = new System.Drawing.Point(470, 183);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(371, 55);
+            this.lblTitle.Size = new System.Drawing.Size(345, 55);
             this.lblTitle.TabIndex = 100;
             this.lblTitle.Text = "Manage People";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -109,7 +110,7 @@ namespace Clinic
             "Gender",
             "Phone",
             "Country",
-            "Addre",
+            "Address",
             "Email"});
             this.cbFilterBy.Location = new System.Drawing.Point(107, 240);
             this.cbFilterBy.Name = "cbFilterBy";
@@ -124,7 +125,7 @@ namespace Clinic
             this.txtFilterValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.txtFilterValue.Location = new System.Drawing.Point(335, 241);
             this.txtFilterValue.Name = "txtFilterValue";
-            this.txtFilterValue.Size = new System.Drawing.Size(256, 30);
+            this.txtFilterValue.Size = new System.Drawing.Size(212, 30);
             this.txtFilterValue.TabIndex = 95;
             this.txtFilterValue.TextChanged += new System.EventHandler(this.txtFilterValue_TextChanged);
             this.txtFilterValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterValue_KeyPress);
@@ -166,141 +167,6 @@ namespace Clinic
             this.cmsPeople.Name = "contextMenuStrip1";
             this.cmsPeople.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.cmsPeople.Size = new System.Drawing.Size(204, 244);
-            // 
-            // dgvPeople
-            // 
-            this.dgvPeople.AllowUserToAddRows = false;
-            this.dgvPeople.AllowUserToDeleteRows = false;
-            this.dgvPeople.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.dgvPeople.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvPeople.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvPeople.BackgroundColor = System.Drawing.Color.White;
-            this.dgvPeople.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvPeople.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvPeople.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(140)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(140)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPeople.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvPeople.ColumnHeadersHeight = 35;
-            this.dgvPeople.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvPeople.ContextMenuStrip = this.cmsPeople;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(254)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPeople.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvPeople.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvPeople.EnableHeadersVisualStyles = false;
-            this.dgvPeople.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
-            this.dgvPeople.Location = new System.Drawing.Point(18, 290);
-            this.dgvPeople.MultiSelect = false;
-            this.dgvPeople.Name = "dgvPeople";
-            this.dgvPeople.ReadOnly = true;
-            this.dgvPeople.RowHeadersVisible = false;
-            this.dgvPeople.RowHeadersWidth = 51;
-            this.dgvPeople.RowTemplate.Height = 35;
-            this.dgvPeople.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPeople.Size = new System.Drawing.Size(1444, 355);
-            this.dgvPeople.TabIndex = 93;
-            this.dgvPeople.TabStop = false;
-            // 
-            // cbFilterGender
-            // 
-            this.cbFilterGender.BackColor = System.Drawing.Color.White;
-            this.cbFilterGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFilterGender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbFilterGender.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cbFilterGender.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.cbFilterGender.FormattingEnabled = true;
-            this.cbFilterGender.Items.AddRange(new object[] {
-            "All",
-            "Male",
-            "Female"});
-            this.cbFilterGender.Location = new System.Drawing.Point(335, 241);
-            this.cbFilterGender.Name = "cbFilterGender";
-            this.cbFilterGender.Size = new System.Drawing.Size(129, 31);
-            this.cbFilterGender.TabIndex = 103;
-            this.cbFilterGender.Visible = false;
-            this.cbFilterGender.SelectedIndexChanged += new System.EventHandler(this.cbFilterGender_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.label3.Location = new System.Drawing.Point(1315, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 55);
-            this.label3.TabIndex = 104;
-            this.label3.Text = "Trash";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnTrash
-            // 
-            this.btnTrash.BackColor = System.Drawing.Color.Transparent;
-            this.btnTrash.FlatAppearance.BorderSize = 0;
-            this.btnTrash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTrash.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnTrash.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnTrash.Image = global::Clinic.Properties.Resources.Trash;
-            this.btnTrash.Location = new System.Drawing.Point(1337, 67);
-            this.btnTrash.Name = "btnTrash";
-            this.btnTrash.Size = new System.Drawing.Size(88, 69);
-            this.btnTrash.TabIndex = 105;
-            this.btnTrash.UseVisualStyleBackColor = false;
-            this.btnTrash.Click += new System.EventHandler(this.btnTrash_Click);
-            // 
-            // btnClose
-            // 
-            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(1322, 664);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(135, 40);
-            this.btnClose.TabIndex = 102;
-            this.btnClose.Text = "  Close";
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnAddPerson
-            // 
-            this.btnAddPerson.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(140)))), ((int)(((byte)(255)))));
-            this.btnAddPerson.FlatAppearance.BorderSize = 0;
-            this.btnAddPerson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddPerson.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnAddPerson.ForeColor = System.Drawing.Color.White;
-            this.btnAddPerson.Image = global::Clinic.Properties.Resources.Add_Person_40;
-            this.btnAddPerson.Location = new System.Drawing.Point(1369, 215);
-            this.btnAddPerson.Name = "btnAddPerson";
-            this.btnAddPerson.Size = new System.Drawing.Size(88, 55);
-            this.btnAddPerson.TabIndex = 101;
-            this.btnAddPerson.UseVisualStyleBackColor = false;
-            this.btnAddPerson.Click += new System.EventHandler(this.btnAddPerson_Click);
-            // 
-            // pbPersonImage
-            // 
-            this.pbPersonImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbPersonImage.Image = global::Clinic.Properties.Resources.People_400;
-            this.pbPersonImage.Location = new System.Drawing.Point(668, 12);
-            this.pbPersonImage.Name = "pbPersonImage";
-            this.pbPersonImage.Size = new System.Drawing.Size(220, 185);
-            this.pbPersonImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbPersonImage.TabIndex = 99;
-            this.pbPersonImage.TabStop = false;
             // 
             // showDetailsToolStripMenuItem
             // 
@@ -355,12 +221,147 @@ namespace Clinic
             this.phoneCallToolStripMenuItem.Text = "Phone Call";
             this.phoneCallToolStripMenuItem.Click += new System.EventHandler(this.phoneCallToolStripMenuItem_Click);
             // 
+            // dgvPeople
+            // 
+            this.dgvPeople.AllowUserToAddRows = false;
+            this.dgvPeople.AllowUserToDeleteRows = false;
+            this.dgvPeople.AllowUserToResizeRows = false;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.dgvPeople.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvPeople.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvPeople.BackgroundColor = System.Drawing.Color.White;
+            this.dgvPeople.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvPeople.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvPeople.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(140)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(140)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPeople.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvPeople.ColumnHeadersHeight = 35;
+            this.dgvPeople.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvPeople.ContextMenuStrip = this.cmsPeople;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(254)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPeople.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvPeople.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvPeople.EnableHeadersVisualStyles = false;
+            this.dgvPeople.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
+            this.dgvPeople.Location = new System.Drawing.Point(20, 278);
+            this.dgvPeople.MultiSelect = false;
+            this.dgvPeople.Name = "dgvPeople";
+            this.dgvPeople.ReadOnly = true;
+            this.dgvPeople.RowHeadersVisible = false;
+            this.dgvPeople.RowHeadersWidth = 51;
+            this.dgvPeople.RowTemplate.Height = 35;
+            this.dgvPeople.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvPeople.Size = new System.Drawing.Size(1210, 353);
+            this.dgvPeople.TabIndex = 93;
+            this.dgvPeople.TabStop = false;
+            // 
+            // cbFilterGender
+            // 
+            this.cbFilterGender.BackColor = System.Drawing.Color.White;
+            this.cbFilterGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFilterGender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbFilterGender.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cbFilterGender.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.cbFilterGender.FormattingEnabled = true;
+            this.cbFilterGender.Items.AddRange(new object[] {
+            "All",
+            "Male",
+            "Female"});
+            this.cbFilterGender.Location = new System.Drawing.Point(335, 241);
+            this.cbFilterGender.Name = "cbFilterGender";
+            this.cbFilterGender.Size = new System.Drawing.Size(129, 31);
+            this.cbFilterGender.TabIndex = 103;
+            this.cbFilterGender.Visible = false;
+            this.cbFilterGender.SelectedIndexChanged += new System.EventHandler(this.cbFilterGender_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.label3.Location = new System.Drawing.Point(1128, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 55);
+            this.label3.TabIndex = 104;
+            this.label3.Text = "Trash";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnTrash
+            // 
+            this.btnTrash.BackColor = System.Drawing.Color.Transparent;
+            this.btnTrash.FlatAppearance.BorderSize = 0;
+            this.btnTrash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTrash.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnTrash.ForeColor = System.Drawing.SystemColors.Window;
+            this.btnTrash.Image = global::Clinic.Properties.Resources.Trash;
+            this.btnTrash.Location = new System.Drawing.Point(1142, 100);
+            this.btnTrash.Name = "btnTrash";
+            this.btnTrash.Size = new System.Drawing.Size(88, 69);
+            this.btnTrash.TabIndex = 105;
+            this.btnTrash.UseVisualStyleBackColor = false;
+            this.btnTrash.Click += new System.EventHandler(this.btnTrash_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(1095, 655);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(135, 40);
+            this.btnClose.TabIndex = 102;
+            this.btnClose.Text = "  Close";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnAddPerson
+            // 
+            this.btnAddPerson.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(140)))), ((int)(((byte)(255)))));
+            this.btnAddPerson.FlatAppearance.BorderSize = 0;
+            this.btnAddPerson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddPerson.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnAddPerson.ForeColor = System.Drawing.Color.White;
+            this.btnAddPerson.Image = global::Clinic.Properties.Resources.Add_Person_40;
+            this.btnAddPerson.Location = new System.Drawing.Point(1135, 204);
+            this.btnAddPerson.Name = "btnAddPerson";
+            this.btnAddPerson.Size = new System.Drawing.Size(88, 55);
+            this.btnAddPerson.TabIndex = 101;
+            this.btnAddPerson.UseVisualStyleBackColor = false;
+            this.btnAddPerson.Click += new System.EventHandler(this.btnAddPerson_Click);
+            // 
+            // pbPersonImage
+            // 
+            this.pbPersonImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbPersonImage.Image = global::Clinic.Properties.Resources.People_400;
+            this.pbPersonImage.Location = new System.Drawing.Point(530, -3);
+            this.pbPersonImage.Name = "pbPersonImage";
+            this.pbPersonImage.Size = new System.Drawing.Size(160, 172);
+            this.pbPersonImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPersonImage.TabIndex = 99;
+            this.pbPersonImage.TabStop = false;
+            // 
             // frmListPeople
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
-            this.ClientSize = new System.Drawing.Size(1480, 720);
+            this.ClientSize = new System.Drawing.Size(1262, 720);
             this.Controls.Add(this.btnTrash);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cbFilterGender);

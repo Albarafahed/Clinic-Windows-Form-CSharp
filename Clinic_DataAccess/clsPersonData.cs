@@ -180,8 +180,8 @@ namespace Clinic_DataAccess
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
             string query = @"SELECT Persons.PersonID, Persons.FullName, Persons.DateOfBirth, 
                GenderCaption = CASE Persons.Gender WHEN 0 THEN 'Male' ELSE 'Female' END,
-               Persons.PhoneNumber, Persons.Email, Persons.Address
-                    , Countries.CountryName FROM Persons
+               Persons.PhoneNumber, Countries.CountryName, Persons.Address,
+                     Persons.Email FROM Persons
                     INNER JOIN Countries ON Persons.NationalityCountryID = Countries.CountryID
                     WHERE Persons.IsDeleted = @IsDeleted";
             SqlCommand command = new SqlCommand(query, connection);

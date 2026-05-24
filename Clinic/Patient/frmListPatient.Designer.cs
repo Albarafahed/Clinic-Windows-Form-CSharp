@@ -34,7 +34,11 @@
             this.cbBloodType = new System.Windows.Forms.ComboBox();
             this.dgvPatient = new System.Windows.Forms.DataGridView();
             this.cmsPeople = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblRecordsCount = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbFilterBy = new System.Windows.Forms.ComboBox();
@@ -43,10 +47,6 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnAddPatient = new System.Windows.Forms.Button();
-            this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbPersonImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPatient)).BeginInit();
             this.cmsPeople.SuspendLayout();
@@ -131,10 +131,42 @@
             this.cmsPeople.Name = "contextMenuStrip1";
             this.cmsPeople.Size = new System.Drawing.Size(217, 130);
             // 
+            // showDetailsToolStripMenuItem
+            // 
+            this.showDetailsToolStripMenuItem.Image = global::Clinic.Properties.Resources.PersonDetails_32;
+            this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
+            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(216, 30);
+            this.showDetailsToolStripMenuItem.Text = "&Show Details";
+            this.showDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(213, 6);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Image = global::Clinic.Properties.Resources.Add_Patient_32;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(216, 30);
+            this.toolStripMenuItem1.Text = "Add &New Patient";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.btnAddPatient_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit_32;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(216, 30);
+            this.editToolStripMenuItem.Text = "&Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = global::Clinic.Properties.Resources.Delete_32;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(216, 30);
+            this.deleteToolStripMenuItem.Text = "&Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // lblRecordsCount
             // 
@@ -171,8 +203,7 @@
             "Blood Type",
             "Medical History",
             "Emergency Contact",
-            "Country",
-            "Created Date"});
+            "Country"});
             this.cbFilterBy.Location = new System.Drawing.Point(105, 267);
             this.cbFilterBy.Name = "cbFilterBy";
             this.cbFilterBy.Size = new System.Drawing.Size(205, 31);
@@ -245,38 +276,6 @@
             this.btnAddPatient.TabIndex = 112;
             this.btnAddPatient.UseVisualStyleBackColor = true;
             this.btnAddPatient.Click += new System.EventHandler(this.btnAddPatient_Click);
-            // 
-            // showDetailsToolStripMenuItem
-            // 
-            this.showDetailsToolStripMenuItem.Image = global::Clinic.Properties.Resources.PersonDetails_32;
-            this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
-            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(216, 30);
-            this.showDetailsToolStripMenuItem.Text = "&Show Details";
-            this.showDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Image = global::Clinic.Properties.Resources.Add_Patient_32;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(216, 30);
-            this.toolStripMenuItem1.Text = "Add &New Patient";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.btnAddPatient_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit_32;
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(216, 30);
-            this.editToolStripMenuItem.Text = "&Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Image = global::Clinic.Properties.Resources.Delete_32;
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(216, 30);
-            this.deleteToolStripMenuItem.Text = "&Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // pbPersonImage
             // 

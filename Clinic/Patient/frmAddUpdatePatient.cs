@@ -40,7 +40,7 @@ namespace Clinic.Patient
                 cbBloodType.DataSource = dt;
                 cbBloodType.DisplayMember = "BloodTypeName";
                 cbBloodType.ValueMember = "BloodTypeID";
-                cbBloodType.SelectedIndex = 0; // البدء من أول عنصر دائماً كوضع افتراضي تلافياً للأخطاء
+                cbBloodType.SelectedIndex = cbBloodType.FindString("Unknown"); // البدء من أول عنصر دائماً كوضع افتراضي تلافياً للأخطاء
             }
         }
 
@@ -214,6 +214,9 @@ namespace Clinic.Patient
             }
         }
 
-       
+        private void frmAddUpdatePatient_Activated(object sender, EventArgs e)
+        {
+            ctrlPersonCardWithFilter1.FocuseTextBox();
+        }
     }
 }

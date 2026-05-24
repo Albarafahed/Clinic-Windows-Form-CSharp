@@ -24,9 +24,6 @@ namespace Clinic
         public frmTrashPeople()
         {
             InitializeComponent();
-
-            // ربط حدث الجنس برمجياً لضمان الفلترة الفورية
-            cbGendor.SelectedIndexChanged += cbFilterGender_SelectedIndexChanged;
         }
 
         private void frmListPeople_Load(object sender, EventArgs e)
@@ -65,29 +62,29 @@ namespace Clinic
         private void _SetupDataGridViewColumns()
         {
 
-            dgvPeople.Columns[0].HeaderText = "PersonID";
-            dgvPeople.Columns[0].Width = 110;
+            dgvPeople.Columns["PersonID"].HeaderText = "PersonID";
+            dgvPeople.Columns["PersonID"].Width = 100;
 
-            dgvPeople.Columns[1].HeaderText = "FullName";
-            dgvPeople.Columns[1].Width = 300;
+            dgvPeople.Columns["FullName"].HeaderText = "FullName";
+            dgvPeople.Columns["FullName"].Width = 200;
 
-            dgvPeople.Columns[2].HeaderText = "DateOfBirth";
-            dgvPeople.Columns[2].Width = 150;
+            dgvPeople.Columns["DateOfBirth"].HeaderText = "DateOfBirth";
+            dgvPeople.Columns["DateOfBirth"].Width = 150;
 
-            dgvPeople.Columns[3].HeaderText = "Gender";
-            dgvPeople.Columns[3].Width = 120;
+            dgvPeople.Columns["GenderCaption"].HeaderText = "Gender";
+            dgvPeople.Columns["GenderCaption"].Width = 100;
 
-            dgvPeople.Columns[4].HeaderText = "Phone";
-            dgvPeople.Columns[4].Width = 170;
+            dgvPeople.Columns["PhoneNumber"].HeaderText = "Phone";
+            dgvPeople.Columns["PhoneNumber"].Width = 170;
 
-            dgvPeople.Columns[5].HeaderText = "Country";
-            dgvPeople.Columns[5].Width = 130;
+            dgvPeople.Columns["CountryName"].HeaderText = "Country";
+            dgvPeople.Columns["CountryName"].Width = 100;
 
-            dgvPeople.Columns[6].HeaderText = "Address";
-            dgvPeople.Columns[6].Width = 170;
+            dgvPeople.Columns["Address"].HeaderText = "Address";
+            dgvPeople.Columns["Address"].Width = 170;
 
-            dgvPeople.Columns[7].HeaderText = "Email";
-            dgvPeople.Columns[7].Width = 170;
+            dgvPeople.Columns["Email"].HeaderText = "Email";
+            dgvPeople.Columns["Email"].Width = 170;
         }
 
         private void _RefreshUIState()
@@ -163,12 +160,13 @@ namespace Clinic
 
         private string _GetFilterColumnName(string SelectedItem)
         {
-            switch (SelectedItem)
-            {
+                switch (SelectedItem)
+                {
+
                 case "Person ID": return "PersonID";
                 case "Full Name": return "FullName";
-                case "Phone": return "Phone";
-                case "Country": return "Country";
+                case "Phone": return "PhoneNumber";
+                case "Country": return "CountryName";
                 case "Address": return "Address";
                 case "Email": return "Email";
                 default: return "None";
@@ -182,42 +180,11 @@ namespace Clinic
             if (cbGendor.Text == "All")
                 _dtAllPeople.DefaultView.RowFilter = string.Empty;
             else
-                _dtAllPeople.DefaultView.RowFilter = $"Gender = '{cbGendor.Text}'";
+                _dtAllPeople.DefaultView.RowFilter = $"GenderCaption = '{cbGendor.Text}'";
 
             _RefreshUIState();
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (dgvPeople.CurrentRow == null || dgvPeople.CurrentRow.IsNewRow) return;
-
-            int PersonID = (int)dgvPeople.CurrentRow.Cells[0].Value;
-
-            if (MessageBox.Show("Are you sure you want to permanently delete this person from the system?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                if (clsPerson.Delete(PersonID))
-                {
-                    _RemoveRowFromLocalDataTable(PersonID);
-                }
-                else
-                {
-                    MessageBox.Show("Error: Could not delete this person due to dependencies.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (dgvPeople.CurrentRow == null || dgvPeople.CurrentRow.IsNewRow) return;
-
-            int PersonID = (int)dgvPeople.CurrentRow.Cells[0].Value;
-
-            if (clsPerson.Restore(PersonID))
-            {
-                _RemoveRowFromLocalDataTable(PersonID);
-                DataBack?.Invoke(this, PersonID); // إرسال المعرف للشاشة السابقة لتحديث نفسها فوراً
-            }
-        }
 
         private void _RemoveRowFromLocalDataTable(int PersonID)
         {
@@ -294,6 +261,36 @@ namespace Clinic
             this.Close();
         }
 
-       
+        private void btndelete_Click(object sender, EventArgs e)
+        {
+            if (dgvPeople.CurrentRow == null || dgvPeople.CurrentRow.IsNewRow) return;
+
+            int PersonID = (int)dgvPeople.CurrentRow.Cells[0].Value;
+
+            if (MessageBox.Show("Are you sure you want to permanently delete this person from the system?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                if (clsPerson.Delete(PersonID))
+                {
+                    _RemoveRowFromLocalDataTable(PersonID);
+                }
+                else
+                {
+                    MessageBox.Show("Error: Could not delete this person due to dependencies.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnresore_Click(object sender, EventArgs e)
+        {
+            if (dgvPeople.CurrentRow == null || dgvPeople.CurrentRow.IsNewRow) return;
+
+            int PersonID = (int)dgvPeople.CurrentRow.Cells[0].Value;
+
+            if (clsPerson.Restore(PersonID))
+            {
+                _RemoveRowFromLocalDataTable(PersonID);
+                DataBack?.Invoke(this, PersonID); // إرسال المعرف للشاشة السابقة لتحديث نفسها فوراً
+            }
+        }
     }
 }

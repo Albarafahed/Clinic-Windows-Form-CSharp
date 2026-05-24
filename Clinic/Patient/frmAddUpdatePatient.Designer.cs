@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.tcPatient = new System.Windows.Forms.TabControl();
             this.tpPersonalInfo = new System.Windows.Forms.TabPage();
-            this.ctrlPersonCardWithFilter1 = new Clinic.Controls.ctrlPersonCardWithFilter();
             this.btnPersonInfoNext = new System.Windows.Forms.Button();
             this.tpPatientInfo = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
@@ -50,6 +49,7 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.ctrlPersonCardWithFilter1 = new Clinic.Controls.ctrlPersonCardWithFilter();
             this.tcPatient.SuspendLayout();
             this.tpPersonalInfo.SuspendLayout();
             this.tpPatientInfo.SuspendLayout();
@@ -83,18 +83,6 @@
             this.tpPersonalInfo.Size = new System.Drawing.Size(923, 438);
             this.tpPersonalInfo.TabIndex = 0;
             this.tpPersonalInfo.Text = "Personal Info";
-            // 
-            // ctrlPersonCardWithFilter1
-            // 
-            this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
-            this.ctrlPersonCardWithFilter1.btnAddNewEnabled = true;
-            this.ctrlPersonCardWithFilter1.FilterEnabled = false;
-            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(4, 4);
-            this.ctrlPersonCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
-            this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
-            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(916, 375);
-            this.ctrlPersonCardWithFilter1.TabIndex = 119;
             // 
             // btnPersonInfoNext
             // 
@@ -227,14 +215,15 @@
             // 
             // cbBloodType
             // 
+            this.cbBloodType.BackColor = System.Drawing.Color.IndianRed;
             this.cbBloodType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBloodType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbBloodType.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.cbBloodType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.cbBloodType.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbBloodType.ForeColor = System.Drawing.Color.Black;
             this.cbBloodType.FormattingEnabled = true;
             this.cbBloodType.Location = new System.Drawing.Point(252, 181);
             this.cbBloodType.Name = "cbBloodType";
-            this.cbBloodType.Size = new System.Drawing.Size(240, 31);
+            this.cbBloodType.Size = new System.Drawing.Size(240, 33);
             this.cbBloodType.TabIndex = 131;
             // 
             // lblPatientID
@@ -270,10 +259,9 @@
             this.txtMedicalHistory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.txtMedicalHistory.Location = new System.Drawing.Point(276, 237);
             this.txtMedicalHistory.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtMedicalHistory.MaxLength = 50;
+            this.txtMedicalHistory.MaxLength = 100;
             this.txtMedicalHistory.Multiline = true;
             this.txtMedicalHistory.Name = "txtMedicalHistory";
-            this.txtMedicalHistory.PasswordChar = '*';
             this.txtMedicalHistory.Size = new System.Drawing.Size(336, 84);
             this.txtMedicalHistory.TabIndex = 124;
             // 
@@ -332,6 +320,18 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // ctrlPersonCardWithFilter1
+            // 
+            this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
+            this.ctrlPersonCardWithFilter1.btnAddNewEnabled = true;
+            this.ctrlPersonCardWithFilter1.FilterEnabled = false;
+            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(4, 4);
+            this.ctrlPersonCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
+            this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
+            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(916, 375);
+            this.ctrlPersonCardWithFilter1.TabIndex = 119;
+            // 
             // frmAddUpdatePatient
             // 
             this.AcceptButton = this.btnSave;
@@ -351,6 +351,7 @@
             this.Name = "frmAddUpdatePatient";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add/Update User";
+            this.Activated += new System.EventHandler(this.frmAddUpdatePatient_Activated);
             this.Load += new System.EventHandler(this.frmAddUpdatePatient_Load);
             this.tcPatient.ResumeLayout(false);
             this.tpPersonalInfo.ResumeLayout(false);

@@ -65,13 +65,13 @@ namespace Clinic.Patient
                 dgvPatient.Columns["CountryName"].Width = 120;
 
                 dgvPatient.Columns["BloodTypeName"].HeaderText = "Blood Type";
-                dgvPatient.Columns["BloodTypeName"].Width = 110;
+                dgvPatient.Columns["BloodTypeName"].Width = 100;
 
                 dgvPatient.Columns["CreatedDate"].HeaderText = "Created Date";
-                dgvPatient.Columns["CreatedDate"].Width = 110;
+                dgvPatient.Columns["CreatedDate"].Width = 150;
 
                 dgvPatient.Columns["EmergencyContact"].HeaderText = "Emergency Contact";
-                dgvPatient.Columns["EmergencyContact"].Width = 160;
+                dgvPatient.Columns["EmergencyContact"].Width = 150;
             }
         }
 
@@ -141,9 +141,6 @@ namespace Clinic.Patient
                     break;
                 case "Emergency Contact":
                     FilterColumn = "EmergencyContact";
-                    break;
-                case "Created Date":
-                    FilterColumn = "CreatedDate";
                     break;
                 default:
                     FilterColumn = "None";
