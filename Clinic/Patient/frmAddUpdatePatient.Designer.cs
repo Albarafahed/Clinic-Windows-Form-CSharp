@@ -87,6 +87,7 @@
             // ctrlPersonCardWithFilter1
             // 
             this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
+            this.ctrlPersonCardWithFilter1.btnAddNewEnabled = true;
             this.ctrlPersonCardWithFilter1.FilterEnabled = false;
             this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(4, 4);

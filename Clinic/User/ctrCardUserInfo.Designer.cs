@@ -57,9 +57,9 @@ namespace Clinic.Controls
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.groupBox1.Location = new System.Drawing.Point(13, 305);
+            this.groupBox1.Location = new System.Drawing.Point(3, 282);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(886, 86);
+            this.groupBox1.Size = new System.Drawing.Size(896, 86);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Login Information";
@@ -72,7 +72,7 @@ namespace Clinic.Controls
             this.lbRoleName.Location = new System.Drawing.Point(555, 37);
             this.lbRoleName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbRoleName.Name = "lbRoleName";
-            this.lbRoleName.Size = new System.Drawing.Size(39, 25);
+            this.lbRoleName.Size = new System.Drawing.Size(36, 25);
             this.lbRoleName.TabIndex = 142;
             this.lbRoleName.Text = "???";
             // 
@@ -84,7 +84,7 @@ namespace Clinic.Controls
             this.label5.Location = new System.Drawing.Point(445, 37);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(117, 25);
+            this.label5.Size = new System.Drawing.Size(120, 25);
             this.label5.TabIndex = 141;
             this.label5.Text = "Role Name : ";
             // 
@@ -96,7 +96,7 @@ namespace Clinic.Controls
             this.lblIsActive.Location = new System.Drawing.Point(775, 37);
             this.lblIsActive.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIsActive.Name = "lblIsActive";
-            this.lblIsActive.Size = new System.Drawing.Size(39, 25);
+            this.lblIsActive.Size = new System.Drawing.Size(36, 25);
             this.lblIsActive.TabIndex = 140;
             this.lblIsActive.Text = "???";
             // 
@@ -108,7 +108,7 @@ namespace Clinic.Controls
             this.label2.Location = new System.Drawing.Point(680, 37);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 25);
+            this.label2.Size = new System.Drawing.Size(100, 25);
             this.label2.TabIndex = 139;
             this.label2.Text = "Is Active : ";
             // 
@@ -120,7 +120,7 @@ namespace Clinic.Controls
             this.lblUserName.Location = new System.Drawing.Point(365, 37);
             this.lblUserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(39, 25);
+            this.lblUserName.Size = new System.Drawing.Size(36, 25);
             this.lblUserName.TabIndex = 138;
             this.lblUserName.Text = "???";
             // 
@@ -132,7 +132,7 @@ namespace Clinic.Controls
             this.lblUserID.Location = new System.Drawing.Point(170, 37);
             this.lblUserID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUserID.Name = "lblUserID";
-            this.lblUserID.Size = new System.Drawing.Size(43, 25);
+            this.lblUserID.Size = new System.Drawing.Size(36, 25);
             this.lblUserID.TabIndex = 137;
             this.lblUserID.Text = "???";
             // 
@@ -167,7 +167,7 @@ namespace Clinic.Controls
             this.ctrlPersonCard1.Location = new System.Drawing.Point(0, 0);
             this.ctrlPersonCard1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ctrlPersonCard1.Name = "ctrlPersonCard1";
-            this.ctrlPersonCard1.Size = new System.Drawing.Size(899, 288);
+            this.ctrlPersonCard1.Size = new System.Drawing.Size(899, 276);
             this.ctrlPersonCard1.TabIndex = 2;
             // 
             // ctrCardUserInfo
@@ -180,10 +180,11 @@ namespace Clinic.Controls
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ctrCardUserInfo";
-            this.Size = new System.Drawing.Size(923, 404);
+            this.Size = new System.Drawing.Size(898, 379);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion

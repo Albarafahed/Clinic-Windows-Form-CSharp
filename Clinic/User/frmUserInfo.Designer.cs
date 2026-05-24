@@ -47,7 +47,7 @@ namespace Clinic.User
             this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(780, 502);
+            this.btnClose.Location = new System.Drawing.Point(787, 475);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(126, 37);
@@ -75,7 +75,7 @@ namespace Clinic.User
             this.ctrCardUserInfo1.Location = new System.Drawing.Point(16, 85);
             this.ctrCardUserInfo1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ctrCardUserInfo1.Name = "ctrCardUserInfo1";
-            this.ctrCardUserInfo1.Size = new System.Drawing.Size(923, 404);
+            this.ctrCardUserInfo1.Size = new System.Drawing.Size(906, 380);
             this.ctrCardUserInfo1.TabIndex = 93;
             // 
             // frmUserInfo
@@ -85,7 +85,7 @@ namespace Clinic.User
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(955, 560);
+            this.ClientSize = new System.Drawing.Size(945, 522);
             this.Controls.Add(this.ctrCardUserInfo1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnClose);
@@ -96,6 +96,7 @@ namespace Clinic.User
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "User Details";
             this.ResumeLayout(false);
+
         }
 
         #endregion

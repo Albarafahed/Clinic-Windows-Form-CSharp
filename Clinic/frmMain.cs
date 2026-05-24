@@ -1,5 +1,6 @@
 ﻿
 using Clinic.Patient;
+using Clinic.Patient.Controls;
 using Clinic.User;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,12 @@ namespace Clinic
         private void Password32ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmChangePassword frm = new frmChangePassword(clsGlobal.CurrentUser.UserID);
+            frm.ShowDialog();
+        }
+
+        private void btnSearchPat_Click(object sender, EventArgs e)
+        {
+            frmFindPatient frm=new frmFindPatient();
             frm.ShowDialog();
         }
     }

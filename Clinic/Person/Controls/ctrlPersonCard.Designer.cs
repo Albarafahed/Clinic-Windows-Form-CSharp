@@ -71,7 +71,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.label1.Location = new System.Drawing.Point(16, 67);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 25);
+            this.label1.Size = new System.Drawing.Size(69, 25);
             this.label1.TabIndex = 114;
             this.label1.Text = "Name:";
             // 
@@ -126,7 +126,7 @@
             this.lblPersonID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
             this.lblPersonID.Location = new System.Drawing.Point(142, 33);
             this.lblPersonID.Name = "lblPersonID";
-            this.lblPersonID.Size = new System.Drawing.Size(58, 28);
+            this.lblPersonID.Size = new System.Drawing.Size(62, 28);
             this.lblPersonID.TabIndex = 127;
             this.lblPersonID.Text = "[????]";
             // 
@@ -137,7 +137,7 @@
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.label5.Location = new System.Drawing.Point(16, 103);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(83, 25);
+            this.label5.Size = new System.Drawing.Size(84, 25);
             this.label5.TabIndex = 129;
             this.label5.Text = "Gender:";
             // 
@@ -148,7 +148,7 @@
             this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.label22.Location = new System.Drawing.Point(16, 33);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(107, 25);
+            this.label22.Size = new System.Drawing.Size(108, 25);
             this.label22.TabIndex = 113;
             this.label22.Text = "Person ID :";
             // 
@@ -159,7 +159,7 @@
             this.lblFullName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.lblFullName.Location = new System.Drawing.Point(175, 67);
             this.lblFullName.Name = "lblFullName";
-            this.lblFullName.Size = new System.Drawing.Size(63, 25);
+            this.lblFullName.Size = new System.Drawing.Size(58, 25);
             this.lblFullName.TabIndex = 131;
             this.lblFullName.Text = "[????]";
             // 
@@ -170,7 +170,7 @@
             this.lblEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.lblEmail.Location = new System.Drawing.Point(175, 138);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(53, 23);
+            this.lblEmail.Size = new System.Drawing.Size(52, 23);
             this.lblEmail.TabIndex = 133;
             this.lblEmail.Text = "[????]";
             // 
@@ -192,7 +192,7 @@
             this.lblGendor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.lblGendor.Location = new System.Drawing.Point(175, 103);
             this.lblGendor.Name = "lblGendor";
-            this.lblGendor.Size = new System.Drawing.Size(53, 23);
+            this.lblGendor.Size = new System.Drawing.Size(52, 23);
             this.lblGendor.TabIndex = 135;
             this.lblGendor.Text = "[????]";
             // 
@@ -203,7 +203,7 @@
             this.lblDateOfBirth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.lblDateOfBirth.Location = new System.Drawing.Point(509, 67);
             this.lblDateOfBirth.Name = "lblDateOfBirth";
-            this.lblDateOfBirth.Size = new System.Drawing.Size(53, 23);
+            this.lblDateOfBirth.Size = new System.Drawing.Size(52, 23);
             this.lblDateOfBirth.TabIndex = 136;
             this.lblDateOfBirth.Text = "[????]";
             // 
@@ -214,18 +214,19 @@
             this.lblPhone.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.lblPhone.Location = new System.Drawing.Point(509, 103);
             this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new System.Drawing.Size(53, 23);
+            this.lblPhone.Size = new System.Drawing.Size(52, 23);
             this.lblPhone.TabIndex = 137;
             this.lblPhone.Text = "[????]";
             // 
             // llEditPersonInfo
             // 
             this.llEditPersonInfo.AutoSize = true;
+            this.llEditPersonInfo.Enabled = false;
             this.llEditPersonInfo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.llEditPersonInfo.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(140)))), ((int)(((byte)(255)))));
             this.llEditPersonInfo.Location = new System.Drawing.Point(709, 29);
             this.llEditPersonInfo.Name = "llEditPersonInfo";
-            this.llEditPersonInfo.Size = new System.Drawing.Size(138, 23);
+            this.llEditPersonInfo.Size = new System.Drawing.Size(136, 23);
             this.llEditPersonInfo.TabIndex = 139;
             this.llEditPersonInfo.TabStop = true;
             this.llEditPersonInfo.Text = "Edit Person Info";
@@ -267,6 +268,7 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Person Information";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // label15
             // 
@@ -286,7 +288,7 @@
             this.lblCountry.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.lblCountry.Location = new System.Drawing.Point(509, 138);
             this.lblCountry.Name = "lblCountry";
-            this.lblCountry.Size = new System.Drawing.Size(53, 23);
+            this.lblCountry.Size = new System.Drawing.Size(52, 23);
             this.lblCountry.TabIndex = 142;
             this.lblCountry.Text = "[????]";
             // 
@@ -379,7 +381,7 @@
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.Name = "ctrlPersonCard";
-            this.Size = new System.Drawing.Size(895, 288);
+            this.Size = new System.Drawing.Size(895, 273);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -391,6 +393,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion

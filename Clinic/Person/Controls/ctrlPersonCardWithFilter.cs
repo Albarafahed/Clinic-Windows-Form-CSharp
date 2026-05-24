@@ -47,6 +47,18 @@ namespace Clinic.Controls
             get { return _FilterEnabled; }
         }
 
+        private bool _btnAddNewEnabled = false;
+
+        public bool btnAddNewEnabled
+        {
+            set
+            {
+                _btnAddNewEnabled = value;
+                btnAddNewPerson.Enabled = _btnAddNewEnabled;
+            }
+            get { return _btnAddNewEnabled; }
+        }
+
         private void txtFilterValue_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);

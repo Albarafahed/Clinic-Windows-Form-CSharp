@@ -54,7 +54,7 @@
             this.txtConfirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtConfirmPassword.Font = new System.Drawing.Font("Segoe UI", 10.5F);
             this.txtConfirmPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.txtConfirmPassword.Location = new System.Drawing.Point(251, 503);
+            this.txtConfirmPassword.Location = new System.Drawing.Point(247, 481);
             this.txtConfirmPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtConfirmPassword.MaxLength = 50;
             this.txtConfirmPassword.Name = "txtConfirmPassword";
@@ -68,10 +68,10 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.label3.Location = new System.Drawing.Point(35, 505);
+            this.label3.Location = new System.Drawing.Point(31, 483);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(177, 25);
+            this.label3.Size = new System.Drawing.Size(180, 25);
             this.label3.TabIndex = 131;
             this.label3.Text = "Confirm Password:";
             // 
@@ -80,10 +80,10 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.label2.Location = new System.Drawing.Point(63, 469);
+            this.label2.Location = new System.Drawing.Point(59, 447);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(148, 25);
+            this.label2.Size = new System.Drawing.Size(147, 25);
             this.label2.TabIndex = 128;
             this.label2.Text = "New Password:";
             // 
@@ -92,7 +92,7 @@
             this.txtNewPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNewPassword.Font = new System.Drawing.Font("Segoe UI", 10.5F);
             this.txtNewPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.txtNewPassword.Location = new System.Drawing.Point(251, 467);
+            this.txtNewPassword.Location = new System.Drawing.Point(247, 445);
             this.txtNewPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNewPassword.MaxLength = 50;
             this.txtNewPassword.Name = "txtNewPassword";
@@ -104,7 +104,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Clinic.Properties.Resources.Number_32;
-            this.pictureBox1.Location = new System.Drawing.Point(213, 505);
+            this.pictureBox1.Location = new System.Drawing.Point(209, 483);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(31, 26);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -114,7 +114,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = global::Clinic.Properties.Resources.Number_32;
-            this.pictureBox3.Location = new System.Drawing.Point(213, 468);
+            this.pictureBox3.Location = new System.Drawing.Point(209, 446);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(31, 26);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -132,7 +132,7 @@
             this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(580, 605);
+            this.btnClose.Location = new System.Drawing.Point(578, 561);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(126, 37);
@@ -151,7 +151,7 @@
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnSave.Image = global::Clinic.Properties.Resources.Save_32;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(714, 605);
+            this.btnSave.Location = new System.Drawing.Point(712, 561);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(126, 37);
@@ -165,10 +165,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.label1.Location = new System.Drawing.Point(37, 433);
+            this.label1.Location = new System.Drawing.Point(33, 411);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(175, 25);
+            this.label1.Size = new System.Drawing.Size(176, 25);
             this.label1.TabIndex = 136;
             this.label1.Text = "Current Password:";
             // 
@@ -177,7 +177,7 @@
             this.txtCurrentPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCurrentPassword.Font = new System.Drawing.Font("Segoe UI", 10.5F);
             this.txtCurrentPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.txtCurrentPassword.Location = new System.Drawing.Point(251, 431);
+            this.txtCurrentPassword.Location = new System.Drawing.Point(247, 409);
             this.txtCurrentPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCurrentPassword.MaxLength = 50;
             this.txtCurrentPassword.Name = "txtCurrentPassword";
@@ -190,7 +190,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Clinic.Properties.Resources.Number_32;
-            this.pictureBox2.Location = new System.Drawing.Point(213, 432);
+            this.pictureBox2.Location = new System.Drawing.Point(209, 410);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(31, 26);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -208,7 +208,7 @@
             this.ctrCardUserInfo1.Location = new System.Drawing.Point(12, 12);
             this.ctrCardUserInfo1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ctrCardUserInfo1.Name = "ctrCardUserInfo1";
-            this.ctrCardUserInfo1.Size = new System.Drawing.Size(923, 404);
+            this.ctrCardUserInfo1.Size = new System.Drawing.Size(903, 383);
             this.ctrCardUserInfo1.TabIndex = 138;
             // 
             // frmChangePassword
@@ -219,7 +219,7 @@
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(949, 673);
+            this.ClientSize = new System.Drawing.Size(929, 613);
             this.Controls.Add(this.ctrCardUserInfo1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtCurrentPassword);
@@ -245,6 +245,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

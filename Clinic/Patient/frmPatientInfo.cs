@@ -16,17 +16,14 @@ namespace Clinic.Patient
         public frmPatientInfo(int PatientID)
         {
             InitializeComponent();
-            ctrlPatienCardtInfo1.LoadPatientInfo(PatientID);
-        }
-
-        private void frmPatientInfo_Load(object sender, EventArgs e)
-        {
-
+            ctrlPatientCardWithFilter1.LoadPatientInfo(PatientID);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+       
     }
 }

@@ -33,8 +33,10 @@ namespace Clinic.User
             this.components = new System.ComponentModel.Container();
             this.tcUserInfo = new System.Windows.Forms.TabControl();
             this.tpPersonalInfo = new System.Windows.Forms.TabPage();
+            this.ctrlPersonCardWithFilter1 = new Clinic.Controls.ctrlPersonCardWithFilter();
             this.btnPersonInfoNext = new System.Windows.Forms.Button();
             this.tpLoginInfo = new System.Windows.Forms.TabPage();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cbRoles = new System.Windows.Forms.ComboBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -47,22 +49,20 @@ namespace Clinic.User
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.ctrlPersonCardWithFilter1 = new Clinic.Controls.ctrlPersonCardWithFilter();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tcUserInfo.SuspendLayout();
             this.tpPersonalInfo.SuspendLayout();
             this.tpLoginInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tcUserInfo
@@ -89,6 +89,18 @@ namespace Clinic.User
             this.tpPersonalInfo.TabIndex = 0;
             this.tpPersonalInfo.Text = "Personal Info";
             // 
+            // ctrlPersonCardWithFilter1
+            // 
+            this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
+            this.ctrlPersonCardWithFilter1.btnAddNewEnabled = true;
+            this.ctrlPersonCardWithFilter1.FilterEnabled = false;
+            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(4, 4);
+            this.ctrlPersonCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
+            this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
+            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(916, 375);
+            this.ctrlPersonCardWithFilter1.TabIndex = 119;
+            // 
             // btnPersonInfoNext
             // 
             this.btnPersonInfoNext.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -111,6 +123,9 @@ namespace Clinic.User
             // tpLoginInfo
             // 
             this.tpLoginInfo.BackColor = System.Drawing.Color.White;
+            this.tpLoginInfo.Controls.Add(this.pictureBox1);
+            this.tpLoginInfo.Controls.Add(this.pictureBox5);
+            this.tpLoginInfo.Controls.Add(this.pictureBox4);
             this.tpLoginInfo.Controls.Add(this.label5);
             this.tpLoginInfo.Controls.Add(this.cbRoles);
             this.tpLoginInfo.Controls.Add(this.pictureBox2);
@@ -123,15 +138,22 @@ namespace Clinic.User
             this.tpLoginInfo.Controls.Add(this.label3);
             this.tpLoginInfo.Controls.Add(this.label2);
             this.tpLoginInfo.Controls.Add(this.txtPassword);
-            this.tpLoginInfo.Controls.Add(this.pictureBox1);
-            this.tpLoginInfo.Controls.Add(this.pictureBox6);
-            this.tpLoginInfo.Controls.Add(this.pictureBox3);
             this.tpLoginInfo.Location = new System.Drawing.Point(4, 32);
             this.tpLoginInfo.Name = "tpLoginInfo";
             this.tpLoginInfo.Padding = new System.Windows.Forms.Padding(3);
             this.tpLoginInfo.Size = new System.Drawing.Size(923, 438);
             this.tpLoginInfo.TabIndex = 1;
             this.tpLoginInfo.Text = "Login Info";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::Clinic.Properties.Resources.ID_32;
+            this.pictureBox4.Location = new System.Drawing.Point(191, 96);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 147;
+            this.pictureBox4.TabStop = false;
             // 
             // label5
             // 
@@ -156,45 +178,16 @@ namespace Clinic.User
             this.cbRoles.Name = "cbRoles";
             this.cbRoles.Size = new System.Drawing.Size(185, 31);
             this.cbRoles.TabIndex = 131;
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::Clinic.Properties.Resources.BloodType_32;
-            this.pictureBox3.Location = new System.Drawing.Point(228, 179);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 147;
-            this.pictureBox3.TabStop = false;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Clinic.Properties.Resources.ID_32;
-            this.pictureBox2.Location = new System.Drawing.Point(229, 58);
+            this.pictureBox2.Location = new System.Drawing.Point(191, 58);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(31, 26);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 144;
             this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::Clinic.Properties.Resources.Emergency_Contact_32;
-            this.pictureBox6.Location = new System.Drawing.Point(228, 120);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox6.TabIndex = 136;
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox1.Image = global::Clinic.Properties.Resources.Medical_History_32;
-            this.pictureBox1.Name = "pictureBox4";
-            this.pictureBox1.Location = new System.Drawing.Point(229, 242);
-            this.pictureBox1.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 132;
-            this.pictureBox1.TabStop = false;
             // 
             // lblUserID
             // 
@@ -204,7 +197,7 @@ namespace Clinic.User
             this.lblUserID.Location = new System.Drawing.Point(233, 58);
             this.lblUserID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUserID.Name = "lblUserID";
-            this.lblUserID.Size = new System.Drawing.Size(42, 25);
+            this.lblUserID.Size = new System.Drawing.Size(36, 25);
             this.lblUserID.TabIndex = 129;
             this.lblUserID.Text = "???";
             // 
@@ -216,7 +209,7 @@ namespace Clinic.User
             this.label4.Location = new System.Drawing.Point(102, 58);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 25);
+            this.label4.Size = new System.Drawing.Size(82, 25);
             this.label4.TabIndex = 128;
             this.label4.Text = "User ID:";
             // 
@@ -229,7 +222,7 @@ namespace Clinic.User
             this.chkIsActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.chkIsActive.Location = new System.Drawing.Point(231, 214);
             this.chkIsActive.Name = "chkIsActive";
-            this.chkIsActive.Size = new System.Drawing.Size(102, 28);
+            this.chkIsActive.Size = new System.Drawing.Size(103, 29);
             this.chkIsActive.TabIndex = 127;
             this.chkIsActive.Text = "Is Active";
             this.chkIsActive.UseVisualStyleBackColor = true;
@@ -269,7 +262,7 @@ namespace Clinic.User
             this.label1.Location = new System.Drawing.Point(75, 96);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 25);
+            this.label1.Size = new System.Drawing.Size(114, 25);
             this.label1.TabIndex = 120;
             this.label1.Text = "User Name:";
             // 
@@ -281,7 +274,7 @@ namespace Clinic.User
             this.label3.Location = new System.Drawing.Point(15, 168);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(177, 25);
+            this.label3.Size = new System.Drawing.Size(180, 25);
             this.label3.TabIndex = 125;
             this.label3.Text = "Confirm Password:";
             // 
@@ -310,7 +303,6 @@ namespace Clinic.User
             this.txtPassword.Size = new System.Drawing.Size(185, 31);
             this.txtPassword.TabIndex = 119;
             this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txtPassword_Validating);
-           
             // 
             // lblTitle
             // 
@@ -367,16 +359,25 @@ namespace Clinic.User
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // ctrlPersonCardWithFilter1
+            // pictureBox5
             // 
-            this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
-            this.ctrlPersonCardWithFilter1.FilterEnabled = false;
-            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(4, 4);
-            this.ctrlPersonCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
-            this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
-            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(916, 375);
-            this.ctrlPersonCardWithFilter1.TabIndex = 119;
+            this.pictureBox5.Image = global::Clinic.Properties.Resources.Number_32;
+            this.pictureBox5.Location = new System.Drawing.Point(191, 135);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 148;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Clinic.Properties.Resources.Number_32;
+            this.pictureBox1.Location = new System.Drawing.Point(191, 168);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 149;
+            this.pictureBox1.TabStop = false;
             // 
             // frmAddUpdateUser
             // 
@@ -402,12 +403,13 @@ namespace Clinic.User
             this.tpPersonalInfo.ResumeLayout(false);
             this.tpLoginInfo.ResumeLayout(false);
             this.tpLoginInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -417,15 +419,11 @@ namespace Clinic.User
         private System.Windows.Forms.TabPage tpPersonalInfo;
         private System.Windows.Forms.TabPage tpLoginInfo;
         private System.Windows.Forms.CheckBox chkIsActive;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.TextBox txtConfirmPassword;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblUserID;
         private System.Windows.Forms.Label label4;
@@ -435,5 +433,9 @@ namespace Clinic.User
         private ComboBox cbRoles;
         private Label label5;
         private Controls.ctrlPersonCardWithFilter ctrlPersonCardWithFilter1;
+        private PictureBox pictureBox4;
+        private TextBox txtUserName;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox5;
     }
 }

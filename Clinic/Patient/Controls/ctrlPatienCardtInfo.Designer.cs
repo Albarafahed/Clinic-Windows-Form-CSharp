@@ -41,6 +41,7 @@
             // 
             // gbPatientAdditionalInfo
             // 
+            this.gbPatientAdditionalInfo.BackColor = System.Drawing.Color.White;
             this.gbPatientAdditionalInfo.Controls.Add(this.lblEmergencyContact);
             this.gbPatientAdditionalInfo.Controls.Add(this.label3);
             this.gbPatientAdditionalInfo.Controls.Add(this.lblCreatedBy);
@@ -55,10 +56,10 @@
             this.gbPatientAdditionalInfo.Controls.Add(this.label1);
             this.gbPatientAdditionalInfo.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.gbPatientAdditionalInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
-            this.gbPatientAdditionalInfo.Location = new System.Drawing.Point(4, 349);
-            this.gbPatientAdditionalInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbPatientAdditionalInfo.Location = new System.Drawing.Point(4, 293);
+            this.gbPatientAdditionalInfo.Margin = new System.Windows.Forms.Padding(4);
             this.gbPatientAdditionalInfo.Name = "gbPatientAdditionalInfo";
-            this.gbPatientAdditionalInfo.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbPatientAdditionalInfo.Padding = new System.Windows.Forms.Padding(4);
             this.gbPatientAdditionalInfo.Size = new System.Drawing.Size(899, 208);
             this.gbPatientAdditionalInfo.TabIndex = 1;
             this.gbPatientAdditionalInfo.TabStop = false;
@@ -144,7 +145,7 @@
             this.txtMedicalHistory.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.txtMedicalHistory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.txtMedicalHistory.Location = new System.Drawing.Point(518, 41);
-            this.txtMedicalHistory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMedicalHistory.Margin = new System.Windows.Forms.Padding(4);
             this.txtMedicalHistory.Multiline = true;
             this.txtMedicalHistory.Name = "txtMedicalHistory";
             this.txtMedicalHistory.ReadOnly = true;
@@ -217,9 +218,9 @@
             this.ctrlPersonCard1.BackColor = System.Drawing.Color.White;
             this.ctrlPersonCard1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.ctrlPersonCard1.Location = new System.Drawing.Point(4, 4);
-            this.ctrlPersonCard1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ctrlPersonCard1.Margin = new System.Windows.Forms.Padding(4);
             this.ctrlPersonCard1.Name = "ctrlPersonCard1";
-            this.ctrlPersonCard1.Size = new System.Drawing.Size(899, 304);
+            this.ctrlPersonCard1.Size = new System.Drawing.Size(899, 281);
             this.ctrlPersonCard1.TabIndex = 0;
             // 
             // ctrlPatienCardtInfo
@@ -230,9 +231,9 @@
             this.Controls.Add(this.gbPatientAdditionalInfo);
             this.Controls.Add(this.ctrlPersonCard1);
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ctrlPatienCardtInfo";
-            this.Size = new System.Drawing.Size(921, 575);
+            this.Size = new System.Drawing.Size(911, 508);
             this.gbPatientAdditionalInfo.ResumeLayout(false);
             this.gbPatientAdditionalInfo.PerformLayout();
             this.ResumeLayout(false);

@@ -106,7 +106,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.label1.Location = new System.Drawing.Point(22, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(173, 25);
+            this.label1.Size = new System.Drawing.Size(174, 25);
             this.label1.TabIndex = 19;
             this.label1.Text = "Find By Person ID:";
             // 
@@ -133,11 +133,12 @@
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ctrlPersonCardWithFilter";
-            this.Size = new System.Drawing.Size(916, 375);
+            this.Size = new System.Drawing.Size(911, 366);
             this.gbFilters.ResumeLayout(false);
             this.gbFilters.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion
