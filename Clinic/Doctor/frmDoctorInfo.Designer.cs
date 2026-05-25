@@ -1,6 +1,6 @@
-﻿namespace Clinic.Patient.Controls
+﻿namespace Clinic.Doctor
 {
-    partial class frmFindPatient
+    partial class frmDoctorInfo
     {
         /// <summary>
         /// Required designer variable.
@@ -28,22 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
-            this.ctrDoctorCardInfoWithFilter1 = new Clinic.Patient.Controls.ctrDoctorCardInfoWithFilter1();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.ctrDoctorCardInfo1 = new Clinic.Controls.ctrDoctorCardInfo();
             this.SuspendLayout();
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.lblTitle.Location = new System.Drawing.Point(16, -1);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(815, 50);
-            this.lblTitle.TabIndex = 92;
-            this.lblTitle.Text = "Patient Find";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnClose
             // 
@@ -56,7 +44,7 @@
             this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(820, 639);
+            this.btnClose.Location = new System.Drawing.Point(797, 578);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(126, 37);
@@ -65,47 +53,53 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // ctrDoctorCardInfoWithFilter1
+            // lblTitle
             // 
-            this.ctrDoctorCardInfoWithFilter1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
-            this.ctrDoctorCardInfoWithFilter1.btnAddNewEnabled = true;
-            this.ctrDoctorCardInfoWithFilter1.FilterEnabled = true;
-            this.ctrDoctorCardInfoWithFilter1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrDoctorCardInfoWithFilter1.Location = new System.Drawing.Point(25, 53);
-            this.ctrDoctorCardInfoWithFilter1.Margin = new System.Windows.Forms.Padding(4);
-            this.ctrDoctorCardInfoWithFilter1.Name = "ctrDoctorCardInfoWithFilter1";
-            this.ctrDoctorCardInfoWithFilter1.Size = new System.Drawing.Size(921, 589);
-            this.ctrDoctorCardInfoWithFilter1.TabIndex = 93;
-            this.ctrDoctorCardInfoWithFilter1.OnPatientCreated += new System.EventHandler<Clinic.Patient.Controls.ctrDoctorCardInfoWithFilter1.PatientEventArgs>(this.ctrDoctorCardInfoWithFilter1_OnPatientCreated);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.lblTitle.Location = new System.Drawing.Point(16, 9);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(815, 50);
+            this.lblTitle.TabIndex = 92;
+            this.lblTitle.Text = "Doctor Details";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // frmFindPatient
+            // ctrDoctorCardInfo1
+            // 
+            this.ctrDoctorCardInfo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
+            this.ctrDoctorCardInfo1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrDoctorCardInfo1.Location = new System.Drawing.Point(25, 75);
+            this.ctrDoctorCardInfo1.Margin = new System.Windows.Forms.Padding(4);
+            this.ctrDoctorCardInfo1.Name = "ctrDoctorCardInfo1";
+            this.ctrDoctorCardInfo1.Size = new System.Drawing.Size(915, 482);
+            this.ctrDoctorCardInfo1.TabIndex = 93;
+            // 
+            // frmDoctorInfo
             // 
             this.AcceptButton = this.btnClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(975, 683);
-            this.Controls.Add(this.ctrDoctorCardInfoWithFilter1);
+            this.ClientSize = new System.Drawing.Size(953, 624);
+            this.Controls.Add(this.ctrDoctorCardInfo1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnClose);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "frmFindPatient";
+            this.Name = "frmDoctorInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Patient Find";
-            this.Activated += new System.EventHandler(this.frmFindPatient_Activated);
+            this.Text = "Doctor Details";
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private Controls.ctrDoctorCardInfoWithFilter1 ctrDoctorCardInfoWithFilter1;
+        private Controls.ctrDoctorCardInfo ctrDoctorCardInfo1;
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Clinic_Business
 {
-    public class clsDoctro : clsPerson
+    public class clsDoctor : clsPerson
     {
         public enum enMode { AddNew=1,Update=2}
         private enMode _Mode = enMode.AddNew;
@@ -24,7 +24,7 @@ namespace Clinic_Business
 
         public List<int> SelectedDayIDs { get; set; }
 
-        public clsDoctro()
+        public clsDoctor()
         {
             this.DoctorID = -1;
     
@@ -33,7 +33,7 @@ namespace Clinic_Business
 
         }
 
-        public clsDoctro(int DoctorID, int SpecializationID, float ConsultationFees, string DaysOfWork)
+        public clsDoctor(int DoctorID, int SpecializationID, float ConsultationFees, string DaysOfWork)
         {
             this.DoctorID = DoctorID;
             this.ConsultationFees = ConsultationFees;
@@ -41,6 +41,17 @@ namespace Clinic_Business
             _Mode = enMode.Update;
         }
 
+        public static clsDoctor Find(int DoctorID)
+        {
+            return new clsDoctor();
+        }
+
+        public bool DeleteDoctor()
+        {
+            return true;
+        }
        
+
+
     }
 }

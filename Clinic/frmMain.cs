@@ -1,4 +1,5 @@
 ﻿
+using Clinic.Doctor;
 using Clinic.Patient;
 using Clinic.Patient.Controls;
 using Clinic.User;
@@ -80,6 +81,12 @@ namespace Clinic
         private void btnSearchPat_Click(object sender, EventArgs e)
         {
             frmFindPatient frm=new frmFindPatient();
+            frm.ShowDialog();
+        }
+
+        private void DoctorsStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmListDoctors frm=new frmListDoctors();
             frm.ShowDialog();
         }
     }

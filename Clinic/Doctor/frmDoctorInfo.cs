@@ -4,26 +4,24 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Clinic.Patient
+namespace Clinic.Doctor
 {
-    public partial class frmPatientInfo : Form
+    public partial class frmDoctorInfo : Form
     {
-        
-        public frmPatientInfo(int PatientID)
+        public frmDoctorInfo(int DoctorID)
         {
             InitializeComponent();
-            ctrDoctorCardInfoWithFilter1.LoadPatientInfo(PatientID);
+            ctrDoctorCardInfo1.LoadDoctorInfo(DoctorID);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-       
     }
 }

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Clinic.Patient.Controls
 {
-    public partial class ctrlPatientCardWithFilter1 : UserControl
+    public partial class ctrDoctorCardInfoWithFilter1 : UserControl
     {
         public class PatientEventArgs : EventArgs
         {
@@ -34,7 +34,7 @@ namespace Clinic.Patient.Controls
                 OnPatientCreated(this,new PatientEventArgs(PatientID, PersonID));
         }
 
-        public ctrlPatientCardWithFilter1()
+        public ctrDoctorCardInfoWithFilter1()
         {
             InitializeComponent();
         }

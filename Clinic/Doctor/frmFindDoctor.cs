@@ -8,15 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Clinic.Patient
+namespace Clinic.Doctor
 {
-    public partial class frmPatientInfo : Form
+    public partial class frmFindDoctor : Form
     {
-        
-        public frmPatientInfo(int PatientID)
+        public frmFindDoctor()
         {
             InitializeComponent();
-            ctrDoctorCardInfoWithFilter1.LoadPatientInfo(PatientID);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -24,6 +22,9 @@ namespace Clinic.Patient
             this.Close();
         }
 
-       
+        private void frmFindDoctor_Activated(object sender, EventArgs e)
+        {
+            ctrDoctorCardInfoWithFilter1.FocusOnFilter();
+        }
     }
 }

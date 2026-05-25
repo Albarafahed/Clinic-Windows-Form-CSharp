@@ -22,14 +22,14 @@ namespace Clinic.Patient.Controls
             this.Close();
         }
 
-        private void ctrlPatientCardWithFilter1_OnPatientCreated(object sender, ctrlPatientCardWithFilter1.PatientEventArgs e)
+        private void ctrDoctorCardInfoWithFilter1_OnPatientCreated(object sender, ctrDoctorCardInfoWithFilter1.PatientEventArgs e)
         {
             MessageBox.Show($"Patient ID {e.PatientID} PersonID {e.PersonID}");
         }
 
         private void frmFindPatient_Activated(object sender, EventArgs e)
         {
-            ctrlPatientCardWithFilter1.FocuseFilter();
+            ctrDoctorCardInfoWithFilter1.FocuseFilter();
         }
     }
 }

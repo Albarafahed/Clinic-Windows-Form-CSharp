@@ -46,6 +46,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Doctor\Controls\ctrDoctorCardInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Doctor\Controls\ctrDoctorCardInfo.Designer.cs">
+      <DependentUpon>ctrDoctorCardInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Doctor\Controls\ctrDoctorCardInfoWithFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Doctor\Controls\ctrDoctorCardInfoWithFilter.Designer.cs">
+      <DependentUpon>ctrDoctorCardInfoWithFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Doctor\frmAddUpdateDoctor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Doctor\frmAddUpdateDoctor.Designer.cs">
+      <DependentUpon>frmAddUpdateDoctor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Doctor\frmDoctorInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Doctor\frmDoctorInfo.Designer.cs">
+      <DependentUpon>frmDoctorInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Doctor\frmFindDoctor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Doctor\frmFindDoctor.Designer.cs">
+      <DependentUpon>frmFindDoctor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Doctor\frmListDoctors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Doctor\frmListDoctors.Designer.cs">
+      <DependentUpon>frmListDoctors.cs</DependentUpon>
+    </Compile>
     <Compile Include="Patient\Controls\ctrlPatienCardtInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -160,6 +196,24 @@
     <Compile Include="User\frmUserInfo.Designer.cs">
       <DependentUpon>frmUserInfo.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Doctor\Controls\ctrDoctorCardInfo.resx">
+      <DependentUpon>ctrDoctorCardInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Doctor\Controls\ctrDoctorCardInfoWithFilter.resx">
+      <DependentUpon>ctrDoctorCardInfoWithFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Doctor\frmAddUpdateDoctor.resx">
+      <DependentUpon>frmAddUpdateDoctor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Doctor\frmDoctorInfo.resx">
+      <DependentUpon>frmDoctorInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Doctor\frmFindDoctor.resx">
+      <DependentUpon>frmFindDoctor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Doctor\frmListDoctors.resx">
+      <DependentUpon>frmListDoctors.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Patient\Controls\ctrlPatienCardtInfo.resx">
       <DependentUpon>ctrlPatienCardtInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -630,5 +684,6 @@
   <ItemGroup>
     <None Include="Resources\WorkingDays 32.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

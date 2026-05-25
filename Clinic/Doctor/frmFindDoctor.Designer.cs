@@ -1,6 +1,6 @@
-﻿namespace Clinic.Patient.Controls
+﻿namespace Clinic.Doctor
 {
-    partial class frmFindPatient
+    partial class frmFindDoctor
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
-            this.ctrDoctorCardInfoWithFilter1 = new Clinic.Patient.Controls.ctrDoctorCardInfoWithFilter1();
+            this.ctrDoctorCardInfoWithFilter1 = new Clinic.Controls.ctrDoctorCardInfoWithFilter();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -42,7 +42,7 @@
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(815, 50);
             this.lblTitle.TabIndex = 92;
-            this.lblTitle.Text = "Patient Find";
+            this.lblTitle.Text = "Doctor Find";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnClose
@@ -71,14 +71,14 @@
             this.ctrDoctorCardInfoWithFilter1.btnAddNewEnabled = true;
             this.ctrDoctorCardInfoWithFilter1.FilterEnabled = true;
             this.ctrDoctorCardInfoWithFilter1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrDoctorCardInfoWithFilter1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.ctrDoctorCardInfoWithFilter1.Location = new System.Drawing.Point(25, 53);
             this.ctrDoctorCardInfoWithFilter1.Margin = new System.Windows.Forms.Padding(4);
             this.ctrDoctorCardInfoWithFilter1.Name = "ctrDoctorCardInfoWithFilter1";
             this.ctrDoctorCardInfoWithFilter1.Size = new System.Drawing.Size(921, 589);
             this.ctrDoctorCardInfoWithFilter1.TabIndex = 93;
-            this.ctrDoctorCardInfoWithFilter1.OnPatientCreated += new System.EventHandler<Clinic.Patient.Controls.ctrDoctorCardInfoWithFilter1.PatientEventArgs>(this.ctrDoctorCardInfoWithFilter1_OnPatientCreated);
             // 
-            // frmFindPatient
+            // frmFindDoctor
             // 
             this.AcceptButton = this.btnClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
@@ -92,10 +92,10 @@
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "frmFindPatient";
+            this.Name = "frmFindDoctor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Patient Find";
-            this.Activated += new System.EventHandler(this.frmFindPatient_Activated);
+            this.Text = "Doctor Find";
+            this.Activated += new System.EventHandler(this.frmFindDoctor_Activated);
             this.ResumeLayout(false);
 
         }
@@ -106,6 +106,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private Controls.ctrDoctorCardInfoWithFilter1 ctrDoctorCardInfoWithFilter1;
+        private Controls.ctrDoctorCardInfoWithFilter ctrDoctorCardInfoWithFilter1;
     }
 }

@@ -185,6 +185,7 @@ namespace Clinic
             this.DoctorsStripMenuItem1.Name = "DoctorsStripMenuItem1";
             this.DoctorsStripMenuItem1.Size = new System.Drawing.Size(164, 68);
             this.DoctorsStripMenuItem1.Text = "Doctors";
+            this.DoctorsStripMenuItem1.Click += new System.EventHandler(this.DoctorsStripMenuItem1_Click);
             // 
             // UsersToolStripMenuItem
             // 

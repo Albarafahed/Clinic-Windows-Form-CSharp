@@ -30,7 +30,7 @@
         {
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.ctrlPatientCardWithFilter1 = new Clinic.Patient.Controls.ctrlPatienCardtInfo();
+            this.ctrDoctorCardInfoWithFilter1 = new Clinic.Patient.Controls.ctrlPatienCardtInfo();
             this.SuspendLayout();
             // 
             // btnClose
@@ -65,15 +65,15 @@
             this.lblTitle.Text = "Patient Details";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ctrlPatientCardWithFilter1
+            // ctrDoctorCardInfoWithFilter1
             // 
-            this.ctrlPatientCardWithFilter1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
-            this.ctrlPatientCardWithFilter1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlPatientCardWithFilter1.Location = new System.Drawing.Point(25, 75);
-            this.ctrlPatientCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
-            this.ctrlPatientCardWithFilter1.Name = "ctrlPatientCardWithFilter1";
-            this.ctrlPatientCardWithFilter1.Size = new System.Drawing.Size(921, 505);
-            this.ctrlPatientCardWithFilter1.TabIndex = 93;
+            this.ctrDoctorCardInfoWithFilter1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
+            this.ctrDoctorCardInfoWithFilter1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrDoctorCardInfoWithFilter1.Location = new System.Drawing.Point(25, 75);
+            this.ctrDoctorCardInfoWithFilter1.Margin = new System.Windows.Forms.Padding(4);
+            this.ctrDoctorCardInfoWithFilter1.Name = "ctrDoctorCardInfoWithFilter1";
+            this.ctrDoctorCardInfoWithFilter1.Size = new System.Drawing.Size(921, 505);
+            this.ctrDoctorCardInfoWithFilter1.TabIndex = 93;
             // 
             // frmPatientInfo
             // 
@@ -83,7 +83,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(953, 624);
-            this.Controls.Add(this.ctrlPatientCardWithFilter1);
+            this.Controls.Add(this.ctrDoctorCardInfoWithFilter1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnClose);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -100,6 +100,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private Controls.ctrlPatienCardtInfo ctrlPatientCardWithFilter1;
+        private Controls.ctrlPatienCardtInfo ctrDoctorCardInfoWithFilter1;
     }
 }
