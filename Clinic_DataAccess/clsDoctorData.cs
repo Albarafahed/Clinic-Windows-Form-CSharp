@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,179 +13,100 @@ namespace Clinic_DataAccess
     public class clsDoctorData
     {
 
-        public static bool AddDoctorSpecialties(int DoctorID, List<int> selectedSpecialtyIDs, bool deleteExistingFirst = false)
-        {
-
-            if (selectedSpecialtyIDs == null || selectedSpecialtyIDs.Count == 0)
-            {
-                return false; // لا توجد تخصصات لإضافتها
-            }
-
-
-            StringBuilder queryBuilder = new StringBuilder();
-            if (deleteExistingFirst)
-            {
-                queryBuilder.AppendLine("DELETE FROM DoctorSpecialties WHERE DoctorID = @DoctorID;"); // حذف التخصصات القديمة
-            }
-            for (int i = 0; i < selectedSpecialtyIDs.Count; i++)
-            {
-                queryBuilder.AppendLine($"INSERT INTO DoctorSpecialties (DoctorID, SpecializationID) VALUES (@DoctorID, @SpecID{i});");
-            }
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-            {
-                connection.Open();
-                // بدء الـ Transaction لضمان الذرية (إما نجاح الكل أو تراجع الكل)
-                using (SqlTransaction transaction = connection.BeginTransaction())
-                {
-                    using (SqlCommand cmd = new SqlCommand(queryBuilder.ToString(), connection, transaction))
-                    {
-                        // إضافة المعامل الرئيسي لرقم الطبيب
-                        cmd.Parameters.AddWithValue("@DoctorID", DoctorID);
-
-                        // 3. تمرير قيم المعاملات المرقمة بأمان تآم
-                        if (selectedSpecialtyIDs != null)
-                        {
-                            for (int i = 0; i < selectedSpecialtyIDs.Count; i++)
-                            {
-                                cmd.Parameters.AddWithValue($"@SpecID{i}", selectedSpecialtyIDs[i]);
-                            }
-                        }
-
-                        try
-                        {
-                            // هنا السحر: يطير النص الكامل (حذف + كل الإدخالات) في رسالة واحدة عبر الشبكة
-                            cmd.ExecuteNonQuery();
-
-                            transaction.Commit(); // اعتماد التغييرات فوراً
-                            return true;
-                        }
-                        catch (Exception)
-                        {
-                            transaction.Rollback(); // تراجع آمن في حال حدوث أي خطأ
-                            return false;
-                        }
-
-                    }
-                }
-            }
-        }
-        public static bool UpdateSpecialtiesInlineUltraFast(int doctorID, List<int> selectedSpecialtyIDs)
-        {
-            return AddDoctorSpecialties(doctorID, selectedSpecialtyIDs, true);
-        }
-
-        public static bool DeleteDoctorSpecialties(int doctorID)
-        {
-            bool IsDeleted = false;
+        public static bool GetDoctorByID(int DoctorID,ref int PersonID, 
+            ref float ConsultationFees,ref string LicenseNumber, ref bool IsActive,
+                               ref DateTime CreatedDate,  ref int CreatedByUserID )
+           {
+            bool IsFound = false;
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = @"DELETE FROM DoctorSpecialties WHERE DoctorID = @DoctorID";
+            string query = @"SELECT  PersonID, ConsultationFees, LicenseNumber, CreatedByUserID, IsActive ,CreatedDate
+                             FROM Doctors 
+                             WHERE DoctorID = @DoctorID";
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@DoctorID", doctorID);
+            command.Parameters.AddWithValue("@DoctorID", DoctorID);
             try
             {
                 connection.Open();
-                int rowsAffected = command.ExecuteNonQuery();
-                IsDeleted = rowsAffected > 0;
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    PersonID = reader.GetInt32(0);
+                    ConsultationFees = reader.GetFloat(1);
+                    LicenseNumber = reader.GetString(2);
+                    CreatedByUserID = reader.GetInt32(3);
+                    IsActive = reader.GetBoolean(4);
+                    CreatedDate= reader.GetDateTime(5);
+                    IsFound = true;
+                }
+                reader.Close();
             }
             catch (Exception ex)
             {
-                IsDeleted = false;
+                IsFound = false;
             }
             finally
             {
                 connection.Close();
             }
-            return IsDeleted;
+            return IsFound;
         }
-
-        public static bool AddDoctorWorkingDays(int DoctorID, List<int> selectedDayIDs, bool deleteExistingFirst = false)
+        // دالة عامة لجلب قائمة من الأرقام (IDs) لأي جدول فرعي مرتبط بالدكتور
+        private static List<int> GetGenericList(int DoctorID, string query, string parameterName)
         {
-            if (selectedDayIDs == null || selectedDayIDs.Count == 0)
-            {
-                return false; // لا توجد أيام عمل لإضافتها
-            }
-            StringBuilder queryBuilder = new StringBuilder();
-            if (deleteExistingFirst)
-            {
-                queryBuilder.AppendLine("DELETE FROM DoctorWorkingDays WHERE DoctorID = @DoctorID;"); // حذف أيام العمل القديمة
-            }
-            for (int i = 0; i < selectedDayIDs.Count; i++)
-            {
-                queryBuilder.AppendLine($"INSERT INTO DoctorWorkingDays (DoctorID, DayID) VALUES (@DoctorID, @DayID{i});");
-            }
+            List<int> listIDs = new List<int>();
+
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                connection.Open();
-                using (SqlTransaction transaction = connection.BeginTransaction())
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    using (SqlCommand cmd = new SqlCommand(queryBuilder.ToString(), connection, transaction))
+                    command.Parameters.AddWithValue(parameterName, DoctorID);
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@DoctorID", DoctorID);
-                        if (selectedDayIDs != null)
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            for (int i = 0; i < selectedDayIDs.Count; i++)
+                            while (reader.Read())
                             {
-                                cmd.Parameters.AddWithValue($"@DayID{i}", selectedDayIDs[i]);
+                                listIDs.Add(reader.GetInt32(0));
                             }
                         }
-                        try
-                        {
-                            cmd.ExecuteNonQuery();
-                            transaction.Commit();
-                            return true;
-                        }
-                        catch (Exception)
-                        {
-                            transaction.Rollback();
-                            return false;
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // هنا يفضل تسجيل الخطأ في ملف Log
                     }
                 }
             }
+            return listIDs;
         }
 
-        public static bool UpdateDoctorWorkingDaysInlineUltraFast(int doctorID, List<int> selectedDayIDs)
-
+        public static List<int> GetDoctorSpecialtyIDs(int DoctorID)
         {
-            return AddDoctorWorkingDays(doctorID, selectedDayIDs, true);
+            string query = "SELECT SpecializationID FROM DoctorSpecialties WHERE DoctorID = @DoctorID";
+            return GetGenericList(DoctorID,query, "@DoctorID");
         }
 
-        public static bool DeleteDoctorWorkingDays(int doctorID)
+        public static List<int> GetDoctorWorkingDayIDs(int DoctorID)
         {
-            bool IsDeleted = false;
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = @"DELETE FROM DoctorWorkingDays WHERE DoctorID = @DoctorID";
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@DoctorID", doctorID);
-            try
-            {
-                connection.Open();
-                int rowsAffected = command.ExecuteNonQuery();
-                IsDeleted = rowsAffected > 0;
-            }
-            catch (Exception ex)
-            {
-                IsDeleted = false;
-            }
-            finally
-            {
-                connection.Close();
-            }
-            return IsDeleted;
+            string query = "SELECT DayID FROM DoctorWorkingDays WHERE DoctorID = @DoctorID";
+            return GetGenericList(DoctorID, query, "@DoctorID");
         }
 
-        public static int AddNewDoctor(int PersonID, float ConsultationFees, List<int> SelectedDayIDs, List<int> SelectedSpecialtyIDs)
+
+        public static int AddNewDoctor(int PersonID,float ConsultationFees, 
+                                       string LicenseNumber,int CreatedByUserID,
+                                       bool IsActive,
+                              List<int> SelectedDayIDs, List<int> SelectedSpecialtyIDs)
         {
             // 1. بناء نص الاستعلام المجمع
             StringBuilder queryBuilder = new StringBuilder();
 
             // سكريبت إدخال الطبيب الأساسي وتخزين معرفه
             queryBuilder.AppendLine(@"
-        DECLARE @NewDoctorID INT;
-        INSERT INTO Doctors (PersonID, ConsultationFees) 
-        VALUES (@PersonID, @ConsultationFees); 
-        SET @NewDoctorID = SCOPE_IDENTITY();
-    ");
+                                DECLARE @NewDoctorID INT;
+                                INSERT INTO Doctors (PersonID, ConsultationFees, LicenseNumber, CreatedByUserID, IsActive) 
+                                VALUES (@PersonID, @ConsultationFees, @LicenseNumber, @CreatedByUserID, @IsActive); 
+                                SET @NewDoctorID = SCOPE_IDENTITY();");
 
             // تم التصحيح: فصل شروط الـ IF لضمان بناء استعلام كل جدول بشكل مستقل وآمن
             if (SelectedSpecialtyIDs != null && SelectedSpecialtyIDs.Count > 0)
@@ -215,6 +138,9 @@ namespace Clinic_DataAccess
                         // تمرير معاملات الطبيب الأساسية
                         cmd.Parameters.AddWithValue("@PersonID", PersonID);
                         cmd.Parameters.AddWithValue("@ConsultationFees", ConsultationFees);
+                        cmd.Parameters.AddWithValue("@LicenseNumber", LicenseNumber);
+                        cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
+                        cmd.Parameters.AddWithValue("@IsActive", IsActive);
 
                         // تمرير معاملات التخصصات المرقمة بأمان (مع فحص كل قائمة بشكل مستقل)
                         if (SelectedSpecialtyIDs != null)
@@ -259,13 +185,22 @@ namespace Clinic_DataAccess
             }
         }
 
-        public static bool UpdateDoctorWithSpecialtiesAndDaysInline(int DoctorID, float ConsultationFees, List<int> SelectedDayIDs, List<int> SelectedSpecialtyIDs)
+        public static bool UpdateDoctor(int DoctorID, int PersonID, float ConsultationFees,
+                                       string LicenseNumber, int CreatedByUserID,
+                                       bool IsActive, List<int> SelectedDayIDs, 
+                                       List<int> SelectedSpecialtyIDs)
         {
             // 1. بناء نص الاستعلام المجمع لتحديث البيانات والمسح وإعادة الإدخال
             StringBuilder queryBuilder = new StringBuilder();
 
             // أ. تحديث سعر الكشفية في جدول الأطباء الأساسي
-            queryBuilder.AppendLine("UPDATE Doctors SET ConsultationFees = @ConsultationFees WHERE DoctorID = @DoctorID;");
+            queryBuilder.AppendLine(@"UPDATE Doctors SET
+                                            PersonID = @PersonID,
+                                            ConsultationFees = @ConsultationFees,
+                                            LicenseNumber = @LicenseNumber,
+                                            CreatedByUserID = @CreatedByUserID,
+                                            IsActive = @IsActive
+                                            WHERE DoctorID = @DoctorID;");
 
             // ب. مسح العلاقات القديمة تماماً لتجهيز الجدولين للاستقبال الجديد
             queryBuilder.AppendLine("DELETE FROM DoctorSpecialties WHERE DoctorID = @DoctorID;");
@@ -299,7 +234,11 @@ namespace Clinic_DataAccess
                     {
                         // تمرير المعاملات المركزية للطبيب
                         cmd.Parameters.AddWithValue("@DoctorID", DoctorID);
+                        cmd.Parameters.AddWithValue("@PersonID", PersonID);
                         cmd.Parameters.AddWithValue("@ConsultationFees", ConsultationFees);
+                        cmd.Parameters.AddWithValue("@LicenseNumber", LicenseNumber);
+                        cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
+                        cmd.Parameters.AddWithValue("@IsActive", IsActive);
 
                         // تمرير قيم معاملات التخصصات بأمان
                         if (SelectedSpecialtyIDs != null)
@@ -379,6 +318,129 @@ namespace Clinic_DataAccess
             }
         }
 
-       
+
+        public static DataTable GetAllDoctors()
+        {
+            DataTable dt = new DataTable();
+            string query = "SELECT * FROM View_DoctorsDetails;";
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                                dt.Load(reader);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+            }
+
+            return dt;
+        }
+
+        public static DataRow GetDoctorByID(int DoctorID)
+        {
+            DataTable dt = new DataTable();
+            string query = "SELECT * FROM View_DoctorsDetails WHERE DoctorID=@DoctorID;";
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@DoctorID", DoctorID);
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                                dt.Load(reader);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+            }
+
+            return (dt.Rows.Count > 0) ? dt.Rows[0] : null;
+        }
+
+        private static string GetGenericString(int DoctorID, string query, string parameterName, string defaultValue)
+        {
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue(parameterName, DoctorID);
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+
+                        // نتحقق إذا كانت النتيجة فارغة (null) أو فارغة نصياً (DBNull)
+                        return (result != null && result != DBNull.Value) ? result.ToString() : defaultValue;
+                    }
+                    catch (Exception ex)
+                    {
+                        // في حالة حدوث خطأ في قاعدة البيانات، نعيد القيمة الافتراضية أيضاً
+                        return defaultValue;
+                    }
+                }
+            }
+        }
+
+        public static string GetSpecializations(int DoctorID)
+        {
+            string query = @"SELECT STRING_AGG(S.SpecializationName, ', ') AS Specializations
+                     FROM DoctorSpecialties DS 
+                     INNER JOIN Specializations S ON S.SpecializationID = DS.SpecializationID 
+                     WHERE DS.DoctorID = @DoctorID;";
+
+            return GetGenericString(DoctorID, query, "@DoctorID", "No Specializations Found");
+        }
+
+        public static string GetWorkingDays(int DoctorID)
+        {
+            string query = @"SELECT STRING_AGG(DA.DayName, ', ') AS WorkingDays
+                     FROM DoctorWorkingDays DW 
+                     INNER JOIN Days DA ON DA.DayID = DW.DayID 
+                     WHERE DW.DoctorID = @DoctorID;";
+
+            return GetGenericString(DoctorID, query, "@DoctorID", "No Working Days Set");
+        }
+
+        public static bool IsDoctorExistForPersonID(int PersonID)
+        {
+            // استخدام TOP 1 1 هي الطريقة الأكثر احترافية للتحقق من الوجود
+            string query = "SELECT TOP 1 1 FROM Doctors WHERE PersonID = @PersonID;";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PersonID", PersonID);
+                    connection.Open();
+
+                    // ExecuteScalar هنا ستعيد 1 إذا وجد السجل، أو null إذا لم يوجد
+                    return (command.ExecuteScalar() != null);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
     }
+
     }
