@@ -29,18 +29,20 @@ namespace Clinic_Business
         public clsCountry CountryInfo { set; get; }
         public string ImagePath { set; get; }
 
-        private clsPerson(int personID, string name, DateTime dateOfBirth, short Gender, string address, string phoneNumber, string email, int nationalityCountryID, string imagePath)
+        private clsPerson(int PersonID, string Name, DateTime DateOfBirth,
+                short Gender, string Address, string PhoneNumber, string Email,
+                    int NationalityCountryID, string ImagePath)
         {
-            this.PersonID = personID;
-            this.Name = name;
-            this.DateOfBirth = dateOfBirth;
+            this.PersonID = PersonID;
+            this.Name = Name;
+            this.DateOfBirth = DateOfBirth;
             this.Gender = Gender;
-            this.Address = address;
-            this.PhoneNumber = phoneNumber;
-            this.Email = email;
-            this.NationalityCountryID = nationalityCountryID;
-            this.ImagePath = imagePath;
-            CountryInfo = clsCountry.FindByID(nationalityCountryID);
+            this.Address = Address;
+            this.PhoneNumber = PhoneNumber;
+            this.Email = Email;
+            this.NationalityCountryID = NationalityCountryID;
+            this.ImagePath = ImagePath;
+            CountryInfo = clsCountry.FindByID(NationalityCountryID);
             Mode = enMode.Update;
            
         }

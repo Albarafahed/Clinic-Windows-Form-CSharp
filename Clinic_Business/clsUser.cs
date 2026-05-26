@@ -121,16 +121,7 @@ namespace Clinic_Business
 
         public  bool DeleteUser()
         {
-            bool IsUserDeleted = false;
-            bool IsBasePersonDeleted = false;
-
-            IsUserDeleted=clsUserData.DeleteUser(this.UserID);
-
-            if (!IsUserDeleted)
-                return false;
-            IsBasePersonDeleted= base.Delete();
-
-            return IsBasePersonDeleted;
+            return clsUserData.DeleteUser(this.UserID);
 
         }
 

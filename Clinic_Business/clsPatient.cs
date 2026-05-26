@@ -74,16 +74,7 @@ namespace Clinic_Business
 
         public  bool DeletePatient()
         {
-            bool IsUserDeleted = false;
-            bool IsBasePersonDeleted = false;
-
-            IsUserDeleted = clsPatientData.DeletePatient(this.PatientID);
-
-            if (!IsUserDeleted)
-                return false;
-            IsBasePersonDeleted = base.Delete();
-
-            return IsBasePersonDeleted;
+            return clsPatientData.DeletePatient(this.PatientID);
         }
 
         public static clsPatient Find(int PatientID)
