@@ -31,7 +31,7 @@ namespace Clinic_DataAccess
                 if (reader.Read())
                 {
                     PersonID = reader.GetInt32(0);
-                    ConsultationFees = reader.GetFloat(1);
+                    ConsultationFees =Convert.ToSingle( reader["ConsultationFees"]);
                     LicenseNumber = reader.GetString(2);
                     CreatedByUserID = reader.GetInt32(3);
                     IsActive = reader.GetBoolean(4);

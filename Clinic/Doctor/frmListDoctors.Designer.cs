@@ -29,12 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblRecordsCount = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cbFilterBy = new System.Windows.Forms.ComboBox();
-            this.txtFilterValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cmsPeople = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -44,9 +42,11 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAddDoctor = new System.Windows.Forms.Button();
             this.pbPersonImage = new System.Windows.Forms.PictureBox();
-            this.cbWorkingDay = new System.Windows.Forms.ComboBox();
             this.dgvDoctors = new System.Windows.Forms.DataGridView();
             this.btnClose = new System.Windows.Forms.Button();
+            this.cbIsActive = new System.Windows.Forms.ComboBox();
+            this.cbFilterBy = new System.Windows.Forms.ComboBox();
+            this.txtFilterValue = new System.Windows.Forms.TextBox();
             this.cmsPeople.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDoctors)).BeginInit();
@@ -84,34 +84,6 @@
             this.label2.TabIndex = 97;
             this.label2.Text = "# Records:";
             // 
-            // cbFilterBy
-            // 
-            this.cbFilterBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFilterBy.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.cbFilterBy.FormattingEnabled = true;
-            this.cbFilterBy.Items.AddRange(new object[] {
-            "None",
-            "Doctor ID",
-            "Person ID",
-            "Full Name",
-            "Specialization",
-            "Working Days",
-            "Country"});
-            this.cbFilterBy.Location = new System.Drawing.Point(98, 261);
-            this.cbFilterBy.Name = "cbFilterBy";
-            this.cbFilterBy.Size = new System.Drawing.Size(210, 33);
-            this.cbFilterBy.TabIndex = 96;
-            // 
-            // txtFilterValue
-            // 
-            this.txtFilterValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFilterValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.txtFilterValue.Location = new System.Drawing.Point(315, 261);
-            this.txtFilterValue.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtFilterValue.Name = "txtFilterValue";
-            this.txtFilterValue.Size = new System.Drawing.Size(256, 32);
-            this.txtFilterValue.TabIndex = 95;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -138,14 +110,14 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cmsPeople.Name = "contextMenuStrip1";
-            this.cmsPeople.Size = new System.Drawing.Size(227, 190);
+            this.cmsPeople.Size = new System.Drawing.Size(207, 162);
             // 
             // showDetailsToolStripMenuItem
             // 
             this.showDetailsToolStripMenuItem.Image = global::Clinic.Properties.Resources.PersonDetails_32;
             this.showDetailsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
-            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(226, 38);
+            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(206, 38);
             this.showDetailsToolStripMenuItem.Text = "&Show Details";
             this.showDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
             // 
@@ -154,7 +126,7 @@
             this.toolStripMenuItem1.Image = global::Clinic.Properties.Resources.doctor1_32;
             this.toolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(226, 38);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(206, 38);
             this.toolStripMenuItem1.Text = "Add &New Doctor";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.btnAddDoctor_Click);
             // 
@@ -163,7 +135,7 @@
             this.editToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit_32;
             this.editToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(226, 38);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(206, 38);
             this.editToolStripMenuItem.Text = "&Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
@@ -172,7 +144,7 @@
             this.deleteToolStripMenuItem.Image = global::Clinic.Properties.Resources.Delete_32;
             this.deleteToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(226, 38);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(206, 38);
             this.deleteToolStripMenuItem.Text = "&Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -180,7 +152,7 @@
             // 
             this.btnAddDoctor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddDoctor.Image = global::Clinic.Properties.Resources.doctor2_64;
-            this.btnAddDoctor.Location = new System.Drawing.Point(1090, 216);
+            this.btnAddDoctor.Location = new System.Drawing.Point(1265, 222);
             this.btnAddDoctor.Name = "btnAddDoctor";
             this.btnAddDoctor.Size = new System.Drawing.Size(88, 75);
             this.btnAddDoctor.TabIndex = 101;
@@ -200,25 +172,6 @@
             this.pbPersonImage.TabIndex = 99;
             this.pbPersonImage.TabStop = false;
             // 
-            // cbWorkingDay
-            // 
-            this.cbWorkingDay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbWorkingDay.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.cbWorkingDay.FormattingEnabled = true;
-            this.cbWorkingDay.Items.AddRange(new object[] {
-            "All",
-            "Sunday",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday"});
-            this.cbWorkingDay.Location = new System.Drawing.Point(315, 261);
-            this.cbWorkingDay.Name = "cbWorkingDay";
-            this.cbWorkingDay.Size = new System.Drawing.Size(152, 33);
-            this.cbWorkingDay.TabIndex = 103;
-            // 
             // dgvDoctors
             // 
             this.dgvDoctors.AllowUserToAddRows = false;
@@ -227,16 +180,17 @@
             this.dgvDoctors.BackgroundColor = System.Drawing.Color.White;
             this.dgvDoctors.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvDoctors.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDoctors.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDoctors.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDoctors.ColumnHeadersHeight = 40;
             this.dgvDoctors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvDoctors.ContextMenuStrip = this.cmsPeople;
             this.dgvDoctors.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvDoctors.EnableHeadersVisualStyles = false;
             this.dgvDoctors.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
@@ -255,7 +209,7 @@
             this.dgvDoctors.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvDoctors.RowTemplate.Height = 38;
             this.dgvDoctors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDoctors.Size = new System.Drawing.Size(1157, 371);
+            this.dgvDoctors.Size = new System.Drawing.Size(1319, 371);
             this.dgvDoctors.TabIndex = 104;
             this.dgvDoctors.TabStop = false;
             // 
@@ -270,36 +224,94 @@
             this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(1056, 681);
+            this.btnClose.Location = new System.Drawing.Point(1218, 684);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(135, 38);
             this.btnClose.TabIndex = 105;
             this.btnClose.Text = "  Close";
             this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // cbIsActive
+            // 
+            this.cbIsActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbIsActive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbIsActive.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cbIsActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.cbIsActive.FormattingEnabled = true;
+            this.cbIsActive.Items.AddRange(new object[] {
+            "All",
+            "Yes",
+            "No"});
+            this.cbIsActive.Location = new System.Drawing.Point(315, 268);
+            this.cbIsActive.Name = "cbIsActive";
+            this.cbIsActive.Size = new System.Drawing.Size(121, 31);
+            this.cbIsActive.TabIndex = 106;
+            this.cbIsActive.Visible = false;
+            this.cbIsActive.SelectedIndexChanged += new System.EventHandler(this.cbIsActive_SelectedIndexChanged);
+            // 
+            // cbFilterBy
+            // 
+            this.cbFilterBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFilterBy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbFilterBy.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cbFilterBy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.cbFilterBy.FormattingEnabled = true;
+            this.cbFilterBy.Items.AddRange(new object[] {
+            "None",
+            "Doctor ID",
+            "Person ID",
+            "FullName",
+            "LicenseNumber",
+            "ConsultationFees",
+            "Specializations",
+            "WorkingDays",
+            "CountryName",
+            "IsActive"});
+            this.cbFilterBy.Location = new System.Drawing.Point(98, 266);
+            this.cbFilterBy.Name = "cbFilterBy";
+            this.cbFilterBy.Size = new System.Drawing.Size(210, 31);
+            this.cbFilterBy.TabIndex = 108;
+            this.cbFilterBy.Visible = false;
+            this.cbFilterBy.SelectedIndexChanged += new System.EventHandler(this.cbFilterBy_SelectedIndexChanged);
+            // 
+            // txtFilterValue
+            // 
+            this.txtFilterValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFilterValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.txtFilterValue.Location = new System.Drawing.Point(315, 267);
+            this.txtFilterValue.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtFilterValue.Name = "txtFilterValue";
+            this.txtFilterValue.Size = new System.Drawing.Size(256, 30);
+            this.txtFilterValue.TabIndex = 109;
+            this.txtFilterValue.Visible = false;
+            this.txtFilterValue.TextChanged += new System.EventHandler(this.txtFilterValue_TextChanged);
+            this.txtFilterValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterValue_KeyPress);
             // 
             // frmListDoctors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
-            this.ClientSize = new System.Drawing.Size(1222, 728);
+            this.ClientSize = new System.Drawing.Size(1379, 728);
+            this.Controls.Add(this.cbFilterBy);
+            this.Controls.Add(this.cbIsActive);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.dgvDoctors);
-            this.Controls.Add(this.cbWorkingDay);
             this.Controls.Add(this.btnAddDoctor);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.pbPersonImage);
             this.Controls.Add(this.lblRecordsCount);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.cbFilterBy);
-            this.Controls.Add(this.txtFilterValue);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtFilterValue);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmListDoctors";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmListDoctors";
+            this.Load += new System.EventHandler(this.frmListDoctors_Load);
             this.cmsPeople.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDoctors)).EndInit();
@@ -314,8 +326,6 @@
         private System.Windows.Forms.PictureBox pbPersonImage;
         private System.Windows.Forms.Label lblRecordsCount;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cbFilterBy;
-        private System.Windows.Forms.TextBox txtFilterValue;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
@@ -323,8 +333,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ContextMenuStrip cmsPeople;
         private System.Windows.Forms.ToolStripMenuItem showDetailsToolStripMenuItem;
-        private System.Windows.Forms.ComboBox cbWorkingDay;
         private System.Windows.Forms.DataGridView dgvDoctors;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ComboBox cbIsActive;
+        private System.Windows.Forms.ComboBox cbFilterBy;
+        private System.Windows.Forms.TextBox txtFilterValue;
     }
 }
