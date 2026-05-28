@@ -31,8 +31,10 @@
             this.components = new System.ComponentModel.Container();
             this.tcDoctor = new System.Windows.Forms.TabControl();
             this.tpPersonalInfo = new System.Windows.Forms.TabPage();
+            this.ctrlPersonCardWithFilter1 = new Clinic.Controls.ctrlPersonCardWithFilter();
             this.btnPersonInfoNext = new System.Windows.Forms.Button();
             this.tpDoctorInfo = new System.Windows.Forms.TabPage();
+            this.clbSpesalizations = new System.Windows.Forms.CheckedListBox();
             this.chkIsActive = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -52,8 +54,6 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.clbSpecialization = new System.Windows.Forms.CheckedListBox();
-            this.ctrlPersonCardWithFilter1 = new Clinic.Controls.ctrlPersonCardWithFilter();
             this.tcDoctor.SuspendLayout();
             this.tpPersonalInfo.SuspendLayout();
             this.tpDoctorInfo.SuspendLayout();
@@ -75,6 +75,7 @@
             this.tcDoctor.SelectedIndex = 0;
             this.tcDoctor.Size = new System.Drawing.Size(931, 474);
             this.tcDoctor.TabIndex = 117;
+            this.tcDoctor.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tcDoctor_Selecting);
             // 
             // tpPersonalInfo
             // 
@@ -87,6 +88,18 @@
             this.tpPersonalInfo.Size = new System.Drawing.Size(923, 438);
             this.tpPersonalInfo.TabIndex = 0;
             this.tpPersonalInfo.Text = "Personal Info";
+            // 
+            // ctrlPersonCardWithFilter1
+            // 
+            this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
+            this.ctrlPersonCardWithFilter1.btnAddNewEnabled = true;
+            this.ctrlPersonCardWithFilter1.FilterEnabled = false;
+            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(4, 4);
+            this.ctrlPersonCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
+            this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
+            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(916, 375);
+            this.ctrlPersonCardWithFilter1.TabIndex = 119;
             // 
             // btnPersonInfoNext
             // 
@@ -105,11 +118,12 @@
             this.btnPersonInfoNext.TabIndex = 119;
             this.btnPersonInfoNext.Text = "Next   ";
             this.btnPersonInfoNext.UseVisualStyleBackColor = true;
+            this.btnPersonInfoNext.Click += new System.EventHandler(this.btnPersonInfoNext_Click);
             // 
             // tpDoctorInfo
             // 
             this.tpDoctorInfo.BackColor = System.Drawing.Color.White;
-            this.tpDoctorInfo.Controls.Add(this.clbSpecialization);
+            this.tpDoctorInfo.Controls.Add(this.clbSpesalizations);
             this.tpDoctorInfo.Controls.Add(this.chkIsActive);
             this.tpDoctorInfo.Controls.Add(this.label1);
             this.tpDoctorInfo.Controls.Add(this.pictureBox1);
@@ -131,6 +145,17 @@
             this.tpDoctorInfo.Size = new System.Drawing.Size(923, 438);
             this.tpDoctorInfo.TabIndex = 1;
             this.tpDoctorInfo.Text = "Doctor Info";
+            // 
+            // clbSpesalizations
+            // 
+            this.clbSpesalizations.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.clbSpesalizations.CheckOnClick = true;
+            this.clbSpesalizations.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.clbSpesalizations.Location = new System.Drawing.Point(698, 58);
+            this.clbSpesalizations.Name = "clbSpesalizations";
+            this.clbSpesalizations.Size = new System.Drawing.Size(194, 108);
+            this.clbSpesalizations.TabIndex = 2;
+            this.clbSpesalizations.Validating += new System.ComponentModel.CancelEventHandler(this.CheckedListBoxValidating);
             // 
             // chkIsActive
             // 
@@ -171,7 +196,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = global::Clinic.Properties.Resources.WorkingDays_32;
-            this.pictureBox3.Location = new System.Drawing.Point(673, 275);
+            this.pictureBox3.Location = new System.Drawing.Point(648, 274);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(31, 26);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -183,7 +208,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.label6.Location = new System.Drawing.Point(521, 276);
+            this.label6.Location = new System.Drawing.Point(496, 275);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(142, 25);
@@ -199,6 +224,8 @@
             this.txtConsultationFees.Name = "txtConsultationFees";
             this.txtConsultationFees.Size = new System.Drawing.Size(223, 32);
             this.txtConsultationFees.TabIndex = 1;
+            this.txtConsultationFees.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtConsultationFees_KeyPress);
+            this.txtConsultationFees.Validating += new System.ComponentModel.CancelEventHandler(this.TextBoxValidating);
             // 
             // txtLicenseNo
             // 
@@ -209,6 +236,7 @@
             this.txtLicenseNo.Name = "txtLicenseNo";
             this.txtLicenseNo.Size = new System.Drawing.Size(223, 32);
             this.txtLicenseNo.TabIndex = 0;
+            this.txtLicenseNo.Validating += new System.ComponentModel.CancelEventHandler(this.TextBoxValidating);
             // 
             // pictureBox6
             // 
@@ -235,7 +263,7 @@
             // pictureBox4
             // 
             this.pictureBox4.Image = global::Clinic.Properties.Resources.Specialization_32;
-            this.pictureBox4.Location = new System.Drawing.Point(675, 59);
+            this.pictureBox4.Location = new System.Drawing.Point(652, 61);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(31, 26);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -247,7 +275,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.label5.Location = new System.Drawing.Point(524, 58);
+            this.label5.Location = new System.Drawing.Point(501, 60);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(139, 25);
@@ -256,19 +284,14 @@
             // 
             // clbWorkingDays
             // 
+            this.clbWorkingDays.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.clbWorkingDays.CheckOnClick = true;
             this.clbWorkingDays.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.clbWorkingDays.Items.AddRange(new object[] {
-            "Sat",
-            "Sun",
-            "Mon",
-            "Tue",
-            "Wed",
-            "Thu",
-            "Fri"});
-            this.clbWorkingDays.Location = new System.Drawing.Point(717, 245);
+            this.clbWorkingDays.Location = new System.Drawing.Point(692, 268);
             this.clbWorkingDays.Name = "clbWorkingDays";
-            this.clbWorkingDays.Size = new System.Drawing.Size(200, 85);
+            this.clbWorkingDays.Size = new System.Drawing.Size(200, 81);
             this.clbWorkingDays.TabIndex = 3;
+            this.clbWorkingDays.Validating += new System.ComponentModel.CancelEventHandler(this.CheckedListBoxValidating);
             // 
             // label8
             // 
@@ -337,6 +360,7 @@
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "   Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnClose
             // 
@@ -356,26 +380,7 @@
             this.btnClose.TabIndex = 6;
             this.btnClose.Text = "   Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            // 
-            // clbSpecialization
-            // 
-            this.clbSpecialization.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.clbSpecialization.Location = new System.Drawing.Point(721, 44);
-            this.clbSpecialization.Name = "clbSpecialization";
-            this.clbSpecialization.Size = new System.Drawing.Size(194, 112);
-            this.clbSpecialization.TabIndex = 2;
-            // 
-            // ctrlPersonCardWithFilter1
-            // 
-            this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
-            this.ctrlPersonCardWithFilter1.btnAddNewEnabled = true;
-            this.ctrlPersonCardWithFilter1.FilterEnabled = false;
-            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(4, 4);
-            this.ctrlPersonCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
-            this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
-            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(916, 375);
-            this.ctrlPersonCardWithFilter1.TabIndex = 119;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // frmAddUpdateDoctor
             // 
@@ -396,6 +401,8 @@
             this.Name = "frmAddUpdateDoctor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add/Update Doctor";
+            this.Activated += new System.EventHandler(this.frmAddUpdateDoctor_Activated);
+            this.Load += new System.EventHandler(this.frmAddUpdateDoctor_Load);
             this.tcDoctor.ResumeLayout(false);
             this.tpPersonalInfo.ResumeLayout(false);
             this.tpDoctorInfo.ResumeLayout(false);
@@ -435,6 +442,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox chkIsActive;
-        private System.Windows.Forms.CheckedListBox clbSpecialization;
+        private System.Windows.Forms.CheckedListBox clbSpesalizations;
     }
 }

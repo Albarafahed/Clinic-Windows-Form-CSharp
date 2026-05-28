@@ -14,6 +14,17 @@ namespace Clinic_Business
     {
         public enum enMode { AddNew=1,Update=2}
         private enMode _Mode = enMode.AddNew;
+
+        public enum enDayOfWeek
+        {
+            Saturday = 1,
+            Sunday = 2,
+            Monday = 3,
+            Tuesday = 4,
+            Wednesday = 5,
+            Thursday = 6,
+            Friday = 7
+        }
         public int DoctorID { get; set; }
 
         public float ConsultationFees { get; set; }
