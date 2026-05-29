@@ -57,6 +57,17 @@ Clinic_System/
 
 ---
 
+### 🩺 إدارة المرضى (Doctor Management)
+إدارة كاملة للملفات الطبية للمرضى مع حماية ضد التكرار وتحقق من صحة البيانات.
+
+| الشاشة | اللقطة |
+| :--- | :--- |
+| **قائمة الدكاترة** | ![List Doctors](Image/Doctor/frmlistDoctor.png) |
+| **إضافة/تعديل دكتور** | ![Add/Update Doctor](Image/Doctor/frmAddUpdateDoctor.png) |
+| **تفاصيل دكتور** | ![Show Doctor](Image/Doctor/frmshowDoctor.png) |
+| **بحث عن دكتور** | ![Show Doctor](Image/Doctor/frmFindDoctor.png) |
+
+---
 ### 🔑 إدارة المستخدمين (User Management)
 تحكم كامل بصلاحيات الدخول وحماية الحسابات.
 
