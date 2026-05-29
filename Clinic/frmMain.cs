@@ -1,5 +1,6 @@
 ﻿
 using Clinic.Doctor;
+using Clinic.Login;
 using Clinic.Patient;
 using Clinic.Patient.Controls;
 using Clinic.User;
@@ -17,27 +18,26 @@ namespace Clinic
 {
     public partial class frmMain : Form
     {
-      
-        //public frmMain(frmLogin frmLogin)
-        //{
-        //    InitializeComponent();
-        //    _CreateStatsCards();
-        //    _frmLogin = frmLogin;
-        //}
 
-        public frmMain()
+        private frmLogin _frmLogin;
+        public frmMain(frmLogin frmLogin)
         {
             InitializeComponent();
+            _CreateStatsCards();
+            _frmLogin = frmLogin;
         }
         private void frmMain_Load(object sender, EventArgs e)
         {
             timer1.Start();
+            lblUser.Text=$"User : {clsGlobal.CurrentUser.RoleInfo.RoleName}";
         }
 
         private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //_frmLogin.ShowDialog();
+            clsGlobal.CurrentUser = null;
             this.Close();
+            _frmLogin.Show();
+           
         }
 
         private void timer1_Tick(object sender, EventArgs e)

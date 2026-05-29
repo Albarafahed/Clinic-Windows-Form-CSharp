@@ -218,7 +218,7 @@ namespace Clinic
             this.MangementStripMenuItem.Image = global::Clinic.Properties.Resources.mange_32;
             this.MangementStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MangementStripMenuItem.Name = "MangementStripMenuItem";
-            this.MangementStripMenuItem.Size = new System.Drawing.Size(223, 38);
+            this.MangementStripMenuItem.Size = new System.Drawing.Size(236, 38);
             this.MangementStripMenuItem.Text = "Mangement";
             // 
             // manageServicesToolStripMenuItem
@@ -245,7 +245,7 @@ namespace Clinic
             this.UserOptiontoolStripMenuItem.Image = global::Clinic.Properties.Resources.User_Options_32;
             this.UserOptiontoolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.UserOptiontoolStripMenuItem.Name = "UserOptiontoolStripMenuItem";
-            this.UserOptiontoolStripMenuItem.Size = new System.Drawing.Size(223, 38);
+            this.UserOptiontoolStripMenuItem.Size = new System.Drawing.Size(236, 38);
             this.UserOptiontoolStripMenuItem.Text = "UserOption";
             // 
             // currentUserInfoToolStripMenuItem1
@@ -269,14 +269,14 @@ namespace Clinic
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(220, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(233, 6);
             // 
             // signOutToolStripMenuItem
             // 
             this.signOutToolStripMenuItem.Image = global::Clinic.Properties.Resources.sign_out_32__2;
             this.signOutToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(223, 38);
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(236, 38);
             this.signOutToolStripMenuItem.Text = "Sign &Out";
             this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
             // 

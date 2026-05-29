@@ -1,4 +1,5 @@
-﻿using Clinic.Patient.Controls;
+﻿using Clinic.Login;
+using Clinic.Patient.Controls;
 using Clinic_Business;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Clinic
             Application.SetCompatibleTextRenderingDefault(false);
 
             clsCountry.GetAllCountriesList();
-            Application.Run(new frmMain());
+            Application.Run(new frmLogin());
         }
     }
 }

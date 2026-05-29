@@ -82,6 +82,44 @@ namespace Clinic_DataAccess
             return IsFound;
         }
 
+        public static bool FindByUsernameAndPassword(string UserName,string Password,ref int UserID, ref int PersonID, ref bool IsActive, ref int RoleID)
+        {
+            bool IsFound = false;
+
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                // تحسين: تحديد الأعمدة بدقة
+                string query = "SELECT UserID, PersonID, IsActive, RoleID FROM Users WHERE UserName = @UserName AND Password = @Password";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserName", UserName);
+                    command.Parameters.AddWithValue("@Password", Password);
+
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                IsFound = true;
+                                UserID = (int)reader["UserID"];
+                                PersonID = (int)reader["PersonID"];
+                                IsActive = (bool)reader["IsActive"];
+                                RoleID = (int)reader["RoleID"];
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        IsFound = false;
+                    }
+                }
+            }
+            return IsFound;
+        }
+
         public static int AddNewUser(int PersonID, string UserName, string Password, bool IsActive, int RoleID)
         {
             int UserID = -1;

@@ -178,9 +178,7 @@ namespace Clinic.Patient
             _Patient.MedicalHistory = string.IsNullOrEmpty(txtMedicalHistory.Text.Trim()) ? null : txtMedicalHistory.Text.Trim();
             _Patient.BloodTypeID = (int)cbBloodType.SelectedValue;
 
-            // تعيين بيانات النظام التلقائية والمسؤول عن الإجراء
-            //_Patient.CreatedByUserID = clsGlobal.CurrentUser.UserID; // بناءً على كلاس الجلسة في مشروعك
-            _Patient.CreatedByUserID = 1;
+            _Patient.CreatedByUserID = clsGlobal.CurrentUser.UserID; 
             if (_Patient.Save())
             {
                 lblPatientID.Text = _Patient.PatientID.ToString();

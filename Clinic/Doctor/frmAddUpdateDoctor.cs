@@ -194,7 +194,7 @@ namespace Clinic.Doctor
 
             _Doctor.LicenseNumber = txtLicenseNo.Text.Trim();
 
-            _Doctor.CreatedByUserID = 1;
+            _Doctor.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             _Doctor.IsActive = chkIsActive.Checked;
 

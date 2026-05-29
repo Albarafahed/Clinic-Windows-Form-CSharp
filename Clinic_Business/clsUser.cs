@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 
 namespace Clinic_Business
 {
-    public class clsUser:clsPerson
+    public class clsUser
     {
         public enum enMode { AddNew=1, Update=2}
         private enMode _Mode=enMode.AddNew;
 
         public int UserID { get; set; }
+        public int PersonID { get; set; }
+        public clsPerson PersonInfo { get; set; }
 
         public string UserName { get; set; }
 
@@ -31,6 +33,7 @@ namespace Clinic_Business
         public clsUser() 
         {
             this.UserID = -1;
+            this.PersonID = -1;
             this.UserName = "";
             this.Password = "";
             this.IsActive = false;
@@ -38,49 +41,33 @@ namespace Clinic_Business
              _Mode = enMode.AddNew;
         }
 
-        public clsUser (int UserID,string UserName, string Password,bool IsActive,int RoleID,
-            int personID,string name, DateTime dateOfBirth, short Gender, string address,
-            string phoneNumber, string email, int nationalityCountryID, string imagePath)
+        public clsUser (int UserID,int PersonID,string UserName,
+            string Password,bool IsActive,int RoleID)
         {
 
-              //Inisualized By Parent
-            this.PersonID = personID;
-            this.Name = name;
-            this.DateOfBirth = dateOfBirth;
-            this.Gender = Gender;
-            this.Address = address;
-            this.PhoneNumber = phoneNumber;
-            this.Email = email;
-            this.NationalityCountryID = nationalityCountryID;
-            this.ImagePath = imagePath;
-
-
-            this.UserID=UserID;
+            
+            this.UserID = UserID;
+            this.PersonID = PersonID;
+            this.PersonInfo = clsPerson.Find(PersonID);
             this.UserName = UserName;
             this.Password = Password;
             this.IsActive = IsActive;
             this.RoleID = RoleID;
-            this.RoleInfo=clsRole.FindByID(RoleID);
-            _Mode = enMode.Update;
+            this.RoleInfo = clsRole.FindByID(RoleID);
+             _Mode = enMode.Update;
         }
+          
 
         public static clsUser Find(int UserID)
         {
-            int PersonID = -1; string FullName = ""; DateTime DateOfBirth = DateTime.Now;
-
-            short Gender = 0; string Address = ""; string PhoneNumber = "";
-            string Email = ""; int NationalityCountryID = -1; string ImagePath = "";
+            int PersonID = -1;
 
             string UserName = "";  string Password = ""; bool IsActive = false;
             int RoleID = -1;
 
             if(clsUserData.Find(UserID,ref PersonID,ref UserName ,ref Password,ref IsActive,ref RoleID))
             {
-                if(clsPersonData.GetPersonByPersonID(PersonID,ref FullName,ref DateOfBirth,ref Gender,ref PhoneNumber,ref Email,ref Address,ref NationalityCountryID,ref ImagePath))
-                
-                    return new clsUser(UserID, UserName, Password, IsActive, RoleID, PersonID, FullName, DateOfBirth, Gender, Address, PhoneNumber, Email, NationalityCountryID, ImagePath);
-
-                
+                return new clsUser(UserID, PersonID, UserName, Password, IsActive, RoleID);
             }
 
             return null;
@@ -88,21 +75,29 @@ namespace Clinic_Business
 
         public static clsUser FindByPersonID(int PersonID)
         {
-            int UserID = -1; string FullName = ""; DateTime DateOfBirth = DateTime.Now;
-
-            short Gender = 0; string Address = ""; string PhoneNumber = "";
-            string Email = ""; int NationalityCountryID = -1; string ImagePath = "";
+            int UserID = -1;
 
             string UserName = ""; string Password = ""; bool IsActive = false;
             int RoleID = -1;
 
-            if (clsUserData.FindByPersonID(PersonID, ref UserID, ref UserName, ref Password, ref IsActive, ref RoleID))
+            if (clsUserData.Find(UserID, ref PersonID, ref UserName, ref Password, ref IsActive, ref RoleID))
             {
-                if (clsPersonData.GetPersonByPersonID(PersonID, ref FullName, ref DateOfBirth, ref Gender, ref PhoneNumber, ref Email, ref Address, ref NationalityCountryID, ref ImagePath))
+                return new clsUser(UserID, PersonID, UserName, Password, IsActive, RoleID);
+            }
 
-                    return new clsUser(UserID, UserName, Password, IsActive, RoleID, PersonID, FullName, DateOfBirth, Gender, Address, PhoneNumber, Email, NationalityCountryID, ImagePath);
+            return null;
+        }
 
+        public static clsUser FindByUsernameAndPassword(string UserName, string Password)
+        {
+            int UserID = -1;
+            int PersonID = -1;
+           bool IsActive = false;
+            int RoleID = -1;
 
+            if (clsUserData.FindByUsernameAndPassword(UserName, Password, ref UserID, ref PersonID, ref IsActive, ref RoleID))
+            {
+                return new clsUser(UserID, PersonID, UserName, Password, IsActive, RoleID);
             }
 
             return null;
