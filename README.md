@@ -30,7 +30,7 @@ Clinic_System/
 
 ## 🏗️ هيكلية قاعدة البيانات (Database Diagram)
 هذا المخطط يوضح العلاقات بين الجداول المختلفة في قاعدة بيانات العيادة (`ClinicDB`):
-![Database Schema](Image/DB/DBClinc3.png)
+![Database Schema](Image/DB/DBClinc4.png)
 
 ## 📅 التحديثات والميزات (Module Showcase)
 
