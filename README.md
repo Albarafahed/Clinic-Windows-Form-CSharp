@@ -33,6 +33,14 @@ Clinic_System/
 ![Database Schema](Image/DB/DBClinc4.png)
 
 ## 📅 التحديثات والميزات (Module Showcase)
+---
+
+## 🖥️  واجهة تسجيل الدخول (Dashboard)
+المركز العصبي للنظام الذي يربط كافة الأقسام.
+
+![Main Dashboard](Image/Login/frmLogin.png)
+
+---
 
 ### 👥 إدارة الأشخاص (Person Management)
 نظام مركزي لإدارة بيانات الأشخاص (مرضى، أطباء، مستخدمين).
