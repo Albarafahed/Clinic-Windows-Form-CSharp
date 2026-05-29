@@ -17,8 +17,9 @@
 ```text
 Clinic_System/
 ├── Clinic/                # Presentation Layer (Forms & Controls)
-│   ├── Patient/           # Patient Management Modules
 │   ├── Person/            # Person Management Modules
+│   ├── Patient/           # Patient Management Modules
+│   ├── Doctor/            # Doctor Management Modules
 │   ├── User/              # User Management & Security
 │   └── global classes/    # Utility & Helper Classes
 ├── Clinic_Business/       # Business Logic Layer (Business Objects)
