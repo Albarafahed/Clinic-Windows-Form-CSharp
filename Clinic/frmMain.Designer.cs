@@ -54,7 +54,8 @@ namespace Clinic
             this.lblDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsQuick = new System.Windows.Forms.ToolStrip();
             this.btnAddApp = new System.Windows.Forms.ToolStripButton();
-            this.btnSearchPat = new System.Windows.Forms.ToolStripButton();
+            this.btnFindPatient = new System.Windows.Forms.ToolStripButton();
+            this.btnFindDoctor = new System.Windows.Forms.ToolStripButton();
             this.sep = new System.Windows.Forms.ToolStripSeparator();
             this.btnPayment = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -167,6 +168,7 @@ namespace Clinic
             this.peopleToolStripMenuItem.Name = "peopleToolStripMenuItem";
             this.peopleToolStripMenuItem.Size = new System.Drawing.Size(157, 68);
             this.peopleToolStripMenuItem.Text = "People";
+            this.peopleToolStripMenuItem.Click += new System.EventHandler(this.peopleToolStripMenuItem_Click);
             // 
             // PatientsToolStripMenuItem
             // 
@@ -175,6 +177,7 @@ namespace Clinic
             this.PatientsToolStripMenuItem.Name = "PatientsToolStripMenuItem";
             this.PatientsToolStripMenuItem.Size = new System.Drawing.Size(168, 68);
             this.PatientsToolStripMenuItem.Text = "Patients";
+            this.PatientsToolStripMenuItem.Click += new System.EventHandler(this.PatientsToolStripMenuItem_Click);
             // 
             // DoctorsStripMenuItem1
             // 
@@ -183,6 +186,7 @@ namespace Clinic
             this.DoctorsStripMenuItem1.Name = "DoctorsStripMenuItem1";
             this.DoctorsStripMenuItem1.Size = new System.Drawing.Size(164, 68);
             this.DoctorsStripMenuItem1.Text = "Doctors";
+            this.DoctorsStripMenuItem1.Click += new System.EventHandler(this.DoctorsStripMenuItem1_Click);
             // 
             // UsersToolStripMenuItem
             // 
@@ -191,6 +195,7 @@ namespace Clinic
             this.UsersToolStripMenuItem.Name = "UsersToolStripMenuItem";
             this.UsersToolStripMenuItem.Size = new System.Drawing.Size(146, 68);
             this.UsersToolStripMenuItem.Text = "Users";
+            this.UsersToolStripMenuItem.Click += new System.EventHandler(this.UsersToolStripMenuItem_Click);
             // 
             // accountSettingsToolStripMenuItem
             // 
@@ -250,6 +255,7 @@ namespace Clinic
             this.currentUserInfoToolStripMenuItem1.Name = "currentUserInfoToolStripMenuItem1";
             this.currentUserInfoToolStripMenuItem1.Size = new System.Drawing.Size(286, 38);
             this.currentUserInfoToolStripMenuItem1.Text = "&Current User Info";
+            this.currentUserInfoToolStripMenuItem1.Click += new System.EventHandler(this.currentUserInfoToolStripMenuItem1_Click);
             // 
             // Password32ToolStripMenuItem
             // 
@@ -258,6 +264,7 @@ namespace Clinic
             this.Password32ToolStripMenuItem.Name = "Password32ToolStripMenuItem";
             this.Password32ToolStripMenuItem.Size = new System.Drawing.Size(286, 38);
             this.Password32ToolStripMenuItem.Text = "Change Password";
+            this.Password32ToolStripMenuItem.Click += new System.EventHandler(this.Password32ToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
@@ -299,7 +306,7 @@ namespace Clinic
             // 
             this.spring.AutoSize = false;
             this.spring.Name = "spring";
-            this.spring.Size = new System.Drawing.Size(1501, 44);
+            this.spring.Size = new System.Drawing.Size(1540, 44);
             this.spring.Spring = true;
             // 
             // lblDateTime
@@ -323,7 +330,8 @@ namespace Clinic
             this.tsQuick.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.tsQuick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAddApp,
-            this.btnSearchPat,
+            this.btnFindPatient,
+            this.btnFindDoctor,
             this.sep,
             this.btnPayment});
             this.tsQuick.Location = new System.Drawing.Point(0, 72);
@@ -338,12 +346,21 @@ namespace Clinic
             this.btnAddApp.Size = new System.Drawing.Size(160, 36);
             this.btnAddApp.Text = "New Appointment";
             // 
-            // btnSearchPat
+            // btnFindPatient
             // 
-            this.btnSearchPat.Image = global::Clinic.Properties.Resources.Next_32;
-            this.btnSearchPat.Name = "btnSearchPat";
-            this.btnSearchPat.Size = new System.Drawing.Size(121, 36);
-            this.btnSearchPat.Text = "Find Patient";
+            this.btnFindPatient.Image = global::Clinic.Properties.Resources.patient;
+            this.btnFindPatient.Name = "btnFindPatient";
+            this.btnFindPatient.Size = new System.Drawing.Size(121, 36);
+            this.btnFindPatient.Text = "Find Patient";
+            this.btnFindPatient.Click += new System.EventHandler(this.btnFindPatient_Click);
+            // 
+            // btnFindDoctor
+            // 
+            this.btnFindDoctor.Image = global::Clinic.Properties.Resources.doctor;
+            this.btnFindDoctor.Name = "btnFindDoctor";
+            this.btnFindDoctor.Size = new System.Drawing.Size(122, 36);
+            this.btnFindDoctor.Text = "Find Doctor";
+            this.btnFindDoctor.Click += new System.EventHandler(this.btnFindDoctor_Click);
             // 
             // sep
             // 
@@ -569,7 +586,7 @@ namespace Clinic
         private System.Windows.Forms.StatusStrip statusStrip1;
         private ToolStrip tsQuick;
         private ToolStripButton btnAddApp;
-        private ToolStripButton btnSearchPat;
+        private ToolStripButton btnFindDoctor;
         private ToolStripSeparator sep;
         private ToolStripButton btnPayment;
         private PictureBox pictureBox1;
@@ -589,6 +606,7 @@ namespace Clinic
         private Label lbValue;
         private Label lblTitle;
         private Timer timer1;
+        private ToolStripButton btnFindPatient;
     }
 }
 
