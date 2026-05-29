@@ -231,6 +231,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -248,13 +249,12 @@
             this.labelStatus = new System.Windows.Forms.Label();
             this.lblActiveStatus = new System.Windows.Forms.Label();
             this.ctrlPersonCard1 = new Clinic.Controls.ctrlPersonCard();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -283,6 +283,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Doctor Information";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::Clinic.Properties.Resources.ID_32;
+            this.pictureBox4.Location = new System.Drawing.Point(140, 127);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 16;
+            this.pictureBox4.TabStop = false;
             // 
             // pictureBox3
             // 
@@ -330,7 +340,7 @@
             this.lblWorkingDays.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.lblWorkingDays.Location = new System.Drawing.Point(651, 99);
             this.lblWorkingDays.Name = "lblWorkingDays";
-            this.lblWorkingDays.Size = new System.Drawing.Size(224, 28);
+            this.lblWorkingDays.Size = new System.Drawing.Size(224, 56);
             this.lblWorkingDays.TabIndex = 4;
             this.lblWorkingDays.Text = "???";
             // 
@@ -350,8 +360,9 @@
             this.lblSpecialization.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.lblSpecialization.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.lblSpecialization.Location = new System.Drawing.Point(658, 35);
+            this.lblSpecialization.MinimumSize = new System.Drawing.Size(200, 0);
             this.lblSpecialization.Name = "lblSpecialization";
-            this.lblSpecialization.Size = new System.Drawing.Size(235, 28);
+            this.lblSpecialization.Size = new System.Drawing.Size(235, 64);
             this.lblSpecialization.TabIndex = 6;
             this.lblSpecialization.Text = "???";
             // 
@@ -464,16 +475,6 @@
             this.ctrlPersonCard1.Size = new System.Drawing.Size(900, 280);
             this.ctrlPersonCard1.TabIndex = 0;
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::Clinic.Properties.Resources.ID_32;
-            this.pictureBox4.Location = new System.Drawing.Point(140, 127);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 16;
-            this.pictureBox4.TabStop = false;
-            // 
             // ctrDoctorCardInfo
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
@@ -484,11 +485,11 @@
             this.Size = new System.Drawing.Size(910, 482);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
 
         }
