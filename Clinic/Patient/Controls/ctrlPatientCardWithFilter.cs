@@ -1,4 +1,5 @@
-﻿using Clinic_Business;
+﻿using Clinic.global_classes;
+using Clinic_Business;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,24 +15,14 @@ namespace Clinic.Patient.Controls
 {
     public partial class ctrDoctorCardInfoWithFilter1 : UserControl
     {
-        public class PatientEventArgs : EventArgs
+      
+
+        public event EventHandler<clsEventArgs> PatientCreated;
+
+        public void OnPatientCreated(int PatientID, int PersonID)
         {
-            public int PatientID { get; }
-            public int PersonID { get; }
-
-            public PatientEventArgs(int PatientID, int PersonID)
-            {
-                this.PatientID = PatientID;
-                this.PersonID = PersonID;
-            }
-        }
-
-        public event EventHandler<PatientEventArgs> OnPatientCreated;
-
-        public void Created(int PatientID, int PersonID)
-        {
-            if(OnPatientCreated != null)
-                OnPatientCreated(this,new PatientEventArgs(PatientID, PersonID));
+            if(PatientCreated != null)
+                PatientCreated(this,new clsEventArgs(PatientID, PersonID));
         }
 
         public ctrDoctorCardInfoWithFilter1()
@@ -77,8 +68,8 @@ namespace Clinic.Patient.Controls
  
 
             // هنا المريض موجود، يمكن إطلاق الحدث
-            if (OnPatientCreated != null && FilterEnabled)
-                Created(patientID, ctrlPatientCard1.SelectedPatient.PersonID);
+            if (PatientCreated != null && FilterEnabled)
+                OnPatientCreated(patientID, ctrlPatientCard1.SelectedPatient.PersonID);
         }
 
         public void FocuseFilter()

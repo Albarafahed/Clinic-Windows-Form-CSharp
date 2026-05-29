@@ -76,7 +76,7 @@
             this.ctrDoctorCardInfoWithFilter1.Name = "ctrDoctorCardInfoWithFilter1";
             this.ctrDoctorCardInfoWithFilter1.Size = new System.Drawing.Size(921, 589);
             this.ctrDoctorCardInfoWithFilter1.TabIndex = 93;
-            this.ctrDoctorCardInfoWithFilter1.OnPatientCreated += new System.EventHandler<Clinic.Patient.Controls.ctrDoctorCardInfoWithFilter1.PatientEventArgs>(this.ctrDoctorCardInfoWithFilter1_OnPatientCreated);
+            this.ctrDoctorCardInfoWithFilter1.PatientCreated += new System.EventHandler<Clinic.global_classes.clsEventArgs>(this.ctrDoctorCardInfoWithFilter1_PatientCreated);
             // 
             // frmFindPatient
             // 

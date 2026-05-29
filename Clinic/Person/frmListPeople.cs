@@ -1,4 +1,5 @@
-﻿using Clinic.Person;
+﻿using Clinic.global_classes;
+using Clinic.Person;
 using Clinic.Person.Controls;
 using Clinic_Business;
 using System;
@@ -177,50 +178,21 @@ namespace Clinic
         private void _DatatBackToAdd(object sender, int PersonID)
         {
             // 1. جلب بيانات الشخص الجديد كـ DataRow من الـ Business Layer
-            DataRow CurrentRow = clsPerson.GetPersonByID(PersonID);
+            DataRow NewPersonRow = clsPerson.GetPersonByID(PersonID);
 
-            if (CurrentRow != null)
+            if (NewPersonRow != null)
             {
-                // 2. إنشاء سطر جديد فارغ يمتلك نفس هيكلية وأسماء أعمدة الجدول المحلي (_dtAllPeople)
-                DataRow NewRow = _dtAllPeople.NewRow();
-
-                // 3. نمر على الأعمدة بالاسم لنسخ البيانات بأمان تام دون الاعتماد على الترتيب الرقمي
-                foreach (DataColumn column in _dtAllPeople.Columns)
-                {
-
-                    NewRow[column.ColumnName] = CurrentRow[column.ColumnName];
-                }
-
-                // 4. إضافة السطر الجديد بعد تعبئته إلى مجموعة أسطر الـ DataTable في الذاكرة
-                _dtAllPeople.Rows.Add(NewRow);
-
-                // ستلاحظ أن الـ DataGridView ستعرض السطر الجديد فوراً وبسلاسة لأنها مرتبطة بالـ DataTable
+                _dtAllPeople.UpsertRow(NewPersonRow, PersonID);
+                lblRecordsCount.Text = _dtAllPeople.Rows.Count.ToString();
             }
-
-            // 5. تحديث عداد السجلات في الشاشة ليعكس العدد الحقيقي الحالي
-            lblRecordsCount.Text = _dtAllPeople.Rows.Count.ToString();
         }
         private void _DataBackToUpdate(object sender, int PersonID)
         {
-            DataRow CurrentRow = clsPerson.GetPersonByID(PersonID);
-            if (CurrentRow != null)
+            DataRow UpdatePersonRow = clsPerson.GetPersonByID(PersonID);
+            if (UpdatePersonRow != null)
             {
-                DataRow OldRow = _dtAllPeople.Rows.Find(PersonID);
-                if (OldRow != null)
-                {
-                    // نمر على الأعمدة بالاسم لضمان عدم حدوث أي تداخل في البيانات مستقبلاً
-                    foreach (DataColumn column in _dtAllPeople.Columns)
-                    {
-                        // نستثني الأعمدة التي لا يمكن أو لا يجب تعديلها يدوياً
-                        if (column.ColumnName == "PersonID")
-                            continue;
-
-                        // التحديث الآمن المبني على أسماء الأعمدة
-                        OldRow[column.ColumnName] = CurrentRow[column.ColumnName];
-                    }
-
-                    _dtAllPeople.AcceptChanges();
-                }
+               
+                _dtAllPeople.UpsertRow(UpdatePersonRow, PersonID);
             }
         }
         private void editToolStripMenuItem_Click(object sender, EventArgs e)

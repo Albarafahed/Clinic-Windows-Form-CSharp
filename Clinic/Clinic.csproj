@@ -82,6 +82,8 @@
     <Compile Include="Doctor\frmListDoctors.Designer.cs">
       <DependentUpon>frmListDoctors.cs</DependentUpon>
     </Compile>
+    <Compile Include="global classes\clsEventArgs.cs" />
+    <Compile Include="global classes\MyExtensions.cs" />
     <Compile Include="Patient\Controls\ctrlPatienCardtInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>

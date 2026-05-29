@@ -1,4 +1,5 @@
-﻿using Clinic_Business;
+﻿using Clinic.global_classes;
+using Clinic_Business;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -236,21 +237,11 @@ namespace Clinic.Patient
 
         private void _DataBackToAdd(object sender, int PatientID)
         {
-            DataRow CurrentRow = clsPatient.GetPatientByID(PatientID);
+            DataRow NewPatientRow = clsPatient.GetPatientByID(PatientID);
 
-            if (CurrentRow != null)
+            if (NewPatientRow != null)
             {
-                DataRow NewRow = _dtAllPatients.NewRow();
-
-                foreach (DataColumn column in _dtAllPatients.Columns)
-                {
-                    if (CurrentRow.Table.Columns.Contains(column.ColumnName))
-                    {
-                        NewRow[column.ColumnName] = CurrentRow[column.ColumnName];
-                    }
-                }
-
-                _dtAllPatients.Rows.Add(NewRow);
+               _dtAllPatients.UpsertRow(NewPatientRow,PatientID);
             }
 
             lblRecordsCount.Text = _dtAllPatients.DefaultView.Count.ToString();
@@ -258,25 +249,10 @@ namespace Clinic.Patient
 
         private void _DataBackToUpdate(object sender, int PatientID)
         {
-            DataRow CurrentRow = clsPatient.GetPatientByID(PatientID);
-            if (CurrentRow != null)
+            DataRow UpdatePatienRow = clsPatient.GetPatientByID(PatientID);
+            if (UpdatePatienRow != null)
             {
-                DataRow OldRow = _dtAllPatients.Rows.Find(PatientID);
-                if (OldRow != null)
-                {
-                    foreach (DataColumn column in _dtAllPatients.Columns)
-                    {
-                        if (column.ColumnName == "PatientID" || column.ColumnName == "PersonID")
-                            continue;
-
-                        if (CurrentRow.Table.Columns.Contains(column.ColumnName))
-                        {
-                            OldRow[column.ColumnName] = CurrentRow[column.ColumnName];
-                        }
-                    }
-
-                    _dtAllPatients.AcceptChanges();
-                }
+                _dtAllPatients.UpsertRow(UpdatePatienRow, PatientID);
             }
             lblRecordsCount.Text = _dtAllPatients.DefaultView.Count.ToString();
         }

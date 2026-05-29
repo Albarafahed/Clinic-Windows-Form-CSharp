@@ -1,4 +1,5 @@
-﻿using Clinic.Person.Controls;
+﻿using Clinic.global_classes;
+using Clinic.Person.Controls;
 using Clinic_Business;
 using System;
 using System.Collections.Generic;
@@ -243,43 +244,28 @@ namespace Clinic.User
 
         private void _DatatBackToAdd(object sender, int UserID)
         {
-            DataRow CurrentRow = clsUser.GetUserByID(UserID);
+            DataRow NewUserRow = clsUser.GetUserByID(UserID);
 
-            if (CurrentRow != null)
+            if (NewUserRow != null)
             {
-                DataRow NewRow = _dtAllUsers.NewRow();
-
-                foreach (DataColumn column in _dtAllUsers.Columns)
-                {
-                    NewRow[column.ColumnName] = CurrentRow[column.ColumnName];
-                }
-
-                _dtAllUsers.Rows.Add(NewRow);
+               _dtAllUsers.UpsertRow(NewUserRow,UserID);
+               lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
             }
 
-            lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
+            
         }
 
         private void _DataBackToUpdate(object sender, int UserID)
         {
-            DataRow CurrentRow = clsUser.GetUserByID(UserID);
-            if (CurrentRow != null)
+            DataRow UpdateUserRow = clsUser.GetUserByID(UserID);
+            if (UpdateUserRow != null)
             {
-                DataRow OldRow = _dtAllUsers.Rows.Find(UserID);
-                if (OldRow != null)
-                {
-                    foreach (DataColumn column in _dtAllUsers.Columns)
-                    {
-                        if (column.ColumnName == "UserID" || column.ColumnName == "PersonID")
-                            continue;
+               _dtAllUsers.UpsertRow(UpdateUserRow,UserID);
+                lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
 
-                        OldRow[column.ColumnName] = CurrentRow[column.ColumnName];
-                    }
 
-                    _dtAllUsers.AcceptChanges();
-                }
             }
-            lblRecordsCount.Text = _dtAllUsers.DefaultView.Count.ToString();
+           
         }
 
         // 💡 تم تصحيح اسم المتغير لـ UserID ليتطابق مع الـ Find والـ PrimaryKey الخاص بجدول المستخدمين المفتوح بالشاشة
