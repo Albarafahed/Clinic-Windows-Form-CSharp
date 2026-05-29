@@ -97,7 +97,12 @@ namespace Clinic.Doctor
         private void _RefreshDoctorsList()
         {
             _dtAllDoctors = clsDoctor.GetAllDoctors(); // جلب البيانات من الـ View
-            _dtAllDoctors.Columns.Add("FeesText", typeof(string), "Convert(ConsultationFees, 'System.String')");
+
+            if (!_dtAllDoctors.Columns.Contains("FeesText"))
+            {
+                _dtAllDoctors.Columns.Add("FeesText", typeof(string), "Convert(ConsultationFees, 'System.String')");
+            }
+
             dgvDoctors.DataSource = _dtAllDoctors;
             if (dgvDoctors.Columns.Contains("FeesText"))
             {

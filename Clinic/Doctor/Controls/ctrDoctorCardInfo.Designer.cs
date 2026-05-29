@@ -277,9 +277,9 @@
             this.groupBox1.Controls.Add(this.lblLicenseNo);
             this.groupBox1.Controls.Add(this.labelStatus);
             this.groupBox1.Controls.Add(this.lblActiveStatus);
-            this.groupBox1.Location = new System.Drawing.Point(5, 291);
+            this.groupBox1.Location = new System.Drawing.Point(13, 280);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(899, 180);
+            this.groupBox1.Size = new System.Drawing.Size(883, 185);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Doctor Information";
@@ -359,7 +359,7 @@
             // 
             this.lblSpecialization.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.lblSpecialization.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.lblSpecialization.Location = new System.Drawing.Point(658, 35);
+            this.lblSpecialization.Location = new System.Drawing.Point(655, 35);
             this.lblSpecialization.MinimumSize = new System.Drawing.Size(200, 0);
             this.lblSpecialization.Name = "lblSpecialization";
             this.lblSpecialization.Size = new System.Drawing.Size(235, 64);
@@ -472,7 +472,7 @@
             this.ctrlPersonCard1.Location = new System.Drawing.Point(4, 5);
             this.ctrlPersonCard1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ctrlPersonCard1.Name = "ctrlPersonCard1";
-            this.ctrlPersonCard1.Size = new System.Drawing.Size(900, 280);
+            this.ctrlPersonCard1.Size = new System.Drawing.Size(899, 280);
             this.ctrlPersonCard1.TabIndex = 0;
             // 
             // ctrDoctorCardInfo
@@ -482,7 +482,7 @@
             this.Controls.Add(this.ctrlPersonCard1);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.Name = "ctrDoctorCardInfo";
-            this.Size = new System.Drawing.Size(910, 482);
+            this.Size = new System.Drawing.Size(907, 473);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();

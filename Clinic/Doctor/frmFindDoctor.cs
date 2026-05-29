@@ -26,5 +26,11 @@ namespace Clinic.Doctor
         {
             ctrDoctorCardInfoWithFilter1.FocusOnFilter();
         }
+
+        private void ctrDoctorCardInfoWithFilter1_DoctorCreated(object sender, global_classes.clsEventArgs e)
+        {
+            MessageBox.Show($"Doctor ID {e.ID} PersonID {e.PersonID}");
+
+        }
     }
 }

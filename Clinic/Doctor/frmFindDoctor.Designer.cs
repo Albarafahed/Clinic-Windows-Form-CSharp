@@ -56,7 +56,7 @@
             this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(820, 639);
+            this.btnClose.Location = new System.Drawing.Point(797, 611);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(126, 37);
@@ -70,12 +70,12 @@
             this.ctrDoctorCardInfoWithFilter1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.ctrDoctorCardInfoWithFilter1.btnAddNewEnabled = true;
             this.ctrDoctorCardInfoWithFilter1.FilterEnabled = true;
-            this.ctrDoctorCardInfoWithFilter1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrDoctorCardInfoWithFilter1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.ctrDoctorCardInfoWithFilter1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
-            this.ctrDoctorCardInfoWithFilter1.Location = new System.Drawing.Point(25, 53);
+            this.ctrDoctorCardInfoWithFilter1.Location = new System.Drawing.Point(25, 48);
             this.ctrDoctorCardInfoWithFilter1.Margin = new System.Windows.Forms.Padding(4);
             this.ctrDoctorCardInfoWithFilter1.Name = "ctrDoctorCardInfoWithFilter1";
-            this.ctrDoctorCardInfoWithFilter1.Size = new System.Drawing.Size(921, 589);
+            this.ctrDoctorCardInfoWithFilter1.Size = new System.Drawing.Size(917, 570);
             this.ctrDoctorCardInfoWithFilter1.TabIndex = 93;
             // 
             // frmFindDoctor
@@ -85,10 +85,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(975, 683);
+            this.ClientSize = new System.Drawing.Size(975, 658);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.ctrDoctorCardInfoWithFilter1);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.btnClose);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);

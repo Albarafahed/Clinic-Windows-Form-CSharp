@@ -28,23 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctrDoctorCardInfo1 = new Clinic.Controls.ctrDoctorCardInfo();
+            this.components = new System.ComponentModel.Container();
             this.gbFilters = new System.Windows.Forms.GroupBox();
             this.btnAddNewDoctor = new System.Windows.Forms.Button();
             this.btnFind = new System.Windows.Forms.Button();
             this.txtFilterValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ctrDoctorCardInfo1 = new Clinic.Controls.ctrDoctorCardInfo();
             this.gbFilters.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // ctrDoctorCardInfo1
-            // 
-            this.ctrDoctorCardInfo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
-            this.ctrDoctorCardInfo1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ctrDoctorCardInfo1.Location = new System.Drawing.Point(3, 99);
-            this.ctrDoctorCardInfo1.Name = "ctrDoctorCardInfo1";
-            this.ctrDoctorCardInfo1.Size = new System.Drawing.Size(910, 475);
-            this.ctrDoctorCardInfo1.TabIndex = 0;
             // 
             // gbFilters
             // 
@@ -55,9 +49,9 @@
             this.gbFilters.Controls.Add(this.label1);
             this.gbFilters.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.gbFilters.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.gbFilters.Location = new System.Drawing.Point(3, 3);
+            this.gbFilters.Location = new System.Drawing.Point(12, 3);
             this.gbFilters.Name = "gbFilters";
-            this.gbFilters.Size = new System.Drawing.Size(910, 90);
+            this.gbFilters.Size = new System.Drawing.Size(885, 90);
             this.gbFilters.TabIndex = 18;
             this.gbFilters.TabStop = false;
             this.gbFilters.Text = "Filter";
@@ -75,6 +69,7 @@
             this.btnAddNewDoctor.Size = new System.Drawing.Size(55, 36);
             this.btnAddNewDoctor.TabIndex = 20;
             this.btnAddNewDoctor.UseVisualStyleBackColor = true;
+            this.btnAddNewDoctor.Click += new System.EventHandler(this.btnAddNewDoctor_Click);
             // 
             // btnFind
             // 
@@ -88,6 +83,7 @@
             this.btnFind.Size = new System.Drawing.Size(55, 36);
             this.btnFind.TabIndex = 18;
             this.btnFind.UseVisualStyleBackColor = true;
+            this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
             // 
             // txtFilterValue
             // 
@@ -99,6 +95,8 @@
             this.txtFilterValue.Name = "txtFilterValue";
             this.txtFilterValue.Size = new System.Drawing.Size(382, 32);
             this.txtFilterValue.TabIndex = 17;
+            this.txtFilterValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterValue_KeyPress);
+            this.txtFilterValue.Validating += new System.ComponentModel.CancelEventHandler(this.txtFilterValue_Validating);
             // 
             // label1
             // 
@@ -111,19 +109,34 @@
             this.label1.TabIndex = 19;
             this.label1.Text = "Find By Doctor ID:";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // ctrDoctorCardInfo1
+            // 
+            this.ctrDoctorCardInfo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
+            this.ctrDoctorCardInfo1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ctrDoctorCardInfo1.Location = new System.Drawing.Point(3, 91);
+            this.ctrDoctorCardInfo1.Name = "ctrDoctorCardInfo1";
+            this.ctrDoctorCardInfo1.Size = new System.Drawing.Size(900, 471);
+            this.ctrDoctorCardInfo1.TabIndex = 0;
+            // 
             // ctrDoctorCardInfoWithFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.Controls.Add(this.gbFilters);
             this.Controls.Add(this.ctrDoctorCardInfo1);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ctrDoctorCardInfoWithFilter";
-            this.Size = new System.Drawing.Size(920, 574);
+            this.Size = new System.Drawing.Size(913, 563);
             this.gbFilters.ResumeLayout(false);
             this.gbFilters.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -136,5 +149,6 @@
         private System.Windows.Forms.Button btnFind;
         private System.Windows.Forms.TextBox txtFilterValue;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

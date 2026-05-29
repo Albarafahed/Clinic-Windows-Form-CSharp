@@ -54,7 +54,8 @@ namespace Clinic
             this.lblDbStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsQuick = new System.Windows.Forms.ToolStrip();
             this.btnAddApp = new System.Windows.Forms.ToolStripButton();
-            this.btnSearchPat = new System.Windows.Forms.ToolStripButton();
+            this.btnFindPatient = new System.Windows.Forms.ToolStripButton();
+            this.btnFindDoctor = new System.Windows.Forms.ToolStripButton();
             this.sep = new System.Windows.Forms.ToolStripSeparator();
             this.btnPayment = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -329,7 +330,8 @@ namespace Clinic
             this.tsQuick.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.tsQuick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAddApp,
-            this.btnSearchPat,
+            this.btnFindPatient,
+            this.btnFindDoctor,
             this.sep,
             this.btnPayment});
             this.tsQuick.Location = new System.Drawing.Point(0, 72);
@@ -344,13 +346,21 @@ namespace Clinic
             this.btnAddApp.Size = new System.Drawing.Size(160, 36);
             this.btnAddApp.Text = "New Appointment";
             // 
-            // btnSearchPat
+            // btnFindPatient
             // 
-            this.btnSearchPat.Image = global::Clinic.Properties.Resources.patient;
-            this.btnSearchPat.Name = "btnSearchPat";
-            this.btnSearchPat.Size = new System.Drawing.Size(121, 36);
-            this.btnSearchPat.Text = "Find Patient";
-            this.btnSearchPat.Click += new System.EventHandler(this.btnSearchPat_Click);
+            this.btnFindPatient.Image = global::Clinic.Properties.Resources.patient;
+            this.btnFindPatient.Name = "btnFindPatient";
+            this.btnFindPatient.Size = new System.Drawing.Size(121, 36);
+            this.btnFindPatient.Text = "Find Patient";
+            this.btnFindPatient.Click += new System.EventHandler(this.btnFindPatient_Click);
+            // 
+            // btnFindDoctor
+            // 
+            this.btnFindDoctor.Image = global::Clinic.Properties.Resources.doctor;
+            this.btnFindDoctor.Name = "btnFindDoctor";
+            this.btnFindDoctor.Size = new System.Drawing.Size(122, 36);
+            this.btnFindDoctor.Text = "Find Doctor";
+            this.btnFindDoctor.Click += new System.EventHandler(this.btnFindDoctor_Click);
             // 
             // sep
             // 
@@ -576,7 +586,7 @@ namespace Clinic
         private System.Windows.Forms.StatusStrip statusStrip1;
         private ToolStrip tsQuick;
         private ToolStripButton btnAddApp;
-        private ToolStripButton btnSearchPat;
+        private ToolStripButton btnFindDoctor;
         private ToolStripSeparator sep;
         private ToolStripButton btnPayment;
         private PictureBox pictureBox1;
@@ -596,6 +606,7 @@ namespace Clinic
         private Label lbValue;
         private Label lblTitle;
         private Timer timer1;
+        private ToolStripButton btnFindPatient;
     }
 }
 

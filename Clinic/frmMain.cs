@@ -80,7 +80,19 @@ namespace Clinic
 
         private void btnSearchPat_Click(object sender, EventArgs e)
         {
-            frmFindPatient frm=new frmFindPatient();
+            frmFindDoctor frm=new frmFindDoctor();
+            frm.ShowDialog();
+        }
+
+        private void btnFindDoctor_Click(object sender, EventArgs e)
+        {
+            frmFindDoctor frm=new frmFindDoctor();
+            frm.ShowDialog();
+        }
+
+        private void btnFindPatient_Click(object sender, EventArgs e)
+        {
+            frmFindPatient frm = new frmFindPatient();
             frm.ShowDialog();
         }
 
