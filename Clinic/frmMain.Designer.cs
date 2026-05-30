@@ -219,7 +219,7 @@ namespace Clinic
             this.MangementStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MangementStripMenuItem.Name = "MangementStripMenuItem";
             this.MangementStripMenuItem.Size = new System.Drawing.Size(236, 38);
-            this.MangementStripMenuItem.Text = "Mangement";
+            this.MangementStripMenuItem.Text = "gi";
             // 
             // manageServicesToolStripMenuItem
             // 
@@ -236,6 +236,7 @@ namespace Clinic
             this.mangeAppointmentTypeToolStripMenuItem.Name = "mangeAppointmentTypeToolStripMenuItem";
             this.mangeAppointmentTypeToolStripMenuItem.Size = new System.Drawing.Size(358, 38);
             this.mangeAppointmentTypeToolStripMenuItem.Text = "Mange Appointment Type";
+            this.mangeAppointmentTypeToolStripMenuItem.Click += new System.EventHandler(this.mangeAppointmentTypeToolStripMenuItem_Click);
             // 
             // UserOptiontoolStripMenuItem
             // 

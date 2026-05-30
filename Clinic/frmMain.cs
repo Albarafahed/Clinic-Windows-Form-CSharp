@@ -1,4 +1,5 @@
 ﻿
+using Clinic.Appointment.AppointmentsType;
 using Clinic.Doctor;
 using Clinic.Login;
 using Clinic.Patient;
@@ -99,6 +100,12 @@ namespace Clinic
         private void DoctorsStripMenuItem1_Click(object sender, EventArgs e)
         {
             frmListDoctors frm=new frmListDoctors();
+            frm.ShowDialog();
+        }
+
+        private void mangeAppointmentTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmListAppointmentType frm = new frmListAppointmentType();
             frm.ShowDialog();
         }
     }

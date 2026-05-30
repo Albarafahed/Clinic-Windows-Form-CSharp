@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Appointment\AppointmentsType\frmAdddUpdateAppointmentType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Appointment\AppointmentsType\frmAdddUpdateAppointmentType.Designer.cs">
+      <DependentUpon>frmAdddUpdateAppointmentType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Appointment\AppointmentsType\frmListAppointmentType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Appointment\AppointmentsType\frmListAppointmentType.Designer.cs">
+      <DependentUpon>frmListAppointmentType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +249,12 @@
     <Compile Include="User\frmUserInfo.Designer.cs">
       <DependentUpon>frmUserInfo.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Appointment\AppointmentsType\frmAdddUpdateAppointmentType.resx">
+      <DependentUpon>frmAdddUpdateAppointmentType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Appointment\AppointmentsType\frmListAppointmentType.resx">
+      <DependentUpon>frmListAppointmentType.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Doctor\Controls\ctrDoctorCardInfo.resx">
       <DependentUpon>ctrDoctorCardInfo.cs</DependentUpon>
     </EmbeddedResource>
