@@ -1,4 +1,4 @@
-﻿namespace Clinic.Patient.Controls
+﻿namespace Clinic.Controls
 {
     partial class ctrlPatienCardtInfo
     {

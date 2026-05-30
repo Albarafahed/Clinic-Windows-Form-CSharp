@@ -110,12 +110,12 @@ namespace Clinic.Controls
 
         private void _DataBack(object sender, int PersonID)
         {
-            txtFilterValue.Text=PersonID.ToString();
+            txtFilterValue.Text = PersonID.ToString();
             _LoadPersonInfo();
-          
+
         }
 
-        public void LoadPersonInfo(int  PersonID)
+        public void LoadPersonInfo(int PersonID)
         {
             txtFilterValue.Text = PersonID.ToString();
             _LoadPersonInfo();

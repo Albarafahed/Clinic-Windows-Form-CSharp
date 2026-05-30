@@ -1,5 +1,4 @@
-﻿using Clinic.Person.Controls;
-
+﻿
 namespace Clinic.Controls
 {
     partial class ctrCardUserInfo
@@ -21,7 +20,6 @@ namespace Clinic.Controls
             }
             base.Dispose(disposing);
         }
-
 
         #region Component Designer generated code
 
@@ -195,7 +193,7 @@ namespace Clinic.Controls
         private System.Windows.Forms.Label lblUserID;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
-   
+
         private System.Windows.Forms.Label lbRoleName;
         private System.Windows.Forms.Label label5;
         private ctrlPersonCard ctrlPersonCard1;

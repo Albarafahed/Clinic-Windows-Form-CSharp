@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Clinic.Patient.Controls
+namespace Clinic.Patient
 {
     public partial class frmFindPatient : Form
     {
@@ -26,10 +26,10 @@ namespace Clinic.Patient.Controls
 
         private void frmFindPatient_Activated(object sender, EventArgs e)
         {
-            ctrDoctorCardInfoWithFilter1.FocuseFilter();
+            ctrlPatientCardWithFilter1.FocuseFilter();
         }
 
-        private void ctrDoctorCardInfoWithFilter1_PatientCreated(object sender, global_classes.clsEventArgs e)
+        private void ctrlPatientCardWithFilter1_PatientCreated(object sender, global_classes.clsEventArgs e)
         {
             MessageBox.Show($"Patient ID {e.ID} PersonID {e.PersonID}");
 

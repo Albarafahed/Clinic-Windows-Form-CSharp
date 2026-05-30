@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Clinic.Patient.Controls
+namespace Clinic.Controls
 {
     public partial class ctrlPatienCardtInfo : UserControl
     {

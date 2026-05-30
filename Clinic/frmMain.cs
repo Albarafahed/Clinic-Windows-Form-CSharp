@@ -3,7 +3,6 @@ using Clinic.Appointment.AppointmentsType;
 using Clinic.Doctor;
 using Clinic.Login;
 using Clinic.Patient;
-using Clinic.Patient.Controls;
 using Clinic.Serveces.ServecesType;
 using Clinic.User;
 using System;

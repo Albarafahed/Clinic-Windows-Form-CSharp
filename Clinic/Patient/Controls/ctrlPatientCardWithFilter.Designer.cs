@@ -1,6 +1,6 @@
-﻿namespace Clinic.Patient.Controls
+﻿namespace Clinic.Controls
 {
-    partial class ctrDoctorCardInfoWithFilter1
+    partial class ctrlPatientCardWithFilter
     {
         /// <summary> 
         /// Required designer variable.
@@ -35,7 +35,7 @@
             this.txtFilterValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.ctrlPatientCard1 = new Clinic.Patient.Controls.ctrlPatienCardtInfo();
+            this.ctrlPatientCard1 = new Clinic.Controls.ctrlPatienCardtInfo();
             this.gbFilters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -123,16 +123,17 @@
             this.ctrlPatientCard1.Size = new System.Drawing.Size(904, 528);
             this.ctrlPatientCard1.TabIndex = 21;
             // 
-            // ctrDoctorCardInfoWithFilter1
+            // ctrlPatientCardWithFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.Controls.Add(this.gbFilters);
             this.Controls.Add(this.ctrlPatientCard1);
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "ctrDoctorCardInfoWithFilter1";
+            this.Name = "ctrlPatientCardWithFilter";
             this.Size = new System.Drawing.Size(917, 588);
             this.gbFilters.ResumeLayout(false);
             this.gbFilters.PerformLayout();

@@ -1,4 +1,4 @@
-﻿namespace Clinic.Patient.Controls
+﻿namespace Clinic.Patient
 {
     partial class frmFindPatient
     {
@@ -30,7 +30,7 @@
         {
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
-            this.ctrDoctorCardInfoWithFilter1 = new Clinic.Patient.Controls.ctrDoctorCardInfoWithFilter1();
+            this.ctrlPatientCardWithFilter1 = new Clinic.Controls.ctrlPatientCardWithFilter();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -56,7 +56,7 @@
             this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(820, 639);
+            this.btnClose.Location = new System.Drawing.Point(820, 650);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(126, 37);
@@ -65,18 +65,17 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // ctrDoctorCardInfoWithFilter1
+            // ctrlPatientCardWithFilter1
             // 
-            this.ctrDoctorCardInfoWithFilter1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
-            this.ctrDoctorCardInfoWithFilter1.btnAddNewEnabled = true;
-            this.ctrDoctorCardInfoWithFilter1.FilterEnabled = true;
-            this.ctrDoctorCardInfoWithFilter1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrDoctorCardInfoWithFilter1.Location = new System.Drawing.Point(25, 53);
-            this.ctrDoctorCardInfoWithFilter1.Margin = new System.Windows.Forms.Padding(4);
-            this.ctrDoctorCardInfoWithFilter1.Name = "ctrDoctorCardInfoWithFilter1";
-            this.ctrDoctorCardInfoWithFilter1.Size = new System.Drawing.Size(921, 589);
-            this.ctrDoctorCardInfoWithFilter1.TabIndex = 93;
-            this.ctrDoctorCardInfoWithFilter1.PatientCreated += new System.EventHandler<Clinic.global_classes.clsEventArgs>(this.ctrDoctorCardInfoWithFilter1_PatientCreated);
+            this.ctrlPatientCardWithFilter1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
+            this.ctrlPatientCardWithFilter1.btnAddNewEnabled = true;
+            this.ctrlPatientCardWithFilter1.FilterEnabled = true;
+            this.ctrlPatientCardWithFilter1.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlPatientCardWithFilter1.Location = new System.Drawing.Point(29, 53);
+            this.ctrlPatientCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
+            this.ctrlPatientCardWithFilter1.Name = "ctrlPatientCardWithFilter1";
+            this.ctrlPatientCardWithFilter1.Size = new System.Drawing.Size(917, 588);
+            this.ctrlPatientCardWithFilter1.TabIndex = 93;
             // 
             // frmFindPatient
             // 
@@ -85,8 +84,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(975, 683);
-            this.Controls.Add(this.ctrDoctorCardInfoWithFilter1);
+            this.ClientSize = new System.Drawing.Size(975, 690);
+            this.Controls.Add(this.ctrlPatientCardWithFilter1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnClose);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -106,6 +105,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private Controls.ctrDoctorCardInfoWithFilter1 ctrDoctorCardInfoWithFilter1;
+        private Controls.ctrlPatientCardWithFilter ctrlPatientCardWithFilter1;
     }
 }

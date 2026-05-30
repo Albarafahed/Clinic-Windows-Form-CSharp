@@ -1,4 +1,5 @@
 ﻿using Clinic.global_classes;
+using Clinic.Patient;
 using Clinic_Business;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Clinic.Patient.Controls
+namespace Clinic.Controls
 {
-    public partial class ctrDoctorCardInfoWithFilter1 : UserControl
+    public partial class ctrlPatientCardWithFilter : UserControl
     {
       
 
@@ -25,7 +26,7 @@ namespace Clinic.Patient.Controls
                 PatientCreated(this,new clsEventArgs(PatientID, PersonID));
         }
 
-        public ctrDoctorCardInfoWithFilter1()
+        public ctrlPatientCardWithFilter()
         {
             InitializeComponent();
         }
@@ -105,7 +106,7 @@ namespace Clinic.Patient.Controls
 
         private void btnAddNewPatient_Click(object sender, EventArgs e)
         {
-            frmAddUpdatePatient frm=new frmAddUpdatePatient();
+            frmAddUpdatePatient frm =new frmAddUpdatePatient();
             frm.DataBack += _DataBack;
             frm.ShowDialog();
         }

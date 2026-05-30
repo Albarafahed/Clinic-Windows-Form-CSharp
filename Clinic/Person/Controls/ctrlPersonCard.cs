@@ -61,9 +61,9 @@ namespace Clinic.Controls
         public void _FillPersonInfo()
         {
             llEditPersonInfo.Enabled = true;
-            lblPersonID.Text = _Person.PersonID.ToString() ;
+            lblPersonID.Text = _Person.PersonID.ToString();
             lblFullName.Text = _Person.Name.ToString();
-            lblGendor.Text =_Person.Gender==0?"Male":"Female";
+            lblGendor.Text = _Person.Gender == 0 ? "Male" : "Female";
             lblEmail.Text = _Person.Email;
             lblPhone.Text = _Person.PhoneNumber;
             lblDateOfBirth.Text = clsFormat.DateToShort(_Person.DateOfBirth);
@@ -89,7 +89,7 @@ namespace Clinic.Controls
 
         }
 
-      
+
 
         private void llEditPersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

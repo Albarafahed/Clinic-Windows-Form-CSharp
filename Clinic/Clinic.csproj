@@ -64,6 +64,42 @@
     <Compile Include="Login\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Medical Services\Appointment\frmAddUpdateAppointment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Appointment\frmAddUpdateAppointment.Designer.cs">
+      <DependentUpon>frmAddUpdateAppointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Medical Services\Appointment\frmListAppointmets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Appointment\frmListAppointmets.Designer.cs">
+      <DependentUpon>frmListAppointmets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Person\Controls\ctrlPersonCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Person\Controls\ctrlPersonCard.Designer.cs">
+      <DependentUpon>ctrlPersonCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Person\Controls\ctrlPersonCardWithFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Person\Controls\ctrlPersonCardWithFilter.Designer.cs">
+      <DependentUpon>ctrlPersonCardWithFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Person\frmAddUpdatePerson.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Person\frmAddUpdatePerson.Designer.cs">
+      <DependentUpon>frmAddUpdatePerson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Person\frmShowPersonInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Person\frmShowPersonInfo.Designer.cs">
+      <DependentUpon>frmShowPersonInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Person\frmTrashPeople.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,51 +193,6 @@
     <Compile Include="global classes\clsGlobal.cs" />
     <Compile Include="global classes\clsValidatoin.cs" />
     <Compile Include="global classes\util.cs" />
-    <Compile Include="Person\Controls\ctrlPersonCard.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Person\Controls\ctrlPersonCard.Designer.cs">
-      <DependentUpon>ctrlPersonCard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Person\Controls\ctrlPersonCardWithFilter.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Person\Controls\ctrlPersonCardWithFilter.Designer.cs">
-      <DependentUpon>ctrlPersonCardWithFilter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Person\frmShowPersonInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Person\frmShowPersonInfo.Designer.cs">
-      <DependentUpon>frmShowPersonInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Person\frmAddUpdatePerson.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Person\Controls\ctrlPersonCard.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Person\Controls\ctrlPersonCard.Designer.cs">
-      <DependentUpon>ctrlPersonCard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Person\Controls\ctrlPersonCardWithFilter.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Person\Controls\ctrlPersonCardWithFilter.Designer.cs">
-      <DependentUpon>ctrlPersonCardWithFilter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Person\frmShowPersonInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Person\frmShowPersonInfo.Designer.cs">
-      <DependentUpon>frmShowPersonInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Person\frmAddUpdatePerson.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Person\frmAddUpdatePerson.Designer.cs">
-      <DependentUpon>frmAddUpdatePerson.cs</DependentUpon>
-    </Compile>
     <Compile Include="Person\frmListPeople.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,19 +213,10 @@
     <Compile Include="Medical Services\MangeServeces\ServecesType\frmListServicesType.Designer.cs">
       <DependentUpon>frmListServicesType.cs</DependentUpon>
     </Compile>
-    <Compile Include="User\ctrCardUserInfo.cs">
+    <Compile Include="User\Controls\ctrCardUserInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="User\ctrCardUserInfo.Designer.cs">
-      <DependentUpon>ctrCardUserInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="User\frmAddUpdateUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="User\ctrCardUserInfo.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="User\ctrCardUserInfo.Designer.cs">
+    <Compile Include="User\Controls\ctrCardUserInfo.Designer.cs">
       <DependentUpon>ctrCardUserInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="User\frmAddUpdateUser.cs">
@@ -288,6 +270,12 @@
     <EmbeddedResource Include="Login\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Appointment\frmAddUpdateAppointment.resx">
+      <DependentUpon>frmAddUpdateAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Appointment\frmListAppointmets.resx">
+      <DependentUpon>frmListAppointmets.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Patient\Controls\ctrlPatienCardtInfo.resx">
       <DependentUpon>ctrlPatienCardtInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -306,23 +294,17 @@
     <EmbeddedResource Include="Patient\frmPatientInfo.resx">
       <DependentUpon>frmPatientInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Person\Controls\ctrlPersonCardWithFilter.resx">
+      <DependentUpon>ctrlPersonCardWithFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Person\frmAddUpdatePerson.resx">
+      <DependentUpon>frmAddUpdatePerson.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Person\frmTrashPeople.resx">
       <DependentUpon>frmTrashPeople.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Person\Controls\ctrlPersonCard.resx">
-      <DependentUpon>ctrlPersonCard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Person\Controls\ctrlPersonCardWithFilter.resx">
-      <DependentUpon>ctrlPersonCardWithFilter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Person\frmShowPersonInfo.resx">
-      <DependentUpon>frmShowPersonInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Person\frmAddUpdatePerson.resx">
-      <DependentUpon>frmAddUpdatePerson.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Person\frmListPeople.resx">
       <DependentUpon>frmListPeople.cs</DependentUpon>
@@ -337,9 +319,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\MangeServeces\ServecesType\frmListServicesType.resx">
       <DependentUpon>frmListServicesType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="User\ctrCardUserInfo.resx">
-      <DependentUpon>ctrCardUserInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User\frmAddUpdateUser.resx">
       <DependentUpon>frmAddUpdateUser.cs</DependentUpon>

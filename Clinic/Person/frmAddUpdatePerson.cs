@@ -19,8 +19,8 @@ namespace Clinic.Person
     {
         private int _PersonID = -1;
         private clsPerson _Person;
-        public enum enMode { AddNew=1, Update=2}
-        private enMode _Mode= enMode.AddNew;
+        public enum enMode { AddNew = 1, Update = 2 }
+        private enMode _Mode = enMode.AddNew;
 
         public delegate void DataBackEventHandler(object sender, int PersonID);
 
@@ -29,14 +29,14 @@ namespace Clinic.Person
         public frmAddUpdatePerson()
         {
             InitializeComponent();
-            _Mode= enMode.AddNew;
-           
+            _Mode = enMode.AddNew;
+
         }
 
         public frmAddUpdatePerson(int PersonID)
         {
             InitializeComponent();
-            _PersonID= PersonID;
+            _PersonID = PersonID;
             _Mode = enMode.Update;
         }
 
@@ -53,7 +53,7 @@ namespace Clinic.Person
 
             cbCountry.DisplayMember = "CountryName";
             cbCountry.ValueMember = "CountryID";
-            
+
 
         }
 
@@ -68,7 +68,7 @@ namespace Clinic.Person
                 return;
             }
 
-            lblPersonID.Text= _PersonID.ToString();
+            lblPersonID.Text = _PersonID.ToString();
             txtFullName.Text = _Person.Name;
 
             dtpDateOfBirth.Value = _Person.DateOfBirth;
@@ -80,7 +80,7 @@ namespace Clinic.Person
 
             if (_Person.Gender == 0)
                 rbMale.Checked = true;
-            else 
+            else
                 rbFemale.Checked = true;
 
             //load person image incase it was set.
@@ -103,7 +103,7 @@ namespace Clinic.Person
             if (_Mode == enMode.AddNew)
             {
                 lblTitle.Text = "Add New Person";
-               
+
                 _Person = new clsPerson();
             }
             else
@@ -125,7 +125,7 @@ namespace Clinic.Person
             lblPersonID.Text = "N/A";
             txtFullName.Text = string.Empty;
 
-            dtpDateOfBirth.Value =DateTime.Now;
+            dtpDateOfBirth.Value = DateTime.Now;
             txtEmail.Text = string.Empty;
             txtPhone.Text = string.Empty;
             txtAddress.Text = string.Empty;
@@ -185,7 +185,7 @@ namespace Clinic.Person
 
         }
 
-      
+
 
         private void CheckedImageGender(object sender, EventArgs e)
         {
@@ -291,13 +291,13 @@ namespace Clinic.Person
                 return;
 
             _Person.Name = txtFullName.Text;
-            _Person.DateOfBirth=dtpDateOfBirth.Value;
-            _Person.PhoneNumber=txtPhone.Text;
+            _Person.DateOfBirth = dtpDateOfBirth.Value;
+            _Person.PhoneNumber = txtPhone.Text;
             if (rbMale.Checked)
                 _Person.Gender = 0;
             else
                 _Person.Gender = 1;
-           _Person.Email = txtEmail.Text;
+            _Person.Email = txtEmail.Text;
             _Person.Address = txtAddress.Text;
             _Person.NationalityCountryID = (int)cbCountry.SelectedValue;
 

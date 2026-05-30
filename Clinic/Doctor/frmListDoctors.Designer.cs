@@ -56,9 +56,9 @@
             // 
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.lblTitle.Location = new System.Drawing.Point(474, 208);
+            this.lblTitle.Location = new System.Drawing.Point(429, 175);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(348, 48);
+            this.lblTitle.Size = new System.Drawing.Size(319, 54);
             this.lblTitle.TabIndex = 100;
             this.lblTitle.Text = "Manage Doctors";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -67,7 +67,7 @@
             // 
             this.lblRecordsCount.AutoSize = true;
             this.lblRecordsCount.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblRecordsCount.Location = new System.Drawing.Point(122, 681);
+            this.lblRecordsCount.Location = new System.Drawing.Point(106, 726);
             this.lblRecordsCount.Name = "lblRecordsCount";
             this.lblRecordsCount.Size = new System.Drawing.Size(28, 25);
             this.lblRecordsCount.TabIndex = 98;
@@ -78,7 +78,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.label2.Location = new System.Drawing.Point(20, 681);
+            this.label2.Location = new System.Drawing.Point(12, 726);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 28);
             this.label2.TabIndex = 97;
@@ -89,7 +89,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.label1.Location = new System.Drawing.Point(20, 264);
+            this.label1.Location = new System.Drawing.Point(24, 247);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 25);
             this.label1.TabIndex = 94;
@@ -152,9 +152,9 @@
             // 
             this.btnAddDoctor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddDoctor.Image = global::Clinic.Properties.Resources.doctor2_64;
-            this.btnAddDoctor.Location = new System.Drawing.Point(1265, 222);
+            this.btnAddDoctor.Location = new System.Drawing.Point(1170, 198);
             this.btnAddDoctor.Name = "btnAddDoctor";
-            this.btnAddDoctor.Size = new System.Drawing.Size(88, 75);
+            this.btnAddDoctor.Size = new System.Drawing.Size(81, 84);
             this.btnAddDoctor.TabIndex = 101;
             this.btnAddDoctor.UseVisualStyleBackColor = true;
             this.btnAddDoctor.Click += new System.EventHandler(this.btnAddDoctor_Click);
@@ -164,10 +164,10 @@
             this.pbPersonImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbPersonImage.Image = global::Clinic.Properties.Resources.Doctors_512;
             this.pbPersonImage.InitialImage = null;
-            this.pbPersonImage.Location = new System.Drawing.Point(516, 14);
-            this.pbPersonImage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pbPersonImage.Location = new System.Drawing.Point(477, 15);
+            this.pbPersonImage.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.pbPersonImage.Name = "pbPersonImage";
-            this.pbPersonImage.Size = new System.Drawing.Size(220, 159);
+            this.pbPersonImage.Size = new System.Drawing.Size(202, 140);
             this.pbPersonImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPersonImage.TabIndex = 99;
             this.pbPersonImage.TabStop = false;
@@ -182,7 +182,7 @@
             this.dgvDoctors.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -194,8 +194,8 @@
             this.dgvDoctors.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvDoctors.EnableHeadersVisualStyles = false;
             this.dgvDoctors.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.dgvDoctors.Location = new System.Drawing.Point(34, 305);
-            this.dgvDoctors.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dgvDoctors.Location = new System.Drawing.Point(13, 296);
+            this.dgvDoctors.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.dgvDoctors.MultiSelect = false;
             this.dgvDoctors.Name = "dgvDoctors";
             this.dgvDoctors.ReadOnly = true;
@@ -209,7 +209,7 @@
             this.dgvDoctors.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvDoctors.RowTemplate.Height = 38;
             this.dgvDoctors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDoctors.Size = new System.Drawing.Size(1319, 371);
+            this.dgvDoctors.Size = new System.Drawing.Size(1238, 416);
             this.dgvDoctors.TabIndex = 104;
             this.dgvDoctors.TabStop = false;
             // 
@@ -224,9 +224,9 @@
             this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(1218, 684);
+            this.btnClose.Location = new System.Drawing.Point(1127, 721);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(135, 38);
+            this.btnClose.Size = new System.Drawing.Size(124, 43);
             this.btnClose.TabIndex = 105;
             this.btnClose.Text = "  Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -243,9 +243,9 @@
             "All",
             "Yes",
             "No"});
-            this.cbIsActive.Location = new System.Drawing.Point(315, 268);
+            this.cbIsActive.Location = new System.Drawing.Point(295, 251);
             this.cbIsActive.Name = "cbIsActive";
-            this.cbIsActive.Size = new System.Drawing.Size(121, 31);
+            this.cbIsActive.Size = new System.Drawing.Size(111, 31);
             this.cbIsActive.TabIndex = 106;
             this.cbIsActive.Visible = false;
             this.cbIsActive.SelectedIndexChanged += new System.EventHandler(this.cbIsActive_SelectedIndexChanged);
@@ -268,9 +268,9 @@
             "WorkingDays",
             "CountryName",
             "IsActive"});
-            this.cbFilterBy.Location = new System.Drawing.Point(98, 266);
+            this.cbFilterBy.Location = new System.Drawing.Point(96, 249);
             this.cbFilterBy.Name = "cbFilterBy";
-            this.cbFilterBy.Size = new System.Drawing.Size(210, 31);
+            this.cbFilterBy.Size = new System.Drawing.Size(193, 31);
             this.cbFilterBy.TabIndex = 108;
             this.cbFilterBy.Visible = false;
             this.cbFilterBy.SelectedIndexChanged += new System.EventHandler(this.cbFilterBy_SelectedIndexChanged);
@@ -279,10 +279,10 @@
             // 
             this.txtFilterValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFilterValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.txtFilterValue.Location = new System.Drawing.Point(315, 267);
-            this.txtFilterValue.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtFilterValue.Location = new System.Drawing.Point(295, 250);
+            this.txtFilterValue.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtFilterValue.Name = "txtFilterValue";
-            this.txtFilterValue.Size = new System.Drawing.Size(256, 30);
+            this.txtFilterValue.Size = new System.Drawing.Size(235, 34);
             this.txtFilterValue.TabIndex = 109;
             this.txtFilterValue.Visible = false;
             this.txtFilterValue.TextChanged += new System.EventHandler(this.txtFilterValue_TextChanged);
@@ -290,10 +290,10 @@
             // 
             // frmListDoctors
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
-            this.ClientSize = new System.Drawing.Size(1379, 728);
+            this.ClientSize = new System.Drawing.Size(1283, 782);
             this.Controls.Add(this.cbFilterBy);
             this.Controls.Add(this.cbIsActive);
             this.Controls.Add(this.btnClose);
@@ -305,9 +305,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtFilterValue);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.Name = "frmListDoctors";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmListDoctors";

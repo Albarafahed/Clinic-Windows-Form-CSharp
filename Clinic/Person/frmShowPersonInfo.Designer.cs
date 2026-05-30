@@ -1,6 +1,7 @@
-﻿using Clinic.Controls;
+﻿
 
-namespace Clinic.Person.Controls
+using Clinic.Controls;
+namespace Clinic.Person
 {
     partial class frmShowPersonInfo
     {
@@ -94,6 +95,7 @@ namespace Clinic.Person.Controls
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Person Details";
+            this.Load += new System.EventHandler(this.frmShowPersonInfo_Load);
             this.ResumeLayout(false);
 
         }

@@ -214,7 +214,7 @@ namespace Clinic.User
 
                 lblTitle.Text = "Update User";
                 this.Text = "Update User";
-                DataBack?.Invoke(this,_User.UserID);
+                DataBack?.Invoke(this, _User.UserID);
                 MessageBox.Show("Data Saved Successfully.", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -236,6 +236,6 @@ namespace Clinic.User
             }
         }
 
-       
+
     }
 }
