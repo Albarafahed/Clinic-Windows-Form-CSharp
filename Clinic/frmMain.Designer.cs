@@ -117,6 +117,7 @@ namespace Clinic
             this.appointmentsToolStripMenuItem.Name = "appointmentsToolStripMenuItem";
             this.appointmentsToolStripMenuItem.Size = new System.Drawing.Size(358, 70);
             this.appointmentsToolStripMenuItem.Text = "Manage Appointments";
+            this.appointmentsToolStripMenuItem.Click += new System.EventHandler(this.appointmentsToolStripMenuItem_Click);
             // 
             // visitsToolStripMenuItem
             // 

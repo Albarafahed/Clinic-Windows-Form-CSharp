@@ -16,5 +16,11 @@ namespace Clinic.Medical_Services.Appointment
         {
             InitializeComponent();
         }
+
+        private void btnAddAppointment_Click(object sender, EventArgs e)
+        {
+            frmAddUpdateAppointment frm = new frmAddUpdateAppointment();
+            frm.ShowDialog();
+        }
     }
 }

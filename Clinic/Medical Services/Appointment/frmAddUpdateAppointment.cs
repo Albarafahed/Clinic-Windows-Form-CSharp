@@ -16,5 +16,10 @@ namespace Clinic.Medical_Services.Appointment
         {
             InitializeComponent();
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

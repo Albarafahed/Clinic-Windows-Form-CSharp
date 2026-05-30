@@ -38,9 +38,6 @@
             this.txtFilterValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmsAppointment = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cbStatus = new System.Windows.Forms.ComboBox();
-            this.btnAddAppointment = new System.Windows.Forms.Button();
-            this.pbPersonImage = new System.Windows.Forms.PictureBox();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.showPatientDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showDoctorDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,6 +48,9 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.btnAddAppointment = new System.Windows.Forms.Button();
+            this.pbPersonImage = new System.Windows.Forms.PictureBox();
             this.dgvAppointments = new System.Windows.Forms.DataGridView();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
@@ -147,44 +147,6 @@
             this.cmsAppointment.Name = "contextMenuStrip1";
             this.cmsAppointment.Size = new System.Drawing.Size(249, 238);
             // 
-            // cbStatus
-            // 
-            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Items.AddRange(new object[] {
-            "All",
-            "Scheduled",
-            "Cancelled",
-            "Completed"});
-            this.cbStatus.Location = new System.Drawing.Point(278, 255);
-            this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(140, 36);
-            this.cbStatus.TabIndex = 115;
-            // 
-            // btnAddAppointment
-            // 
-            this.btnAddAppointment.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAddAppointment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddAppointment.Image = global::Clinic.Properties.Resources.Add_Appointment_64;
-            this.btnAddAppointment.Location = new System.Drawing.Point(1229, 209);
-            this.btnAddAppointment.Name = "btnAddAppointment";
-            this.btnAddAppointment.Size = new System.Drawing.Size(72, 76);
-            this.btnAddAppointment.TabIndex = 112;
-            this.btnAddAppointment.UseVisualStyleBackColor = true;
-            // 
-            // pbPersonImage
-            // 
-            this.pbPersonImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbPersonImage.Image = global::Clinic.Properties.Resources.appointment_512;
-            this.pbPersonImage.InitialImage = null;
-            this.pbPersonImage.Location = new System.Drawing.Point(552, 22);
-            this.pbPersonImage.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.pbPersonImage.Name = "pbPersonImage";
-            this.pbPersonImage.Size = new System.Drawing.Size(169, 123);
-            this.pbPersonImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbPersonImage.TabIndex = 110;
-            this.pbPersonImage.TabStop = false;
-            // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -270,6 +232,45 @@
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
             this.deleteToolStripMenuItem.Text = "&Delete";
+            // 
+            // cbStatus
+            // 
+            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStatus.FormattingEnabled = true;
+            this.cbStatus.Items.AddRange(new object[] {
+            "All",
+            "Scheduled",
+            "Cancelled",
+            "Completed"});
+            this.cbStatus.Location = new System.Drawing.Point(278, 255);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.Size = new System.Drawing.Size(140, 36);
+            this.cbStatus.TabIndex = 115;
+            // 
+            // btnAddAppointment
+            // 
+            this.btnAddAppointment.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnAddAppointment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddAppointment.Image = global::Clinic.Properties.Resources.Add_Appointment_64;
+            this.btnAddAppointment.Location = new System.Drawing.Point(1229, 209);
+            this.btnAddAppointment.Name = "btnAddAppointment";
+            this.btnAddAppointment.Size = new System.Drawing.Size(72, 76);
+            this.btnAddAppointment.TabIndex = 112;
+            this.btnAddAppointment.UseVisualStyleBackColor = true;
+            this.btnAddAppointment.Click += new System.EventHandler(this.btnAddAppointment_Click);
+            // 
+            // pbPersonImage
+            // 
+            this.pbPersonImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbPersonImage.Image = global::Clinic.Properties.Resources.appointment_512;
+            this.pbPersonImage.InitialImage = null;
+            this.pbPersonImage.Location = new System.Drawing.Point(552, 22);
+            this.pbPersonImage.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.pbPersonImage.Name = "pbPersonImage";
+            this.pbPersonImage.Size = new System.Drawing.Size(169, 123);
+            this.pbPersonImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPersonImage.TabIndex = 110;
+            this.pbPersonImage.TabStop = false;
             // 
             // dgvAppointments
             // 
