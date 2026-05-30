@@ -74,6 +74,30 @@ namespace Clinic_DataAccess
             }
             return rowsAffected > 0;
         }
+
+        public static bool DeleteService(int ServiceID)
+        {
+            int rowsAffected = 0;
+            string query = @"DELETE FROM Services
+                            WHERE ServiceID = @ServiceID";
+            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ServiceID", ServiceID);
+                    try
+                    {
+                        conn.Open();
+                        rowsAffected = cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return rowsAffected > 0;
+        }
         public static bool GetServiceByID(int ServiceID, ref string ServiceName, ref string Description, ref float ServiceFees)
         {
           string query = @"SELECT ServiceName, Description,

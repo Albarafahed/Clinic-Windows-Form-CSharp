@@ -54,5 +54,31 @@ namespace Clinic.Appointment.AppointmentsType
         {
             this.Close();
         }
+
+        private void addAppointmentTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAdddUpdateAppointmentType frm = 
+                new frmAdddUpdateAppointmentType();
+            frm.ShowDialog();
+            _RefreshAppintmetsType();
+        }
+
+        private void deletAppointmentTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Are you sure you want to delete this appointment type?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                int appointmentTypeId = (int)dgvAppointmentType.CurrentRow.Cells["AppointmentTypeID"].Value;
+              if(clsAppointmentType.Delete(appointmentTypeId))
+                {
+                    MessageBox.Show("Appointment type deleted successfully.", "Deletion Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _RefreshAppintmetsType();
+
+                }
+                else
+                {
+                    MessageBox.Show("Failed to delete the appointment type. It may be associated with existing appointments.", "Deletion Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

@@ -34,15 +34,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblRecordsCount = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmsApplicationTypes = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsServicesTypes = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.addServicesTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvServicesType = new System.Windows.Forms.DataGridView();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.pbApplicationTypesmage = new System.Windows.Forms.PictureBox();
-            this.cmsApplicationTypes.SuspendLayout();
+            this.deleteServicesTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsServicesTypes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvServicesType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbApplicationTypesmage)).BeginInit();
             this.SuspendLayout();
@@ -68,33 +70,46 @@
             this.label2.TabIndex = 120;
             this.label2.Text = "# Records:";
             // 
-            // cmsApplicationTypes
+            // cmsServicesTypes
             // 
-            this.cmsApplicationTypes.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmsApplicationTypes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmsServicesTypes.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsServicesTypes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator2,
             this.editToolStripMenuItem,
-            this.toolStripSeparator1});
-            this.cmsApplicationTypes.Name = "contextMenuStrip1";
-            this.cmsApplicationTypes.Size = new System.Drawing.Size(248, 54);
+            this.toolStripSeparator1,
+            this.addServicesTypeToolStripMenuItem,
+            this.deleteServicesTypeToolStripMenuItem});
+            this.cmsServicesTypes.Name = "contextMenuStrip1";
+            this.cmsServicesTypes.Size = new System.Drawing.Size(231, 158);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(244, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(227, 6);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit_32;
             this.editToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(247, 38);
-            this.editToolStripMenuItem.Text = "&Edit Appointment Type";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(230, 38);
+            this.editToolStripMenuItem.Text = "&Edit Services Type";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(244, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(227, 6);
+            // 
+            // addServicesTypeToolStripMenuItem
+            // 
+            this.addServicesTypeToolStripMenuItem.Image = global::Clinic.Properties.Resources.add_32;
+            this.addServicesTypeToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.addServicesTypeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.addServicesTypeToolStripMenuItem.Name = "addServicesTypeToolStripMenuItem";
+            this.addServicesTypeToolStripMenuItem.Size = new System.Drawing.Size(230, 38);
+            this.addServicesTypeToolStripMenuItem.Text = "Add Services Type";
+            this.addServicesTypeToolStripMenuItem.Click += new System.EventHandler(this.addServicesTypeToolStripMenuItem_Click);
             // 
             // dgvServicesType
             // 
@@ -118,7 +133,7 @@
             this.dgvServicesType.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvServicesType.ColumnHeadersHeight = 35;
             this.dgvServicesType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvServicesType.ContextMenuStrip = this.cmsApplicationTypes;
+            this.dgvServicesType.ContextMenuStrip = this.cmsServicesTypes;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -139,7 +154,7 @@
             this.dgvServicesType.RowHeadersWidth = 51;
             this.dgvServicesType.RowTemplate.Height = 35;
             this.dgvServicesType.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvServicesType.Size = new System.Drawing.Size(700, 370);
+            this.dgvServicesType.Size = new System.Drawing.Size(766, 370);
             this.dgvServicesType.TabIndex = 124;
             this.dgvServicesType.TabStop = false;
             // 
@@ -148,7 +163,7 @@
             this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.lblTitle.Location = new System.Drawing.Point(132, 139);
+            this.lblTitle.Location = new System.Drawing.Point(158, 139);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(492, 62);
@@ -166,13 +181,14 @@
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(606, 585);
+            this.btnClose.Location = new System.Drawing.Point(672, 585);
             this.btnClose.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(123, 45);
             this.btnClose.TabIndex = 125;
             this.btnClose.Text = "  Close";
             this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // pbApplicationTypesmage
             // 
@@ -187,12 +203,21 @@
             this.pbApplicationTypesmage.TabIndex = 122;
             this.pbApplicationTypesmage.TabStop = false;
             // 
+            // deleteServicesTypeToolStripMenuItem
+            // 
+            this.deleteServicesTypeToolStripMenuItem.Image = global::Clinic.Properties.Resources.Delete_32;
+            this.deleteServicesTypeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.deleteServicesTypeToolStripMenuItem.Name = "deleteServicesTypeToolStripMenuItem";
+            this.deleteServicesTypeToolStripMenuItem.Size = new System.Drawing.Size(230, 38);
+            this.deleteServicesTypeToolStripMenuItem.Text = "Delete Services Type";
+            this.deleteServicesTypeToolStripMenuItem.Click += new System.EventHandler(this.deleteServicesTypeToolStripMenuItem_Click);
+            // 
             // frmListServicesType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
-            this.ClientSize = new System.Drawing.Size(764, 663);
+            this.ClientSize = new System.Drawing.Size(816, 663);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.dgvServicesType);
@@ -205,7 +230,8 @@
             this.Name = "frmListServicesType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ListServicesType";
-            this.cmsApplicationTypes.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.frmListServicesType_Load);
+            this.cmsServicesTypes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvServicesType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbApplicationTypesmage)).EndInit();
             this.ResumeLayout(false);
@@ -216,7 +242,7 @@
         #endregion
         private System.Windows.Forms.Label lblRecordsCount;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ContextMenuStrip cmsApplicationTypes;
+        private System.Windows.Forms.ContextMenuStrip cmsServicesTypes;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -224,5 +250,7 @@
         private System.Windows.Forms.DataGridView dgvServicesType;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.ToolStripMenuItem addServicesTypeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteServicesTypeToolStripMenuItem;
     }
 }

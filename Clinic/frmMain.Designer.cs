@@ -228,6 +228,7 @@ namespace Clinic
             this.manageServicesToolStripMenuItem.Name = "manageServicesToolStripMenuItem";
             this.manageServicesToolStripMenuItem.Size = new System.Drawing.Size(358, 38);
             this.manageServicesToolStripMenuItem.Text = "Manage Services";
+            this.manageServicesToolStripMenuItem.Click += new System.EventHandler(this.manageServicesToolStripMenuItem_Click);
             // 
             // mangeAppointmentTypeToolStripMenuItem
             // 

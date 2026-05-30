@@ -49,6 +49,11 @@ namespace Clinic_Business
             return clsServicesTypeData.UpdateService(this.ServiceID, this.ServiceName, this.Description, this.ServiceFees);
         }
 
+        public static bool Delete(int ServiceID)
+        {
+            return clsServicesTypeData.DeleteService(ServiceID);
+        }
+
         public static clsServicesType GetServiceByID(int ServiceID)
         {
             string ServiceName="", Description="";

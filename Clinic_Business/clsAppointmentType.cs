@@ -38,12 +38,17 @@ namespace Clinic_Business
         private bool _AddAppointment()
         {
             this.AppointmentTypeID=clsAppointmentTypeData.AddAppointmentType(this.TypeName, this.DefaultFees);
-            return this.AppointmentTypeID != -1;
+            return this.AppointmentTypeID >0;
         }
 
         private bool _UpdateAppointment()
         {
             return clsAppointmentTypeData.UpdateAppointmentType(this.AppointmentTypeID, this.TypeName, this.DefaultFees);
+        }
+
+        public static bool Delete(int AppointmentTypeID)
+        {
+            return clsAppointmentTypeData.DeleteAppointmentType(AppointmentTypeID);
         }
 
         public static clsAppointmentType Find(int AppointmentTypeID)

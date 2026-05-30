@@ -42,6 +42,8 @@
             this.pbApplicationTypesmage = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.addAppointmentTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deletAppointmentTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsApplicationTypes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointmentType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbApplicationTypesmage)).BeginInit();
@@ -74,28 +76,30 @@
             this.cmsApplicationTypes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator2,
             this.editToolStripMenuItem,
-            this.toolStripSeparator1});
+            this.toolStripSeparator1,
+            this.addAppointmentTypeToolStripMenuItem,
+            this.deletAppointmentTypeToolStripMenuItem});
             this.cmsApplicationTypes.Name = "contextMenuStrip1";
-            this.cmsApplicationTypes.Size = new System.Drawing.Size(248, 54);
+            this.cmsApplicationTypes.Size = new System.Drawing.Size(258, 158);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(244, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(254, 6);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit_32;
             this.editToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(247, 38);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(257, 38);
             this.editToolStripMenuItem.Text = "&Edit Appointment Type";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(244, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(254, 6);
             // 
             // dgvAppointmentType
             // 
@@ -189,6 +193,24 @@
             this.lblTitle.Text = "Mange Appointment Type";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // addAppointmentTypeToolStripMenuItem
+            // 
+            this.addAppointmentTypeToolStripMenuItem.Image = global::Clinic.Properties.Resources.add_32;
+            this.addAppointmentTypeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.addAppointmentTypeToolStripMenuItem.Name = "addAppointmentTypeToolStripMenuItem";
+            this.addAppointmentTypeToolStripMenuItem.Size = new System.Drawing.Size(257, 38);
+            this.addAppointmentTypeToolStripMenuItem.Text = "&Add Appointment Type";
+            this.addAppointmentTypeToolStripMenuItem.Click += new System.EventHandler(this.addAppointmentTypeToolStripMenuItem_Click);
+            // 
+            // deletAppointmentTypeToolStripMenuItem
+            // 
+            this.deletAppointmentTypeToolStripMenuItem.Image = global::Clinic.Properties.Resources.Delete_32;
+            this.deletAppointmentTypeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.deletAppointmentTypeToolStripMenuItem.Name = "deletAppointmentTypeToolStripMenuItem";
+            this.deletAppointmentTypeToolStripMenuItem.Size = new System.Drawing.Size(257, 38);
+            this.deletAppointmentTypeToolStripMenuItem.Text = "&Delet Appointment Type";
+            this.deletAppointmentTypeToolStripMenuItem.Click += new System.EventHandler(this.deletAppointmentTypeToolStripMenuItem_Click);
+            // 
             // frmListAppointmentType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
@@ -227,5 +249,7 @@
         private System.Windows.Forms.DataGridView dgvAppointmentType;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.ToolStripMenuItem addAppointmentTypeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deletAppointmentTypeToolStripMenuItem;
     }
 }

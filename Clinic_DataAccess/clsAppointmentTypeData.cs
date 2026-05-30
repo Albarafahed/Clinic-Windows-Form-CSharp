@@ -30,7 +30,7 @@ namespace Clinic_DataAccess
                     catch (Exception ex)
                     {
                         // Handle exception (e.g., log it)
-                        throw new ApplicationException("An error occurred while fetching appointment types.", ex);
+                        //throw new ApplicationException("An error occurred while fetching appointment types.", ex);
                     }
                 }
             }
@@ -38,7 +38,6 @@ namespace Clinic_DataAccess
 
             return dt;
         }
-
         public static bool GetAppointmentTypeByID(int AppointmentTypeID, ref string TypeName, ref float DefaultFees)
         {
             bool isFound = false;
@@ -66,20 +65,22 @@ namespace Clinic_DataAccess
                     catch (Exception ex)
                     {
                         // Handle exception (e.g., log it)
-                        throw new ApplicationException("An error occurred while fetching appointment type.", ex);
+                        //throw new ApplicationException("An error occurred while fetching appointment type.", ex);
+                        return false;
                     }
                 }
             }
 
             return isFound;
         }
-
         public static int AddAppointmentType(string TypeName, float DefaultFees)
         {
-            int newID = -1;
-            string query =@"INSERT INTO AppointmentTypes 
+            
+            int AppointmentTypeID = -1;
+            string query = @"INSERT INTO AppointmentTypes 
                             (TypeName, DefaultFees) 
-                                VALUES (@TypeName, @DefaultFees)";
+                                VALUES (@TypeName, @DefaultFees);
+                                    SELECT SCOPE_IDENTITY();";
             using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -89,16 +90,21 @@ namespace Clinic_DataAccess
                     try
                     {
                         conn.Open();
-                        newID = (int)cmd.ExecuteScalar();
+                        object result = cmd.ExecuteScalar();
+                        if (result != null && int.TryParse(result.ToString(), out int newID))
+                        {
+                            AppointmentTypeID = newID;
+                        }
                     }
                     catch (Exception ex)
                     {
                         // Handle exception (e.g., log it)
-                        throw new ApplicationException("An error occurred while adding appointment type.", ex);
+                        //throw new ApplicationException("An error occurred while adding appointment type.", ex);
+                        return -1;
                     }
                 }
             }
-            return newID;
+            return AppointmentTypeID;
         }
         public static bool UpdateAppointmentType(int AppointmentTypeID, string TypeName, float DefaultFees)
         {
@@ -120,13 +126,39 @@ namespace Clinic_DataAccess
                     catch (Exception ex)
                     {
                         // Handle exception (e.g., log it)
-                        throw new ApplicationException("An error occurred while updating appointment type.", ex);
+                        //throw new ApplicationException("An error occurred while updating appointment type.", ex);
+                        return false;
                     }
                 }
             }
             return isUpdated;
         }
+        public static bool DeleteAppointmentType(int AppointmentTypeID)
+        {
+            bool isDeleted = false;
+            string query = "DELETE FROM AppointmentTypes WHERE AppointmentTypeID = @AppointmentTypeID";
+            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@AppointmentTypeID", AppointmentTypeID);
+                    try
+                    {
+                        conn.Open();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        isDeleted = rowsAffected > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exception (e.g., log it)
+                        //throw new ApplicationException("An error occurred while deleting appointment type.", ex);
+                        return false;
+                    }
+                }
+            }
+            return isDeleted;
+
+        }
 
     }
-
 }

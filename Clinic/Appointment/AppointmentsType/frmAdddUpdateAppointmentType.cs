@@ -106,7 +106,7 @@ namespace Clinic.Appointment.AppointmentsType
             }
 
             _AppointmentType.TypeName= txtAppointmentTypeName.Text.Trim();
-            _AppointmentType.DefaultFees = float.Parse(txtAppointmentTypeFees.Text.Trim());
+            _AppointmentType.DefaultFees = Convert.ToSingle(txtAppointmentTypeFees.Text.Trim());
 
             if(_AppointmentType.Save())
             {

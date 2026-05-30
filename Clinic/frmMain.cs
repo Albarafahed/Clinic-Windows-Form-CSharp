@@ -4,6 +4,7 @@ using Clinic.Doctor;
 using Clinic.Login;
 using Clinic.Patient;
 using Clinic.Patient.Controls;
+using Clinic.Serveces.ServecesType;
 using Clinic.User;
 using System;
 using System.Collections.Generic;
@@ -106,6 +107,12 @@ namespace Clinic
         private void mangeAppointmentTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmListAppointmentType frm = new frmListAppointmentType();
+            frm.ShowDialog();
+        }
+
+        private void manageServicesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmListServicesType frm = new frmListServicesType();
             frm.ShowDialog();
         }
     }

@@ -80,6 +80,7 @@
             this.txtServiceName.Name = "txtServiceName";
             this.txtServiceName.Size = new System.Drawing.Size(259, 34);
             this.txtServiceName.TabIndex = 141;
+            this.txtServiceName.Validating += new System.ComponentModel.CancelEventHandler(this.TextValiditn);
             // 
             // label1
             // 
@@ -111,6 +112,8 @@
             this.txtServicePrice.Name = "txtServicePrice";
             this.txtServicePrice.Size = new System.Drawing.Size(259, 34);
             this.txtServicePrice.TabIndex = 142;
+            this.txtServicePrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtServicePrice_KeyPress);
+            this.txtServicePrice.Validating += new System.ComponentModel.CancelEventHandler(this.TextValiditn);
             // 
             // errorProvider1
             // 
@@ -136,6 +139,7 @@
             this.txtServiceDescription.Name = "txtServiceDescription";
             this.txtServiceDescription.Size = new System.Drawing.Size(494, 135);
             this.txtServiceDescription.TabIndex = 155;
+            this.txtServiceDescription.Validating += new System.ComponentModel.CancelEventHandler(this.TextValiditn);
             // 
             // lblTitle
             // 
@@ -180,6 +184,7 @@
             this.btnSave.TabIndex = 167;
             this.btnSave.Text = "   Save";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // pictureBox1
             // 
@@ -238,6 +243,7 @@
             this.Name = "frmAddUpdateServices";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmAddUpdateServices";
+            this.Load += new System.EventHandler(this.frmAddUpdateServices_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
