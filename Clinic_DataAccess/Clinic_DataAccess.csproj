@@ -49,6 +49,7 @@
     <Compile Include="clsPatientData.cs" />
     <Compile Include="clsPersonData.cs" />
     <Compile Include="clsRoleData.cs" />
+    <Compile Include="clsServicesTypeData.cs" />
     <Compile Include="clsSpecializationData.cs" />
     <Compile Include="clsUserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

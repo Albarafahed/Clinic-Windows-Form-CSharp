@@ -210,6 +210,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serveces\ServecesType\frmAddUpdateServices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Serveces\ServecesType\frmAddUpdateServices.Designer.cs">
+      <DependentUpon>frmAddUpdateServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Serveces\ServecesType\frmListServicesType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Serveces\ServecesType\frmListServicesType.Designer.cs">
+      <DependentUpon>frmListServicesType.cs</DependentUpon>
+    </Compile>
     <Compile Include="User\ctrCardUserInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -319,6 +331,12 @@
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Serveces\ServecesType\frmAddUpdateServices.resx">
+      <DependentUpon>frmAddUpdateServices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Serveces\ServecesType\frmListServicesType.resx">
+      <DependentUpon>frmListServicesType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User\ctrCardUserInfo.resx">
       <DependentUpon>ctrCardUserInfo.cs</DependentUpon>
