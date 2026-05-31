@@ -102,7 +102,7 @@ namespace Clinic.Doctor
 
         private void _LoadData()
         {
-            _Doctor = clsDoctor.Find(_DoctorID);
+            _Doctor = clsDoctor.FindDoctorByID(_DoctorID);
             if (_Doctor == null)
             {
                 MessageBox.Show("No Doctor with ID = " + _DoctorID, "Doctor Not Found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -202,7 +202,7 @@ namespace Clinic.Doctor
 
             _Doctor.SelectedSpecialtyIDs = clbSpesalizations.GetCheckedIDs("SpecializationID");
 
-            if (_Doctor.Save())
+            if (_Doctor.SaveDoctor())
             {
                 lbDoctorID.Text = _Doctor.DoctorID.ToString();
 

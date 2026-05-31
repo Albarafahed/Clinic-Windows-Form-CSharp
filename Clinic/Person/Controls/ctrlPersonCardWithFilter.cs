@@ -25,7 +25,6 @@ namespace Clinic.Controls
                 handler(PersonID); // Raise the event with the parameter
             }
         }
-        private int _PersonID;
 
         public ctrlPersonCardWithFilter()
         {

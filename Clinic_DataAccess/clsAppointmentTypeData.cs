@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Clinic_DataAccess.SaveException;
+using Clinic_DataAccess.SaveExeption;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -29,8 +31,7 @@ namespace Clinic_DataAccess
                     }
                     catch (Exception ex)
                     {
-                        // Handle exception (e.g., log it)
-                        //throw new ApplicationException("An error occurred while fetching appointment types.", ex);
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
                     }
                 }
             }
@@ -66,6 +67,7 @@ namespace Clinic_DataAccess
                     {
                         // Handle exception (e.g., log it)
                         //throw new ApplicationException("An error occurred while fetching appointment type.", ex);
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
                         return false;
                     }
                 }
@@ -100,7 +102,7 @@ namespace Clinic_DataAccess
                     {
                         // Handle exception (e.g., log it)
                         //throw new ApplicationException("An error occurred while adding appointment type.", ex);
-                        return -1;
+                           clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
                     }
                 }
             }
@@ -127,7 +129,8 @@ namespace Clinic_DataAccess
                     {
                         // Handle exception (e.g., log it)
                         //throw new ApplicationException("An error occurred while updating appointment type.", ex);
-                        return false;
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
+                        isUpdated = false;
                     }
                 }
             }
@@ -152,7 +155,8 @@ namespace Clinic_DataAccess
                     {
                         // Handle exception (e.g., log it)
                         //throw new ApplicationException("An error occurred while deleting appointment type.", ex);
-                        return false;
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
+                        isDeleted = false;
                     }
                 }
             }

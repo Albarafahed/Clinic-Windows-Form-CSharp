@@ -74,7 +74,7 @@ namespace Clinic.Controls
         public void LoadPatientInfo(int PatientID)
         {
         
-            _Patient = clsPatient.Find(PatientID);
+            _Patient = clsPatient.FindPatientByID(PatientID);
 
             txtMedicalHistory.Enabled = false;
 

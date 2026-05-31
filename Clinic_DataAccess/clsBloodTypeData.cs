@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinic_DataAccess.SaveException;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -27,8 +28,9 @@ namespace Clinic_DataAccess
                     Isfound = true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
                 Isfound = false;
             }
             finally
@@ -55,8 +57,9 @@ namespace Clinic_DataAccess
                     Isfound = true;
                 }
             }
-            catch
+            catch(Exception ex) 
             {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
                 Isfound = false;
             }
             finally
@@ -82,9 +85,10 @@ namespace Clinic_DataAccess
                 }
                 reader.Close();
             }
-            catch
+            catch (Exception ex)
             {
-                // 💡 ترك الجدول فارغاً بدلاً من إرجاع null يمنع انهيار الواجهات (UI Crashes)
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
+               
             }
             finally
             {

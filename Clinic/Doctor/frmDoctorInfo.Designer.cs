@@ -99,7 +99,6 @@
         #endregion
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private Controls.ctrDoctorCardInfo ctrDoctorCardInfo1;
     }
 }

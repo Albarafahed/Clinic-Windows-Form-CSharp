@@ -1,4 +1,5 @@
 ﻿using Clinic_DataAccess;
+using Clinic_DataAccess.SaveException;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -33,7 +34,8 @@ public static class clsRoleData
                 catch (Exception ex)
                 {
                     IsFound = false;
-                    // هنا يمكنك تسجيل الخطأ (Log) في ملف النصية المخصصة للأخطاء لاحقاً
+                    clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                 }
             }
         }
@@ -68,6 +70,8 @@ public static class clsRoleData
                 catch (Exception ex)
                 {
                     IsFound = false;
+                    clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                 }
             }
         }
@@ -98,7 +102,8 @@ public static class clsRoleData
                 }
                 catch (Exception ex)
                 {
-                    // معالجة الخطأ بسلام دون كراش
+                    clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                 }
             }
         }

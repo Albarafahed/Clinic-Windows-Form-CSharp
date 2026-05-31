@@ -511,8 +511,6 @@
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.Label lblLicenseNo;
         private System.Windows.Forms.Label labelLicense;
-        private System.Windows.Forms.Label lblWorkingHours;
-        private System.Windows.Forms.Label labelHours;
         private System.Windows.Forms.Label lblActiveStatus;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.PictureBox pictureBox4;

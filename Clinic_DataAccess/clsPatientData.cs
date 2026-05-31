@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinic_DataAccess.SaveException;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -39,7 +40,10 @@ namespace Clinic_DataAccess
                     }
                 }
             }
-            catch (Exception ex) { /* يفضل تسجيل الخطأ: log.Error(ex.Message); */ }
+            catch (Exception ex)
+            {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+            }
             return false;
         }
 
@@ -64,10 +68,14 @@ namespace Clinic_DataAccess
                     object result = cmd.ExecuteScalar();
 
                     // تحويل وإرجاع مباشر بدون حجز متغير مؤقت
-                    if (result != null) return Convert.ToInt32(result);
+                    if (result != null&& int.TryParse(result.ToString(),out int PatientID))
+                        return PatientID;
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, CreatedByUserID);
+            }
 
             return -1;
         }
@@ -95,8 +103,9 @@ namespace Clinic_DataAccess
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, CreatedByUserID);
                 return false;
             }
         }
@@ -117,8 +126,9 @@ namespace Clinic_DataAccess
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                 return false;
             }
         }
@@ -148,7 +158,10 @@ namespace Clinic_DataAccess
                     }
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+            }
 
             return dt;
         }
@@ -179,7 +192,10 @@ namespace Clinic_DataAccess
                     }
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+            }
 
             return (dt.Rows.Count > 0) ? dt.Rows[0] : null;
         }
@@ -201,8 +217,9 @@ namespace Clinic_DataAccess
                     return (command.ExecuteScalar() != null);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                 return false;
             }
         }

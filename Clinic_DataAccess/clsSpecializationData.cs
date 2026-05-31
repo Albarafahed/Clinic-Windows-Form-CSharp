@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinic_DataAccess.SaveException;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,9 +11,7 @@ using System.Threading.Tasks;
 namespace Clinic_DataAccess
 {
     public class clsSpecializationData
-    {
-       
-
+    {      
         public static bool GetSpecializationByID(int SpecializationID, ref string SpecializationName)
         {
             bool Isfound = false;
@@ -35,8 +34,9 @@ namespace Clinic_DataAccess
 
             }
             catch (Exception ex)
-            { 
-                Isfound=false;
+            {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+                Isfound = false;
             }
             finally
             {
@@ -65,6 +65,7 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                 Isfound = false;
             }
             finally
@@ -93,6 +94,7 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
             }
             finally
             {
@@ -121,6 +123,7 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                 SpecializationID = -1;
             }
             finally
@@ -148,6 +151,7 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                 IsUpdated = false;
             }
             finally
@@ -173,6 +177,7 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                 IsDeleted = false;
             }
             finally

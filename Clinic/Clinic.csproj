@@ -100,9 +100,6 @@
     <Compile Include="Person\frmShowPersonInfo.Designer.cs">
       <DependentUpon>frmShowPersonInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Person\frmTrashPeople.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Doctor\Controls\ctrDoctorCardInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -177,12 +174,6 @@
     <Compile Include="Patient\frmPatientInfo.Designer.cs">
       <DependentUpon>frmPatientInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Person\frmTrashPeople.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Person\frmTrashPeople.Designer.cs">
-      <DependentUpon>frmTrashPeople.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +189,12 @@
     </Compile>
     <Compile Include="Person\frmListPeople.Designer.cs">
       <DependentUpon>frmListPeople.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Person\frmTrashPeople.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Person\frmTrashPeople.Designer.cs">
+      <DependentUpon>frmTrashPeople.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -300,14 +297,14 @@
     <EmbeddedResource Include="Person\frmAddUpdatePerson.resx">
       <DependentUpon>frmAddUpdatePerson.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Person\frmTrashPeople.resx">
-      <DependentUpon>frmTrashPeople.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Person\frmListPeople.resx">
       <DependentUpon>frmListPeople.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Person\frmTrashPeople.resx">
+      <DependentUpon>frmTrashPeople.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>

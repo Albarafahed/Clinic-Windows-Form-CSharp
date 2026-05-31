@@ -51,7 +51,7 @@ namespace Clinic.Doctor
 
             if (MessageBox.Show("Are you sure you want to delete Doctor [" + DoctorID + "]?", "Confirm Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                clsDoctor doctor = clsDoctor.Find(DoctorID);
+                clsDoctor doctor = clsDoctor.FindDoctorByID(DoctorID);
                 if (doctor == null)
                 {
                     MessageBox.Show("Doctor Is Not Found");

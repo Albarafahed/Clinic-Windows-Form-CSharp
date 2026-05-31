@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinic_DataAccess.SaveException;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -12,7 +13,6 @@ namespace Clinic_DataAccess
 {
     public class clsDoctorData
     {
-
         public static bool GetDoctorByID(int DoctorID,ref int PersonID, 
             ref float ConsultationFees,ref string LicenseNumber, ref bool IsActive,
                                ref DateTime CreatedDate,  ref int CreatedByUserID )
@@ -43,6 +43,7 @@ namespace Clinic_DataAccess
             catch (Exception ex)
             {
                 IsFound = false;
+                clsGlobalLogger.LogException(ex,clsGlobalLogger.LogLevel.Error);
             }
             finally
             {
@@ -73,7 +74,8 @@ namespace Clinic_DataAccess
                     }
                     catch (Exception ex)
                     {
-                        // هنا يفضل تسجيل الخطأ في ملف Log
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                     }
                 }
             }
@@ -174,10 +176,12 @@ namespace Clinic_DataAccess
                             transaction.Rollback();
                             return -1;
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
                             // السحر هنا: لو انهار إدخال أي تخصص أو أي يوم عمل، يتم إلغاء الطبيب والتخصصات والأيام كلياً!
                             transaction.Rollback();
+                            clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, CreatedByUserID);
+
                             return -1;
                         }
                     }
@@ -266,10 +270,12 @@ namespace Clinic_DataAccess
                             transaction.Commit(); // اعتماد التعديلات بالكامل للجداول الثلاثة معاً
                             return true;
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
                             // لو انهار أي سطر أو قيد، يتراجع السيرفر فوراً عن المسح والتعديل ويعود لحالته الآمنة المستقرة
                             transaction.Rollback();
+                            clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error,CreatedByUserID);
+
                             return false;
                         }
                     }
@@ -311,6 +317,7 @@ namespace Clinic_DataAccess
                             // يتراجع السيرفر كلياً ولا يحذف أي شيء ويحافظ على سلامة البيانات
                             transaction.Rollback();
                             // يفضل هنا تسجيل الخطأ لمعرفة القيد المانع للحذف: Log(ex.Message);
+                            clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                             return false;
                         }
                     }
@@ -338,6 +345,7 @@ namespace Clinic_DataAccess
                     }
                     catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
 
                     }
                 }
@@ -366,6 +374,7 @@ namespace Clinic_DataAccess
                     }
                     catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
 
                     }
                 }
@@ -392,6 +401,7 @@ namespace Clinic_DataAccess
                     catch (Exception ex)
                     {
                         // في حالة حدوث خطأ في قاعدة البيانات، نعيد القيمة الافتراضية أيضاً
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                         return defaultValue;
                     }
                 }
@@ -435,8 +445,10 @@ namespace Clinic_DataAccess
                     return (command.ExecuteScalar() != null);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                 return false;
             }
         }

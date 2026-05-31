@@ -50,5 +50,18 @@ namespace Clinic_Business
         {
             return clsRoleData.GetAllRoles();
         }
-    }
+
+        public bool Save()
+        {
+            switch (_Mode)
+            {
+                case enMode.AddNew:
+
+                    return true;
+                case enMode.Update:
+                    return true;
+                default: return false;
+            }
+        }
+        }
 }

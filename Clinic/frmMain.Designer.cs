@@ -598,10 +598,8 @@ namespace Clinic
         private ToolStripStatusLabel lblDateTime;
         private ToolStripStatusLabel lblDbStatus;
         private Panel pnlCard1;
-        private Label lblTitle1;
         private Panel pnlCard3;
         private Panel pnlCard2;
-        private Label lblValue1;
         private Label lblValue3;
         private Label lblTitle3;
         private Label lblValue2;

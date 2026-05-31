@@ -218,7 +218,7 @@ namespace Clinic.Patient
 
             if (MessageBox.Show("Are you sure you want to delete Patient [" + PatientID + "]?", "Confirm Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                clsPatient patient = clsPatient.Find(PatientID);
+                clsPatient patient = clsPatient.FindPatientByID(PatientID);
                 if (patient == null)
                     return;
                 if (patient.DeletePatient())

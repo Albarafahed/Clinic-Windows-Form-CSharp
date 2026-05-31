@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinic_DataAccess.SaveException;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -40,7 +41,8 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
-                // Log the exception (ex) as needed
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                 Isfound = false;
             }
             finally
@@ -79,7 +81,8 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
-                // Log the exception (ex) as needed
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                 PersonID = -1;
             }
             finally
@@ -115,7 +118,8 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
-                // Log the exception (ex) as needed
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                 IsUpdated = false;
             }
             finally
@@ -139,7 +143,7 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
-                // Log the exception (ex) as needed
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                 IsDeleted = false;
             }
             finally
@@ -164,7 +168,7 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
-                // Log the exception (ex) as needed
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                 IsDeleted = false;
             }
             finally
@@ -196,7 +200,8 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
-                // Log the exception (ex) as needed
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                 dt = null;
             }
             finally
@@ -228,7 +233,8 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
-                // Log the exception (ex) as needed
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                 dt = null;
             }
             finally
@@ -253,7 +259,8 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
-                // Log the exception (ex) as needed
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                 IsDeleted = false;
             }
             finally
@@ -278,7 +285,8 @@ namespace Clinic_DataAccess
             }
             catch (Exception ex)
             {
-                // Log the exception (ex) as needed
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                 IsRestored = false;
             }
             finally

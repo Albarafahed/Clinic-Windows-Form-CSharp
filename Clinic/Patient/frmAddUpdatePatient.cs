@@ -46,7 +46,7 @@ namespace Clinic.Patient
 
         private void _LoadData()
         {
-            _Patient = clsPatient.Find(_PatientID);
+            _Patient = clsPatient.FindPatientByID(_PatientID);
             if (_Patient == null)
             {
                 MessageBox.Show("No Patient with ID = " + _PatientID, "Patient Not Found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -179,7 +179,7 @@ namespace Clinic.Patient
             _Patient.BloodTypeID = (int)cbBloodType.SelectedValue;
 
             _Patient.CreatedByUserID = clsGlobal.CurrentUser.UserID; 
-            if (_Patient.Save())
+            if (_Patient.SavePatient())
             {
                 lblPatientID.Text = _Patient.PatientID.ToString();
 

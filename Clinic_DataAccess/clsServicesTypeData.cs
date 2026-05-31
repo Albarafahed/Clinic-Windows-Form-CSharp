@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinic_DataAccess.SaveException;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -36,6 +37,8 @@ namespace Clinic_DataAccess
                     }
                     catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                         return -1;
                     }
                    
@@ -67,6 +70,8 @@ namespace Clinic_DataAccess
                     }
                     catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                         return false;
                     }
 
@@ -92,6 +97,8 @@ namespace Clinic_DataAccess
                     }
                     catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                         return false;
                     }
                 }
@@ -124,6 +131,8 @@ namespace Clinic_DataAccess
                     }
                     catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                         return false;
                     }
                 }
@@ -152,7 +161,8 @@ namespace Clinic_DataAccess
                     }
                     catch (Exception ex)
                     {
-                        // Handle exception
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+
                     }
                 }
             }

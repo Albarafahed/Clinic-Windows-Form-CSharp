@@ -1,4 +1,5 @@
 ﻿
+using Clinic_DataAccess.SaveException;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,8 +9,6 @@ namespace Clinic_DataAccess
 {
     public class clsCountryData
     {
-      
-
         public static bool GetCountryInfoByID(int ID, ref string CountryName)
         {
             bool isFound = false;
@@ -42,13 +41,10 @@ namespace Clinic_DataAccess
                     isFound = false;
                 }
 
-              
-
-
             }
             catch (Exception ex)
             {
-                //Console.WriteLine("Error: " + ex.Message);
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
                 isFound = false;
             }
             finally
@@ -91,13 +87,11 @@ namespace Clinic_DataAccess
                     isFound = false;
                 }
 
-               
-
-
             }
             catch (Exception ex)
             {
-                //Console.WriteLine("Error: " + ex.Message);
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
+
                 isFound = false;
             }
             finally
@@ -137,7 +131,7 @@ namespace Clinic_DataAccess
 
             catch (Exception ex)
             {
-                // Console.WriteLine("Error: " + ex.Message);
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
             }
             finally
             {

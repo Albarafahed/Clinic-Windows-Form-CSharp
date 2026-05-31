@@ -57,7 +57,7 @@ namespace Clinic.Controls
         }
         public void LoadDoctorInfo(int DoctorID)
         {
-            _Doctor=clsDoctor.Find(DoctorID);
+            _Doctor=clsDoctor.FindDoctorByID(DoctorID);
             if(_Doctor==null)
             {
                 MessageBox.Show("Doctor not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

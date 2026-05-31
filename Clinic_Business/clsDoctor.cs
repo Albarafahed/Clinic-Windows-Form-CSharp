@@ -12,7 +12,7 @@ namespace Clinic_Business
 {
     public class clsDoctor : clsPerson
     {
-        public enum enMode { AddNew=1,Update=2}
+        
         private enMode _Mode = enMode.AddNew;
 
         public enum enDayOfWeek
@@ -110,7 +110,7 @@ namespace Clinic_Business
             return clsDoctorData.DeleteDoctor(this.DoctorID);
         }
 
-        public static clsDoctor Find(int DoctorID)
+        public static clsDoctor FindDoctorByID(int DoctorID)
         {
            float ConsultationFees = 0;
             DateTime CreatedDate = DateTime.Now;
@@ -156,7 +156,7 @@ namespace Clinic_Business
             return clsDoctorData.IsDoctorExistForPersonID(PersonID);
         }
 
-        public bool Save()
+        public bool SaveDoctor()
         {
 
 

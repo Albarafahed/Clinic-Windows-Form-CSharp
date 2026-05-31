@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinic_DataAccess.SaveException;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -12,8 +13,11 @@ namespace Clinic_DataAccess
 
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                // تحسين: تحديد أسماء الأعمدة صراحة بدلاً من * لرفع الأداء
-                string query = "SELECT UserID, PersonID, UserName, Password, IsActive, RoleID FROM Users WHERE UserID = @UserID";
+                string query = @"SELECT UserID, PersonID,
+                                    UserName, Password,
+                                    IsActive, RoleID 
+                                    FROM Users 
+                                    WHERE UserID = @UserID";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -35,8 +39,9 @@ namespace Clinic_DataAccess
                             }
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                         IsFound = false;
                     }
                 }
@@ -50,8 +55,11 @@ namespace Clinic_DataAccess
 
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                // تحسين: تحديد الأعمدة بدقة
-                string query = "SELECT UserID, PersonID, UserName, Password, IsActive, RoleID FROM Users WHERE PersonID = @PersonID";
+                string query = @"SELECT UserID, PersonID,
+                                    UserName, Password,
+                                    IsActive, RoleID 
+                                    FROM Users 
+                                    WHERE PersonID = @PersonID";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -73,8 +81,9 @@ namespace Clinic_DataAccess
                             }
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                         IsFound = false;
                     }
                 }
@@ -88,8 +97,10 @@ namespace Clinic_DataAccess
 
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                // تحسين: تحديد الأعمدة بدقة
-                string query = "SELECT UserID, PersonID, IsActive, RoleID FROM Users WHERE UserName = @UserName AND Password = @Password";
+                string query = @"SELECT UserID, PersonID,
+                                    IsActive, RoleID 
+                                FROM Users WHERE UserName = @UserName
+                                    AND Password = @Password";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -111,8 +122,9 @@ namespace Clinic_DataAccess
                             }
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                         IsFound = false;
                     }
                 }
@@ -148,8 +160,9 @@ namespace Clinic_DataAccess
                             UserID = insertedID;
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                         UserID = -1;
                     }
                 }
@@ -185,8 +198,9 @@ namespace Clinic_DataAccess
                         connection.Open();
                         rowsAffected = command.ExecuteNonQuery();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                         return false;
                     }
                 }
@@ -211,8 +225,9 @@ namespace Clinic_DataAccess
                         connection.Open();
                         rowsAffected = command.ExecuteNonQuery();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                         return false;
                     }
                 }
@@ -237,8 +252,9 @@ namespace Clinic_DataAccess
                         connection.Open();
                         rowsAffected = command.ExecuteNonQuery();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                         return false;
                     }
                 }
@@ -271,9 +287,9 @@ namespace Clinic_DataAccess
                             }
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        // إرجاع جدول فارغ بسلام
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                     }
                 }
             }
@@ -306,9 +322,9 @@ namespace Clinic_DataAccess
                             }
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        // إرجاع جدول فارغ بسلام
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                     }
                 }
             }
@@ -336,8 +352,9 @@ namespace Clinic_DataAccess
                             isFound = true;
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                         isFound = false;
                     }
                 }
@@ -367,8 +384,9 @@ namespace Clinic_DataAccess
                             isFound = true;
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                         isFound = false;
                     }
                 }
@@ -396,8 +414,9 @@ namespace Clinic_DataAccess
                         connection.Open();
                         rowsAffected = command.ExecuteNonQuery();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                         return false;
                     }
                 }
@@ -428,9 +447,9 @@ namespace Clinic_DataAccess
                     return (result != null) ? result.ToString() : "";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // في حال حدوث أي خطأ في الاتصال، يعود بنص فارغ بأمان دون توقف البرنامج
+                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
                 return "";
             }
         }

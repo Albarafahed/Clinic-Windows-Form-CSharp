@@ -13,7 +13,6 @@ namespace Clinic_Business
 {
     public class clsPatient : clsPerson
     {
-        public enum enMode { AddNew=1,Update=2}
 
         private enMode _Mode= enMode.AddNew;
         public int PatientID { get; set; }
@@ -77,7 +76,7 @@ namespace Clinic_Business
             return clsPatientData.DeletePatient(this.PatientID);
         }
 
-        public static clsPatient Find(int PatientID)
+        public static clsPatient FindPatientByID(int PatientID)
         {
             string EmergencyContact = "";
             int BloodTypeID = -1;
@@ -123,7 +122,7 @@ namespace Clinic_Business
             return clsPatientData.IsPatientExistForPersonID(PersonID);
         }
 
-        public bool Save()
+        public bool SavePatient()
         {
  
 
