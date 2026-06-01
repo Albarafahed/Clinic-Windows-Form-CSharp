@@ -113,6 +113,7 @@
             this.cbFilterBy.Name = "cbFilterBy";
             this.cbFilterBy.Size = new System.Drawing.Size(193, 36);
             this.cbFilterBy.TabIndex = 107;
+            this.cbFilterBy.SelectedIndexChanged += new System.EventHandler(this.cbFilterBy_SelectedIndexChanged);
             // 
             // txtFilterValue
             // 
@@ -122,6 +123,8 @@
             this.txtFilterValue.Name = "txtFilterValue";
             this.txtFilterValue.Size = new System.Drawing.Size(235, 34);
             this.txtFilterValue.TabIndex = 106;
+            this.txtFilterValue.TextChanged += new System.EventHandler(this.txtFilterValue_TextChanged);
+            this.txtFilterValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFilterValue_KeyPress);
             // 
             // label1
             // 
@@ -246,6 +249,7 @@
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(140, 36);
             this.cbStatus.TabIndex = 115;
+            this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbStatus_SelectedIndexChanged);
             // 
             // btnAddAppointment
             // 
@@ -367,6 +371,7 @@
             this.Name = "frmListAppointmets";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmListAppointment";
+            this.Load += new System.EventHandler(this.frmListAppointmets_Load);
             this.cmsAppointment.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).EndInit();

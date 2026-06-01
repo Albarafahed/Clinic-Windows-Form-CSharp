@@ -40,6 +40,7 @@ namespace Clinic.Controls
             lblActiveStatus.Text = "[???]";
             lblConsultationFees.Text = "[???]";
             lblLicenseNo.Text = "[???]";
+            dgvShifts.DataSource = null;
         }
 
         private void _LoadDoctorInfo()
