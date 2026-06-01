@@ -44,7 +44,7 @@ namespace Clinic
                   return true;
                 }
             }
-            catch (Exception ex)
+            catch (IOException ex)
             {
                MessageBox.Show ($"An error occurred: {ex.Message}");
                 return false;
@@ -89,7 +89,7 @@ namespace Clinic
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch (IOException ex)
             {
                 MessageBox.Show ($"An error occurred: {ex.Message}");
                 return false;   

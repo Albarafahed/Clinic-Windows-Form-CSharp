@@ -230,13 +230,14 @@
 
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dgvShifts = new System.Windows.Forms.DataGridView();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.lblWorkingDays = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lblSpecialization = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -250,6 +251,7 @@
             this.lblActiveStatus = new System.Windows.Forms.Label();
             this.ctrlPersonCard1 = new Clinic.Controls.ctrlPersonCard();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShifts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -260,12 +262,12 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.dgvShifts);
             this.groupBox1.Controls.Add(this.pictureBox4);
             this.groupBox1.Controls.Add(this.pictureBox3);
             this.groupBox1.Controls.Add(this.pictureBox2);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.pictureBox8);
-            this.groupBox1.Controls.Add(this.lblWorkingDays);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.lblSpecialization);
             this.groupBox1.Controls.Add(this.label2);
@@ -279,10 +281,50 @@
             this.groupBox1.Controls.Add(this.lblActiveStatus);
             this.groupBox1.Location = new System.Drawing.Point(13, 280);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(883, 185);
+            this.groupBox1.Size = new System.Drawing.Size(883, 246);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Doctor Information";
+            // 
+            // dgvShifts
+            // 
+            this.dgvShifts.AllowUserToAddRows = false;
+            this.dgvShifts.AllowUserToDeleteRows = false;
+            this.dgvShifts.AllowUserToResizeRows = false;
+            this.dgvShifts.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvShifts.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvShifts.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvShifts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvShifts.ColumnHeadersHeight = 40;
+            this.dgvShifts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvShifts.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvShifts.EnableHeadersVisualStyles = false;
+            this.dgvShifts.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            this.dgvShifts.Location = new System.Drawing.Point(528, 100);
+            this.dgvShifts.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.dgvShifts.MultiSelect = false;
+            this.dgvShifts.Name = "dgvShifts";
+            this.dgvShifts.ReadOnly = true;
+            this.dgvShifts.RowHeadersWidth = 30;
+            this.dgvShifts.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dgvShifts.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
+            this.dgvShifts.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.dgvShifts.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.dgvShifts.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
+            this.dgvShifts.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
+            this.dgvShifts.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvShifts.RowTemplate.Height = 38;
+            this.dgvShifts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvShifts.Size = new System.Drawing.Size(336, 137);
+            this.dgvShifts.TabIndex = 120;
+            this.dgvShifts.TabStop = false;
             // 
             // pictureBox4
             // 
@@ -297,7 +339,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = global::Clinic.Properties.Resources.WorkingDays_32;
-            this.pictureBox3.Location = new System.Drawing.Point(613, 99);
+            this.pictureBox3.Location = new System.Drawing.Point(477, 129);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(31, 26);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -317,7 +359,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Clinic.Properties.Resources.Specialization_32;
-            this.pictureBox1.Location = new System.Drawing.Point(613, 37);
+            this.pictureBox1.Location = new System.Drawing.Point(591, 37);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(39, 26);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -334,22 +376,12 @@
             this.pictureBox8.TabIndex = 3;
             this.pictureBox8.TabStop = false;
             // 
-            // lblWorkingDays
-            // 
-            this.lblWorkingDays.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.lblWorkingDays.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.lblWorkingDays.Location = new System.Drawing.Point(651, 99);
-            this.lblWorkingDays.Name = "lblWorkingDays";
-            this.lblWorkingDays.Size = new System.Drawing.Size(224, 56);
-            this.lblWorkingDays.TabIndex = 4;
-            this.lblWorkingDays.Text = "???";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.label5.Location = new System.Drawing.Point(472, 99);
+            this.label5.Location = new System.Drawing.Point(341, 125);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(143, 28);
             this.label5.TabIndex = 5;
@@ -359,7 +391,7 @@
             // 
             this.lblSpecialization.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.lblSpecialization.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.lblSpecialization.Location = new System.Drawing.Point(655, 35);
+            this.lblSpecialization.Location = new System.Drawing.Point(627, 37);
             this.lblSpecialization.MinimumSize = new System.Drawing.Size(200, 0);
             this.lblSpecialization.Name = "lblSpecialization";
             this.lblSpecialization.Size = new System.Drawing.Size(235, 64);
@@ -448,7 +480,7 @@
             this.labelStatus.AutoSize = true;
             this.labelStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.labelStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.labelStatus.Location = new System.Drawing.Point(343, 142);
+            this.labelStatus.Location = new System.Drawing.Point(200, 199);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(76, 28);
             this.labelStatus.TabIndex = 14;
@@ -459,7 +491,7 @@
             this.lblActiveStatus.AutoSize = true;
             this.lblActiveStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblActiveStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.lblActiveStatus.Location = new System.Drawing.Point(431, 142);
+            this.lblActiveStatus.Location = new System.Drawing.Point(282, 199);
             this.lblActiveStatus.Name = "lblActiveStatus";
             this.lblActiveStatus.Size = new System.Drawing.Size(67, 28);
             this.lblActiveStatus.TabIndex = 15;
@@ -482,9 +514,10 @@
             this.Controls.Add(this.ctrlPersonCard1);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.Name = "ctrDoctorCardInfo";
-            this.Size = new System.Drawing.Size(907, 473);
+            this.Size = new System.Drawing.Size(907, 539);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShifts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -503,9 +536,6 @@
         private System.Windows.Forms.Label lblDoctorID;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblWorkingDays;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox8;
@@ -514,5 +544,8 @@
         private System.Windows.Forms.Label lblActiveStatus;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridView dgvShifts;
     }
 }

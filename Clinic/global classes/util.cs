@@ -34,7 +34,7 @@ namespace Clinic
                     Directory.CreateDirectory(FolderPath);
                     return true;
                 }
-                catch (Exception ex)
+                catch (IOException ex)
                 {
                     MessageBox.Show("Error creating folder: " + ex.Message);
                     return false;

@@ -242,7 +242,7 @@ namespace Clinic
 
         private void dgvPeople_SelectionChanged(object sender, EventArgs e)
         {
-            // حماية دفاعية (Defensive Coding) لمنع الـ NullReferenceException عند خلو الجدول
+            // حماية دفاعية (Defensive Coding) لمنع الـ NullReferenceSqlException عند خلو الجدول
             bool IsRowSelected = dgvPeople.CurrentRow != null && !dgvPeople.CurrentRow.IsNewRow;
 
             lbdelete.Enabled = IsRowSelected;

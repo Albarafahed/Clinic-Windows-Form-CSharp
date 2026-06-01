@@ -1,7 +1,8 @@
 ﻿using Clinic_DataAccess.SaveExeption;
 using System;
+using System.Data.SqlClient;
 
-namespace Clinic_DataAccess.SaveException
+namespace Clinic_DataAccess.SaveSqlException
 {
     public static class clsGlobalLogger
     {
@@ -15,7 +16,7 @@ namespace Clinic_DataAccess.SaveException
             Error,
             Critical
         }
-        public static void LogException(Exception ex, LogLevel level, int userID = -1)
+        public static void LogSqlException(SqlException ex, LogLevel level, int userID = -1)
         {
             _logger.Log(ex, level.ToString(), userID);
         }

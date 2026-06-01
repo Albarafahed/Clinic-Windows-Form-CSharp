@@ -1,4 +1,4 @@
-﻿using Clinic_DataAccess.SaveException;
+﻿using Clinic_DataAccess.SaveSqlException;
 using Clinic_DataAccess.SaveExeption;
 using System;
 using System.Collections.Generic;
@@ -15,13 +15,15 @@ namespace Clinic_DataAccess
         public static DataTable GetAllAppintmentType()
         {
             DataTable dt = new DataTable();
-            string query = "SELECT AppointmentTypeID, TypeName, DefaultFees FROM AppointmentTypes";
-            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    try
+                    string query = "SELECT AppointmentTypeID, TypeName, DefaultFees FROM AppointmentTypes";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+
                         conn.Open();
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
@@ -29,12 +31,14 @@ namespace Clinic_DataAccess
                                 dt.Load(reader);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
-                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, -1);
+            }
+
+
 
 
             return dt;
@@ -42,55 +46,54 @@ namespace Clinic_DataAccess
         public static bool GetAppointmentTypeByID(int AppointmentTypeID, ref string TypeName, ref float DefaultFees)
         {
             bool isFound = false;
-            string query = "SELECT TypeName, DefaultFees FROM AppointmentTypes WHERE AppointmentTypeID = @AppointmentTypeID";
-
-            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    cmd.Parameters.AddWithValue("@AppointmentTypeID", AppointmentTypeID);
-
-                    try
+                    string query = "SELECT TypeName, DefaultFees FROM AppointmentTypes WHERE AppointmentTypeID = @AppointmentTypeID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@AppointmentTypeID", AppointmentTypeID);
+
                         conn.Open();
+
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 TypeName = reader["TypeName"].ToString();
                                 DefaultFees = Convert.ToSingle(reader["DefaultFees"]);
-                                isFound = true;
+                                return true;
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        // Handle exception (e.g., log it)
-                        //throw new ApplicationException("An error occurred while fetching appointment type.", ex);
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
-                        return false;
-                    }
                 }
             }
-
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, -1);
+                isFound = false;
+            }
             return isFound;
         }
         public static int AddAppointmentType(string TypeName, float DefaultFees)
         {
-            
+
             int AppointmentTypeID = -1;
-            string query = @"INSERT INTO AppointmentTypes 
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"INSERT INTO AppointmentTypes 
                             (TypeName, DefaultFees) 
                                 VALUES (@TypeName, @DefaultFees);
                                     SELECT SCOPE_IDENTITY();";
-            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@TypeName", TypeName);
-                    cmd.Parameters.AddWithValue("@DefaultFees", DefaultFees);
-                    try
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@TypeName", TypeName);
+                        cmd.Parameters.AddWithValue("@DefaultFees", DefaultFees);
                         conn.Open();
                         object result = cmd.ExecuteScalar();
                         if (result != null && int.TryParse(result.ToString(), out int newID))
@@ -98,68 +101,72 @@ namespace Clinic_DataAccess
                             AppointmentTypeID = newID;
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        // Handle exception (e.g., log it)
-                        //throw new ApplicationException("An error occurred while adding appointment type.", ex);
-                           clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
-                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, -1);
+            }
+
+
             return AppointmentTypeID;
         }
         public static bool UpdateAppointmentType(int AppointmentTypeID, string TypeName, float DefaultFees)
         {
             bool isUpdated = false;
-            string query = "UPDATE AppointmentTypes SET TypeName = @TypeName, DefaultFees = @DefaultFees WHERE AppointmentTypeID = @AppointmentTypeID";
-            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    cmd.Parameters.AddWithValue("@AppointmentTypeID", AppointmentTypeID);
-                    cmd.Parameters.AddWithValue("@TypeName", TypeName);
-                    cmd.Parameters.AddWithValue("@DefaultFees", DefaultFees);
-                    try
+                    string query = @"UPDATE AppointmentTypes
+                            SET TypeName = @TypeName,
+                            DefaultFees = @DefaultFees
+                            WHERE AppointmentTypeID = @AppointmentTypeID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@AppointmentTypeID", AppointmentTypeID);
+                        cmd.Parameters.AddWithValue("@TypeName", TypeName);
+                        cmd.Parameters.AddWithValue("@DefaultFees", DefaultFees);
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();
                         isUpdated = rowsAffected > 0;
                     }
-                    catch (Exception ex)
-                    {
-                        // Handle exception (e.g., log it)
-                        //throw new ApplicationException("An error occurred while updating appointment type.", ex);
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
-                        isUpdated = false;
-                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, -1);
+                isUpdated = false;
+            }
+
+
             return isUpdated;
         }
         public static bool DeleteAppointmentType(int AppointmentTypeID)
         {
             bool isDeleted = false;
-            string query = "DELETE FROM AppointmentTypes WHERE AppointmentTypeID = @AppointmentTypeID";
-            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    cmd.Parameters.AddWithValue("@AppointmentTypeID", AppointmentTypeID);
-                    try
+                    string query = @"DELETE FROM AppointmentTypes
+                    WHERE AppointmentTypeID = @AppointmentTypeID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@AppointmentTypeID", AppointmentTypeID);
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();
                         isDeleted = rowsAffected > 0;
                     }
-                    catch (Exception ex)
-                    {
-                        // Handle exception (e.g., log it)
-                        //throw new ApplicationException("An error occurred while deleting appointment type.", ex);
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
-                        isDeleted = false;
-                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, -1);
+                isDeleted = false;
+            }
+
+
             return isDeleted;
 
         }

@@ -263,6 +263,7 @@ namespace Clinic.Doctor
             tcDoctor.SelectedTab = tpDoctorInfo;
             tpDoctorInfo.Enabled = true;
             btnSave.Enabled = true;
+            txtLicenseNo.Focus();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -315,6 +316,18 @@ namespace Clinic.Doctor
             TimeSpan newStart = dtpStartTime.Value.TimeOfDay;
             TimeSpan newEnd = dtpEndTime.Value.TimeOfDay;
 
+            TimeSpan minShiftDuration = TimeSpan.FromHours(4);
+            if(newEnd <= newStart)
+            {
+                MessageBox.Show("End time cannot be earlier than start time.", "Invalid Time", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (newEnd - newStart < minShiftDuration)
+            {
+                MessageBox.Show("Shift duration must be at least 4 hours.", "Invalid Shift Duration", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
             // 1. التحقق من عدد النوبات (بحد أقصى 2 في اليوم)
             int countSameDay = _ShiftsList.Count(s => s.DayID == newDayID);
             if (countSameDay >= 2)

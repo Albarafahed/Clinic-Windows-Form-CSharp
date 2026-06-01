@@ -119,7 +119,7 @@
             this.ctrDoctorCardInfo1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.ctrDoctorCardInfo1.Location = new System.Drawing.Point(3, 91);
             this.ctrDoctorCardInfo1.Name = "ctrDoctorCardInfo1";
-            this.ctrDoctorCardInfo1.Size = new System.Drawing.Size(900, 471);
+            this.ctrDoctorCardInfo1.Size = new System.Drawing.Size(900, 532);
             this.ctrDoctorCardInfo1.TabIndex = 0;
             // 
             // ctrDoctorCardInfoWithFilter
@@ -134,7 +134,7 @@
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ctrDoctorCardInfoWithFilter";
-            this.Size = new System.Drawing.Size(913, 563);
+            this.Size = new System.Drawing.Size(913, 628);
             this.gbFilters.ResumeLayout(false);
             this.gbFilters.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

@@ -1,4 +1,4 @@
-﻿using Clinic_DataAccess.SaveException;
+﻿using Clinic_DataAccess.SaveSqlException;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,108 +15,110 @@ namespace Clinic_DataAccess
         public static int AddNewService(string ServiceName, string Description, float ServiceFees)
         {
             int ServiceID = -1;
-            string query = @"INSERT INTO Services 
-                    (ServiceName, Description, ServiceFees)
-         VALUES (@ServiceName, @Description, @ServiceFees);
-                        SELECT SCOPE_IDENTITY();";
-            using(SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    cmd.Parameters.AddWithValue("@ServiceName", ServiceName);
-                    cmd.Parameters.AddWithValue("@Description", Description);
-                    cmd.Parameters.AddWithValue("@ServiceFees", ServiceFees);
-                    try
+                    string query = @"INSERT INTO Services 
+                    (ServiceName, Description, ServiceFees)
+                     VALUES (@ServiceName, @Description, @ServiceFees);
+                        SELECT SCOPE_IDENTITY();";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@ServiceName", ServiceName);
+                        cmd.Parameters.AddWithValue("@Description", Description);
+                        cmd.Parameters.AddWithValue("@ServiceFees", ServiceFees);
+
                         conn.Open();
                         object result = cmd.ExecuteScalar();
                         if (result != null && int.TryParse(result.ToString(), out int id))
                         {
                             ServiceID = id;
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
 
-                        return -1;
                     }
-                   
                 }
             }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+
+                return -1;
+            }
+
 
             return ServiceID;
         }
         public static bool UpdateService(int ServiceID, string ServiceName, string Description, float ServiceFees)
         {
-           int rowsAffected = 0;
-            string query =@"UPDATE Services
+            int rowsAffected = 0;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"UPDATE Services
                         SET ServiceName = @ServiceName,
                             Description = @Description,
                             ServiceFees = @ServiceFees
                              WHERE ServiceID = @ServiceID";
-            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@ServiceID", ServiceID);
-                    cmd.Parameters.AddWithValue("@ServiceName", ServiceName);
-                    cmd.Parameters.AddWithValue("@Description", Description);
-                    cmd.Parameters.AddWithValue("@ServiceFees", ServiceFees);
-                    try
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@ServiceID", ServiceID);
+                        cmd.Parameters.AddWithValue("@ServiceName", ServiceName);
+                        cmd.Parameters.AddWithValue("@Description", Description);
+                        cmd.Parameters.AddWithValue("@ServiceFees", ServiceFees);
                         conn.Open();
                         rowsAffected = cmd.ExecuteNonQuery();
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-
-                        return false;
-                    }
-
                 }
             }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+
+                return false;
+            }
+
             return rowsAffected > 0;
         }
 
         public static bool DeleteService(int ServiceID)
         {
             int rowsAffected = 0;
-            string query = @"DELETE FROM Services
-                            WHERE ServiceID = @ServiceID";
-            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    cmd.Parameters.AddWithValue("@ServiceID", ServiceID);
-                    try
+                    string query = @"DELETE FROM Services
+                            WHERE ServiceID = @ServiceID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@ServiceID", ServiceID);
                         conn.Open();
                         rowsAffected = cmd.ExecuteNonQuery();
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-
-                        return false;
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+
+                return false;
             }
             return rowsAffected > 0;
         }
         public static bool GetServiceByID(int ServiceID, ref string ServiceName, ref string Description, ref float ServiceFees)
         {
-          string query = @"SELECT ServiceName, Description,
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT ServiceName, Description,
                             ServiceFees FROM Services
                                 WHERE ServiceID = @ServiceID";
-            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@ServiceID", ServiceID);
-                    try
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@ServiceID", ServiceID);
                         conn.Open();
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
@@ -129,13 +131,13 @@ namespace Clinic_DataAccess
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-
-                        return false;
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+
+                return false;
             }
             return false;
         }
@@ -143,28 +145,28 @@ namespace Clinic_DataAccess
         public static DataTable GetServiceList()
         {
             DataTable serviceList = new DataTable();
-            string query = @"SELECT ServiceID, ServiceName, 
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT ServiceID, ServiceName, 
                             Description, ServiceFees
                                 FROM Services";
-            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    try
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         conn.Open();
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            if(reader.HasRows)
-                            serviceList.Load(reader);
+                            if (reader.HasRows)
+                                serviceList.Load(reader);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+
             }
             return serviceList;
         }

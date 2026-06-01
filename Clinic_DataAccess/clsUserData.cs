@@ -1,4 +1,4 @@
-﻿using Clinic_DataAccess.SaveException;
+﻿using Clinic_DataAccess.SaveSqlException;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,20 +11,21 @@ namespace Clinic_DataAccess
         {
             bool IsFound = false;
 
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = @"SELECT UserID, PersonID,
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT UserID, PersonID,
                                     UserName, Password,
                                     IsActive, RoleID 
                                     FROM Users 
                                     WHERE UserID = @UserID";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UserID", UserID);
-
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@UserID", UserID);
+
+
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -39,12 +40,12 @@ namespace Clinic_DataAccess
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                        IsFound = false;
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                IsFound = false;
             }
             return IsFound;
         }
@@ -53,20 +54,20 @@ namespace Clinic_DataAccess
         {
             bool IsFound = false;
 
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = @"SELECT UserID, PersonID,
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT UserID, PersonID,
                                     UserName, Password,
                                     IsActive, RoleID 
                                     FROM Users 
                                     WHERE PersonID = @PersonID";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@PersonID", PersonID);
-
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@PersonID", PersonID);
+
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -81,34 +82,34 @@ namespace Clinic_DataAccess
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                        IsFound = false;
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                IsFound = false;
             }
             return IsFound;
         }
 
-        public static bool FindByUsernameAndPassword(string UserName,string Password,ref int UserID, ref int PersonID, ref bool IsActive, ref int RoleID)
+        public static bool FindByUsernameAndPassword(string UserName, string Password, ref int UserID, ref int PersonID, ref bool IsActive, ref int RoleID)
         {
             bool IsFound = false;
 
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = @"SELECT UserID, PersonID,
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT UserID, PersonID,
                                     IsActive, RoleID 
                                 FROM Users WHERE UserName = @UserName
                                     AND Password = @Password";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UserName", UserName);
-                    command.Parameters.AddWithValue("@Password", Password);
-
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@UserName", UserName);
+                        command.Parameters.AddWithValue("@Password", Password);
+
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -122,12 +123,12 @@ namespace Clinic_DataAccess
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                        IsFound = false;
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                IsFound = false;
             }
             return IsFound;
         }
@@ -136,22 +137,22 @@ namespace Clinic_DataAccess
         {
             int UserID = -1;
 
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = @"INSERT INTO Users (PersonID, UserName, Password, IsActive, RoleID)
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"INSERT INTO Users (PersonID, UserName, Password, IsActive, RoleID)
                                  VALUES (@PersonID, @UserName, @Password, @IsActive, @RoleID);
                                  SELECT SCOPE_IDENTITY();";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@PersonID", PersonID);
-                    command.Parameters.AddWithValue("@UserName", UserName);
-                    command.Parameters.AddWithValue("@Password", Password);
-                    command.Parameters.AddWithValue("@IsActive", IsActive);
-                    command.Parameters.AddWithValue("@RoleID", RoleID);
-
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@PersonID", PersonID);
+                        command.Parameters.AddWithValue("@UserName", UserName);
+                        command.Parameters.AddWithValue("@Password", Password);
+                        command.Parameters.AddWithValue("@IsActive", IsActive);
+                        command.Parameters.AddWithValue("@RoleID", RoleID);
+
                         connection.Open();
                         object result = command.ExecuteScalar();
 
@@ -160,12 +161,12 @@ namespace Clinic_DataAccess
                             UserID = insertedID;
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                        UserID = -1;
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                UserID = -1;
             }
             return UserID;
         }
@@ -174,9 +175,11 @@ namespace Clinic_DataAccess
         {
             int rowsAffected = 0;
 
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = @"UPDATE Users 
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"UPDATE Users 
                                  SET PersonID = @PersonID, 
                                      UserName = @UserName, 
                                      Password = @Password, 
@@ -184,26 +187,24 @@ namespace Clinic_DataAccess
                                      RoleID = @RoleID 
                                  WHERE UserID = @UserID";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UserID", UserID);
-                    command.Parameters.AddWithValue("@PersonID", PersonID);
-                    command.Parameters.AddWithValue("@UserName", UserName);
-                    command.Parameters.AddWithValue("@Password", Password);
-                    command.Parameters.AddWithValue("@IsActive", IsActive);
-                    command.Parameters.AddWithValue("@RoleID", RoleID);
-
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@UserID", UserID);
+                        command.Parameters.AddWithValue("@PersonID", PersonID);
+                        command.Parameters.AddWithValue("@UserName", UserName);
+                        command.Parameters.AddWithValue("@Password", Password);
+                        command.Parameters.AddWithValue("@IsActive", IsActive);
+                        command.Parameters.AddWithValue("@RoleID", RoleID);
+
                         connection.Open();
                         rowsAffected = command.ExecuteNonQuery();
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                        return false;
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                return false;
             }
             return rowsAffected > 0;
         }
@@ -212,25 +213,25 @@ namespace Clinic_DataAccess
         {
             int rowsAffected = 0;
 
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = "DELETE FROM Users WHERE UserID = @UserID";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    command.Parameters.AddWithValue("@UserID", UserID);
+                    string query = "DELETE FROM Users WHERE UserID = @UserID";
 
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@UserID", UserID);
+
                         connection.Open();
                         rowsAffected = command.ExecuteNonQuery();
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                        return false;
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                return false;
             }
             return rowsAffected > 0;
         }
@@ -239,25 +240,25 @@ namespace Clinic_DataAccess
         {
             int rowsAffected = 0;
 
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = "DELETE FROM Users WHERE PersonID = @PersonID";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    command.Parameters.AddWithValue("@PersonID", PersonID);
+                    string query = "DELETE FROM Users WHERE PersonID = @PersonID";
 
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@PersonID", PersonID);
+
                         connection.Open();
                         rowsAffected = command.ExecuteNonQuery();
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                        return false;
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                return false;
             }
             return rowsAffected > 0;
         }
@@ -265,18 +266,13 @@ namespace Clinic_DataAccess
         public static DataTable GetAllUsers()
         {
             DataTable dt = new DataTable();
-
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = @"SELECT U.UserID, P.PersonID, P.FullName, U.UserName, R.RoleName, U.IsActive 
-                                 FROM Users U 
-                                 INNER JOIN Persons P ON U.PersonID = P.PersonID
-                                 INNER JOIN Roles R ON U.RoleID = R.RoleID
-                                 WHERE P.IsDeleted = 0;";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    try
+                    string query = "SELECT * FROM View_UserDetails;";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -287,11 +283,11 @@ namespace Clinic_DataAccess
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
             }
             return dt;
         }
@@ -300,19 +296,16 @@ namespace Clinic_DataAccess
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = @"SELECT U.UserID, P.PersonID, P.FullName, U.UserName, R.RoleName, U.IsActive 
-                                 FROM Users U 
-                                 INNER JOIN Persons P ON U.PersonID = P.PersonID
-                                 INNER JOIN Roles R ON U.RoleID = R.RoleID
-                                 WHERE U.UserID=@UserID and P.IsDeleted = 0;";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    command.Parameters.AddWithValue("@UserID", UserID);
-                    try
+                    string query = @"SELECT * FROM View_UserDetails
+                                 WHERE UserID=@UserID;";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@UserID", UserID);
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -322,29 +315,28 @@ namespace Clinic_DataAccess
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                    }
                 }
             }
-            return dt.Rows[0];
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+            }
+            return dt.Rows.Count > 0 && dt != null ? dt.Rows[0] : null;
         }
 
         public static bool IsUserExist(string UserName)
         {
             bool isFound = false;
-
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = "SELECT TOP 1 1 FROM Users WHERE UserName = @UserName";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    command.Parameters.AddWithValue("@UserName", UserName);
+                    string query = "SELECT TOP 1 1 FROM Users WHERE UserName = @UserName";
 
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@UserName", UserName);
+
                         connection.Open();
                         object result = command.ExecuteScalar();
                         if (result != null)
@@ -352,12 +344,12 @@ namespace Clinic_DataAccess
                             isFound = true;
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                        isFound = false;
-                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                isFound = false;
             }
 
             return isFound;
@@ -366,17 +358,16 @@ namespace Clinic_DataAccess
         public static bool IsUserExistForPersonID(int PersonID)
         {
             bool isFound = false;
-
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = "SELECT TOP 1 1 FROM Users WHERE PersonID = @PersonID";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    command.Parameters.AddWithValue("@PersonID", PersonID);
+                    string query = "SELECT TOP 1 1 FROM Users WHERE PersonID = @PersonID";
 
-                    try
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@PersonID", PersonID);
+
                         connection.Open();
                         object result = command.ExecuteScalar();
                         if (result != null)
@@ -384,72 +375,74 @@ namespace Clinic_DataAccess
                             isFound = true;
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                        isFound = false;
-                    }
                 }
             }
-
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                isFound = false;
+            }
             return isFound;
         }
 
         public static bool ChangePassword(int UserID, string NewPassword)
         {
             int rowsAffected = 0;
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            try
             {
-                string query = @"UPDATE Users 
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"UPDATE Users 
                                  SET Password = @Password
                                  WHERE UserID = @UserID";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UserID", UserID);
-                    // إصلاح: تم إضافة البارامتر المفقود لضمان عمل الدالة دون انهيار
-                    command.Parameters.AddWithValue("@Password", NewPassword);
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@UserID", UserID);
+                        command.Parameters.AddWithValue("@Password", NewPassword);
 
-                    try
-                    {
-                        connection.Open();
-                        rowsAffected = command.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
-                        return false;
+                        {
+                            connection.Open();
+                            rowsAffected = command.ExecuteNonQuery();
+                        }
                     }
                 }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                return false;
             }
             return (rowsAffected > 0);
         }
 
         public static string GetFullName(int UserID)
         {
-            string query = @"SELECT P.FullName 
-                     FROM Persons P 
-                     INNER JOIN Users U ON P.PersonID = U.PersonID 
-                     WHERE U.UserID = @UserID;";
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@UserID", UserID);
+                    string query = @"SELECT P.FullName 
+                                   FROM Persons P 
+                                   INNER JOIN Users U ON
+                                    P.PersonID = U.PersonID 
+                                   WHERE U.UserID = @UserID;";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@UserID", UserID);
 
-                   
-                    connection.Open();
 
-                    // 2. تخزين النتيجة في كائن للتحقق منه قبل تحويله لنص
-                    object result = command.ExecuteScalar();
+                        connection.Open();
 
-                    // 3. التحقق بأمان: إذا كانت النتيجة ليست فارغة نعيد الاسم، وإلا نعيد نص فارغ
-                    return (result != null) ? result.ToString() : "";
+                        object result = command.ExecuteScalar();
+
+                        return (result != null) ? result.ToString() : "";
+                    }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error);
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
                 return "";
             }
         }

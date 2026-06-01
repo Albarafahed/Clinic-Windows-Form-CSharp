@@ -1,11 +1,6 @@
-﻿using Clinic_DataAccess.SaveException;
-using System;
-using System.Collections.Generic;
+﻿using Clinic_DataAccess.SaveSqlException;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clinic_DataAccess
 {
@@ -14,57 +9,64 @@ namespace Clinic_DataAccess
         public static bool FindBloodTypeByID(int BloodTypeID, ref string BloodTypeName)
         {
             bool Isfound = false;
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = "SELECT BloodTypeName FROM BloodTypes WHERE BloodTypeID = @BloodTypeID";
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@BloodTypeID", BloodTypeID);
             try
             {
-                connection.Open();
-                object result = command.ExecuteScalar();
-                if (result != null)
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    BloodTypeName = result.ToString();
-                    Isfound = true;
+                    string query = @"SELECT BloodTypeName
+                                FROM BloodTypes WHERE
+                                BloodTypeID = @BloodTypeID";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@BloodTypeID", BloodTypeID);
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null)
+                        {
+                            BloodTypeName = result.ToString();
+                            Isfound = true;
+                        }
+                    }
+
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, -1);
                 Isfound = false;
             }
-            finally
-            {
-                connection.Close();
-            }
+
             return Isfound;
         }
 
         public static bool FindBloodTypeByName(string BloodTypeName, ref int BloodTypeID)
         {
             bool Isfound = false;
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = "SELECT BloodTypeID FROM BloodTypes WHERE BloodTypeName = @BloodTypeName";
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@BloodTypeName", BloodTypeName);
             try
             {
-                connection.Open();
-                object result = command.ExecuteScalar();
-                if (result != null && int.TryParse(result.ToString(), out int parsedValue))
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    BloodTypeID = parsedValue;
-                    Isfound = true;
+                    string query = @"SELECT BloodTypeID
+                                FROM BloodTypes WHERE
+                                BloodTypeName = @BloodTypeName";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@BloodTypeName", BloodTypeName);
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && int.TryParse(result.ToString(), out int parsedValue))
+                        {
+                            BloodTypeID = parsedValue;
+                            Isfound = true;
+                        }
+                    }
                 }
             }
-            catch(Exception ex) 
+            catch (SqlException ex)
             {
-                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, -1);
                 Isfound = false;
-            }
-            finally
-            {
-                connection.Close();
             }
             return Isfound;
         }
@@ -72,27 +74,28 @@ namespace Clinic_DataAccess
         public static DataTable GetAllBloodTypes()
         {
             DataTable dt = new DataTable();
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = "SELECT * FROM BloodTypes";
-            SqlCommand command = new SqlCommand(query, connection);
             try
             {
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    dt.Load(reader);
+                    string query = "SELECT * FROM BloodTypes";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                dt.Load(reader);
+                            }
+                        }
+                    }
                 }
-                reader.Close();
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
-               
-            }
-            finally
-            {
-                connection.Close();
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, -1);
+
             }
             return dt;
         }

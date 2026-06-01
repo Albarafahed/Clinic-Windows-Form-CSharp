@@ -39,7 +39,6 @@ namespace Clinic.Controls
             lblSpecialization.Text = "[???]";
             lblActiveStatus.Text = "[???]";
             lblConsultationFees.Text = "[???]";
-            lblWorkingDays.Text = "[???]";
             lblLicenseNo.Text = "[???]";
         }
 
@@ -52,8 +51,28 @@ namespace Clinic.Controls
             lblActiveStatus.Text = _Doctor.IsActive ? "Active" : "Inactive";
             lblActiveStatus.ForeColor = _Doctor.IsActive ? Color.Green : Color.Red;
             lblConsultationFees.Text = _Doctor.ConsultationFees.ToString("C", new CultureInfo("en-US"));
-            lblWorkingDays.Text = _Doctor.GetWorkingDays();
             lblLicenseNo.Text = _Doctor.LicenseNumber;
+            _LoadDoctorShiftInfo();
+        }
+
+        private void _LoadDoctorShiftInfo()
+        {
+            DataTable dt = clsDoctor.GetDoctorShifts(_DoctorID);
+            if (dt == null)
+                return;
+            dgvShifts.DataSource = dt;
+            if (dt.Rows.Count == 0)
+                return;
+            dgvShifts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvShifts.Columns["DayID"].Visible = false;
+            dgvShifts.Columns["DayName"].HeaderText = "Day";
+            dgvShifts.Columns["DayName"].Width = 100;
+
+            dgvShifts.Columns["StartTime"].HeaderText = "Start Time";
+            dgvShifts.Columns["StartTime"].Width = 120;
+
+            dgvShifts.Columns["EndTime"].HeaderText = "End Time";
+            dgvShifts.Columns["EndTime"].Width = 120;
         }
         public void LoadDoctorInfo(int DoctorID)
         {
@@ -67,5 +86,8 @@ namespace Clinic.Controls
 
             _LoadDoctorInfo();
         }
+
+      
+        
     }
 }

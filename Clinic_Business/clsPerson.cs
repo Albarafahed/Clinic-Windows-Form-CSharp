@@ -118,7 +118,7 @@ namespace Clinic_Business
 
         public static DataTable GetAllPersonsToTrash()
         {
-            return clsPersonData.GetAllPersons(1);
+            return clsPersonData.GetAllPersonsTrash();
         }
 
         public static DataRow GetPersonByID(int PersonID)

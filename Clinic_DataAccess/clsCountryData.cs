@@ -1,6 +1,5 @@
 ﻿
-using Clinic_DataAccess.SaveException;
-using System;
+using Clinic_DataAccess.SaveSqlException;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -12,44 +11,39 @@ namespace Clinic_DataAccess
         public static bool GetCountryInfoByID(int ID, ref string CountryName)
         {
             bool isFound = false;
-
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "SELECT CountryName FROM Countries WHERE CountryID = @CountryID";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@CountryID", ID);
-
             try
             {
-                connection.Open();
-                object result = command.ExecuteScalar();
-
-                if (result != null)
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
+                    string query = @"SELECT CountryName 
+                            FROM Countries WHERE
+                                CountryID = @CountryID";
 
-                    // The record was found
-                    isFound = true;
-
-                    CountryName = result.ToString();
-
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@CountryID", ID);
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null)
+                        {
+                            // The record was found
+                            isFound = true;
+                            CountryName = result.ToString();
+                        }
+                        else
+                        {
+                            // The record was not found
+                            isFound = false;
+                        }
+                    }
                 }
-                else
-                {
-                    // The record was not found
-                    isFound = false;
-                }
-
             }
-            catch (Exception ex)
+
+
+            catch (SqlException ex)
             {
-                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, -1);
                 isFound = false;
-            }
-            finally
-            {
-                connection.Close();
             }
 
             return isFound;
@@ -57,46 +51,38 @@ namespace Clinic_DataAccess
 
         public static bool GetCountryInfoByName(string CountryName, ref int ID)
         {
-            bool isFound = false; 
-
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "SELECT CountryID FROM Countries WHERE CountryName = @CountryName";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@CountryName", CountryName);
-
+            bool isFound = false;
             try
             {
-                connection.Open();
-                object result = command.ExecuteScalar();
-
-                if (result != null && int.TryParse(result.ToString(), out int parsedValue))
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-
-                    // The record was found
-                    isFound = true;
-
-                    ID = parsedValue;
-
+                    string query = @"SELECT CountryID 
+                            FROM Countries WHERE
+                                CountryName = @CountryName";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@CountryName", CountryName);
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && int.TryParse(result.ToString(), out int parsedValue))
+                        {
+                            // The record was found
+                            isFound = true;
+                            ID = parsedValue;
+                        }
+                        else
+                        {
+                            // The record was not found
+                            isFound = false;
+                        }
+                    }
                 }
-                else
-                {
-                    // The record was not found
-                    isFound = false;
-                }
-
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, -1);
 
                 isFound = false;
-            }
-            finally
-            {
-                connection.Close();
             }
 
             return isFound;
@@ -106,38 +92,29 @@ namespace Clinic_DataAccess
         {
 
             DataTable dt = new DataTable();
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "SELECT * FROM Countries order by CountryName";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
             try
             {
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    dt.Load(reader);
+                    string query = "SELECT * FROM Countries order by CountryName";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                dt.Load(reader);
+                            }
+                        }
+                    }
                 }
-
-                reader.Close();
-
-
             }
 
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                clsGlobalLogger.LogException(ex, clsGlobalLogger.LogLevel.Error, -1);
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, -1);
             }
-            finally
-            {
-                connection.Close();
-            }
-
             return dt;
 
         }

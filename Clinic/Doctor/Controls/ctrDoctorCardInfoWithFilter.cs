@@ -124,5 +124,7 @@ namespace Clinic.Controls
             else
                 errorProvider1.SetError(txtFilterValue, string.Empty);
         }
+
+       
     }
 }
