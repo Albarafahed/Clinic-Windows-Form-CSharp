@@ -12,7 +12,15 @@ namespace Clinic_Business
 {
     public class clsDoctor : clsPerson
     {
-        
+        public class clsDoctorShift
+        {
+            public int DayID { get; set; }
+            public string DayName { get; set; }
+            public TimeSpan StartTime { get; set; }
+            public TimeSpan EndTime { get; set; }
+          
+        }   
+
         private enMode _Mode = enMode.AddNew;
 
         public enum enDayOfWeek
@@ -30,10 +38,8 @@ namespace Clinic_Business
         public float ConsultationFees { get; set; }
 
         public List<int> SelectedSpecialtyIDs { get; set; }
-        public string Specializations { get; set; }
-        public List<int> SelectedDayIDs { get; set; }
-        public string WorkingDays { get; set; }
-
+        public List<clsDoctorShift> DoctorShifts { get; set; }
+      
         public bool IsActive { get; set; }
 
         public string LicenseNumber { get; set; }
@@ -47,20 +53,20 @@ namespace Clinic_Business
             this.DoctorID = -1;
             this.ConsultationFees = 0;
             this.SelectedSpecialtyIDs = new List<int>();
-            this.SelectedDayIDs = new List<int>();
-            this.IsActive= true;
+            this.DoctorShifts = new List<clsDoctorShift>();
+            this.IsActive = true;
             this.LicenseNumber = string.Empty;
             this.CreatedByUserID = -1;
             _Mode = enMode.AddNew;
 
         }
 
-        public clsDoctor(int DoctorID,float ConsultationFees, string LicenseNumber,
-                          int CreatedByUserID,bool IsActive, DateTime CreatedDate,
+        public clsDoctor(int DoctorID, float ConsultationFees, string LicenseNumber,
+                          int CreatedByUserID, bool IsActive, DateTime CreatedDate,
 
                           int PersonID, string Name, DateTime DateOfBirth,
-                          short Gender, string Address, string PhoneNumber, 
-                          string Email,int NationalityCountryID, string ImagePath)
+                          short Gender, string Address, string PhoneNumber,
+                          string Email, int NationalityCountryID, string ImagePath)
         {
             this.DoctorID = DoctorID;
             this.ConsultationFees = ConsultationFees;
@@ -68,10 +74,6 @@ namespace Clinic_Business
             this.CreatedByUserID = CreatedByUserID;
             this.IsActive = IsActive;
             this.CreatedDate = CreatedDate;
-            this.SelectedSpecialtyIDs = clsDoctorData.GetDoctorSpecialtyIDs(DoctorID);
-            this.Specializations = clsDoctorData.GetSpecializations(DoctorID);
-            this.SelectedDayIDs=clsDoctorData.GetDoctorWorkingDayIDs(DoctorID);
-            this.WorkingDays = clsDoctorData.GetWorkingDays(DoctorID);
 
 
             this.PersonID = PersonID;
@@ -87,32 +89,62 @@ namespace Clinic_Business
             _Mode = enMode.Update;
         }
 
+
         private bool _AddNewDoctor()
         {
-            this.DoctorID = clsDoctorData.AddNewDoctor
-                (this.PersonID, this.ConsultationFees, 
-                 this.LicenseNumber, this.CreatedByUserID,
-                 this.IsActive, this.SelectedDayIDs, this.SelectedSpecialtyIDs);
+            // فك الكائنات إلى مصفوفات أولية قبل الإرسال لطبقة البيانات
+            List<int> dayIDs = this.DoctorShifts.Select(s => s.DayID).ToList();
+            List<TimeSpan> starts = this.DoctorShifts.Select(s => s.StartTime).ToList();
+            List<TimeSpan> ends = this.DoctorShifts.Select(s => s.EndTime).ToList();
+
+            this.DoctorID = clsDoctorData.AddNewDoctor(
+                this.PersonID, this.ConsultationFees, this.LicenseNumber,
+                this.CreatedByUserID, this.IsActive, this.SelectedSpecialtyIDs,
+                dayIDs, starts, ends); // تمرير المصفوفات
+
             return this.DoctorID > 0;
         }
 
         private bool _UpdateDoctor()
         {
-            return clsDoctorData.UpdateDoctor
-                (this.DoctorID,this.PersonID, this.ConsultationFees,
-                 this.LicenseNumber, this.CreatedByUserID,
-                 this.IsActive, this.SelectedDayIDs, this.SelectedSpecialtyIDs);
+            List<int> dayIDs = this.DoctorShifts.Select(s => s.DayID).ToList();
+            List<TimeSpan> starts = this.DoctorShifts.Select(s => s.StartTime).ToList();
+            List<TimeSpan> ends = this.DoctorShifts.Select(s => s.EndTime).ToList();
+
+            return clsDoctorData.UpdateDoctor(
+                this.DoctorID, this.PersonID, this.ConsultationFees,
+                this.LicenseNumber, this.CreatedByUserID, this.IsActive,
+                this.SelectedSpecialtyIDs, dayIDs, starts, ends);
         }
 
-
-        public bool DeleteDoctor()
+        public string GetSpecializations()
         {
-            return clsDoctorData.DeleteDoctor(this.DoctorID);
+            return clsDoctorData.GetSpecializations(this.DoctorID);
+        }
+
+        public  string GetWorkingDays()
+        {
+            return clsDoctorData.GetWorkingDays(this.DoctorID);
+        }
+
+        public  List<int> GetDoctorSpecializations()
+        {
+            return clsDoctorData.GetDoctorSpecialtyIDs(this.DoctorID);
+        }
+        public static DataTable GetDoctorShifts(int DoctorID)
+        {
+            return clsDoctorData.GetDoctorShifts(DoctorID);
+        }
+      
+
+        public static bool DeleteDoctor(int DoctorID)
+        {
+            return clsDoctorData.DeleteDoctor(DoctorID);
         }
 
         public static clsDoctor FindDoctorByID(int DoctorID)
         {
-           float ConsultationFees = 0;
+            float ConsultationFees = 0;
             DateTime CreatedDate = DateTime.Now;
             int CreatedByUserID = -1;
             bool IsActive = true;
@@ -140,7 +172,6 @@ namespace Clinic_Business
 
         public static DataTable GetAllDoctors()
         {
-            // تم تصحيح استدعاء الدالة لتطابق اسم GetAllPatients المصحح
             return clsDoctorData.GetAllDoctors();
         }
 
@@ -152,7 +183,6 @@ namespace Clinic_Business
 
         public static bool IsDoctorExistForPersonID(int PersonID)
         {
-            // استدعاء الدالة مباشرة من طبقة البيانات
             return clsDoctorData.IsDoctorExistForPersonID(PersonID);
         }
 
@@ -180,7 +210,25 @@ namespace Clinic_Business
             return false;
         }
 
+        public static bool IsDoctorBusy(int DoctorID)
+        {
+            return clsDoctorData.IsDoctorBusy(DoctorID, DateTime.Now);
+        }
 
+        public static bool IsDoctorWorkingOnThisDay(int DoctorID, DateTime time)
+        {
+            return clsDoctorData.IsDoctorWorkingOnThisDay(DoctorID, time);
+        }
+
+        public static bool IsDoctorWorkingAtThisTime(int DoctorID, DateTime AppointmentDateTime)
+        {
+            return clsDoctorData.IsDoctorWorkingAtThisTime(DoctorID, AppointmentDateTime);
+        }
+
+        public static DataTable GetAllDays()
+        {
+            return clsDoctorData.GetAllDays();
+        }
 
     }
 }

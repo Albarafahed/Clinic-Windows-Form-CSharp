@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,12 @@ namespace Clinic.Doctor
 {
     public partial class frmAddUpdateDoctor : Form
     {
-        private int _DoctorID = -1; // -1 indicates a new doctor, otherwise it's an update
+        private int _DoctorID = -1;
         private clsDoctor _Doctor;
         public enum enMode { AddNew = 1, Update = 2 };
         private enMode _Mode = enMode.AddNew;
 
+        private BindingList<clsDoctorShift> _ShiftsList = new BindingList<clsDoctor.clsDoctorShift>();
         public delegate void frmAddUpdateDoctorEventHandler(object sender, int DoctorID);
 
         public event frmAddUpdateDoctorEventHandler DataBack;
@@ -51,36 +53,19 @@ namespace Clinic.Doctor
             }
         }
 
-        private void _FillWorkingDays()
+        private void _FiilDaysInComboBox()
         {
-            // 1. التأكد من عدم التكرار
-            if (clbWorkingDays.Items.Count > 0) return;
-
-            // 2. تجميد الرسم (Suspension of Painting)
-            clbWorkingDays.BeginUpdate();
-
-            try
-            {
-                // 3. إضافة العناصر
-                foreach (string day in Enum.GetNames(typeof(enDayOfWeek)))
-                {
-                    clbWorkingDays.Items.Add(day);
-                }
-            }
-            finally
-            {
-                // 4. إعادة تفعيل الرسم مرة واحدة فقط في النهاية
-                clbWorkingDays.EndUpdate();
-            }
-
-            clbWorkingDays.SetItemChecked((int)enDayOfWeek.Sunday -1, true);
-            clbWorkingDays.SetSelected((int)enDayOfWeek.Sunday - 1, true);
+            DataTable dt = clsDoctor.GetAllDays();
+            cmbDays.DataSource = dt;
+            cmbDays.DisplayMember = "DayName";
+            cmbDays.ValueMember = "DayID";
         }
 
         private void _ResetDefaultValues()
         {
             _FillSpecializationsInCheckBox();
-            _FillWorkingDays();
+            _SetupShiftsGrid();
+            _FiilDaysInComboBox();
 
             tpDoctorInfo.Enabled = false;
             btnSave.Enabled = false;
@@ -115,8 +100,8 @@ namespace Clinic.Doctor
             txtConsultationFees.Text = _Doctor.ConsultationFees.ToString();
             txtLicenseNo.Text = _Doctor.LicenseNumber;
             chkIsActive.Checked = _Doctor.IsActive;
-
-            if(_Doctor.SelectedSpecialtyIDs.Count > 0)
+             _Doctor.SelectedSpecialtyIDs = _Doctor.GetDoctorSpecializations();
+            if (_Doctor.SelectedSpecialtyIDs.Count > 0)
             {
                 int lastCheckedIndex = 0;
 
@@ -136,31 +121,57 @@ namespace Clinic.Doctor
                     clbSpesalizations.SetSelected(lastCheckedIndex, true);
                 }
             }
-
-            if (_Doctor.SelectedDayIDs.Count > 0)
-            {
-                int lastCheckedIndex = 0;
-
-                for (int i = 0; i < clbWorkingDays.Items.Count; i++)
-                {
-                    // القيمة الرقمية للأيام في قاعدة البيانات تبدأ من 1، 2، 3...
-                    // بما أن الـ Enum مرتب من 1 إلى 7، فإن (i + 1) تطابق الـ ID دائماً
-                    if (_Doctor.SelectedDayIDs.Contains(i + 1))
-                    {
-                        clbWorkingDays.SetItemChecked(i, true);
-                        lastCheckedIndex = i;
-                    }
-                }
-
-                clbWorkingDays.SetSelected(lastCheckedIndex, true);
-            }
+         
+            _LoadShiftsIntoGrid(clsDoctor.GetDoctorShifts(_Doctor.DoctorID));
 
             tpDoctorInfo.Enabled = true;
             btnSave.Enabled = true;
         }
+        private void _SetupShiftsGrid()
+        {
+            dgvShifts.Columns.Clear();
+            dgvShifts.AutoGenerateColumns = false; 
+            dgvShifts.Columns.Add(new DataGridViewTextBoxColumn { Name = "DayID", DataPropertyName = "DayID", Visible = false });
+            dgvShifts.Columns.Add(new DataGridViewTextBoxColumn { Name = "DayName", HeaderText = "Day", DataPropertyName = "DayName", ReadOnly = true });
+            dgvShifts.Columns.Add(new DataGridViewTextBoxColumn { Name = "StartTime", HeaderText = "Start", DataPropertyName = "StartTime", ReadOnly = true });
+            dgvShifts.Columns.Add(new DataGridViewTextBoxColumn { Name = "EndTime", HeaderText = "End", DataPropertyName = "EndTime", ReadOnly = true });
+
+            // 2. إضافة عمود الحذف
+            DataGridViewImageColumn imgDelete = new DataGridViewImageColumn
+            {
+                Name = "Delete",
+                HeaderText = "Action",
+                Image = Properties.Resources.Delete_32,
+                ImageLayout = DataGridViewImageCellLayout.Zoom,
+                Width = 30
+            };
+            dgvShifts.Columns.Add(imgDelete);
+
+            dgvShifts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // ربط القائمة بالجدول
+            dgvShifts.DataSource = _ShiftsList;
+        }
+        private void _LoadShiftsIntoGrid(DataTable dtDoctorShifts)
+        {
+            _ShiftsList.Clear(); // تفريغ القائمة
+
+            foreach (DataRow row in dtDoctorShifts.Rows)
+            {
+                _ShiftsList.Add(new clsDoctorShift
+                {
+                    DayID = Convert.ToInt32(row["DayID"]),
+                    DayName = row["DayName"].ToString(),
+                    StartTime = (TimeSpan)row["StartTime"],
+                    EndTime = (TimeSpan)row["EndTime"]
+                });
+            }
+        }
+
         private void frmAddUpdateDoctor_Load(object sender, EventArgs e)
         {
             _ResetDefaultValues();
+
             if (_Mode == enMode.Update)
             {
                 _LoadData();
@@ -197,8 +208,8 @@ namespace Clinic.Doctor
             _Doctor.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             _Doctor.IsActive = chkIsActive.Checked;
-
-            _Doctor.SelectedDayIDs = clbWorkingDays.CheckedIndices.Cast<int>().Select(index=>index+1).ToList();
+           
+            _Doctor.DoctorShifts =_ShiftsList.ToList();
 
             _Doctor.SelectedSpecialtyIDs = clbSpesalizations.GetCheckedIDs("SpecializationID");
 
@@ -264,7 +275,6 @@ namespace Clinic.Doctor
             e.Handled=!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) ;
         }
 
-        
         private void TextBoxValidating(object sender, CancelEventArgs e)
         {
             TextBox txt = (TextBox) sender ;
@@ -295,6 +305,100 @@ namespace Clinic.Doctor
         private void frmAddUpdateDoctor_Activated(object sender, EventArgs e)
         {
             ctrlPersonCardWithFilter1.FocuseTextBox();
+        }
+
+        private void btnAddTodataGrid_Click(object sender, EventArgs e)
+        {
+            if (!this.ValidateChildren()) return;
+
+            int newDayID = (int)cmbDays.SelectedValue;
+            TimeSpan newStart = dtpStartTime.Value.TimeOfDay;
+            TimeSpan newEnd = dtpEndTime.Value.TimeOfDay;
+
+            // 1. التحقق من عدد النوبات (بحد أقصى 2 في اليوم)
+            int countSameDay = _ShiftsList.Count(s => s.DayID == newDayID);
+            if (countSameDay >= 2)
+            {
+                MessageBox.Show("You cannot add more than two shifts for the same day.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. التحقق من التداخل الزمني باستخدام LINQ
+            bool isOverlapping = _ShiftsList.Any(s => s.DayID == newDayID &&
+                                 !(newEnd <= s.StartTime || newStart >= s.EndTime));
+
+            if (isOverlapping)
+            {
+                MessageBox.Show("This shift conflicts with another shift already added for this day.", "Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 3. الإضافة مباشرة للقائمة (الجدول سيحدث نفسه تلقائياً)
+            _ShiftsList.Add(new clsDoctorShift
+            {
+                DayID = newDayID,
+                DayName=cmbDays.Text,
+                StartTime = newStart,
+                EndTime = newEnd
+            });
+        }
+
+        private void dgvShifts_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0 && dgvShifts.Columns[e.ColumnIndex].Name == "Delete")
+            {
+                dgvShifts.Cursor = Cursors.Hand; // يتحول الماوس ليد
+            }
+            else
+            {
+                dgvShifts.Cursor = Cursors.Default; // يعود لشكل السهم
+            }
+        }
+
+        private void dgvShifts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex >= 0 && e.RowIndex >= 0 && dgvShifts.Columns[e.ColumnIndex].Name == "Delete")
+            {
+                // تأكيد الحذف
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this shift?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    dgvShifts.Rows.RemoveAt(e.RowIndex);
+                }
+            }
+        }
+
+        private void dtpStartTime_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime startTime = dtpStartTime.Value;
+
+            // 2. حساب الوقت الأدنى المسموح به للنهاية (البداية + 4 ساعات)
+            DateTime minAllowedEndTime = startTime.AddHours(4);
+
+            // 3. تحديث وقت النهاية إذا كان الحالي أقل من الحد الأدنى الجديد
+            // لضمان عدم حدوث خطأ عند تغيير البداية
+            if (dtpEndTime.Value < minAllowedEndTime)
+            {
+                dtpEndTime.Value = minAllowedEndTime;
+            }
+        }
+
+        private void dtpEndTime_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime minAllowedEndTime = dtpStartTime.Value.AddHours(4);
+
+            if (dtpEndTime.Value < minAllowedEndTime)
+            {
+                // منع المستخدم من اختيار وقت أقل من 4 ساعات
+                dtpEndTime.Value = minAllowedEndTime;
+
+                // إظهار تنبيه بصري خفيف
+                errorProvider1.SetError(dtpEndTime, "Minimum shift duration is 4 hours.");
+            }
+            else
+            {
+                errorProvider1.SetError(dtpEndTime, ""); // مسح التنبيه
+            }
         }
     }
 }

@@ -29,11 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcDoctor = new System.Windows.Forms.TabControl();
             this.tpPersonalInfo = new System.Windows.Forms.TabPage();
-            this.ctrlPersonCardWithFilter1 = new Clinic.Controls.ctrlPersonCardWithFilter();
             this.btnPersonInfoNext = new System.Windows.Forms.Button();
             this.tpDoctorInfo = new System.Windows.Forms.TabPage();
+            this.btnAddTodataGrid = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dtpEndTime = new System.Windows.Forms.DateTimePicker();
+            this.dtpStartTime = new System.Windows.Forms.DateTimePicker();
+            this.cmbDays = new System.Windows.Forms.ComboBox();
+            this.dgvShifts = new System.Windows.Forms.DataGridView();
             this.clbSpesalizations = new System.Windows.Forms.CheckedListBox();
             this.chkIsActive = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,7 +54,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.clbWorkingDays = new System.Windows.Forms.CheckedListBox();
             this.label8 = new System.Windows.Forms.Label();
             this.lbDoctorID = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
@@ -54,9 +61,11 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.ctrlPersonCardWithFilter1 = new Clinic.Controls.ctrlPersonCardWithFilter();
             this.tcDoctor.SuspendLayout();
             this.tpPersonalInfo.SuspendLayout();
             this.tpDoctorInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShifts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -73,7 +82,7 @@
             this.tcDoctor.Location = new System.Drawing.Point(12, 97);
             this.tcDoctor.Name = "tcDoctor";
             this.tcDoctor.SelectedIndex = 0;
-            this.tcDoctor.Size = new System.Drawing.Size(931, 474);
+            this.tcDoctor.Size = new System.Drawing.Size(1062, 520);
             this.tcDoctor.TabIndex = 117;
             this.tcDoctor.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tcDoctor_Selecting);
             // 
@@ -85,21 +94,9 @@
             this.tpPersonalInfo.Location = new System.Drawing.Point(4, 32);
             this.tpPersonalInfo.Name = "tpPersonalInfo";
             this.tpPersonalInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPersonalInfo.Size = new System.Drawing.Size(923, 438);
+            this.tpPersonalInfo.Size = new System.Drawing.Size(1054, 484);
             this.tpPersonalInfo.TabIndex = 0;
             this.tpPersonalInfo.Text = "Personal Info";
-            // 
-            // ctrlPersonCardWithFilter1
-            // 
-            this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
-            this.ctrlPersonCardWithFilter1.btnAddNewEnabled = true;
-            this.ctrlPersonCardWithFilter1.FilterEnabled = false;
-            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(4, 4);
-            this.ctrlPersonCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
-            this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
-            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(916, 375);
-            this.ctrlPersonCardWithFilter1.TabIndex = 119;
             // 
             // btnPersonInfoNext
             // 
@@ -123,6 +120,14 @@
             // tpDoctorInfo
             // 
             this.tpDoctorInfo.BackColor = System.Drawing.Color.White;
+            this.tpDoctorInfo.Controls.Add(this.btnAddTodataGrid);
+            this.tpDoctorInfo.Controls.Add(this.label4);
+            this.tpDoctorInfo.Controls.Add(this.label3);
+            this.tpDoctorInfo.Controls.Add(this.label2);
+            this.tpDoctorInfo.Controls.Add(this.dtpEndTime);
+            this.tpDoctorInfo.Controls.Add(this.dtpStartTime);
+            this.tpDoctorInfo.Controls.Add(this.cmbDays);
+            this.tpDoctorInfo.Controls.Add(this.dgvShifts);
             this.tpDoctorInfo.Controls.Add(this.clbSpesalizations);
             this.tpDoctorInfo.Controls.Add(this.chkIsActive);
             this.tpDoctorInfo.Controls.Add(this.label1);
@@ -135,16 +140,145 @@
             this.tpDoctorInfo.Controls.Add(this.label15);
             this.tpDoctorInfo.Controls.Add(this.pictureBox4);
             this.tpDoctorInfo.Controls.Add(this.label5);
-            this.tpDoctorInfo.Controls.Add(this.clbWorkingDays);
             this.tpDoctorInfo.Controls.Add(this.label8);
             this.tpDoctorInfo.Controls.Add(this.lbDoctorID);
             this.tpDoctorInfo.Controls.Add(this.pictureBox5);
             this.tpDoctorInfo.Location = new System.Drawing.Point(4, 32);
             this.tpDoctorInfo.Name = "tpDoctorInfo";
             this.tpDoctorInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDoctorInfo.Size = new System.Drawing.Size(923, 438);
+            this.tpDoctorInfo.Size = new System.Drawing.Size(1054, 484);
             this.tpDoctorInfo.TabIndex = 1;
             this.tpDoctorInfo.Text = "Doctor Info";
+            // 
+            // btnAddTodataGrid
+            // 
+            this.btnAddTodataGrid.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddTodataGrid.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
+            this.btnAddTodataGrid.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            this.btnAddTodataGrid.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddTodataGrid.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
+            this.btnAddTodataGrid.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnAddTodataGrid.Image = global::Clinic.Properties.Resources.add_32;
+            this.btnAddTodataGrid.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddTodataGrid.Location = new System.Drawing.Point(864, 436);
+            this.btnAddTodataGrid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAddTodataGrid.Name = "btnAddTodataGrid";
+            this.btnAddTodataGrid.Size = new System.Drawing.Size(126, 40);
+            this.btnAddTodataGrid.TabIndex = 119;
+            this.btnAddTodataGrid.Text = "Add";
+            this.btnAddTodataGrid.UseVisualStyleBackColor = true;
+            this.btnAddTodataGrid.Click += new System.EventHandler(this.btnAddTodataGrid_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.label4.Location = new System.Drawing.Point(895, 185);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(94, 25);
+            this.label4.TabIndex = 171;
+            this.label4.Text = "EndTime:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.label3.Location = new System.Drawing.Point(757, 185);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(104, 25);
+            this.label3.TabIndex = 170;
+            this.label3.Text = "StartTime:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.label2.Location = new System.Drawing.Point(579, 185);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 25);
+            this.label2.TabIndex = 169;
+            this.label2.Text = "Days:";
+            // 
+            // dtpEndTime
+            // 
+            this.dtpEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpEndTime.Location = new System.Drawing.Point(891, 228);
+            this.dtpEndTime.Name = "dtpEndTime";
+            this.dtpEndTime.ShowUpDown = true;
+            this.dtpEndTime.Size = new System.Drawing.Size(131, 30);
+            this.dtpEndTime.TabIndex = 168;
+            this.dtpEndTime.ValueChanged += new System.EventHandler(this.dtpEndTime_ValueChanged);
+            // 
+            // dtpStartTime
+            // 
+            this.dtpStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpStartTime.Location = new System.Drawing.Point(741, 228);
+            this.dtpStartTime.Name = "dtpStartTime";
+            this.dtpStartTime.ShowUpDown = true;
+            this.dtpStartTime.Size = new System.Drawing.Size(131, 30);
+            this.dtpStartTime.TabIndex = 167;
+            this.dtpStartTime.ValueChanged += new System.EventHandler(this.dtpStartTime_ValueChanged);
+            // 
+            // cmbDays
+            // 
+            this.cmbDays.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cmbDays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDays.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbDays.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbDays.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.cmbDays.FormattingEnabled = true;
+            this.cmbDays.Location = new System.Drawing.Point(542, 227);
+            this.cmbDays.Name = "cmbDays";
+            this.cmbDays.Size = new System.Drawing.Size(169, 31);
+            this.cmbDays.TabIndex = 166;
+            // 
+            // dgvShifts
+            // 
+            this.dgvShifts.AllowUserToAddRows = false;
+            this.dgvShifts.AllowUserToDeleteRows = false;
+            this.dgvShifts.AllowUserToResizeRows = false;
+            this.dgvShifts.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvShifts.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvShifts.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvShifts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvShifts.ColumnHeadersHeight = 40;
+            this.dgvShifts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvShifts.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvShifts.EnableHeadersVisualStyles = false;
+            this.dgvShifts.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            this.dgvShifts.Location = new System.Drawing.Point(569, 281);
+            this.dgvShifts.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.dgvShifts.MultiSelect = false;
+            this.dgvShifts.Name = "dgvShifts";
+            this.dgvShifts.ReadOnly = true;
+            this.dgvShifts.RowHeadersWidth = 30;
+            this.dgvShifts.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dgvShifts.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
+            this.dgvShifts.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.dgvShifts.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.dgvShifts.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
+            this.dgvShifts.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
+            this.dgvShifts.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvShifts.RowTemplate.Height = 38;
+            this.dgvShifts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvShifts.Size = new System.Drawing.Size(428, 150);
+            this.dgvShifts.TabIndex = 119;
+            this.dgvShifts.TabStop = false;
+            this.dgvShifts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShifts_CellContentClick);
+            this.dgvShifts.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvShifts_CellMouseMove);
             // 
             // clbSpesalizations
             // 
@@ -164,7 +298,7 @@
             this.chkIsActive.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkIsActive.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.chkIsActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.chkIsActive.Location = new System.Drawing.Point(413, 361);
+            this.chkIsActive.Location = new System.Drawing.Point(373, 383);
             this.chkIsActive.Name = "chkIsActive";
             this.chkIsActive.Size = new System.Drawing.Size(107, 29);
             this.chkIsActive.TabIndex = 4;
@@ -196,7 +330,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = global::Clinic.Properties.Resources.WorkingDays_32;
-            this.pictureBox3.Location = new System.Drawing.Point(648, 274);
+            this.pictureBox3.Location = new System.Drawing.Point(506, 327);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(31, 26);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -208,7 +342,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.label6.Location = new System.Drawing.Point(496, 275);
+            this.label6.Location = new System.Drawing.Point(127, 102);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(142, 25);
@@ -282,17 +416,6 @@
             this.label5.TabIndex = 155;
             this.label5.Text = "Specialization:";
             // 
-            // clbWorkingDays
-            // 
-            this.clbWorkingDays.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.clbWorkingDays.CheckOnClick = true;
-            this.clbWorkingDays.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.clbWorkingDays.Location = new System.Drawing.Point(692, 268);
-            this.clbWorkingDays.Name = "clbWorkingDays";
-            this.clbWorkingDays.Size = new System.Drawing.Size(200, 81);
-            this.clbWorkingDays.TabIndex = 3;
-            this.clbWorkingDays.Validating += new System.ComponentModel.CancelEventHandler(this.CheckedListBoxValidating);
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -353,7 +476,7 @@
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnSave.Image = global::Clinic.Properties.Resources.Save_32;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(813, 590);
+            this.btnSave.Location = new System.Drawing.Point(916, 640);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(126, 37);
@@ -373,7 +496,7 @@
             this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(679, 590);
+            this.btnClose.Location = new System.Drawing.Point(782, 640);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(126, 37);
@@ -381,6 +504,19 @@
             this.btnClose.Text = "   Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // ctrlPersonCardWithFilter1
+            // 
+            this.ctrlPersonCardWithFilter1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
+            this.ctrlPersonCardWithFilter1.btnAddNewEnabled = true;
+            this.ctrlPersonCardWithFilter1.FilterEnabled = false;
+            this.ctrlPersonCardWithFilter1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ctrlPersonCardWithFilter1.Location = new System.Drawing.Point(4, 4);
+            this.ctrlPersonCardWithFilter1.Margin = new System.Windows.Forms.Padding(4);
+            this.ctrlPersonCardWithFilter1.Name = "ctrlPersonCardWithFilter1";
+            this.ctrlPersonCardWithFilter1.Size = new System.Drawing.Size(916, 375);
+            this.ctrlPersonCardWithFilter1.TabIndex = 119;
             // 
             // frmAddUpdateDoctor
             // 
@@ -390,7 +526,7 @@
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(960, 650);
+            this.ClientSize = new System.Drawing.Size(1096, 678);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.tcDoctor);
             this.Controls.Add(this.btnClose);
@@ -407,6 +543,7 @@
             this.tpPersonalInfo.ResumeLayout(false);
             this.tpDoctorInfo.ResumeLayout(false);
             this.tpDoctorInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShifts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
@@ -430,7 +567,6 @@
         private Clinic.Controls.ctrlPersonCardWithFilter ctrlPersonCardWithFilter1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.CheckedListBox clbWorkingDays;
         private System.Windows.Forms.TextBox txtConsultationFees;
         private System.Windows.Forms.TextBox txtLicenseNo;
         private System.Windows.Forms.PictureBox pictureBox6;
@@ -443,5 +579,13 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox chkIsActive;
         private System.Windows.Forms.CheckedListBox clbSpesalizations;
+        private System.Windows.Forms.DataGridView dgvShifts;
+        private System.Windows.Forms.DateTimePicker dtpStartTime;
+        private System.Windows.Forms.ComboBox cmbDays;
+        private System.Windows.Forms.DateTimePicker dtpEndTime;
+        private System.Windows.Forms.Button btnAddTodataGrid;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }

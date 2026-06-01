@@ -48,11 +48,11 @@ namespace Clinic.Controls
             _DoctorID = _Doctor.DoctorID;
             ctrlPersonCard1.LoadPersonInfo(_Doctor.PersonID);
             lblDoctorID.Text = _Doctor.DoctorID.ToString();
-            lblSpecialization.Text = _Doctor.Specializations;
+            lblSpecialization.Text = _Doctor.GetSpecializations();
             lblActiveStatus.Text = _Doctor.IsActive ? "Active" : "Inactive";
             lblActiveStatus.ForeColor = _Doctor.IsActive ? Color.Green : Color.Red;
             lblConsultationFees.Text = _Doctor.ConsultationFees.ToString("C", new CultureInfo("en-US"));
-            lblWorkingDays.Text = _Doctor.WorkingDays;
+            lblWorkingDays.Text = _Doctor.GetWorkingDays();
             lblLicenseNo.Text = _Doctor.LicenseNumber;
         }
         public void LoadDoctorInfo(int DoctorID)

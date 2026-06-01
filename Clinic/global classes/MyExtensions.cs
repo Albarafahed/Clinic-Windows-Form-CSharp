@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinic_Business;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -44,6 +45,9 @@ namespace Clinic.global_classes
                       .Select(item => (int)item[idColumnName])
                       .ToList();
         }
+
+        // داخل مشروع الـ BusinessLayer أو أي مشروع يرى الـ BusinessLayer
+
 
     }
 }

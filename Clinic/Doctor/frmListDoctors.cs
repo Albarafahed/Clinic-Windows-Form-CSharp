@@ -51,14 +51,7 @@ namespace Clinic.Doctor
 
             if (MessageBox.Show("Are you sure you want to delete Doctor [" + DoctorID + "]?", "Confirm Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                clsDoctor doctor = clsDoctor.FindDoctorByID(DoctorID);
-                if (doctor == null)
-                {
-                    MessageBox.Show("Doctor Is Not Found");
-                    return;
-                }
-
-                if (doctor.DeleteDoctor())
+                if (clsDoctor.DeleteDoctor(DoctorID))
                 {
                     MessageBox.Show("Doctor Deleted Successfully.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     _DataBackToDelete(DoctorID);
@@ -68,58 +61,6 @@ namespace Clinic.Doctor
                     MessageBox.Show("Doctor was not deleted because it has data linked to it in the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void _SetupDataGridViewColumns()
-        {
-            _dtAllDoctors.PrimaryKey = new DataColumn[] { _dtAllDoctors.Columns["DoctorID"] };
-
-            dgvDoctors.Columns["DoctorID"].HeaderText = "Doctor ID";
-            dgvDoctors.Columns["DoctorID"].Width = 100;
-            dgvDoctors.Columns["PersonID"].HeaderText = "Person ID";
-            dgvDoctors.Columns["PersonID"].Width = 100;
-            dgvDoctors.Columns["FullName"].HeaderText = "Full Name";
-            dgvDoctors.Columns["FullName"].Width = 200;
-            dgvDoctors.Columns["LicenseNumber"].HeaderText = "License #";
-            dgvDoctors.Columns["LicenseNumber"].Width = 150;
-            dgvDoctors.Columns["ConsultationFees"].HeaderText = "Fees";
-            dgvDoctors.Columns["ConsultationFees"].Width = 120;
-            dgvDoctors.Columns["Specializations"].HeaderText = "Specializations";
-            dgvDoctors.Columns["Specializations"].Width = 200;
-            dgvDoctors.Columns["WorkingDays"].HeaderText = "Working Days";
-            dgvDoctors.Columns["WorkingDays"].Width = 200;
-            dgvDoctors.Columns["CountryName"].HeaderText = "Country";
-            dgvDoctors.Columns["CountryName"].Width = 120;
-            dgvDoctors.Columns["IsActive"].HeaderText = "Is Active";
-            dgvDoctors.Columns["IsActive"].Width = 90;
-        }
-
-        private void _RefreshDoctorsList()
-        {
-            _dtAllDoctors = clsDoctor.GetAllDoctors(); // جلب البيانات من الـ View
-
-            if (!_dtAllDoctors.Columns.Contains("FeesText"))
-            {
-                _dtAllDoctors.Columns.Add("FeesText", typeof(string), "Convert(ConsultationFees, 'System.String')");
-            }
-
-            dgvDoctors.DataSource = _dtAllDoctors;
-            if (dgvDoctors.Columns.Contains("FeesText"))
-            {
-                dgvDoctors.Columns["FeesText"].Visible = false;
-            }
-            cbFilterBy.Visible = true;
-            cbFilterBy.SelectedIndex = 0;
-
-            if (_dtAllDoctors.Rows.Count > 0)
-            {
-                _SetupDataGridViewColumns();
-            }
-            _RefreshUIState();
-        }
-        private void _RefreshUIState()
-        {
-            lblRecordsCount.Text = _dtAllDoctors.Rows.Count.ToString();
         }
 
         private void frmListDoctors_Load(object sender, EventArgs e)
@@ -199,23 +140,6 @@ namespace Clinic.Doctor
             }
             _RefreshUIState();
         }
-
-        private string _GetFilterColumnName(string FilterBy)
-        {
-            switch (FilterBy)
-            {
-                case "Doctor ID": return "DoctorID";
-                case "Person ID": return "PersonID";
-                case "FullName": return "FullName";
-                case "LicenseNumber": return "LicenseNumber";
-                case "ConsultationFees": return "FeesText";
-                case "Specializations": return "Specializations";
-                case "WorkingDays": return "WorkingDays";
-                case "CountryName": return "CountryName";
-                default: return "None";
-            }
-        }
-
         private void txtFilterValue_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (cbFilterBy.Text == "Doctor ID" || cbFilterBy.Text == "Person ID" || cbFilterBy.Text == "ConsultationFees")
@@ -224,6 +148,10 @@ namespace Clinic.Doctor
             }
         }
 
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
         private void _DatatBackToAdd(object sender, int DoctorID)
         {
             DataRow NewDoctorRow = clsDoctor.GetDoctorByID(DoctorID);
@@ -260,9 +188,74 @@ namespace Clinic.Doctor
             }
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private string _GetFilterColumnName(string FilterBy)
         {
-            this.Close();
+            switch (FilterBy)
+            {
+                case "Doctor ID": return "DoctorID";
+                case "Person ID": return "PersonID";
+                case "FullName": return "FullName";
+                case "LicenseNumber": return "LicenseNumber";
+                case "ConsultationFees": return "FeesText";
+                case "Specializations": return "Specializations";
+                case "WorkingDays": return "WorkingDays";
+                case "CountryName": return "CountryName";
+                default: return "None";
+            }
         }
+
+        private void _SetupDataGridViewColumns()
+        {
+            _dtAllDoctors.PrimaryKey = new DataColumn[] { _dtAllDoctors.Columns["DoctorID"] };
+
+            dgvDoctors.Columns["DoctorID"].HeaderText = "Doctor ID";
+            dgvDoctors.Columns["DoctorID"].Width = 100;
+            dgvDoctors.Columns["PersonID"].HeaderText = "Person ID";
+            dgvDoctors.Columns["PersonID"].Width = 100;
+            dgvDoctors.Columns["FullName"].HeaderText = "Full Name";
+            dgvDoctors.Columns["FullName"].Width = 200;
+            dgvDoctors.Columns["LicenseNumber"].HeaderText = "License #";
+            dgvDoctors.Columns["LicenseNumber"].Width = 150;
+            dgvDoctors.Columns["ConsultationFees"].HeaderText = "Fees";
+            dgvDoctors.Columns["ConsultationFees"].Width = 120;
+            dgvDoctors.Columns["Specializations"].HeaderText = "Specializations";
+            dgvDoctors.Columns["Specializations"].Width = 200;
+            dgvDoctors.Columns["WorkingDays"].HeaderText = "Working Days";
+            dgvDoctors.Columns["WorkingDays"].Width = 200;
+            dgvDoctors.Columns["CountryName"].HeaderText = "Country";
+            dgvDoctors.Columns["CountryName"].Width = 120;
+            dgvDoctors.Columns["IsActive"].HeaderText = "Is Active";
+            dgvDoctors.Columns["IsActive"].Width = 90;
+        }
+
+        private void _RefreshDoctorsList()
+        {
+            _dtAllDoctors = clsDoctor.GetAllDoctors(); 
+
+            dgvDoctors.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            if (!_dtAllDoctors.Columns.Contains("FeesText"))
+            {
+                _dtAllDoctors.Columns.Add("FeesText", typeof(string), "Convert(ConsultationFees, 'System.String')");
+            }
+
+            dgvDoctors.DataSource = _dtAllDoctors;
+            if (dgvDoctors.Columns.Contains("FeesText"))
+            {
+                dgvDoctors.Columns["FeesText"].Visible = false;
+            }
+            cbFilterBy.Visible = true;
+            cbFilterBy.SelectedIndex = 0;
+
+            if (_dtAllDoctors.Rows.Count > 0)
+            {
+                _SetupDataGridViewColumns();
+            }
+            _RefreshUIState();
+        }
+        private void _RefreshUIState()
+        {
+            lblRecordsCount.Text = _dtAllDoctors.Rows.Count.ToString();
+        }
+
     }
 }
