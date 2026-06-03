@@ -144,5 +144,11 @@ namespace Clinic.Medical_Services.Appointment
                 default: return "None";
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmQueueDisplay frm = new frmQueueDisplay();
+            frm.ShowDialog();
+        }
     }
 }

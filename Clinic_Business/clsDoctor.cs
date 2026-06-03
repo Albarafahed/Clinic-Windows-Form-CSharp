@@ -122,11 +122,20 @@ namespace Clinic_Business
             return clsDoctorData.GetSpecializations(this.DoctorID);
         }
 
+        public static string WorkingDays(int DoctorID)
+        {
+            return clsDoctorData.GetWorkingDays(DoctorID);
+
+        }
         public  string GetWorkingDays()
         {
             return clsDoctorData.GetWorkingDays(this.DoctorID);
         }
 
+        public static float GetConsultationFees(int DoctID)
+        {
+            return clsDoctorData.GetConsultationFees(DoctID);
+        }
         public  List<int> GetDoctorSpecializations()
         {
             return clsDoctorData.GetDoctorSpecialtyIDs(this.DoctorID);
@@ -210,11 +219,6 @@ namespace Clinic_Business
             return false;
         }
 
-        public static bool IsDoctorBusy(int DoctorID)
-        {
-            return clsDoctorData.IsDoctorBusy(DoctorID, DateTime.Now);
-        }
-
         public static bool IsDoctorWorkingOnThisDay(int DoctorID, DateTime time)
         {
             return clsDoctorData.IsDoctorWorkingOnThisDay(DoctorID, time);
@@ -229,6 +233,12 @@ namespace Clinic_Business
         {
             return clsDoctorData.GetAllDays();
         }
+
+        public static DataTable LoadQueueData()
+        {
+            return clsDoctorData.LoadQueueData();
+        }
+
 
     }
 }

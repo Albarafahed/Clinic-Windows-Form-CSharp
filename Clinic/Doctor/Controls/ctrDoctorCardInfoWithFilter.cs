@@ -66,7 +66,7 @@ namespace Clinic.Controls
         {
             get { return ctrDoctorCardInfo1.SelectedDoctor; }
         }
-        public void FocusOnFilter()
+        public void FilterFocus()
         {
             txtFilterValue.Focus();
         }
@@ -125,6 +125,11 @@ namespace Clinic.Controls
                 errorProvider1.SetError(txtFilterValue, string.Empty);
         }
 
-       
+        public void LoadDoctorInfo(int DoctorID)
+        {
+            txtFilterValue.Text = DoctorID.ToString();
+            _LoadDoctorInfo();
+        }
+
     }
 }

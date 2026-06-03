@@ -348,6 +348,7 @@ namespace Clinic
             this.btnAddApp.Name = "btnAddApp";
             this.btnAddApp.Size = new System.Drawing.Size(160, 36);
             this.btnAddApp.Text = "New Appointment";
+            this.btnAddApp.Click += new System.EventHandler(this.btnAddApp_Click);
             // 
             // btnFindPatient
             // 

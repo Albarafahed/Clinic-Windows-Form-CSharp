@@ -30,15 +30,9 @@ namespace Clinic_DataAccess
                                 DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]);
                                 Gender = Convert.ToInt16(reader["Gender"]);
                                 PhoneNumber = reader["PhoneNumber"].ToString();
-                                if (reader["Email"] != DBNull.Value)
-                                    Email = reader["Email"].ToString();
-                                else
-                                    Email = string.Empty;
+                                Email = reader["Email"].ToStringOrEmpty();
                                 Address = reader["Address"].ToString();
-                                if (reader["ImagePath"] != DBNull.Value)
-                                    ImagePath = reader["ImagePath"].ToString();
-                                else
-                                    ImagePath = string.Empty;
+                                ImagePath=reader["ImagePath"].ToStringOrEmpty();
                                 NationalityCountryID = Convert.ToInt32(reader["NationalityCountryID"]);
                                 Isfound = true;
                             }
@@ -74,9 +68,9 @@ namespace Clinic_DataAccess
                         command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
                         command.Parameters.AddWithValue("@Gender", Gender);
                         command.Parameters.AddWithValue("@PhoneNumber", PhoneNumber);
-                        command.Parameters.AddWithValue("@Email", Email ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@Email", Email.ToDBValue());
                         command.Parameters.AddWithValue("@Address", Address);
-                        command.Parameters.AddWithValue("@ImagePath", ImagePath ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@ImagePath", ImagePath.ToDBValue());
                         command.Parameters.AddWithValue("@NationalityCountryID", NationalityCountryID);
                         connection.Open();
                         object result = command.ExecuteScalar();
@@ -115,9 +109,9 @@ namespace Clinic_DataAccess
                         command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
                         command.Parameters.AddWithValue("@Gender", Gender);
                         command.Parameters.AddWithValue("@PhoneNumber", PhoneNumber);
-                        command.Parameters.AddWithValue("@Email", Email ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@Email", Email.ToDBValue());
                         command.Parameters.AddWithValue("@Address", Address);
-                        command.Parameters.AddWithValue("@ImagePath", ImagePath ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@ImagePath", ImagePath.ToDBValue());
                         command.Parameters.AddWithValue("@NationalityCountryID", NationalityCountryID);
 
                         connection.Open();

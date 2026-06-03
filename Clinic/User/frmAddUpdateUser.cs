@@ -13,10 +13,12 @@ namespace Clinic.User
         private int _UserID = -1;
         private clsUser _User;
 
-        public delegate void DataBackEventHandler(object sender, int UserID);
+        //public delegate void DataBackEventHandler(object sender, int UserID);
 
-        // Declare an event using the delegate
-        public event DataBackEventHandler DataBack;
+        //// Declare an event using the delegate
+        //public event DataBackEventHandler DataBack;
+
+        public event Action<object, int > DataBack;
         public frmAddUpdateUser()
         {
             InitializeComponent();

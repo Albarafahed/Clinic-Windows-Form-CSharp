@@ -139,7 +139,6 @@
             this.txtServiceDescription.Name = "txtServiceDescription";
             this.txtServiceDescription.Size = new System.Drawing.Size(494, 135);
             this.txtServiceDescription.TabIndex = 155;
-            this.txtServiceDescription.Validating += new System.ComponentModel.CancelEventHandler(this.TextValiditn);
             // 
             // lblTitle
             // 

@@ -8,15 +8,44 @@ namespace Clinic_Business
     {
         public enum enMode { AddNew = 0, Update = 1 };
         public enMode Mode = enMode.AddNew;
+        public enum enStatus
+        {
+            Scheduled = 1, 
+            InQueue = 2,
+            Progress = 3, 
+            Postponed = 4,
+            Completed = 5, 
+            Cancelled = 6
+        }
 
         public int AppointmentID { get; set; }
         public int PatientID { get; set; }
         public int DoctorID { get; set; }
+        public clsDoctor DoctorInfo { get; set; }
         public int CreatedByUserID { get; set; }
         public short AppointmentStatus { get; set; }
         public int AppointmentTypeID { get; set; }
+        public clsAppointmentType AppointmentTypeInfo { get; set; }
         public decimal AppointmentFees { get; set; }
         public DateTime AppointmentDate { get; set; }
+
+        public string GetAppointmentStatusText
+        {
+            get
+            {
+                switch (AppointmentStatus)
+                {
+                    case 1:
+                        return "Scheduled";
+                    case 2:
+                        return "Completed";
+                    case 3:
+                        return "Cancelled";
+                    default:
+                        return "Unknown";
+                }
+            }
+        }
 
         public clsAppointment()
         {
@@ -37,9 +66,11 @@ namespace Clinic_Business
             this.AppointmentID = AppointmentID;
             this.PatientID = PatientID;
             this.DoctorID = DoctorID;
+            this.DoctorInfo = clsDoctor.FindDoctorByID(DoctorID);
             this.CreatedByUserID = CreatedByUserID;
             this.AppointmentStatus = AppointmentStatus;
             this.AppointmentTypeID = AppointmentTypeID;
+            this.AppointmentTypeInfo = clsAppointmentType.Find(AppointmentTypeID);
             this.AppointmentFees = AppointmentFees;
             this.AppointmentDate = AppointmentDate;
             Mode = enMode.Update;
@@ -109,5 +140,51 @@ namespace Clinic_Business
         {
             return clsAppointmentData.DoesAppointmentExist(AppointmentID);
         }
+
+        public static bool IsPatinentBlakListed(int PatientID)
+        {
+            return clsAppointmentData.IsPatinentBlakListed(PatientID);
+        }
+
+        public static bool IsDoctorBusy(int DoctorID, DateTime AppoinmentTime)
+        {
+            return clsAppointmentData.IsDoctorBusy(DoctorID, AppoinmentTime);
+        }
+
+        public static bool IsDoctorAvailable(int DoctorID, DateTime AppointmentDateTime)
+        {
+            return clsDoctorData.IsDoctorAvailable(DoctorID, AppointmentDateTime);
+        }
+
+       
+        public static string BookingValidator(int DoctorID, int PatientID, DateTime AppointmentDateTime, clsAppointmentType.enAppointmentType AppointmentType)
+        {
+            // 1. أمنياً: التأكد من حالة المريض
+            if (clsAppointmentData.IsPatinentBlakListed(PatientID))
+                return "Patient is blacklisted and cannot book appointments.";
+
+            // 2. منطقياً: منع حجز المواعيد في الماضي
+            if (AppointmentDateTime < DateTime.Now)
+                return "Appointment date and time cannot be in the past.";
+
+            // 3. منطقياً: هل المريض مشغول؟
+            if (clsAppointmentData.IsPatientHasConflict(PatientID, AppointmentDateTime))
+                return "Patient has a conflicting appointment within the 24-hour buffer period.";
+
+            // 4. مهنياً: التأكد من دوام الطبيب (هل يعمل في هذا اليوم وفي هذه الساعة؟)
+            // ملاحظة: قمنا بدمج الفحوصات في دالة واحدة IsDoctorAvailable لتقليل الاتصال بقاعدة البيانات
+            if (!clsDoctorData.IsDoctorAvailable(DoctorID, AppointmentDateTime))
+                return "Doctor is not working or not available at this time.";
+
+            // 5. إدارياً: فحص السعة (إلا في حالة الطوارئ)
+            if (AppointmentType != clsAppointmentType.enAppointmentType.Emergency)
+            {
+                if (!clsAppointmentData.IsTimeCapacityAvailable(DoctorID, AppointmentDateTime, (int)AppointmentType))
+                    return "Doctor has no capacity for this appointment.";
+            }
+
+            return string.Empty; // كل الشروط مستوفاة
+        }
+
     }
 }

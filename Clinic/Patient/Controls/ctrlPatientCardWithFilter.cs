@@ -56,7 +56,7 @@ namespace Clinic.Controls
         public int PatientID { get { return ctrlPatientCard1.PatientID; } }
         public clsPatient SelectedPatient { get { return ctrlPatientCard1.SelectedPatient; }  }
 
-        private void _LoadPtientInfo()
+        private void _LoadPatientInfo()
         {
             // قيد: التأكد أن القيمة قابلة للتحويل
             if (!int.TryParse(txtFilterValue.Text, out int patientID)) return;
@@ -87,7 +87,7 @@ namespace Clinic.Controls
 
             }
 
-            _LoadPtientInfo();
+            _LoadPatientInfo();
         }
 
         private void txtFilterValue_Validating(object sender, CancelEventArgs e)
@@ -111,11 +111,16 @@ namespace Clinic.Controls
             frm.ShowDialog();
         }
 
+        public void LoadPatientInfo(int PatientID)
+        {
+            txtFilterValue.Text = PatientID.ToString();
+            _LoadPatientInfo();
+        }
         private void _DataBack(object sender,int PatientID)
         {
             txtFilterValue.Text=string.Empty;
             txtFilterValue.Text=PatientID.ToString();
-            _LoadPtientInfo();
+            _LoadPatientInfo();
         }
     }
 }

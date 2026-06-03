@@ -240,6 +240,32 @@ namespace Clinic_DataAccess
             return GetGenericString(DoctorID, query, "@DoctorID", "No Working Days Set");
         }
 
+        public static float GetConsultationFees(int DoctorID)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = "Select ConsultationFees From Doctors Where DoctorID=@DoctorID;";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@DoctorID", DoctorID);
+                        connection.Open ();
+                        object result = command.ExecuteScalar();
+                        if (result != null)
+                            return Convert.ToSingle(result);
+
+                    }
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+
+            }
+            return 0.0F;
+        }
         public static bool IsDoctorExistForPersonID(int PersonID)
         {
             try
@@ -263,35 +289,7 @@ namespace Clinic_DataAccess
             }
         }
 
-        public static bool IsDoctorBusy(int DoctorID, DateTime AppointmentDate)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-                {
-                    string query = @"SELECT 1 FROM Appointments 
-                         WHERE DoctorID = @DoctorID 
-                         AND AppointmentDate = @AppointmentDate 
-                         AND AppointmentStatus = 1"; // 1 = Scheduled
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@DoctorID", DoctorID);
-                        command.Parameters.AddWithValue("@AppointmentDate", AppointmentDate);
-
-                        connection.Open();
-                        return (command.ExecuteScalar() != null);
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
-                return false;
-            }
-
-        }
-
+    
         public static bool IsDoctorWorkingOnThisDay(int DoctorID, DateTime AppointmentDate)
         {
             // تحويل يوم C# نظامي (السبت=1، الأحد=2... الجمعة=7)
@@ -555,5 +553,83 @@ namespace Clinic_DataAccess
             }
 
         }
+
+        public static DataTable LoadQueueData()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string query = @"SELECT
+                                        ROW_NUMBER() OVER (ORDER BY A.AppointmentDate ASC) AS QueueNumber, 
+                                        Pe.FullName AS PatientName
+                                    FROM Appointments A inner join Patients P ON A.PatientID=P.PatientID
+                                      INNER JOIN Persons Pe ON P.PersonID=Pe.PersonID
+                                    WHERE A.AppointmentStatus = 1;";
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                                dt.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+            }
+            return dt;
+        }
+
+        public static bool IsDoctorAvailable(int DoctorID, DateTime AppointmentDateTime)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    // دمجنا الفحص: هل يعمل اليوم؟ + هل الوقت ضمن الدوام؟ + هل لديه موعد آخر؟
+                    string query = @"
+                -- 1. التأكد من يوم العمل وساعات الدوام
+                IF EXISTS (
+                    SELECT 1 FROM DoctorWorkingDays 
+                    WHERE DoctorID = @DoctorID 
+                    AND DayID = @DayID 
+                    AND @Time BETWEEN StartTime AND EndTime
+                )
+                -- 2. التأكد من عدم وجود تضارب (موعد في نفس اللحظة)
+                AND NOT EXISTS (
+                    SELECT 1 FROM Appointments 
+                    WHERE DoctorID = @DoctorID 
+                    AND AppointmentDate = @AppointmentDateTime 
+                    AND AppointmentStatus != 6
+                )
+                SELECT 1 ELSE SELECT 0;";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        int dayOfWeekCS = (int)AppointmentDateTime.DayOfWeek;
+                        int dayID = (dayOfWeekCS == 6) ? 1 : (dayOfWeekCS + 2);
+
+                        command.Parameters.AddWithValue("@DoctorID", DoctorID);
+                        command.Parameters.AddWithValue("@DayID", dayID);
+                        command.Parameters.AddWithValue("@Time", AppointmentDateTime.TimeOfDay);
+                        command.Parameters.AddWithValue("@AppointmentDateTime", AppointmentDateTime);
+
+                        connection.Open();
+                        return Convert.ToBoolean(command.ExecuteScalar());
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                return false;
+            }
+        }
+
     }
 }

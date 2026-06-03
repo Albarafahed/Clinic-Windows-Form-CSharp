@@ -49,6 +49,8 @@ namespace Clinic.Appointment.AppointmentsType
             lblApplicationTypeID.Text = "[???]";
             txtAppointmentTypeFees.Text = "";
             txtAppointmentTypeName.Text = "";
+            txtDuration.Text = "";
+            chkIsActive.Checked = true;
         }
 
         private void _Load()
@@ -63,6 +65,8 @@ namespace Clinic.Appointment.AppointmentsType
             lblApplicationTypeID.Text=_AppointmentType.AppointmentTypeID.ToString();
             txtAppointmentTypeFees.Text = _AppointmentType.DefaultFees.ToString();
             txtAppointmentTypeName.Text= _AppointmentType.TypeName.ToString();
+            txtDuration.Text=_AppointmentType.DefaultDuration.ToString();
+            chkIsActive.Checked = _AppointmentType.IsActive;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -127,6 +131,11 @@ namespace Clinic.Appointment.AppointmentsType
             _ResetToDefult();
             if (_Mode == enMode.Update)
                 _Load();
+        }
+
+        private void txtDuration_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled=!char.IsDigit(e.KeyChar) &&!char.IsControl(e.KeyChar);
         }
     }
 }

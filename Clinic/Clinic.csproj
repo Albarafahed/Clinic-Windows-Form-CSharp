@@ -76,6 +76,12 @@
     <Compile Include="Medical Services\Appointment\frmListAppointmets.Designer.cs">
       <DependentUpon>frmListAppointmets.cs</DependentUpon>
     </Compile>
+    <Compile Include="Medical Services\Appointment\frmQueueDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Appointment\frmQueueDisplay.Designer.cs">
+      <DependentUpon>frmQueueDisplay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Person\Controls\ctrlPersonCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -272,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Appointment\frmListAppointmets.resx">
       <DependentUpon>frmListAppointmets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Appointment\frmQueueDisplay.resx">
+      <DependentUpon>frmQueueDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Patient\Controls\ctrlPatienCardtInfo.resx">
       <DependentUpon>ctrlPatienCardtInfo.cs</DependentUpon>

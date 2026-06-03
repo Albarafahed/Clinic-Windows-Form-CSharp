@@ -33,12 +33,12 @@ namespace Clinic_DataAccess
                             if (reader.Read())
                             {
                                 PersonID = (int)reader["PersonID"];
-                                EmergencyContact = reader["EmergencyContact"] != DBNull.Value ? (string)reader["EmergencyContact"] : string.Empty;
-                                BloodTypeID = reader["BloodTypeID"] != DBNull.Value ? (int)reader["BloodTypeID"] : -1;
-                                MedicalHistory = reader["MedicalHistory"] != DBNull.Value ? (string)reader["MedicalHistory"] : string.Empty;
+                                EmergencyContact = reader["EmergencyContact"].ToString();
+                                BloodTypeID = (int)reader["BloodTypeID"];
+                                MedicalHistory = reader["MedicalHistory"].ToStringOrEmpty();
                                 // تحويل آمن للتاريخ
-                                CreatedDate = reader["CreatedDate"] != DBNull.Value ? (DateTime)reader["CreatedDate"] : DateTime.Now;
-                                CreatedByUserID = reader["CreatedByUserID"] != DBNull.Value ? (int)reader["CreatedByUserID"] : -1;
+                                CreatedDate = (DateTime)reader["CreatedDate"];
+                                CreatedByUserID = (int)reader["CreatedByUserID"];
                                 return true;
                             }
                             else
@@ -68,9 +68,9 @@ namespace Clinic_DataAccess
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@PersonID", PersonID);
-                        cmd.Parameters.AddWithValue("@EmergencyContact", string.IsNullOrEmpty(EmergencyContact) ? (object)DBNull.Value : EmergencyContact);
-                        cmd.Parameters.AddWithValue("@BloodTypeID", BloodTypeID <= 0 ? (object)DBNull.Value : BloodTypeID);
-                        cmd.Parameters.AddWithValue("@MedicalHistory", string.IsNullOrEmpty(MedicalHistory) ? (object)DBNull.Value : MedicalHistory);
+                        cmd.Parameters.AddWithValue("@EmergencyContact", EmergencyContact);
+                        cmd.Parameters.AddWithValue("@BloodTypeID", BloodTypeID);
+                        cmd.Parameters.AddWithValue("@MedicalHistory", MedicalHistory.ToDBValue());
                         cmd.Parameters.AddWithValue("@CreatedDate", CreatedDate);
                         cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
                         conn.Open();
@@ -105,13 +105,12 @@ namespace Clinic_DataAccess
                     {
                         cmd.Parameters.AddWithValue("@PatientID", PatientID);
                         cmd.Parameters.AddWithValue("@PersonID", PersonID);
-                        cmd.Parameters.AddWithValue("@EmergencyContact", string.IsNullOrEmpty(EmergencyContact) ? (object)DBNull.Value : EmergencyContact);
-                        cmd.Parameters.AddWithValue("@BloodTypeID", BloodTypeID <= 0 ? (object)DBNull.Value : BloodTypeID);
-                        cmd.Parameters.AddWithValue("@MedicalHistory", string.IsNullOrEmpty(MedicalHistory) ? (object)DBNull.Value : MedicalHistory);
+                        cmd.Parameters.AddWithValue("@EmergencyContact", EmergencyContact);
+                        cmd.Parameters.AddWithValue("@BloodTypeID", BloodTypeID);
+                        cmd.Parameters.AddWithValue("@MedicalHistory", MedicalHistory.ToDBValue());
                         cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
 
                         conn.Open();
-                        // الاختصار المستهدف: خطوة واحدة للكومبايلر
                         return cmd.ExecuteNonQuery() > 0;
                     }
                 }

@@ -38,6 +38,14 @@
             this.txtFilterValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmsAppointment = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.dgvAppointments = new System.Windows.Forms.DataGridView();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.pnlActions = new System.Windows.Forms.Panel();
+            this.btnCheckIn = new System.Windows.Forms.Button();
+            this.btnComplete = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.showPatientDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showDoctorDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,15 +56,13 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cbStatus = new System.Windows.Forms.ComboBox();
             this.btnAddAppointment = new System.Windows.Forms.Button();
             this.pbPersonImage = new System.Windows.Forms.PictureBox();
-            this.dgvAppointments = new System.Windows.Forms.DataGridView();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.cmsAppointment.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).BeginInit();
+            this.pnlActions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).BeginInit();
             this.SuspendLayout();
             // 
             // cbAppointmentType
@@ -150,6 +156,138 @@
             this.cmsAppointment.Name = "contextMenuStrip1";
             this.cmsAppointment.Size = new System.Drawing.Size(249, 238);
             // 
+            // cbStatus
+            // 
+            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStatus.FormattingEnabled = true;
+            this.cbStatus.Items.AddRange(new object[] {
+            "All",
+            "Scheduled",
+            "Cancelled",
+            "Completed"});
+            this.cbStatus.Location = new System.Drawing.Point(278, 255);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.Size = new System.Drawing.Size(140, 36);
+            this.cbStatus.TabIndex = 115;
+            this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbStatus_SelectedIndexChanged);
+            // 
+            // dgvAppointments
+            // 
+            this.dgvAppointments.AllowUserToAddRows = false;
+            this.dgvAppointments.AllowUserToDeleteRows = false;
+            this.dgvAppointments.AllowUserToResizeRows = false;
+            this.dgvAppointments.BackgroundColor = System.Drawing.Color.White;
+            this.dgvAppointments.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvAppointments.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAppointments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvAppointments.ColumnHeadersHeight = 40;
+            this.dgvAppointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvAppointments.ContextMenuStrip = this.cmsAppointment;
+            this.dgvAppointments.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvAppointments.EnableHeadersVisualStyles = false;
+            this.dgvAppointments.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            this.dgvAppointments.Location = new System.Drawing.Point(13, 302);
+            this.dgvAppointments.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.dgvAppointments.MultiSelect = false;
+            this.dgvAppointments.Name = "dgvAppointments";
+            this.dgvAppointments.ReadOnly = true;
+            this.dgvAppointments.RowHeadersWidth = 30;
+            this.dgvAppointments.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dgvAppointments.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
+            this.dgvAppointments.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.dgvAppointments.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.dgvAppointments.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
+            this.dgvAppointments.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
+            this.dgvAppointments.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAppointments.RowTemplate.Height = 38;
+            this.dgvAppointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAppointments.Size = new System.Drawing.Size(1297, 416);
+            this.dgvAppointments.TabIndex = 116;
+            this.dgvAppointments.TabStop = false;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.lblTitle.Location = new System.Drawing.Point(451, 161);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(445, 66);
+            this.lblTitle.TabIndex = 117;
+            this.lblTitle.Text = "Manage Appointments";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlActions
+            // 
+            this.pnlActions.BackColor = System.Drawing.Color.Transparent;
+            this.pnlActions.Controls.Add(this.btnCheckIn);
+            this.pnlActions.Controls.Add(this.btnComplete);
+            this.pnlActions.Controls.Add(this.btnCancel);
+            this.pnlActions.Location = new System.Drawing.Point(520, 244);
+            this.pnlActions.Name = "pnlActions";
+            this.pnlActions.Size = new System.Drawing.Size(402, 60);
+            this.pnlActions.TabIndex = 119;
+            // 
+            // btnCheckIn
+            // 
+            this.btnCheckIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.btnCheckIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCheckIn.ForeColor = System.Drawing.Color.White;
+            this.btnCheckIn.Location = new System.Drawing.Point(0, 0);
+            this.btnCheckIn.Name = "btnCheckIn";
+            this.btnCheckIn.Size = new System.Drawing.Size(120, 50);
+            this.btnCheckIn.TabIndex = 0;
+            this.btnCheckIn.Text = "حضور";
+            this.btnCheckIn.UseVisualStyleBackColor = false;
+            // 
+            // btnComplete
+            // 
+            this.btnComplete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnComplete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnComplete.ForeColor = System.Drawing.Color.White;
+            this.btnComplete.Location = new System.Drawing.Point(130, 0);
+            this.btnComplete.Name = "btnComplete";
+            this.btnComplete.Size = new System.Drawing.Size(120, 50);
+            this.btnComplete.TabIndex = 1;
+            this.btnComplete.Text = "إتمام";
+            this.btnComplete.UseVisualStyleBackColor = false;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.ForeColor = System.Drawing.Color.White;
+            this.btnCancel.Location = new System.Drawing.Point(260, 0);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(120, 50);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Text = "إلغاء";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
+            this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
+            this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(1175, 721);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(135, 38);
+            this.btnClose.TabIndex = 118;
+            this.btnClose.Text = "  Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -236,21 +374,6 @@
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
             this.deleteToolStripMenuItem.Text = "&Delete";
             // 
-            // cbStatus
-            // 
-            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Items.AddRange(new object[] {
-            "All",
-            "Scheduled",
-            "Cancelled",
-            "Completed"});
-            this.cbStatus.Location = new System.Drawing.Point(278, 255);
-            this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(140, 36);
-            this.cbStatus.TabIndex = 115;
-            this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbStatus_SelectedIndexChanged);
-            // 
             // btnAddAppointment
             // 
             this.btnAddAppointment.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -276,75 +399,18 @@
             this.pbPersonImage.TabIndex = 110;
             this.pbPersonImage.TabStop = false;
             // 
-            // dgvAppointments
+            // button1
             // 
-            this.dgvAppointments.AllowUserToAddRows = false;
-            this.dgvAppointments.AllowUserToDeleteRows = false;
-            this.dgvAppointments.AllowUserToResizeRows = false;
-            this.dgvAppointments.BackgroundColor = System.Drawing.Color.White;
-            this.dgvAppointments.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvAppointments.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAppointments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvAppointments.ColumnHeadersHeight = 40;
-            this.dgvAppointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvAppointments.ContextMenuStrip = this.cmsAppointment;
-            this.dgvAppointments.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvAppointments.EnableHeadersVisualStyles = false;
-            this.dgvAppointments.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.dgvAppointments.Location = new System.Drawing.Point(13, 302);
-            this.dgvAppointments.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.dgvAppointments.MultiSelect = false;
-            this.dgvAppointments.Name = "dgvAppointments";
-            this.dgvAppointments.ReadOnly = true;
-            this.dgvAppointments.RowHeadersWidth = 30;
-            this.dgvAppointments.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dgvAppointments.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
-            this.dgvAppointments.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.dgvAppointments.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.dgvAppointments.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
-            this.dgvAppointments.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
-            this.dgvAppointments.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAppointments.RowTemplate.Height = 38;
-            this.dgvAppointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAppointments.Size = new System.Drawing.Size(1297, 416);
-            this.dgvAppointments.TabIndex = 116;
-            this.dgvAppointments.TabStop = false;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.lblTitle.Location = new System.Drawing.Point(451, 161);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(445, 66);
-            this.lblTitle.TabIndex = 117;
-            this.lblTitle.Text = "Manage Appointments";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnClose
-            // 
-            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
-            this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
-            this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
-            this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(1175, 721);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(135, 38);
-            this.btnClose.TabIndex = 118;
-            this.btnClose.Text = "  Close";
-            this.btnClose.UseVisualStyleBackColor = true;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(983, 209);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(120, 50);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "إتمام";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmListAppointmets
             // 
@@ -353,9 +419,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(1323, 775);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dgvAppointments);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.dgvAppointments);
             this.Controls.Add(this.cbStatus);
             this.Controls.Add(this.cbAppointmentType);
             this.Controls.Add(this.btnAddAppointment);
@@ -365,6 +432,7 @@
             this.Controls.Add(this.cbFilterBy);
             this.Controls.Add(this.txtFilterValue);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.pnlActions);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
@@ -373,8 +441,9 @@
             this.Text = "frmListAppointment";
             this.Load += new System.EventHandler(this.frmListAppointmets_Load);
             this.cmsAppointment.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).EndInit();
+            this.pnlActions.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -406,5 +475,10 @@
         private System.Windows.Forms.DataGridView dgvAppointments;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Panel pnlActions;
+        private System.Windows.Forms.Button btnCheckIn;
+        private System.Windows.Forms.Button btnComplete;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -43,14 +43,14 @@ namespace Clinic_DataAccess
 
             return dt;
         }
-        public static bool GetAppointmentTypeByID(int AppointmentTypeID, ref string TypeName, ref float DefaultFees)
+        public static bool GetAppointmentTypeByID(int AppointmentTypeID, ref string TypeName, ref float DefaultFees,ref int DefaultDuration,ref bool IsActive)
         {
             bool isFound = false;
             try
             {
                 using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    string query = "SELECT TypeName, DefaultFees FROM AppointmentTypes WHERE AppointmentTypeID = @AppointmentTypeID";
+                    string query = "SELECT TypeName, DefaultFees,DefaultDuration,IsActive FROM AppointmentTypes WHERE AppointmentTypeID = @AppointmentTypeID";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@AppointmentTypeID", AppointmentTypeID);
@@ -63,6 +63,8 @@ namespace Clinic_DataAccess
                             {
                                 TypeName = reader["TypeName"].ToString();
                                 DefaultFees = Convert.ToSingle(reader["DefaultFees"]);
+                                DefaultDuration = reader["DefaultDuration"]==DBNull.Value?0: (int)reader["DefaultDuration"];
+                                IsActive =(Boolean) reader["IsActive"];
                                 return true;
                             }
                         }
@@ -76,7 +78,7 @@ namespace Clinic_DataAccess
             }
             return isFound;
         }
-        public static int AddAppointmentType(string TypeName, float DefaultFees)
+        public static int AddAppointmentType(string TypeName, float DefaultFees,int DefaultDuration,bool IsActive)
         {
 
             int AppointmentTypeID = -1;
@@ -86,14 +88,17 @@ namespace Clinic_DataAccess
                 using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
                     string query = @"INSERT INTO AppointmentTypes 
-                            (TypeName, DefaultFees) 
-                                VALUES (@TypeName, @DefaultFees);
+                            (TypeName, DefaultFees,DefaultDuration,IsActive) 
+                                VALUES (@TypeName, @DefaultFees,@DefaultDuration,@IsActive);
                                     SELECT SCOPE_IDENTITY();";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@TypeName", TypeName);
                         cmd.Parameters.AddWithValue("@DefaultFees", DefaultFees);
+                        cmd.Parameters.AddWithValue("@IsActive", IsActive);
+                        cmd.Parameters.AddWithValue("DefaultDuration", DefaultDuration);
+
                         conn.Open();
                         object result = cmd.ExecuteScalar();
                         if (result != null && int.TryParse(result.ToString(), out int newID))
@@ -111,7 +116,7 @@ namespace Clinic_DataAccess
 
             return AppointmentTypeID;
         }
-        public static bool UpdateAppointmentType(int AppointmentTypeID, string TypeName, float DefaultFees)
+        public static bool UpdateAppointmentType(int AppointmentTypeID, string TypeName, float DefaultFees, int DefaultDuration, bool IsActive)
         {
             bool isUpdated = false;
             try
@@ -120,13 +125,17 @@ namespace Clinic_DataAccess
                 {
                     string query = @"UPDATE AppointmentTypes
                             SET TypeName = @TypeName,
-                            DefaultFees = @DefaultFees
+                            DefaultFees = @DefaultFees,
+                            DefaultDuration=@DefaultDuration,
+                            IsActive=@IsActive
                             WHERE AppointmentTypeID = @AppointmentTypeID";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@AppointmentTypeID", AppointmentTypeID);
                         cmd.Parameters.AddWithValue("@TypeName", TypeName);
                         cmd.Parameters.AddWithValue("@DefaultFees", DefaultFees);
+                        cmd.Parameters.AddWithValue("@IsActive", IsActive);
+                        cmd.Parameters.AddWithValue("DefaultDuration", DefaultDuration);
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();
                         isUpdated = rowsAffected > 0;

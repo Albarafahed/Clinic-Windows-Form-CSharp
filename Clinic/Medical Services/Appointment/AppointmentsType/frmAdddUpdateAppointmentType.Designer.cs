@@ -41,9 +41,15 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.txtDuration = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.chkIsActive = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblApplicationTypeID
@@ -94,7 +100,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(32, 196);
+            this.label2.Location = new System.Drawing.Point(32, 226);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(246, 28);
@@ -104,7 +110,7 @@
             // txtAppointmentTypeFees
             // 
             this.txtAppointmentTypeFees.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.txtAppointmentTypeFees.Location = new System.Drawing.Point(320, 190);
+            this.txtAppointmentTypeFees.Location = new System.Drawing.Point(320, 220);
             this.txtAppointmentTypeFees.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtAppointmentTypeFees.MaxLength = 50;
             this.txtAppointmentTypeFees.Name = "txtAppointmentTypeFees";
@@ -120,7 +126,7 @@
             // pictureBox8
             // 
             this.pictureBox8.Image = global::Clinic.Properties.Resources.ApplicationTitle;
-            this.pictureBox8.Location = new System.Drawing.Point(285, 143);
+            this.pictureBox8.Location = new System.Drawing.Point(282, 183);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(28, 29);
             this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -130,7 +136,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = global::Clinic.Properties.Resources.money2_32;
-            this.pictureBox3.Location = new System.Drawing.Point(285, 198);
+            this.pictureBox3.Location = new System.Drawing.Point(285, 228);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(28, 29);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -147,7 +153,7 @@
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(320, 271);
+            this.btnClose.Location = new System.Drawing.Point(320, 321);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(126, 40);
             this.btnClose.TabIndex = 165;
@@ -164,7 +170,7 @@
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = global::Clinic.Properties.Resources.Save_32;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(453, 271);
+            this.btnSave.Location = new System.Drawing.Point(453, 321);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(126, 40);
             this.btnSave.TabIndex = 164;
@@ -183,13 +189,75 @@
             this.lblTitle.Text = "Edit Appointment Type";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // txtDuration
+            // 
+            this.txtDuration.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.txtDuration.Location = new System.Drawing.Point(321, 178);
+            this.txtDuration.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.txtDuration.MaxLength = 50;
+            this.txtDuration.Name = "txtDuration";
+            this.txtDuration.Size = new System.Drawing.Size(259, 34);
+            this.txtDuration.TabIndex = 167;
+            this.txtDuration.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDuration_KeyPress);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(27, 150);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(255, 28);
+            this.label3.TabIndex = 168;
+            this.label3.Text = "Appointment Type Name:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(23, 184);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(238, 28);
+            this.label5.TabIndex = 169;
+            this.label5.Text = "Appointment  Duration:";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Clinic.Properties.Resources.ApplicationTitle;
+            this.pictureBox1.Location = new System.Drawing.Point(285, 150);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(28, 29);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 170;
+            this.pictureBox1.TabStop = false;
+            // 
+            // chkIsActive
+            // 
+            this.chkIsActive.AutoSize = true;
+            this.chkIsActive.Checked = true;
+            this.chkIsActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIsActive.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F);
+            this.chkIsActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.chkIsActive.Location = new System.Drawing.Point(285, 276);
+            this.chkIsActive.Name = "chkIsActive";
+            this.chkIsActive.Size = new System.Drawing.Size(103, 29);
+            this.chkIsActive.TabIndex = 171;
+            this.chkIsActive.Text = "Is Active";
+            this.chkIsActive.UseVisualStyleBackColor = true;
+            // 
             // frmAdddUpdateAppointmentType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
-            this.ClientSize = new System.Drawing.Size(610, 323);
+            this.ClientSize = new System.Drawing.Size(610, 373);
+            this.Controls.Add(this.chkIsActive);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtDuration);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblTitle);
@@ -212,6 +280,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -230,5 +299,10 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtDuration;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox chkIsActive;
     }
 }

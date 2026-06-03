@@ -121,5 +121,11 @@ namespace Clinic
             frmListAppointmets frm = new frmListAppointmets();
             frm.ShowDialog();
         }
+
+        private void btnAddApp_Click(object sender, EventArgs e)
+        {
+            frmAddUpdateAppointment frm = new frmAddUpdateAppointment();
+            frm.ShowDialog();
+        }
     }
 }

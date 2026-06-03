@@ -26,7 +26,7 @@ namespace Clinic_DataAccess
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@ServiceName", ServiceName);
-                        cmd.Parameters.AddWithValue("@Description", Description);
+                        cmd.Parameters.AddWithValue("@Description", Description.ToDBValue());
                         cmd.Parameters.AddWithValue("@ServiceFees", ServiceFees);
 
                         conn.Open();
@@ -65,7 +65,7 @@ namespace Clinic_DataAccess
                     {
                         cmd.Parameters.AddWithValue("@ServiceID", ServiceID);
                         cmd.Parameters.AddWithValue("@ServiceName", ServiceName);
-                        cmd.Parameters.AddWithValue("@Description", Description);
+                        cmd.Parameters.AddWithValue("@Description", Description.ToDBValue());
                         cmd.Parameters.AddWithValue("@ServiceFees", ServiceFees);
                         conn.Open();
                         rowsAffected = cmd.ExecuteNonQuery();
@@ -125,7 +125,7 @@ namespace Clinic_DataAccess
                             if (reader.Read())
                             {
                                 ServiceName = reader["ServiceName"].ToString();
-                                Description = reader["Description"].ToString();
+                                Description = reader["Description"].ToStringOrEmpty();
                                 ServiceFees = Convert.ToSingle(reader["ServiceFees"]);
                                 return true;
                             }

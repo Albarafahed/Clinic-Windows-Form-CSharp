@@ -24,7 +24,7 @@ namespace Clinic.Doctor
 
         private void frmFindDoctor_Activated(object sender, EventArgs e)
         {
-            ctrDoctorCardInfoWithFilter1.FocusOnFilter();
+            ctrDoctorCardInfoWithFilter1.FilterFocus();
         }
 
         private void ctrDoctorCardInfoWithFilter1_DoctorCreated(object sender, global_classes.clsEventArgs e)
