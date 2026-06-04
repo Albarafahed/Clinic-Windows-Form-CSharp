@@ -1,6 +1,7 @@
 ﻿using Clinic_Business;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Clinic.Medical_Services.Appointment
@@ -17,8 +18,7 @@ namespace Clinic.Medical_Services.Appointment
         private int _PersonIDP = -1;
         private int _PersonIDD = -1;
 
-        public delegate void DelegateAddUpdateAppointment(object sender, int AppointmentID);
-        public event DelegateAddUpdateAppointment DatatBack;
+        public event Action<object,int> DatatBack;
 
         public frmAddUpdateAppointment()
         {
@@ -46,12 +46,14 @@ namespace Clinic.Medical_Services.Appointment
             {
                 lblTitle.Text = "Add New Appointment";
                 _Appointment = new clsAppointment();
-                ctrlPatientCardWithFilter1.FocuseFilter();
+                ctrDoctorCardInfoWithFilter1.Enabled = false;
                 btnSave.Enabled = false;
                 paAppointmentInfo.Enabled = false;
                 cbStatus.SelectedIndex = 0;
                 cbAppointmentType.SelectedIndex = 0;
                 dtpAppointmentDate.Value = DateTime.Now;
+                dtpAppointmentDate.MinDate = DateTime.Now;
+                dtpAppointmentDate.MaxDate = DateTime.Now.AddMonths(1);
             }
             else
             {
@@ -59,6 +61,7 @@ namespace Clinic.Medical_Services.Appointment
             }
             this.Text = lblTitle.Text;
             cbStatus.Enabled = false;
+           
         }
 
         private void _FillAppointmentInCompbox()
@@ -72,6 +75,13 @@ namespace Clinic.Medical_Services.Appointment
 
         private void _LoadData()
         {
+            _Appointment=clsAppointment.Find(_AppointmentID);
+            if (_Appointment == null)
+            {
+                MessageBox.Show("Appoinment Not Found");
+                this.Close();
+                return;
+            }
             if (clsAppointment.IsPatinentBlakListed(_Appointment.PatientID))
             {
                 ShowWarning("This patient is blacklisted and cannot modify appointments.", "Access Denied");
@@ -80,6 +90,7 @@ namespace Clinic.Medical_Services.Appointment
                 return;
             }
 
+            
             // 2. تحميل عناصر التحكم (Controls)
             ctrlPatientCardWithFilter1.LoadPatientInfo(_Appointment.PatientID);
             ctrlPatientCardWithFilter1.FilterEnabled = false;
@@ -106,6 +117,21 @@ namespace Clinic.Medical_Services.Appointment
             // 5. الوقت والجدول
             lblWorkingDays.Text = _Appointment.DoctorInfo.GetWorkingDays();
             dtpAppointmentDate.Value = _Appointment.AppointmentDate;
+
+            _DoctorID=_Appointment.DoctorID;
+            _PatientID = _Appointment.PatientID;
+
+            bool isExpired = (_Appointment.AppointmentDate < DateTime.Now) ||
+                     (_Appointment.CreatedDate < DateTime.Now.AddMinutes(-10));
+
+            if (isExpired)
+            {
+                btnSave.Enabled = false;
+                dtpAppointmentDate.Enabled = false;
+                lblTitle.Text = "This appointment is locked (Past time or 10-minute window exceeded).";
+                lblTitle.ForeColor = Color.Red;
+
+            }
         }
         private void _MapFormToAppointmentObject()
         {
@@ -149,7 +175,8 @@ namespace Clinic.Medical_Services.Appointment
             if (_Appointment.Save())
             {
                 MessageBox.Show("Appointment Saved Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                _Mode = enMode.Update;
+                DatatBack?.Invoke(this,_Appointment.AppointmentID);
+               _Mode = enMode.Update;
                 lblTitle.Text = "Update Appointment";
                 this.Text = lblTitle.Text;
             }
@@ -161,14 +188,23 @@ namespace Clinic.Medical_Services.Appointment
 
         private void dtpAppointmentDate_ValueChanged(object sender, EventArgs e)
         {
-            if (dtpAppointmentDate.Value < DateTime.Now)
-            {
-                errorProvider1.SetError(dtpAppointmentDate, "Date cannot be in the past.");
-                btnSave.Enabled = false;
-                return;
-            }
+            DateTime selectedDateTime = new DateTime(
+        dtpAppointmentDate.Value.Year,
+        dtpAppointmentDate.Value.Month,
+        dtpAppointmentDate.Value.Day,
+        dtpAppointmentDate.Value.Hour,
+        dtpAppointmentDate.Value.Minute,
+        0 // الثواني = 0
+                    );
 
-            bool isAvailable = clsAppointment.IsDoctorAvailable(_DoctorID, dtpAppointmentDate.Value);
+           if (selectedDateTime < DateTime.Now)
+    {
+        errorProvider1.SetError(dtpAppointmentDate, "Date cannot be in the past.");
+        btnSave.Enabled = false;
+        return;
+    }
+
+            bool isAvailable = clsAppointment.IsDoctorAvailable(_DoctorID, selectedDateTime);
             if (!isAvailable)
             {
                 errorProvider1.SetError(dtpAppointmentDate, "Doctor is not available at this time!");

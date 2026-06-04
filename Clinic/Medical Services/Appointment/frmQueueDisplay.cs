@@ -13,7 +13,7 @@ namespace Clinic.Medical_Services.Appointment
 {
     public partial class frmQueueDisplay : Form
     {
-        DataTable _dtAllDoctors;
+       private DataTable _dtAllDoctors=clsDoctor.GetAllDoctors();
         public frmQueueDisplay()
         {
             InitializeComponent();

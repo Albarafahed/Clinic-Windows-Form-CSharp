@@ -8,8 +8,8 @@ namespace Clinic_DataAccess
     public class clsAppointmentData
     {
         public static bool GetAppointmentByID(int AppointmentID, ref int PatientID, ref int DoctorID,
-            ref int CreatedByUserID, ref short AppointmentStatus, ref int AppointmentTypeID,
-            ref decimal AppointmentFees, ref DateTime AppointmentDate)
+            ref int CreatedByUserID, ref int AppointmentStatus, ref int AppointmentTypeID,
+            ref decimal AppointmentFees, ref DateTime AppointmentDate,ref DateTime CreatedDate)
         {
             try
             {
@@ -28,10 +28,11 @@ namespace Clinic_DataAccess
                                 PatientID = (int)reader["PatientID"];
                                 DoctorID = (int)reader["DoctorID"];
                                 CreatedByUserID = (int)reader["CreatedByUserID"];
-                                AppointmentStatus = (short)reader["AppointmentStatus"];
+                                AppointmentStatus = (int)reader["AppointmentStatus"];
                                 AppointmentTypeID = (int)reader["AppointmentTypeID"];
                                 AppointmentFees = (decimal)reader["AppointmentFees"];
                                 AppointmentDate = (DateTime)reader["AppointmentDate"];
+                                CreatedDate = (DateTime)reader["CreatedDate"];
                                 return true;
                             }
                         }
@@ -77,7 +78,7 @@ namespace Clinic_DataAccess
         }
 
         public static int AddNewAppointment(int PatientID, int DoctorID, int CreatedByUserID,
-            short AppointmentStatus, int AppointmentTypeID, decimal AppointmentFees, DateTime AppointmentDate)
+            int AppointmentStatus, int AppointmentTypeID, decimal AppointmentFees, DateTime AppointmentDate)
         {
             int AppointmentID = -1;
             try
@@ -117,7 +118,7 @@ namespace Clinic_DataAccess
         }
 
         public static bool UpdateAppointment(int AppointmentID, int PatientID, int DoctorID, int CreatedByUserID,
-            short AppointmentStatus, int AppointmentTypeID, decimal AppointmentFees, DateTime AppointmentDate)
+            int AppointmentStatus, int AppointmentTypeID, decimal AppointmentFees, DateTime AppointmentDate)
         {
             int rowsAffected = 0;
             try

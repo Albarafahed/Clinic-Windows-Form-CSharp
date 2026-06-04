@@ -23,12 +23,13 @@ namespace Clinic_Business
         public int DoctorID { get; set; }
         public clsDoctor DoctorInfo { get; set; }
         public int CreatedByUserID { get; set; }
-        public short AppointmentStatus { get; set; }
+        public int AppointmentStatus { get; set; }
         public int AppointmentTypeID { get; set; }
         public clsAppointmentType AppointmentTypeInfo { get; set; }
         public decimal AppointmentFees { get; set; }
         public DateTime AppointmentDate { get; set; }
 
+        public DateTime CreatedDate { get; }
         public string GetAppointmentStatusText
         {
             get
@@ -57,11 +58,12 @@ namespace Clinic_Business
             this.AppointmentTypeID = -1;
             this.AppointmentFees = 0;
             this.AppointmentDate = DateTime.Now;
+            this.CreatedDate = DateTime.Now;
             Mode = enMode.AddNew;
         }
 
         private clsAppointment(int AppointmentID, int PatientID, int DoctorID, int CreatedByUserID,
-            short AppointmentStatus, int AppointmentTypeID, decimal AppointmentFees, DateTime AppointmentDate)
+            int AppointmentStatus, int AppointmentTypeID, decimal AppointmentFees, DateTime AppointmentDate,DateTime CreatedDate)
         {
             this.AppointmentID = AppointmentID;
             this.PatientID = PatientID;
@@ -79,15 +81,15 @@ namespace Clinic_Business
         public static clsAppointment Find(int AppointmentID)
         {
             int PatientID = -1, DoctorID = -1, CreatedByUserID = -1, AppointmentTypeID = -1;
-            short AppointmentStatus = 1;
+            int AppointmentStatus = 1;
             decimal AppointmentFees = 0;
             DateTime AppointmentDate = DateTime.Now;
-
+            DateTime CreatedDate = DateTime.Now;
             if (clsAppointmentData.GetAppointmentByID(AppointmentID, ref PatientID, ref DoctorID, ref CreatedByUserID,
-                ref AppointmentStatus, ref AppointmentTypeID, ref AppointmentFees, ref AppointmentDate))
+                ref AppointmentStatus, ref AppointmentTypeID, ref AppointmentFees, ref AppointmentDate,ref CreatedDate))
             {
                 return new clsAppointment(AppointmentID, PatientID, DoctorID, CreatedByUserID,
-                    AppointmentStatus, AppointmentTypeID, AppointmentFees, AppointmentDate);
+                    AppointmentStatus, AppointmentTypeID, AppointmentFees, AppointmentDate,CreatedDate);
             }
             return null;
         }
@@ -132,7 +134,7 @@ namespace Clinic_Business
             return clsAppointmentData.GetAllAppointments();
         }
 
-        public static DataRow GetAppointmentInfo(int AppointmentID)
+        public static DataRow GetAppointmentInfoByID(int AppointmentID)
         {
             return clsAppointmentData.GetAppointmentInfoByID(AppointmentID);
         }

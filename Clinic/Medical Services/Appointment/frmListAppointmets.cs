@@ -1,22 +1,14 @@
-﻿using Clinic_Business;
+﻿using Clinic.global_classes;
+using Clinic_Business;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Clinic.Medical_Services.Appointment
 {
     public partial class frmListAppointmets : Form
     {
-        private DataTable _dtAppointmets=clsAppointment.GetAllAppointments();
+        private DataTable _dtAppointmets = clsAppointment.GetAllAppointments();
         public frmListAppointmets()
         {
             InitializeComponent();
@@ -25,19 +17,20 @@ namespace Clinic.Medical_Services.Appointment
         private void btnAddAppointment_Click(object sender, EventArgs e)
         {
             frmAddUpdateAppointment frm = new frmAddUpdateAppointment();
+            frm.DatatBack += _DatatBackToAdd;
             frm.ShowDialog();
         }
 
         private void frmListAppointmets_Load(object sender, EventArgs e)
         {
             dgvAppointments.DataSource = _dtAppointmets;
-            lblRecordsCount.Text=_dtAppointmets.Rows.Count.ToString() ;
+            lblRecordsCount.Text = _dtAppointmets.Rows.Count.ToString();
             cbFilterBy.SelectedIndex = 0;
             if (_dtAppointmets.Rows.Count == 0)
                 return;
-
-            dgvAppointments.Columns["AppointmentID"].HeaderText= "Appointment ID";
-            dgvAppointments.Columns["AppointmentID"].Width = 100;
+            _dtAppointmets.PrimaryKey = new DataColumn[] { _dtAppointmets.Columns["AppointmentID"] };
+            dgvAppointments.Columns["AppointmentID"].HeaderText = "Appointment ID";
+            dgvAppointments.Columns["AppointmentID"].Width = 150;
 
             dgvAppointments.Columns["PatientName"].HeaderText = "Patient Name";
             dgvAppointments.Columns["PatientName"].Width = 150;
@@ -58,7 +51,7 @@ namespace Clinic.Medical_Services.Appointment
             dgvAppointments.Columns["AppointmentStatus"].Width = 100;
 
             dgvAppointments.Columns["CreatedByUserID"].HeaderText = "C.UserID";
-            dgvAppointments.Columns["CreatedByUserID"].Width = 100;
+            dgvAppointments.Columns["CreatedByUserID"].Width = 90;
 
         }
 
@@ -67,7 +60,7 @@ namespace Clinic.Medical_Services.Appointment
             bool IsNone = cbFilterBy.Text == "None";
             bool IsStatus = cbFilterBy.Text == "Status";
 
-            txtFilterValue.Visible=!IsNone && !IsStatus;
+            txtFilterValue.Visible = !IsNone && !IsStatus;
             cbStatus.Visible = IsStatus;
 
             _dtAppointmets.DefaultView.RowFilter = string.Empty;
@@ -150,5 +143,74 @@ namespace Clinic.Medical_Services.Appointment
             frmQueueDisplay frm = new frmQueueDisplay();
             frm.ShowDialog();
         }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int AppointmentID = (int)dgvAppointments.CurrentRow.Cells["AppointmentID"].Value;
+
+            frmAddUpdateAppointment frm = new frmAddUpdateAppointment(AppointmentID);
+            frm.DatatBack += _DataBackToUpdate;
+            frm.ShowDialog();
+        }
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (dgvAppointments.CurrentRow == null) return;
+
+            int AppointmentID = (int)dgvAppointments.CurrentRow.Cells["AppointmentID"].Value;
+
+            if (MessageBox.Show("Are you sure you want to delete Appoinment [" + AppointmentID + "]?", "Confirm Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                if (clsAppointment.DeleteAppointment(AppointmentID))
+                {
+                    MessageBox.Show("Appoinment Deleted Successfully.", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _DataBackToDelete(AppointmentID);
+                }
+                else
+                {
+                    MessageBox.Show("Appoinment was not deleted because it has data linked to it in the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void _RefreshRecords()
+        {
+            lblRecordsCount.Text = _dtAppointmets.Rows.Count.ToString();
+        }
+        private void _DatatBackToAdd(object sender, int AppointmentID)
+        {
+            DataRow NewAppointmentRow = clsAppointment.GetAppointmentInfoByID(AppointmentID);
+
+            if (NewAppointmentRow != null)
+            {
+                _dtAppointmets.UpsertRow(NewAppointmentRow, AppointmentID);
+                _RefreshRecords();
+            }
+
+
+        }
+
+        private void _DataBackToUpdate(object sender, int AppointmentID)
+        {
+            DataRow UpdateAppointmentRow = clsAppointment.GetAppointmentInfoByID(AppointmentID);
+
+            if (UpdateAppointmentRow != null)
+            {
+                _dtAppointmets.UpsertRow(UpdateAppointmentRow, AppointmentID);
+                _RefreshRecords();
+            }
+        }
+
+        private void _DataBackToDelete(int AppointmentID)
+        {
+            DataRow row = _dtAppointmets.Rows.Find(AppointmentID);
+            if (row != null)
+            {
+                _dtAppointmets.Rows.Remove(row);
+                _dtAppointmets.AcceptChanges();
+                _RefreshRecords();
+            }
+        }
+
+      
     }
 }

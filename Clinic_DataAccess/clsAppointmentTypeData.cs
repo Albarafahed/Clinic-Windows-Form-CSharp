@@ -78,7 +78,7 @@ namespace Clinic_DataAccess
             }
             return isFound;
         }
-        public static int AddAppointmentType(string TypeName, float DefaultFees,int DefaultDuration,bool IsActive)
+        public static int AddAppointmentType(string TypeName, float DefaultFees,int ?DefaultDuration,bool IsActive)
         {
 
             int AppointmentTypeID = -1;
@@ -97,7 +97,7 @@ namespace Clinic_DataAccess
                         cmd.Parameters.AddWithValue("@TypeName", TypeName);
                         cmd.Parameters.AddWithValue("@DefaultFees", DefaultFees);
                         cmd.Parameters.AddWithValue("@IsActive", IsActive);
-                        cmd.Parameters.AddWithValue("DefaultDuration", DefaultDuration);
+                        cmd.Parameters.AddWithValue("DefaultDuration", DefaultDuration??(Object)DBNull.Value);
 
                         conn.Open();
                         object result = cmd.ExecuteScalar();
@@ -116,7 +116,7 @@ namespace Clinic_DataAccess
 
             return AppointmentTypeID;
         }
-        public static bool UpdateAppointmentType(int AppointmentTypeID, string TypeName, float DefaultFees, int DefaultDuration, bool IsActive)
+        public static bool UpdateAppointmentType(int AppointmentTypeID, string TypeName, float DefaultFees, int ?DefaultDuration, bool IsActive)
         {
             bool isUpdated = false;
             try
@@ -135,7 +135,7 @@ namespace Clinic_DataAccess
                         cmd.Parameters.AddWithValue("@TypeName", TypeName);
                         cmd.Parameters.AddWithValue("@DefaultFees", DefaultFees);
                         cmd.Parameters.AddWithValue("@IsActive", IsActive);
-                        cmd.Parameters.AddWithValue("DefaultDuration", DefaultDuration);
+                        cmd.Parameters.AddWithValue("DefaultDuration", DefaultDuration ?? (Object)DBNull.Value);
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();
                         isUpdated = rowsAffected > 0;

@@ -128,6 +128,7 @@ namespace Clinic.Controls
         public void LoadDoctorInfo(int DoctorID)
         {
             txtFilterValue.Text = DoctorID.ToString();
+            _DoctorID= DoctorID;
             _LoadDoctorInfo();
         }
 
