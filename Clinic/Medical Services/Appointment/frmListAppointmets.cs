@@ -278,8 +278,8 @@ namespace Clinic.Medical_Services.Appointment
 
             rescheduleToolStripMenuItem.Enabled = (currentStatus == "Scheduled" || currentStatus == "Postponed");
 
-            deleteToolStripMenuItem.Enabled = editToolStripMenuItem.Enabled = !btnPostponed.Enabled && btnCancel.Enabled;
-
+            deleteToolStripMenuItem.Enabled = !btnPostponed.Enabled && btnCancel.Enabled ;
+            editToolStripMenuItem.Enabled = deleteToolStripMenuItem.Enabled && (currentStatus != "Cancelled");
         }
 
         private void showPatientDetailsToolStripMenuItem_Click(object sender, EventArgs e)

@@ -36,7 +36,6 @@ Clinic_System/
 ---
 
 ## 🖥️  واجهة تسجيل الدخول (Dashboard)
-المركز العصبي للنظام الذي يربط كافة الأقسام.
 
 ![Main Dashboard](Image/Login/frmLogin.png)
 
@@ -66,8 +65,8 @@ Clinic_System/
 
 ---
 
-### 🩺 إدارة المرضى (Doctor Management)
-إدارة كاملة للملفات الطبية للمرضى مع حماية ضد التكرار وتحقق من صحة البيانات.
+### 🩺 إدارة الدكاترة (Doctor Management)
+إدارة كاملة للملفات الطبية للدكاترة مع حماية ضد التكرار وتحقق من صحة البيانات.
 
 | الشاشة | اللقطة |
 | :--- | :--- |
@@ -85,6 +84,37 @@ Clinic_System/
 | **قائمة المستخدمين** | ![List Users](Image/User/frmlistUser.png) |
 | **إضافة/تعديل مستخدم** | ![Add/Update User](Image/User/frmAddUpdateUser.png) |
 | **تغيير كلمة المرور** | ![Change Password](Image/User/frmChengePassword.png) |
+
+---
+---
+### 🔑 إدارة انواع الخدمات (ٍِServecesype Management)
+
+| الشاشة | اللقطة |
+| :--- | :--- |
+| **قائمة انواع الخدمات** | ![List ٍِServecesype](Image/Medical%20Services/MangeServeces/ServecesType/frmMangedServeces.png) |
+| **إضافة/تعديل نوع خدمة** | ![Add/Update ٍِServecesype](Image/Medical%20Services/MangeServeces/ServecesType/frmAddUpdateServeces.png) |
+
+---
+---
+### 🔑 إدارة انواع المواعيد (ِAppoinmentType Management)
+
+
+| الشاشة | اللقطة |
+| :--- | :--- |
+| **قائمة انواع المواعيد** | ![List AppoinmentType](Image/Medical%20Services/Appointment/AppointmentsType/frmMangedAppoinmetnType.png) |
+| **إضافة/تعديل نوع موعد** | ![Add/Update AppoinmentType](Image/Medical%20Services/Appointment/AppointmentsType/frmAddUpdateAppointmentType.png) |
+
+---
+
+---
+### 🔑 إدارة المواعيد (ِAppoinment Management)
+إدارة كاملة للمواعيد  مع حماية ضد التكرار وتحقق من صحة البيانات.
+
+| الشاشة | اللقطة |
+| :--- | :--- |
+| **قائمة المواعيد** | ![List Appoinment](Image/Medical%20Services/Appointment/frmListAppointment.png) |
+| **إضافة/تعديل موعد** | ![Add/Update Appoinment](Image/Medical%20Services/Appointment/frmAddUpdateAppoinmetn.png) |
+| **قائمة الانتظار** | ![List Queu](Image/Medical%20Services/Appointment/frmQueuList.png) |
 
 ---
 
