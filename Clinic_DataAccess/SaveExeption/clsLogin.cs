@@ -89,7 +89,7 @@ namespace Clinic_DataAccess.SaveExeption
                     {
                         cmd.Parameters.AddWithValue("@Level", level);
                         cmd.Parameters.AddWithValue("@Message", ex.Message);
-                        cmd.Parameters.AddWithValue("@StackTrace", (object)ex.StackTrace ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@StackTrace", GetCleanStackTrace(ex));
                         cmd.Parameters.AddWithValue("@Source", (object)ex.Source ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@UserID", UserID != -1 ? (object)UserID : DBNull.Value);
                         cmd.Parameters.AddWithValue("@MachineName", Environment.MachineName);
