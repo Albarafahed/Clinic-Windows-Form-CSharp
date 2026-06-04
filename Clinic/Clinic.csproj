@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -81,6 +82,12 @@
     </Compile>
     <Compile Include="Medical Services\Appointment\frmQueueDisplay.Designer.cs">
       <DependentUpon>frmQueueDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Medical Services\Appointment\frmReschedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Appointment\frmReschedule.Designer.cs">
+      <DependentUpon>frmReschedule.cs</DependentUpon>
     </Compile>
     <Compile Include="Person\Controls\ctrlPersonCard.cs">
       <SubType>UserControl</SubType>
@@ -281,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Appointment\frmQueueDisplay.resx">
       <DependentUpon>frmQueueDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Appointment\frmReschedule.resx">
+      <DependentUpon>frmReschedule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Patient\Controls\ctrlPatienCardtInfo.resx">
       <DependentUpon>ctrlPatienCardtInfo.cs</DependentUpon>

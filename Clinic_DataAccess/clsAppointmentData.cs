@@ -423,6 +423,85 @@ namespace Clinic_DataAccess
             }
                 
             }
+        public static bool UpdateAppointmentStatus(int AppointmentID, int StatusID, int UserID)
+        {
+            try
+            {
+
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"
+                                UPDATE Appointments 
+                                SET AppointmentStatus = @StatusID, 
+                                    CheckInTime = CASE WHEN @StatusID = 2 THEN GETDATE() ELSE CheckInTime END,
+                                    LastModifiedDate = GETDATE(),
+                                    LastModifiedByUserID = @UserID
+                                WHERE AppointmentID = @AppointmentID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                        cmd.Parameters.AddWithValue("@UserID", UserID);
+                        cmd.Parameters.AddWithValue("@StatusID", StatusID);
+
+
+                        conn.Open();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return (rowsAffected > 0);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, UserID);
+                return false;
+            }
+        }
+
+        public static DataTable GetWaitingPatients(int DoctorID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"
+                                       SELECT 
+                                        A.AppointmentID, 
+                                        Pe.FullName AS PatientName, 
+                                        A.CheckInTime,
+                                        CASE A.AppointmentStatus
+                                            WHEN 2 THEN 'In-Queue'
+                                            WHEN 3 THEN 'In-Progress'
+                                            WHEN 4 THEN 'Postponed'
+                                            ELSE 'Unknown'
+                                        END AS StatusText
+                                    FROM Appointments A
+                                    INNER JOIN Patients P ON A.PatientID = P.PatientID
+                                    INNER JOIN Persons Pe ON P.PersonID = Pe.PersonID
+                                    WHERE A.DoctorID = @DoctorID 
+                                      AND A.AppointmentStatus IN (2, 3, 4)
+                                    ORDER BY A.AppointmentStatus ASC, A.CheckInTime ASC;";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@DoctorID", DoctorID);
+                        conn.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                                dt.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+            }
+            return dt;
+        }
 
     }
-    }
+    
+}

@@ -7,8 +7,8 @@ namespace Clinic_Business
     public class clsAppointment
     {
         public enum enMode { AddNew = 0, Update = 1 };
-        public enMode Mode = enMode.AddNew;
-        public enum enStatus
+        private enMode _Mode = enMode.AddNew;
+        public enum enAppointmentStatus
         {
             Scheduled = 1, 
             InQueue = 2,
@@ -59,7 +59,7 @@ namespace Clinic_Business
             this.AppointmentFees = 0;
             this.AppointmentDate = DateTime.Now;
             this.CreatedDate = DateTime.Now;
-            Mode = enMode.AddNew;
+            _Mode = enMode.AddNew;
         }
 
         private clsAppointment(int AppointmentID, int PatientID, int DoctorID, int CreatedByUserID,
@@ -75,7 +75,7 @@ namespace Clinic_Business
             this.AppointmentTypeInfo = clsAppointmentType.Find(AppointmentTypeID);
             this.AppointmentFees = AppointmentFees;
             this.AppointmentDate = AppointmentDate;
-            Mode = enMode.Update;
+            _Mode = enMode.Update;
         }
 
         public static clsAppointment Find(int AppointmentID)
@@ -109,12 +109,12 @@ namespace Clinic_Business
 
         public bool Save()
         {
-            switch (Mode)
+            switch (_Mode)
             {
                 case enMode.AddNew:
                     if (_AddNewAppointment())
                     {
-                        Mode = enMode.Update;
+                        _Mode = enMode.Update;
                         return true;
                     }
                     return false;
@@ -158,7 +158,10 @@ namespace Clinic_Business
             return clsDoctorData.IsDoctorAvailable(DoctorID, AppointmentDateTime);
         }
 
-       
+        public static DataTable GetWaitingPatients(int DoctorID)
+        {
+            return clsAppointmentData.GetWaitingPatients(DoctorID);
+        }
         public static string BookingValidator(int DoctorID, int PatientID, DateTime AppointmentDateTime, clsAppointmentType.enAppointmentType AppointmentType)
         {
             // 1. أمنياً: التأكد من حالة المريض
@@ -188,5 +191,39 @@ namespace Clinic_Business
             return string.Empty; // كل الشروط مستوفاة
         }
 
+        public static bool UpdateAppointmentStatus(int AppointmentID,enAppointmentStatus Status, int UserID)
+        {
+            return clsAppointmentData.UpdateAppointmentStatus(AppointmentID, (int)Status, UserID);
+        }
+
+        public static bool RescheduleAppointment(int OldAppointmentID, DateTime NewDate, int UserID)
+        {
+            // 1. جلب الموعد القديم (لأخذ نسخة من بياناته)
+            clsAppointment OldAppointment = clsAppointment.Find(OldAppointmentID);
+
+            if (OldAppointment != null)
+            {
+                // 2. إنشاء كائن جديد (نفس بيانات القديم ولكن ببيانات جديدة)
+                clsAppointment NewAppointment = new clsAppointment();
+
+                NewAppointment.PatientID = OldAppointment.PatientID;
+                NewAppointment.DoctorID = OldAppointment.DoctorID;
+                NewAppointment.AppointmentTypeID = OldAppointment.AppointmentTypeID;
+                NewAppointment.AppointmentFees = OldAppointment.AppointmentFees;
+                NewAppointment.AppointmentDate = NewDate; // التاريخ الجديد
+                NewAppointment.CreatedByUserID = UserID;
+                NewAppointment.AppointmentStatus = (int)enAppointmentStatus.Scheduled;
+
+                // 3. حفظ الموعد الجديد
+                if (NewAppointment.Save())
+                {
+                    // 4. إلغاء الموعد القديم
+                    // نستخدم دالة الإلغاء لتغيير حالة القديم إلى "Cancelled"
+                    return clsAppointment.UpdateAppointmentStatus(OldAppointmentID, enAppointmentStatus.Cancelled, UserID);
+                }
+            }
+
+            return false;
+        }
     }
 }

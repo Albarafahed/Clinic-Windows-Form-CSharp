@@ -1,4 +1,7 @@
-﻿using Clinic.global_classes;
+﻿using Clinic.Doctor;
+using Clinic.global_classes;
+using Clinic.Patient;
+using Clinic.Person;
 using Clinic_Business;
 using System;
 using System.Data;
@@ -21,9 +24,18 @@ namespace Clinic.Medical_Services.Appointment
             frm.ShowDialog();
         }
 
+        private void _RefreshAppointmentsList()
+        {
+            _dtAppointmets=clsAppointment.GetAllAppointments();
+
+            dgvAppointments.DataSource=_dtAppointmets;
+            _RefreshRecords();
+
+        }
         private void frmListAppointmets_Load(object sender, EventArgs e)
         {
             dgvAppointments.DataSource = _dtAppointmets;
+            _dtAppointmets.Columns["AppointmentStatusText"].ReadOnly = false;
             lblRecordsCount.Text = _dtAppointmets.Rows.Count.ToString();
             cbFilterBy.SelectedIndex = 0;
             if (_dtAppointmets.Rows.Count == 0)
@@ -47,9 +59,9 @@ namespace Clinic.Medical_Services.Appointment
             dgvAppointments.Columns["AppointmentDate"].HeaderText = "Date";
             dgvAppointments.Columns["AppointmentDate"].Width = 150;
 
-            dgvAppointments.Columns["AppointmentStatus"].HeaderText = "Status";
-            dgvAppointments.Columns["AppointmentStatus"].Width = 100;
-
+            dgvAppointments.Columns["AppointmentStatusText"].HeaderText = "Status";
+            dgvAppointments.Columns["AppointmentStatusText"].Width = 100;
+            
             dgvAppointments.Columns["CreatedByUserID"].HeaderText = "C.UserID";
             dgvAppointments.Columns["CreatedByUserID"].Width = 90;
 
@@ -140,7 +152,10 @@ namespace Clinic.Medical_Services.Appointment
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmQueueDisplay frm = new frmQueueDisplay();
+            int DoctorID = clsAppointment.Find((int)dgvAppointments.CurrentRow.Cells[0].Value).DoctorID;
+
+            frmQueueDisplay frm = new frmQueueDisplay(DoctorID);
+            frm.DataBack += _DataBackToUpdate;
             frm.ShowDialog();
         }
 
@@ -152,6 +167,7 @@ namespace Clinic.Medical_Services.Appointment
             frm.DatatBack += _DataBackToUpdate;
             frm.ShowDialog();
         }
+
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -172,6 +188,7 @@ namespace Clinic.Medical_Services.Appointment
                 }
             }
         }
+
         private void _RefreshRecords()
         {
             lblRecordsCount.Text = _dtAppointmets.Rows.Count.ToString();
@@ -211,6 +228,80 @@ namespace Clinic.Medical_Services.Appointment
             }
         }
 
-      
+        private void _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus newStatus, string actionName)
+        {
+            if (dgvAppointments.CurrentRow == null) return;
+
+            int currentAppointmentID = (int)dgvAppointments.CurrentRow.Cells[0].Value;
+
+            string message = $"Are you sure you want to {actionName}?";
+            string title = "Confirm Action";
+
+            if (MessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (clsAppointment.UpdateAppointmentStatus(currentAppointmentID, newStatus, clsGlobal.CurrentUser.UserID))
+                {
+                    MessageBox.Show($"✅ The operation was completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _DataBackToUpdate(this, currentAppointmentID);
+                }
+                else
+                {
+                    MessageBox.Show($"❌ An error occurred while updating the status.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnCheckIn_Click(object sender, EventArgs e)
+            => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.InQueue, "check in this patient");
+
+        private void btnComplete_Click(object sender, EventArgs e)
+            => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Postponed, "postpone this appointment");
+
+        private void btnCancel_Click(object sender, EventArgs e)
+            => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Cancelled, "cancel this appointment");
+
+        private void dgvAppointments_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvAppointments.CurrentRow == null) return;
+
+            string currentStatus = dgvAppointments.CurrentRow.Cells["AppointmentStatusText"].Value.ToString();
+
+            btnCheckIn.Enabled = (currentStatus == "Scheduled");
+
+            btnPostponed.Enabled = (currentStatus == "In-Queue" || currentStatus == "In-Progress");
+
+            btnCancel.Enabled = (currentStatus != "Completed");
+
+            rescheduleToolStripMenuItem.Enabled = (currentStatus == "Scheduled" || currentStatus == "Postponed");
+        }
+
+        private void showPatientDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int AppointmentID = (int)dgvAppointments.CurrentRow.Cells["AppointmentID"].Value;
+
+            int PatientID = clsAppointment.Find(AppointmentID).PatientID;
+            frmPatientInfo frm = new frmPatientInfo(PatientID);
+            frm.ShowDialog();
+        }
+
+        private void showDoctorDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int AppointmentID = (int)dgvAppointments.CurrentRow.Cells["AppointmentID"].Value;
+
+            int DoctorID = clsAppointment.Find(AppointmentID).DoctorID;
+            frmDoctorInfo frm = new frmDoctorInfo(DoctorID);
+            frm.ShowDialog();
+        }
+
+        private void rescheduleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int AppointmentID = (int)dgvAppointments.CurrentRow.Cells["AppointmentID"].Value;
+
+            clsAppointment appointment = clsAppointment.Find(AppointmentID);
+
+            frmReschedule frm = new frmReschedule(AppointmentID, appointment.DoctorID, appointment.PatientID);
+            frm.ShowDialog();
+            _RefreshAppointmentsList();
+        }
     }
 }
