@@ -502,6 +502,55 @@ namespace Clinic_DataAccess
             return dt;
         }
 
+
+        public static bool RescheduleAppointmentTransaction(int OldAppointmentID, int PatientID, int DoctorID,
+    int CreatedByUserID, int AppointmentTypeID, decimal AppointmentFees, DateTime NewDate, int UserID)
+        {
+            SqlTransaction transaction = null;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    connection.Open();
+                     transaction = connection.BeginTransaction();
+
+
+                    // 1. إضافة الموعد الجديد
+                    string insertQuery = @"INSERT INTO Appointments (PatientID, DoctorID, CreatedByUserID, AppointmentStatus, 
+                                 AppointmentTypeID, AppointmentFees, AppointmentDate)
+                                 VALUES (@PatientID, @DoctorID, @CreatedByUserID, 1, @AppointmentTypeID, @AppointmentFees, @AppointmentDate);
+                                 SELECT SCOPE_IDENTITY();";
+
+                    SqlCommand cmdInsert = new SqlCommand(insertQuery, connection, transaction);
+                    cmdInsert.Parameters.AddWithValue("@PatientID", PatientID);
+                    cmdInsert.Parameters.AddWithValue("@DoctorID", DoctorID);
+                    cmdInsert.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
+                    cmdInsert.Parameters.AddWithValue("@AppointmentTypeID", AppointmentTypeID);
+                    cmdInsert.Parameters.AddWithValue("@AppointmentFees", AppointmentFees);
+                    cmdInsert.Parameters.AddWithValue("@AppointmentDate", NewDate);
+
+                    object result = cmdInsert.ExecuteScalar();
+
+                    // 2. إلغاء الموعد القديم
+                    string updateQuery = @"UPDATE Appointments SET AppointmentStatus = 6, LastModifiedDate = GETDATE(), 
+                                 LastModifiedByUserID = @UserID WHERE AppointmentID = @OldAppointmentID";
+
+                    SqlCommand cmdUpdate = new SqlCommand(updateQuery, connection, transaction);
+                    cmdUpdate.Parameters.AddWithValue("@OldAppointmentID", OldAppointmentID);
+                    cmdUpdate.Parameters.AddWithValue("@UserID", UserID);
+                    cmdUpdate.ExecuteNonQuery();
+
+                    transaction.Commit(); // إذا نجح الإجراءان، اعتمد التغييرات
+                    return true;
+                }
+            }
+                catch (Exception ex)
+                {
+                    transaction.Rollback(); // إذا فشل أي شيء، تراجع عن كل شيء
+                    clsGlobalLogger.LogSqlException((SqlException)ex, clsGlobalLogger.LogLevel.Error);
+                    return false;
+                }
+        }
     }
     
 }

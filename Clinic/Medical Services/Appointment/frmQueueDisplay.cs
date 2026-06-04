@@ -43,26 +43,23 @@ namespace Clinic.Medical_Services.Appointment
                 dgvQueue.Columns["PatientName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
 
+          
+
             if (dgvQueue.Columns["CheckInTime"] != null)
             {
                 dgvQueue.Columns["CheckInTime"].HeaderText = "وقت الحضور";
                 dgvQueue.Columns["CheckInTime"].DefaultCellStyle.Format = "hh:mm tt";
-                dgvQueue.Columns["CheckInTime"].Width = 150;
+                dgvQueue.Columns["CheckInTime"].Width = 200;
             }
 
+            if (dgvQueue.Columns["StatusText"] != null)
+            {
+                dgvQueue.Columns["StatusText"].HeaderText = "الحالة";
+                dgvQueue.Columns["StatusText"].Width = 200;
+            }
             // إخفاء أي أعمدة تقنية غير ضرورية للطبيب
             if (dgvQueue.Columns["AppointmentID"] != null)
                 dgvQueue.Columns["AppointmentID"].Visible = false;
-        }
-
-        private void dgvQueue_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void lblHeader_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnClose_Click(object sender, EventArgs e)

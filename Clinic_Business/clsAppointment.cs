@@ -198,32 +198,19 @@ namespace Clinic_Business
 
         public static bool RescheduleAppointment(int OldAppointmentID, DateTime NewDate, int UserID)
         {
-            // 1. جلب الموعد القديم (لأخذ نسخة من بياناته)
             clsAppointment OldAppointment = clsAppointment.Find(OldAppointmentID);
+            if (OldAppointment == null) return false;
 
-            if (OldAppointment != null)
-            {
-                // 2. إنشاء كائن جديد (نفس بيانات القديم ولكن ببيانات جديدة)
-                clsAppointment NewAppointment = new clsAppointment();
-
-                NewAppointment.PatientID = OldAppointment.PatientID;
-                NewAppointment.DoctorID = OldAppointment.DoctorID;
-                NewAppointment.AppointmentTypeID = OldAppointment.AppointmentTypeID;
-                NewAppointment.AppointmentFees = OldAppointment.AppointmentFees;
-                NewAppointment.AppointmentDate = NewDate; // التاريخ الجديد
-                NewAppointment.CreatedByUserID = UserID;
-                NewAppointment.AppointmentStatus = (int)enAppointmentStatus.Scheduled;
-
-                // 3. حفظ الموعد الجديد
-                if (NewAppointment.Save())
-                {
-                    // 4. إلغاء الموعد القديم
-                    // نستخدم دالة الإلغاء لتغيير حالة القديم إلى "Cancelled"
-                    return clsAppointment.UpdateAppointmentStatus(OldAppointmentID, enAppointmentStatus.Cancelled, UserID);
-                }
-            }
-
-            return false;
+            return clsAppointmentData.RescheduleAppointmentTransaction(
+                OldAppointmentID,
+                OldAppointment.PatientID,
+                OldAppointment.DoctorID,
+                OldAppointment.CreatedByUserID, // أو يمكنك الاحتفاظ بالـ CreatedByUserID الأصلي
+                OldAppointment.AppointmentTypeID,
+                OldAppointment.AppointmentFees,
+                NewDate,
+                UserID
+            );
         }
     }
 }

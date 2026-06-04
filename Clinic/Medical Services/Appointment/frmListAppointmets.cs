@@ -27,7 +27,9 @@ namespace Clinic.Medical_Services.Appointment
         private void _RefreshAppointmentsList()
         {
             _dtAppointmets=clsAppointment.GetAllAppointments();
-
+            _dtAppointmets.PrimaryKey = new DataColumn[] { _dtAppointmets.Columns["AppointmentID"] };
+            _dtAppointmets.Columns["AppointmentStatusText"].ReadOnly = false;
+            lblRecordsCount.Text = _dtAppointmets.Rows.Count.ToString();
             dgvAppointments.DataSource=_dtAppointmets;
             _RefreshRecords();
 
@@ -35,12 +37,14 @@ namespace Clinic.Medical_Services.Appointment
         private void frmListAppointmets_Load(object sender, EventArgs e)
         {
             dgvAppointments.DataSource = _dtAppointmets;
-            _dtAppointmets.Columns["AppointmentStatusText"].ReadOnly = false;
-            lblRecordsCount.Text = _dtAppointmets.Rows.Count.ToString();
+           
             cbFilterBy.SelectedIndex = 0;
             if (_dtAppointmets.Rows.Count == 0)
                 return;
             _dtAppointmets.PrimaryKey = new DataColumn[] { _dtAppointmets.Columns["AppointmentID"] };
+            _dtAppointmets.Columns["AppointmentStatusText"].ReadOnly = false;
+            lblRecordsCount.Text = _dtAppointmets.Rows.Count.ToString();
+
             dgvAppointments.Columns["AppointmentID"].HeaderText = "Appointment ID";
             dgvAppointments.Columns["AppointmentID"].Width = 150;
 
@@ -273,6 +277,9 @@ namespace Clinic.Medical_Services.Appointment
             btnCancel.Enabled = (currentStatus != "Completed");
 
             rescheduleToolStripMenuItem.Enabled = (currentStatus == "Scheduled" || currentStatus == "Postponed");
+
+            deleteToolStripMenuItem.Enabled = editToolStripMenuItem.Enabled = !btnPostponed.Enabled && btnCancel.Enabled;
+
         }
 
         private void showPatientDetailsToolStripMenuItem_Click(object sender, EventArgs e)

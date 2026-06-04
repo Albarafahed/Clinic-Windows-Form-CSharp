@@ -206,7 +206,6 @@ namespace Clinic.Doctor
 
         private void _SetupDataGridViewColumns()
         {
-            _dtAllDoctors.PrimaryKey = new DataColumn[] { _dtAllDoctors.Columns["DoctorID"] };
 
             dgvDoctors.Columns["DoctorID"].HeaderText = "Doctor ID";
             dgvDoctors.Columns["DoctorID"].Width = 100;
@@ -230,7 +229,9 @@ namespace Clinic.Doctor
 
         private void _RefreshDoctorsList()
         {
-            _dtAllDoctors = clsDoctor.GetAllDoctors(); 
+            _dtAllDoctors = clsDoctor.GetAllDoctors();
+
+            _dtAllDoctors.PrimaryKey = new DataColumn[] { _dtAllDoctors.Columns["DoctorID"] };
 
             dgvDoctors.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             if (!_dtAllDoctors.Columns.Contains("FeesText"))

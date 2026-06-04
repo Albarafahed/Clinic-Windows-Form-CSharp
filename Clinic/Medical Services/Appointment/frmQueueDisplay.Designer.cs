@@ -45,7 +45,6 @@
             this.lblHeader.TabIndex = 1;
             this.lblHeader.Text = "قائمة المرضى المنتظرين";
             this.lblHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblHeader.Click += new System.EventHandler(this.lblHeader_Click);
             // 
             // dgvQueue
             // 
@@ -81,7 +80,6 @@
             this.dgvQueue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvQueue.Size = new System.Drawing.Size(1362, 363);
             this.dgvQueue.TabIndex = 0;
-            this.dgvQueue.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvQueue_CellContentClick);
             this.dgvQueue.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvQueue_DataBindingComplete);
             this.dgvQueue.SelectionChanged += new System.EventHandler(this.dgvQueue_SelectionChanged);
             // 
