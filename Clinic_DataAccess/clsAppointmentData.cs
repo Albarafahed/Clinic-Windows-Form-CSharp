@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace Clinic_DataAccess
 {
@@ -469,20 +470,20 @@ namespace Clinic_DataAccess
                     string query = @"
                                        SELECT 
                                         A.AppointmentID, 
-                                        Pe.FullName AS PatientName, 
+                                        Pe.FullName AS PatientName,A.CallType,A.IsCalled,
                                         A.CheckInTime,
                                         CASE A.AppointmentStatus
                                             WHEN 2 THEN 'In-Queue'
-                                            WHEN 3 THEN 'In-Progress'
-                                            WHEN 4 THEN 'Postponed'
+                                            WHEN 7 THEN 'Waiting_For_Vitals'
+                                            WHEN 8 THEN 'Ready_For_Doctor'
                                             ELSE 'Unknown'
                                         END AS StatusText
                                     FROM Appointments A
                                     INNER JOIN Patients P ON A.PatientID = P.PatientID
                                     INNER JOIN Persons Pe ON P.PersonID = Pe.PersonID
                                     WHERE A.DoctorID = @DoctorID 
-                                      AND A.AppointmentStatus IN (2, 3, 4)
-                                    ORDER BY A.AppointmentStatus ASC, A.CheckInTime ASC;";
+                                      AND A.AppointmentStatus IN (2, 7, 8)
+                                    ORDER BY A.CheckInTime ASC;";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@DoctorID", DoctorID);
@@ -502,6 +503,76 @@ namespace Clinic_DataAccess
             return dt;
         }
 
+        public static int GetCountByStatusForDoctor(int Status, int DoctorID)
+        {
+            int count = 0;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    // استعلام لحساب عدد المرضى حسب الحالة ولطبيب معين فقط
+                    string query = @"SELECT COUNT(*) FROM Appointments 
+                                     WHERE AppointmentStatus = @Status 
+                                     AND DoctorID = @DoctorID";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Status", Status);
+                        command.Parameters.AddWithValue("@DoctorID", DoctorID);
+
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        if (result != null && int.TryParse(result.ToString(), out int c))
+                        {
+                            count = c;
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+            }
+            return count;
+        }
+
+        public static bool PromotePatientsToVitalsForDoctor(int Count, int DoctorID)
+        {
+            bool IsPromoted = false;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    // التحديث الذكي: ترقية أول (Count) مريض من الحالة (2) إلى (7)
+                    // ملاحظة: نستخدم الترتيب حسب وقت الوصول (CheckInTime) لضمان العدالة
+                    string query = @"
+                UPDATE Appointments 
+                SET AppointmentStatus = 7 
+                WHERE AppointmentID IN (
+                    SELECT TOP (@Count) AppointmentID 
+                    FROM Appointments 
+                    WHERE AppointmentStatus = 2 
+                    AND DoctorID = @DoctorID 
+                    ORDER BY CheckInTime ASC
+                );";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Count", Count);
+                        command.Parameters.AddWithValue("@DoctorID", DoctorID);
+
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+                        IsPromoted = (rowsAffected > 0);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                IsPromoted = false;
+            }
+            return IsPromoted;
+        }
 
         public static bool RescheduleAppointmentTransaction(int OldAppointmentID, int PatientID, int DoctorID,
     int CreatedByUserID, int AppointmentTypeID, decimal AppointmentFees, DateTime NewDate, int UserID)
@@ -550,6 +621,38 @@ namespace Clinic_DataAccess
                     clsGlobalLogger.LogSqlException((SqlException)ex, clsGlobalLogger.LogLevel.Error);
                     return false;
                 }
+        }
+
+        public static bool UpdatePatientCallStatus(int AppointmentID, bool IsCalled, int CallType)
+        {
+            try
+            {
+
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"
+                                UPDATE Appointments 
+                                SET IsCalled = @IsCalled, 
+                                    CallType = @CallType
+                                WHERE AppointmentID = @AppointmentID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                        cmd.Parameters.AddWithValue("@IsCalled", IsCalled);
+                        cmd.Parameters.AddWithValue("@CallType", CallType);
+
+
+                        conn.Open();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return (rowsAffected > 0);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                return false;
+            }
         }
     }
     

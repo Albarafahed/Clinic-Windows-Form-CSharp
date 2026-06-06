@@ -4,8 +4,10 @@ using Clinic.Patient;
 using Clinic.Person;
 using Clinic_Business;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
+using static Clinic_Business.clsDoctor;
 
 namespace Clinic.Medical_Services.Appointment
 {
@@ -156,11 +158,13 @@ namespace Clinic.Medical_Services.Appointment
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int DoctorID = clsAppointment.Find((int)dgvAppointments.CurrentRow.Cells[0].Value).DoctorID;
+            List<DoctorInfo> allDoctors = clsDoctor.GetAllDoctorsForQueue();
 
-            frmQueueDisplay frm = new frmQueueDisplay(DoctorID);
-            frm.DataBack += _DataBackToUpdate;
-            frm.ShowDialog();
+            if (allDoctors.Count > 0)
+            {
+                frmQueueDisplay frm = new frmQueueDisplay(allDoctors);
+                frm.Show();
+            }
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
@@ -245,6 +249,14 @@ namespace Clinic.Medical_Services.Appointment
             {
                 if (clsAppointment.UpdateAppointmentStatus(currentAppointmentID, newStatus, clsGlobal.CurrentUser.UserID))
                 {
+                    if(newStatus==clsAppointment.enAppointmentStatus.InQueue)
+                    {
+                        if (dgvAppointments.CurrentRow == null) return;
+                        int appointmentID = (int)dgvAppointments.CurrentRow.Cells["AppointmentID"].Value;
+                        int doctorID = (int)clsAppointment.Find(appointmentID).DoctorID;
+                        clsAppointment.RefreshQueueForDoctor(doctorID);
+
+                    }
                     MessageBox.Show($"✅ The operation was completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     _DataBackToUpdate(this, currentAppointmentID);
                 }
@@ -256,7 +268,7 @@ namespace Clinic.Medical_Services.Appointment
         }
 
         private void btnCheckIn_Click(object sender, EventArgs e)
-            => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.InQueue, "check in this patient");
+                   => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.InQueue, "check in this patient");
 
         private void btnComplete_Click(object sender, EventArgs e)
             => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Postponed, "postpone this appointment");

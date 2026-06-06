@@ -19,7 +19,20 @@ namespace Clinic_Business
             public TimeSpan StartTime { get; set; }
             public TimeSpan EndTime { get; set; }
           
-        }   
+        }
+
+        public class DoctorInfo
+        {
+            public int DoctorID { get; set; }
+            public string DoctorName { get; set; }
+
+            public DoctorInfo(int doctorID, string doctorName)
+            {
+                DoctorID = doctorID;
+                DoctorName = doctorName;
+            }
+        }
+
 
         private enMode _Mode = enMode.AddNew;
 
@@ -237,6 +250,21 @@ namespace Clinic_Business
         public static DataTable LoadQueueData()
         {
             return clsDoctorData.LoadQueueData();
+        }
+
+        public static List<DoctorInfo> GetAllDoctorsForQueue()
+        {
+            List<DoctorInfo> doctorsList = new List<DoctorInfo>();
+            DataTable dt = clsDoctorData.GetAllDoctorsForQueue(); // استدعاء من الـ Data Layer
+
+            foreach (DataRow row in dt.Rows)
+            {
+                doctorsList.Add(new DoctorInfo(
+                    (int)row["DoctorID"],
+                    (string)row["FullName"]
+                ));
+            }
+            return doctorsList;
         }
 
 

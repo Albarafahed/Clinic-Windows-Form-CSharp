@@ -17,20 +17,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblHeader = new System.Windows.Forms.Label();
             this.dgvQueue = new System.Windows.Forms.DataGridView();
-            this.btnClose = new System.Windows.Forms.Button();
             this.cmsAppointment = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.lbDate = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnClose = new System.Windows.Forms.Button();
             this.rescheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pnlActions = new System.Windows.Forms.Panel();
-            this.btnInProgress = new System.Windows.Forms.Button();
-            this.btnCompleted = new System.Windows.Forms.Button();
-            this.btnPostponed = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvQueue)).BeginInit();
             this.cmsAppointment.SuspendLayout();
-            this.pnlActions.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblHeader
@@ -43,7 +40,7 @@
             this.lblHeader.Name = "lblHeader";
             this.lblHeader.Size = new System.Drawing.Size(838, 87);
             this.lblHeader.TabIndex = 1;
-            this.lblHeader.Text = "قائمة المرضى المنتظرين";
+            this.lblHeader.Text = "قائمة المرضى المنتظرين للدكتور :";
             this.lblHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dgvQueue
@@ -70,7 +67,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvQueue.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvQueue.Dock = System.Windows.Forms.DockStyle.Left;
+            this.dgvQueue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvQueue.Location = new System.Drawing.Point(0, 87);
             this.dgvQueue.Name = "dgvQueue";
             this.dgvQueue.ReadOnly = true;
@@ -78,27 +75,11 @@
             this.dgvQueue.RowHeadersWidth = 51;
             this.dgvQueue.RowTemplate.Height = 70;
             this.dgvQueue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvQueue.Size = new System.Drawing.Size(1362, 363);
+            this.dgvQueue.Size = new System.Drawing.Size(838, 363);
             this.dgvQueue.TabIndex = 0;
+            this.dgvQueue.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvQueue_CellFormatting);
             this.dgvQueue.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvQueue_DataBindingComplete);
-            this.dgvQueue.SelectionChanged += new System.EventHandler(this.dgvQueue_SelectionChanged);
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.btnClose.Image = global::Clinic.Properties.Resources.closeBlack32;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(794, 0);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(44, 37);
-            this.btnClose.TabIndex = 5;
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.dgvQueue.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvQueue_DataError);
             // 
             // cmsAppointment
             // 
@@ -116,6 +97,38 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(245, 6);
+            // 
+            // lbDate
+            // 
+            this.lbDate.AutoSize = true;
+            this.lbDate.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDate.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lbDate.Location = new System.Drawing.Point(12, 22);
+            this.lbDate.Name = "lbDate";
+            this.lbDate.Size = new System.Drawing.Size(120, 50);
+            this.lbDate.TabIndex = 6;
+            this.lbDate.Text = "label1";
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.btnClose.Image = global::Clinic.Properties.Resources.closeBlack32;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(794, 0);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(44, 37);
+            this.btnClose.TabIndex = 5;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // rescheduleToolStripMenuItem
             // 
@@ -149,65 +162,11 @@
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
             this.deleteToolStripMenuItem.Text = "&Delete";
             // 
-            // pnlActions
-            // 
-            this.pnlActions.BackColor = System.Drawing.Color.Transparent;
-            this.pnlActions.Controls.Add(this.btnInProgress);
-            this.pnlActions.Controls.Add(this.btnCompleted);
-            this.pnlActions.Controls.Add(this.btnPostponed);
-            this.pnlActions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlActions.Location = new System.Drawing.Point(702, 87);
-            this.pnlActions.Name = "pnlActions";
-            this.pnlActions.Size = new System.Drawing.Size(136, 363);
-            this.pnlActions.TabIndex = 120;
-            // 
-            // btnInProgress
-            // 
-            this.btnInProgress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
-            this.btnInProgress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInProgress.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.btnInProgress.ForeColor = System.Drawing.Color.White;
-            this.btnInProgress.Location = new System.Drawing.Point(3, 3);
-            this.btnInProgress.Name = "btnInProgress";
-            this.btnInProgress.Size = new System.Drawing.Size(120, 50);
-            this.btnInProgress.TabIndex = 0;
-            this.btnInProgress.Text = "In-Progress";
-            this.btnInProgress.UseVisualStyleBackColor = false;
-            this.btnInProgress.Click += new System.EventHandler(this.btnInProgress_Click);
-            // 
-            // btnCompleted
-            // 
-            this.btnCompleted.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.btnCompleted.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCompleted.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.btnCompleted.ForeColor = System.Drawing.Color.White;
-            this.btnCompleted.Location = new System.Drawing.Point(3, 59);
-            this.btnCompleted.Name = "btnCompleted";
-            this.btnCompleted.Size = new System.Drawing.Size(120, 50);
-            this.btnCompleted.TabIndex = 1;
-            this.btnCompleted.Text = "Completed";
-            this.btnCompleted.UseVisualStyleBackColor = false;
-            this.btnCompleted.Click += new System.EventHandler(this.btnCompleted_Click);
-            // 
-            // btnPostponed
-            // 
-            this.btnPostponed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.btnPostponed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPostponed.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.btnPostponed.ForeColor = System.Drawing.Color.White;
-            this.btnPostponed.Location = new System.Drawing.Point(3, 115);
-            this.btnPostponed.Name = "btnPostponed";
-            this.btnPostponed.Size = new System.Drawing.Size(120, 50);
-            this.btnPostponed.TabIndex = 2;
-            this.btnPostponed.Text = "Postponed";
-            this.btnPostponed.UseVisualStyleBackColor = false;
-            this.btnPostponed.Click += new System.EventHandler(this.btnPostponed_Click);
-            // 
             // frmQueueDisplay
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(838, 450);
-            this.Controls.Add(this.pnlActions);
+            this.Controls.Add(this.lbDate);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.dgvQueue);
             this.Controls.Add(this.lblHeader);
@@ -218,8 +177,8 @@
             this.Load += new System.EventHandler(this.frmQueueDisplay_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvQueue)).EndInit();
             this.cmsAppointment.ResumeLayout(false);
-            this.pnlActions.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -233,9 +192,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.Panel pnlActions;
-        private System.Windows.Forms.Button btnInProgress;
-        private System.Windows.Forms.Button btnCompleted;
-        private System.Windows.Forms.Button btnPostponed;
+        private System.Windows.Forms.Label lbDate;
+        private System.Windows.Forms.Timer timer1;
     }
 }

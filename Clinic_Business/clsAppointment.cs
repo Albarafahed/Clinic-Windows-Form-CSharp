@@ -15,7 +15,9 @@ namespace Clinic_Business
             Progress = 3, 
             Postponed = 4,
             Completed = 5, 
-            Cancelled = 6
+            Cancelled = 6,
+            Waiting_For_Vitals= 7,
+            Ready_For_Doctor=8
         }
 
         public int AppointmentID { get; set; }
@@ -211,6 +213,25 @@ namespace Clinic_Business
                 NewDate,
                 UserID
             );
+        }
+
+        public static void RefreshQueueForDoctor(int DoctorID)
+        {
+            // جلب عدد المرضى الموجودين فعلياً في الحالة 7 لهذا الطبيب
+            int countInVitals = clsAppointmentData.GetCountByStatusForDoctor(7, DoctorID);
+
+            // إذا كان العدد أقل من 3، قم بترقية مرضى من الحالة 2 إلى الحالة 7
+            if (countInVitals < 3)
+            {
+                int needed = 3 - countInVitals;
+                clsAppointmentData.PromotePatientsToVitalsForDoctor(needed, DoctorID);
+            }
+        }
+
+        public static bool UpdatePatientCallStatus(int AppoinmentID, bool IsCalled,int CallType)
+        {
+            return clsAppointmentData.UpdatePatientCallStatus(AppoinmentID, IsCalled, CallType);
+
         }
     }
 }

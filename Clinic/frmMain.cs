@@ -3,6 +3,7 @@ using Clinic.Appointment.AppointmentsType;
 using Clinic.Doctor;
 using Clinic.Login;
 using Clinic.Medical_Services.Appointment;
+using Clinic.Medical_Services.Vital;
 using Clinic.Patient;
 using Clinic.Serveces.ServecesType;
 using Clinic.User;
@@ -100,8 +101,7 @@ namespace Clinic
 
         private void DoctorsStripMenuItem1_Click(object sender, EventArgs e)
         {
-            frmListDoctors frm=new frmListDoctors();
-            frm.ShowDialog();
+           
         }
 
         private void mangeAppointmentTypeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -125,6 +125,18 @@ namespace Clinic
         private void btnAddApp_Click(object sender, EventArgs e)
         {
             frmAddUpdateAppointment frm = new frmAddUpdateAppointment();
+            frm.ShowDialog();
+        }
+
+        private void nurseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmListDoctors frm = new frmListDoctors();
+            frm.ShowDialog();
+        }
+
+        private void doctorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmListVital frm = new frmListVital();
             frm.ShowDialog();
         }
     }

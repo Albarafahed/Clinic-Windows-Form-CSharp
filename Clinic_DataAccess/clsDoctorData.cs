@@ -631,5 +631,36 @@ namespace Clinic_DataAccess
             }
         }
 
+
+        public static DataTable GetAllDoctorsForQueue()
+        {
+            DataTable dt = new DataTable();
+            
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    // نجلب فقط الأطباء النشطين أو الموجودين في جدول المواعيد
+                    string query = @"SELECT D.DoctorID, P.FullName 
+                         FROM Doctors D
+                         INNER JOIN Persons P ON D.PersonID = P.PersonID;";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        conn.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows) dt.Load(reader);
+                        }
+                    }
+                }
+
+            }
+            catch(SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+            }
+            return dt;
+        }
     }
 }

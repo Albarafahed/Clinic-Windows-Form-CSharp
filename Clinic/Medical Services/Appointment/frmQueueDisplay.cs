@@ -1,23 +1,61 @@
 ﻿using Clinic_Business;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.Net.NetworkInformation;
 using System.Windows.Forms;
+using static Clinic_Business.clsDoctor;
 
 namespace Clinic.Medical_Services.Appointment
 {
     public partial class frmQueueDisplay : Form
     {
+        private List<DoctorInfo> _DoctorsList; // القائمة التي ستمررها من الشاشة السابقة
+        private int _currentIndex = 0;
         private int _CurrentDoctorID = -1;
 
-        public event Action<object, int> DataBack;
-        public frmQueueDisplay(int DoctorID)
+
+        private System.Windows.Forms.Timer _timerCarousel; // التايمر الخاص بالتبديل
+
+        public frmQueueDisplay(List<DoctorInfo> doctors)
         {
             InitializeComponent();
-            _CurrentDoctorID = DoctorID;
+            _DoctorsList = doctors;
+
+            // إعداد التايمر الخاص بالتبديل بين الأطباء (30 ثانية)
+            _timerCarousel = new System.Windows.Forms.Timer();
+            _timerCarousel.Interval = 30000;
+            _timerCarousel.Tick += _TimerCarousel_Tick;
         }
 
         private void frmQueueDisplay_Load(object sender, EventArgs e)
         {
+            if (_DoctorsList != null && _DoctorsList.Count > 0)
+            {
+                _LoadQueueForCurrentDoctor();
+                timer1.Start();
+                _timerCarousel.Start(); // بدء التبديل التلقائي
+            }
+        }
+
+        private void _TimerCarousel_Tick(object sender, EventArgs e)
+        {
+            _currentIndex++;
+            if (_currentIndex >= _DoctorsList.Count) _currentIndex = 0; // العودة للبداية
+
+            _LoadQueueForCurrentDoctor();
+        }
+
+        private void _LoadQueueForCurrentDoctor()
+        {
+            var currentDoc = _DoctorsList[_currentIndex];
+
+            // تحديث العنوان
+            lblHeader.Text = $"Doctor Queue: {currentDoc.DoctorName}";
+            // تحديث بيانات الـ ID الحالي ليستخدمه RefreshQueueList
+            _CurrentDoctorID = currentDoc.DoctorID;
+
             _RefreshQueueList();
         }
 
@@ -25,8 +63,9 @@ namespace Clinic.Medical_Services.Appointment
         {
             // استدعاء الدالة التي تجلب المرضى المنتظرين فقط لهذا الطبيب
             DataTable dtQueue = clsAppointment.GetWaitingPatients(_CurrentDoctorID);
-
             dgvQueue.DataSource = dtQueue;
+            if (dgvQueue.Columns["StatusText"] != null)
+                dgvQueue.Columns["StatusText"].ReadOnly = true;
 
             if (dtQueue.Rows.Count > 0)
             {
@@ -60,40 +99,18 @@ namespace Clinic.Medical_Services.Appointment
             // إخفاء أي أعمدة تقنية غير ضرورية للطبيب
             if (dgvQueue.Columns["AppointmentID"] != null)
                 dgvQueue.Columns["AppointmentID"].Visible = false;
+            dgvQueue.Columns["CallType"].Visible = false;
+            dgvQueue.Columns["IsCalled"].Visible=false;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+            _timerCarousel.Stop();
+            _timerCarousel.Dispose();
+            timer1.Stop();
+            timer1.Dispose();
         }
-        private void _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus newStatus, string actionName)
-        {
-            if (dgvQueue.CurrentRow == null) return;
-
-            int currentAppointmentID = (int)dgvQueue.CurrentRow.Cells[0].Value;
-
-            string message = $"Are you sure you want to {actionName}?";
-            string title = "Confirm Action";
-
-            if (MessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                if (clsAppointment.UpdateAppointmentStatus(currentAppointmentID, newStatus, clsGlobal.CurrentUser.UserID))
-                {
-                    MessageBox.Show($"✅ The operation was completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    _RefreshQueueList();
-                    DataBack?.Invoke(this, currentAppointmentID);
-                }
-                else
-                {
-                    MessageBox.Show($"❌ An error occurred while updating the status.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void btnInProgress_Click(object sender, EventArgs e) => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Progress, "start the examination");
-
-        private void btnCompleted_Click(object sender, EventArgs e) => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Completed, "mark this appointment as completed");
-        private void btnPostponed_Click(object sender, EventArgs e) => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Postponed, "postpone this appointment");
 
         private void dgvQueue_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -103,17 +120,59 @@ namespace Clinic.Medical_Services.Appointment
             }
         }
 
-        private void dgvQueue_SelectionChanged(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            if (dgvQueue.CurrentRow == null) return;
+            lbDate.Text = DateTime.Now.ToString();
+        }
 
-            string currentStatus = dgvQueue.CurrentRow.Cells["StatusText"].Value.ToString();
-            btnInProgress.Enabled = (currentStatus == "In-Queue" || currentStatus== "Postponed");
+        private void dgvQueue_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // 1. تحقق من صحة الصف والعمود
+            if (e.RowIndex < 0 || e.RowIndex >= dgvQueue.Rows.Count) return;
 
-            btnCompleted.Enabled = (currentStatus == "In-Progress");
+            // 2. استخراج القيم من الصف الحالي
+            var row = dgvQueue.Rows[e.RowIndex];
 
-            btnPostponed.Enabled = (currentStatus == "In-Queue" || currentStatus == "In-Progress");
+            // تأكد من عدم وجود null
+            object callTypeObj = row.Cells["CallType"].Value;
+            object isCalledObj = row.Cells["IsCalled"].Value;
 
+            if (callTypeObj == null || isCalledObj == null) return;
+
+            string callType = callTypeObj.ToString();
+            bool isCalled = Convert.ToBoolean(isCalledObj);
+
+            // 3. منطق تغيير الألوان (يتم تنفيذه لكل خلية في الصف)
+            if (isCalled)
+            {
+                if (callType == "1")
+                {
+                    row.DefaultCellStyle.BackColor = Color.Yellow;
+                    row.DefaultCellStyle.ForeColor = Color.Black;
+                }
+                else if (callType == "2")
+                {
+                    row.DefaultCellStyle.BackColor = Color.Green;
+                    row.DefaultCellStyle.ForeColor = Color.White;
+                }
+            }
+           
+            // 4. منطق تغيير النص (يتم تنفيذه فقط لعمود StatusText)
+            if (dgvQueue.Columns[e.ColumnIndex].Name == "StatusText")
+            {
+                if (isCalled)
+                {
+                    if (callType == "1") e.Value = "يرجى التوجه لغرفة القياسات";
+                    else if (callType == "2") e.Value = "يرجى التوجه لغرفة الطبيب";
+
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+        private void dgvQueue_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.ThrowException = false;
         }
     }
 }

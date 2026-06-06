@@ -89,6 +89,24 @@
     <Compile Include="Medical Services\Appointment\frmReschedule.Designer.cs">
       <DependentUpon>frmReschedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="Medical Services\Visit\frmAddUpdateVisit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Visit\frmAddUpdateVisit.Designer.cs">
+      <DependentUpon>frmAddUpdateVisit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Medical Services\Visit\frmListVisit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Visit\frmListVisit.Designer.cs">
+      <DependentUpon>frmListVisit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Medical Services\Vital\frmListVital.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Vital\frmListVital.Designer.cs">
+      <DependentUpon>frmListVital.cs</DependentUpon>
+    </Compile>
     <Compile Include="Person\Controls\ctrlPersonCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -291,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Appointment\frmReschedule.resx">
       <DependentUpon>frmReschedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Vital\frmListVital.resx">
+      <DependentUpon>frmListVital.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Patient\Controls\ctrlPatienCardtInfo.resx">
       <DependentUpon>ctrlPatienCardtInfo.cs</DependentUpon>
