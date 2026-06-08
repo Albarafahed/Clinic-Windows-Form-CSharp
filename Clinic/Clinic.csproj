@@ -89,11 +89,17 @@
     <Compile Include="Medical Services\Appointment\frmReschedule.Designer.cs">
       <DependentUpon>frmReschedule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Medical Services\Visit\frmAddUpdateVisit.cs">
+    <Compile Include="Medical Services\Visit\frmDoctor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Medical Services\Visit\frmAddUpdateVisit.Designer.cs">
-      <DependentUpon>frmAddUpdateVisit.cs</DependentUpon>
+    <Compile Include="Medical Services\Visit\frmDoctor.Designer.cs">
+      <DependentUpon>frmDoctor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Medical Services\Visit\frmAddUpdateMedicineToPrescription.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Visit\frmAddUpdateMedicineToPrescription.Designer.cs">
+      <DependentUpon>frmAddUpdateMedicineToPrescription.cs</DependentUpon>
     </Compile>
     <Compile Include="Medical Services\Visit\frmListVisit.cs">
       <SubType>Form</SubType>
@@ -101,11 +107,11 @@
     <Compile Include="Medical Services\Visit\frmListVisit.Designer.cs">
       <DependentUpon>frmListVisit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Medical Services\Vital\frmListVital.cs">
+    <Compile Include="Medical Services\Vital\frmNurse.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Medical Services\Vital\frmListVital.Designer.cs">
-      <DependentUpon>frmListVital.cs</DependentUpon>
+    <Compile Include="Medical Services\Vital\frmNurse.Designer.cs">
+      <DependentUpon>frmNurse.cs</DependentUpon>
     </Compile>
     <Compile Include="Person\Controls\ctrlPersonCard.cs">
       <SubType>UserControl</SubType>
@@ -310,8 +316,14 @@
     <EmbeddedResource Include="Medical Services\Appointment\frmReschedule.resx">
       <DependentUpon>frmReschedule.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Medical Services\Vital\frmListVital.resx">
-      <DependentUpon>frmListVital.cs</DependentUpon>
+    <EmbeddedResource Include="Medical Services\Visit\frmDoctor.resx">
+      <DependentUpon>frmDoctor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Visit\frmListVisit.resx">
+      <DependentUpon>frmListVisit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Vital\frmNurse.resx">
+      <DependentUpon>frmNurse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Patient\Controls\ctrlPatienCardtInfo.resx">
       <DependentUpon>ctrlPatienCardtInfo.cs</DependentUpon>

@@ -7,7 +7,7 @@ namespace Clinic_DataAccess
 {
     public class clsVitalsData
     {
-        public static int AddNewVitals(int AppointmentID, string BloodPressure, decimal Temperature, decimal Weight, int Pulse)
+        public static int AddNewVitals(int AppointmentID, string BloodPressure, decimal Temperature, decimal Weight, short Pulse)
         {
             int VitalID = -1;
             try
@@ -44,7 +44,7 @@ namespace Clinic_DataAccess
         }
 
         public static bool GetVitalsByAppointmentID(int AppointmentID, ref int VitalID, ref int? VisitID, ref string BloodPressure,
-                                                    ref decimal Temperature, ref decimal Weight, ref int Pulse, ref DateTime RecordedDate)
+                                                    ref decimal Temperature, ref decimal Weight, ref short Pulse, ref DateTime RecordedDate)
         {
             bool IsFound = false;
             try
@@ -65,7 +65,7 @@ namespace Clinic_DataAccess
                                 BloodPressure = reader["BloodPressure"].ToString();
                                 Temperature = (decimal)reader["Temperature"];
                                 Weight = (decimal)reader["Weight"];
-                                Pulse = (int)reader["Pulse"];
+                                Pulse = (short)reader["Pulse"];
                                 RecordedDate = (DateTime)reader["RecordedDate"];
                                 IsFound = true;
                             }
@@ -105,7 +105,7 @@ namespace Clinic_DataAccess
             return IsUpdated;
         }
 
-        public static bool UpdateVitals(int VitalID, string BloodPressure, decimal Temperature, decimal Weight, int Pulse)
+        public static bool UpdateVitals(int VitalID, string BloodPressure, decimal Temperature, decimal Weight, short Pulse)
         {
             bool IsUpdated = false;
             try

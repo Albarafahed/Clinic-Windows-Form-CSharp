@@ -37,6 +37,9 @@ namespace Clinic
             this.peopleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PatientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DoctorsStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.nurseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.doctorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.doctorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.UsersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MangementStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,9 +72,6 @@ namespace Clinic
             this.lblTitle3 = new System.Windows.Forms.Label();
             this.pnlCard2 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.nurseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.doctorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.doctorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.msMainMenue.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tsQuick.SuspendLayout();
@@ -195,6 +195,27 @@ namespace Clinic
             this.DoctorsStripMenuItem1.Size = new System.Drawing.Size(164, 68);
             this.DoctorsStripMenuItem1.Text = "Doctors";
             this.DoctorsStripMenuItem1.Click += new System.EventHandler(this.DoctorsStripMenuItem1_Click);
+            // 
+            // nurseToolStripMenuItem
+            // 
+            this.nurseToolStripMenuItem.Name = "nurseToolStripMenuItem";
+            this.nurseToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.nurseToolStripMenuItem.Text = "List Doctors";
+            this.nurseToolStripMenuItem.Click += new System.EventHandler(this.nurseToolStripMenuItem_Click);
+            // 
+            // doctorToolStripMenuItem
+            // 
+            this.doctorToolStripMenuItem.Name = "doctorToolStripMenuItem";
+            this.doctorToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.doctorToolStripMenuItem.Text = "Nurse";
+            this.doctorToolStripMenuItem.Click += new System.EventHandler(this.doctorToolStripMenuItem_Click);
+            // 
+            // doctorToolStripMenuItem1
+            // 
+            this.doctorToolStripMenuItem1.Name = "doctorToolStripMenuItem1";
+            this.doctorToolStripMenuItem1.Size = new System.Drawing.Size(224, 30);
+            this.doctorToolStripMenuItem1.Text = "Doctor";
+            this.doctorToolStripMenuItem1.Click += new System.EventHandler(this.doctorToolStripMenuItem1_Click);
             // 
             // UsersToolStripMenuItem
             // 
@@ -497,26 +518,6 @@ namespace Clinic
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // nurseToolStripMenuItem
-            // 
-            this.nurseToolStripMenuItem.Name = "nurseToolStripMenuItem";
-            this.nurseToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
-            this.nurseToolStripMenuItem.Text = "List Doctors";
-            this.nurseToolStripMenuItem.Click += new System.EventHandler(this.nurseToolStripMenuItem_Click);
-            // 
-            // doctorToolStripMenuItem
-            // 
-            this.doctorToolStripMenuItem.Name = "doctorToolStripMenuItem";
-            this.doctorToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
-            this.doctorToolStripMenuItem.Text = "Nurse";
-            this.doctorToolStripMenuItem.Click += new System.EventHandler(this.doctorToolStripMenuItem_Click);
-            // 
-            // doctorToolStripMenuItem1
-            // 
-            this.doctorToolStripMenuItem1.Name = "doctorToolStripMenuItem1";
-            this.doctorToolStripMenuItem1.Size = new System.Drawing.Size(224, 30);
-            this.doctorToolStripMenuItem1.Text = "Doctor";
             // 
             // frmMain
             // 

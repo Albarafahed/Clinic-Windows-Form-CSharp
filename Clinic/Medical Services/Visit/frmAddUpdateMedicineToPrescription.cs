@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Clinic.Medical_Services.Visit
 {
-    public partial class frmAddUpdateVisit : Form
+    public partial class frmAddUpdateMedicineToPrescription : Form
     {
-        public frmAddUpdateVisit()
+        public frmAddUpdateMedicineToPrescription()
         {
             InitializeComponent();
         }

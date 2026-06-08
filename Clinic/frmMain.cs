@@ -3,6 +3,7 @@ using Clinic.Appointment.AppointmentsType;
 using Clinic.Doctor;
 using Clinic.Login;
 using Clinic.Medical_Services.Appointment;
+using Clinic.Medical_Services.Visit;
 using Clinic.Medical_Services.Vital;
 using Clinic.Patient;
 using Clinic.Serveces.ServecesType;
@@ -136,7 +137,13 @@ namespace Clinic
 
         private void doctorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmListVital frm = new frmListVital();
+            frmNurse frm = new frmNurse();
+            frm.ShowDialog();
+        }
+
+        private void doctorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmDoctor frm = new frmDoctor();
             frm.ShowDialog();
         }
     }

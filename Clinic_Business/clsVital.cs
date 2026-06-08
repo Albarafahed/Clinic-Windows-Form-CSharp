@@ -15,7 +15,7 @@ namespace Clinic_Business
         public string BloodPressure { get; set; }
         public decimal Temperature { get; set; }
         public decimal Weight { get; set; }
-        public int Pulse { get; set; }
+        public short Pulse { get; set; }
         public DateTime RecordedDate { get; set; }
 
         // Constructor للـ AddNew
@@ -33,7 +33,7 @@ namespace Clinic_Business
 
         // Constructor للـ Update (Private)
         private clsVital(int VitalID, int AppointmentID, int? VisitID, string BloodPressure,
-                         decimal Temperature, decimal Weight, int Pulse, DateTime RecordedDate)
+                         decimal Temperature, decimal Weight, short Pulse, DateTime RecordedDate)
         {
             this.VitalID = VitalID;
             this.AppointmentID = AppointmentID;
@@ -81,7 +81,7 @@ namespace Clinic_Business
             string BloodPressure = "";
             decimal Temperature = 0;
             decimal Weight = 0;
-            int Pulse = 0;
+            short Pulse = 0;
             DateTime RecordedDate = DateTime.Now;
 
             if (clsVitalsData.GetVitalsByAppointmentID(AppointmentID, ref VitalID, ref VisitID, ref BloodPressure,
