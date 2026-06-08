@@ -10,7 +10,7 @@ namespace Clinic_DataAccess
     {
         public static bool GetAppointmentByID(int AppointmentID, ref int PatientID, ref int DoctorID,
             ref int CreatedByUserID, ref int AppointmentStatus, ref int AppointmentTypeID,
-            ref decimal AppointmentFees, ref DateTime AppointmentDate,ref DateTime CreatedDate)
+            ref decimal AppointmentFees, ref DateTime AppointmentDate, ref DateTime CreatedDate)
         {
             try
             {
@@ -369,9 +369,9 @@ namespace Clinic_DataAccess
         }
         private static int GetDayID(DateTime dateTime)
         {
-            int DayOfWeek =(int) dateTime.DayOfWeek;
+            int DayOfWeek = (int)dateTime.DayOfWeek;
 
-            return (DayOfWeek==6)?1:(DayOfWeek+2);
+            return (DayOfWeek == 6) ? 1 : (DayOfWeek + 2);
         }
         public static bool IsTimeCapacityAvailable(int DoctorID, DateTime AppointmentDate, int AppointmentTypeID)
         {
@@ -419,11 +419,11 @@ namespace Clinic_DataAccess
             }
             catch (SqlException ex)
             {
-                clsGlobalLogger.LogSqlException(ex,clsGlobalLogger.LogLevel.Error);
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
                 return false;
             }
-                
-            }
+
+        }
         public static bool UpdateAppointmentStatus(int AppointmentID, int StatusID, int UserID)
         {
             try
@@ -467,23 +467,16 @@ namespace Clinic_DataAccess
 
                 using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    string query = @"
-                                       SELECT 
-                                        A.AppointmentID, 
-                                        Pe.FullName AS PatientName,A.CallType,A.IsCalled,
-                                        A.CheckInTime,
-                                        CASE A.AppointmentStatus
-                                            WHEN 2 THEN 'In-Queue'
-                                            WHEN 7 THEN 'Waiting_For_Vitals'
-                                            WHEN 8 THEN 'Ready_For_Doctor'
-                                            ELSE 'Unknown'
-                                        END AS StatusText
-                                    FROM Appointments A
-                                    INNER JOIN Patients P ON A.PatientID = P.PatientID
-                                    INNER JOIN Persons Pe ON P.PersonID = Pe.PersonID
-                                    WHERE A.DoctorID = @DoctorID 
-                                      AND A.AppointmentStatus IN (2, 7, 8)
-                                    ORDER BY A.CheckInTime ASC;";
+                    string query = @" SELECT AppointmentID
+                                          ,PatientName
+                                          ,CallType
+                                          ,IsCalled
+                                          ,CheckInTime
+                                          ,StatusText
+                                      FROM View_WaitingPatients
+                                      WHERE DoctorID = 14
+                                      AND AppointmentStatus IN (2, 7, 8)
+                                       ORDER BY CheckInTime ASC";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@DoctorID", DoctorID);
@@ -575,7 +568,7 @@ namespace Clinic_DataAccess
         }
 
         public static bool RescheduleAppointmentTransaction(int OldAppointmentID, int PatientID, int DoctorID,
-    int CreatedByUserID, int AppointmentTypeID, decimal AppointmentFees, DateTime NewDate, int UserID)
+                           int CreatedByUserID, int AppointmentTypeID, decimal AppointmentFees, DateTime NewDate, int UserID)
         {
             SqlTransaction transaction = null;
             try
@@ -583,7 +576,7 @@ namespace Clinic_DataAccess
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
                     connection.Open();
-                     transaction = connection.BeginTransaction();
+                    transaction = connection.BeginTransaction();
 
 
                     // 1. إضافة الموعد الجديد
@@ -615,12 +608,12 @@ namespace Clinic_DataAccess
                     return true;
                 }
             }
-                catch (Exception ex)
-                {
-                    transaction.Rollback(); // إذا فشل أي شيء، تراجع عن كل شيء
-                    clsGlobalLogger.LogSqlException((SqlException)ex, clsGlobalLogger.LogLevel.Error);
-                    return false;
-                }
+            catch (Exception ex)
+            {
+                transaction.Rollback(); // إذا فشل أي شيء، تراجع عن كل شيء
+                clsGlobalLogger.LogSqlException((SqlException)ex, clsGlobalLogger.LogLevel.Error);
+                return false;
+            }
         }
 
         public static bool UpdatePatientCallStatus(int AppointmentID, bool IsCalled, int CallType)
@@ -654,6 +647,8 @@ namespace Clinic_DataAccess
                 return false;
             }
         }
+
+
     }
-    
+
 }

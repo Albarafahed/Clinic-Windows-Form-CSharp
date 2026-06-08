@@ -53,6 +53,7 @@
     <Compile Include="clsServicesType.cs" />
     <Compile Include="clsSpecialization.cs" />
     <Compile Include="clsUser.cs" />
+    <Compile Include="clsVisit.cs" />
     <Compile Include="clsVital.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

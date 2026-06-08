@@ -150,11 +150,11 @@ namespace Clinic_DataAccess
             {
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    string query = @"SELECT A.AppointmentID, P.FullName AS PatientName, A.CheckInTime 
-                     FROM Appointments A
-                     INNER JOIN Persons P ON A.PatientID = P.PersonID
-                     WHERE A.AppointmentStatus = 7
-                     ORDER BY A.CheckInTime ASC;";
+                    string query = @"SELECT * FROM View_PatientsWaitingForVitals 
+                             WHERE StatusText = 'Waiting_For_Vitals' 
+                            ORDER BY CheckInTime ASC";
+
+                                                                
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         connection.Open();
@@ -171,5 +171,6 @@ namespace Clinic_DataAccess
             }
             return dt;
         }
+
     }
 }
