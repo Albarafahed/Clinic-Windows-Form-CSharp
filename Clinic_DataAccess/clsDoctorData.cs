@@ -640,7 +640,6 @@ namespace Clinic_DataAccess
             {
                 using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    // نجلب فقط الأطباء النشطين أو الموجودين في جدول المواعيد
                     string query = @"SELECT D.DoctorID, P.FullName 
                          FROM Doctors D
                          INNER JOIN Persons P ON D.PersonID = P.PersonID;";

@@ -249,7 +249,7 @@ namespace Clinic.Medical_Services.Appointment
             {
                 if (clsAppointment.UpdateAppointmentStatus(currentAppointmentID, newStatus, clsGlobal.CurrentUser.UserID))
                 {
-                    if(newStatus==clsAppointment.enAppointmentStatus.InQueue)
+                    if (newStatus == clsAppointment.enAppointmentStatus.InQueue)
                     {
                         if (dgvAppointments.CurrentRow == null) return;
                         int appointmentID = (int)dgvAppointments.CurrentRow.Cells["AppointmentID"].Value;
@@ -260,6 +260,7 @@ namespace Clinic.Medical_Services.Appointment
                     MessageBox.Show($"✅ The operation was completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     _DataBackToUpdate(this, currentAppointmentID);
                 }
+
                 else
                 {
                     MessageBox.Show($"❌ An error occurred while updating the status.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -268,8 +269,27 @@ namespace Clinic.Medical_Services.Appointment
         }
 
         private void btnCheckIn_Click(object sender, EventArgs e)
-                   => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.InQueue, "check in this patient");
+        {
+            if(dgvAppointments.CurrentRow==null) return;
+            int AppointmentID =(int) dgvAppointments.CurrentRow.Cells["AppointmentID"].Value;
+            decimal AppointmentFees = (decimal)dgvAppointments.CurrentRow.Cells["AppointmentFees"].Value;
+            string PatientName = dgvAppointments.CurrentRow.Cells["PatientName"].Value.ToString();
 
+            frmCheckInDialog frm = new frmCheckInDialog(AppointmentID, AppointmentFees, PatientName);
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                string method = frm.SelectedPaymentMethod;
+                int userID = clsGlobal.CurrentUser.UserID; 
+                if (clsBillingService.CheckInPatient(AppointmentID, AppointmentFees, userID, method))
+                {
+                    clsAppointment.RefreshQueueForDoctor(clsAppointment.Find(AppointmentID).DoctorID);
+                    MessageBox.Show($"✅ Patient checked was completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _DataBackToUpdate(this, AppointmentID);
+                }
+               
+            }
+        }
         private void btnComplete_Click(object sender, EventArgs e)
             => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Postponed, "postpone this appointment");
 

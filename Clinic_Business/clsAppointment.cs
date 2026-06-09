@@ -17,7 +17,8 @@ namespace Clinic_Business
             Completed = 5, 
             Cancelled = 6,
             Waiting_For_Vitals= 7,
-            Ready_For_Doctor=8
+            Ready_For_Doctor=8,
+            In_Billing = 9
         }
 
         public int AppointmentID { get; set; }
@@ -25,7 +26,7 @@ namespace Clinic_Business
         public int DoctorID { get; set; }
         public clsDoctor DoctorInfo { get; set; }
         public int CreatedByUserID { get; set; }
-        public int AppointmentStatus { get; set; }
+        public byte AppointmentStatus { get; set; }
         public int AppointmentTypeID { get; set; }
         public clsAppointmentType AppointmentTypeInfo { get; set; }
         public decimal AppointmentFees { get; set; }
@@ -65,7 +66,7 @@ namespace Clinic_Business
         }
 
         private clsAppointment(int AppointmentID, int PatientID, int DoctorID, int CreatedByUserID,
-            int AppointmentStatus, int AppointmentTypeID, decimal AppointmentFees, DateTime AppointmentDate,DateTime CreatedDate)
+            byte AppointmentStatus, int AppointmentTypeID, decimal AppointmentFees, DateTime AppointmentDate,DateTime CreatedDate)
         {
             this.AppointmentID = AppointmentID;
             this.PatientID = PatientID;
@@ -83,7 +84,7 @@ namespace Clinic_Business
         public static clsAppointment Find(int AppointmentID)
         {
             int PatientID = -1, DoctorID = -1, CreatedByUserID = -1, AppointmentTypeID = -1;
-            int AppointmentStatus = 1;
+            byte AppointmentStatus = 1;
             decimal AppointmentFees = 0;
             DateTime AppointmentDate = DateTime.Now;
             DateTime CreatedDate = DateTime.Now;
@@ -232,6 +233,11 @@ namespace Clinic_Business
         {
             return clsAppointmentData.UpdatePatientCallStatus(AppoinmentID, IsCalled, CallType);
 
+        }
+
+        public static decimal GetAppointmentFees(int AppoinmentID)
+        {
+            return clsAppointmentData.GetAppointmentFees(AppoinmentID);
         }
     }
 }

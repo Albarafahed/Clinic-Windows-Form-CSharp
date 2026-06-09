@@ -71,6 +71,12 @@
     <Compile Include="Medical Services\Appointment\frmAddUpdateAppointment.Designer.cs">
       <DependentUpon>frmAddUpdateAppointment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Medical Services\Appointment\frmCheckInDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Appointment\frmCheckInDialog.Designer.cs">
+      <DependentUpon>frmCheckInDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Medical Services\Appointment\frmListAppointmets.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -306,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Appointment\frmAddUpdateAppointment.resx">
       <DependentUpon>frmAddUpdateAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Appointment\frmCheckInDialog.resx">
+      <DependentUpon>frmCheckInDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Appointment\frmListAppointmets.resx">
       <DependentUpon>frmListAppointmets.cs</DependentUpon>

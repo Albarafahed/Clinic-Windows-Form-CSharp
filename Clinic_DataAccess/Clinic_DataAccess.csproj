@@ -54,8 +54,10 @@
     <Compile Include="clsRoleData.cs" />
     <Compile Include="clsServicesTypeData.cs" />
     <Compile Include="clsSpecializationData.cs" />
+    <Compile Include="clsSystemSettingsData.cs" />
     <Compile Include="clsUserData.cs" />
     <Compile Include="clsVisitData.cs" />
+    <Compile Include="clsVisitServicesData.cs" />
     <Compile Include="clsVitalsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveExeption\clsGlobalLogger.cs" />

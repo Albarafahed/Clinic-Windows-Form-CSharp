@@ -7,15 +7,15 @@ namespace Clinic_DataAccess
 {
     public class clsVitalsData
     {
-        public static int AddNewVitals(int AppointmentID, string BloodPressure, decimal Temperature, decimal Weight, short Pulse)
+        public static int AddNewVitals(int AppointmentID, string BloodPressure, decimal Temperature, decimal Weight, short Pulse,int CreatedByUserID)
         {
             int VitalID = -1;
             try
             {
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    string query = @"INSERT INTO Vitals (AppointmentID, BloodPressure, Temperature, Weight, Pulse, RecordedDate)
-                                     VALUES (@AppointmentID, @BloodPressure, @Temperature, @Weight, @Pulse, GETDATE());
+                    string query = @"INSERT INTO Vitals (AppointmentID, BloodPressure, Temperature, Weight, Pulse, RecordedDate,CreatedByUserID)
+                                     VALUES (@AppointmentID, @BloodPressure, @Temperature, @Weight, @Pulse, GETDATE(),@CreatedByUserID);
                                      SELECT SCOPE_IDENTITY();";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -25,7 +25,7 @@ namespace Clinic_DataAccess
                         command.Parameters.AddWithValue("@Temperature", Temperature);
                         command.Parameters.AddWithValue("@Weight", Weight);
                         command.Parameters.AddWithValue("@Pulse", Pulse);
-
+                        command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
                         connection.Open();
                         object result = command.ExecuteScalar();
                         if (result != null && int.TryParse(result.ToString(), out int newVitalID))
@@ -44,7 +44,7 @@ namespace Clinic_DataAccess
         }
 
         public static bool GetVitalsByAppointmentID(int AppointmentID, ref int VitalID, ref int? VisitID, ref string BloodPressure,
-                                                    ref decimal Temperature, ref decimal Weight, ref short Pulse, ref DateTime RecordedDate)
+                                                    ref decimal Temperature, ref decimal Weight, ref short Pulse, ref DateTime RecordedDate,ref int CreatedByUserID)
         {
             bool IsFound = false;
             try
@@ -67,6 +67,46 @@ namespace Clinic_DataAccess
                                 Weight = (decimal)reader["Weight"];
                                 Pulse = (short)reader["Pulse"];
                                 RecordedDate = (DateTime)reader["RecordedDate"];
+                                CreatedByUserID = (int)reader["CreatedByUserID"];
+                                IsFound = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                IsFound = false;
+            }
+            return IsFound;
+        }
+
+        public static bool GetVitalsByVisitID(int VisitID, ref int VitalID, ref int AppointmentID, ref string BloodPressure,
+                                                   ref decimal Temperature, ref decimal Weight, ref short Pulse, ref DateTime RecordedDate, ref int CreatedByUserID)
+        {
+            bool IsFound = false;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT * FROM Vitals WHERE VisitID = @VisitID";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@VisitID", VisitID);
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                VitalID = (int)reader["VitalID"];
+                                AppointmentID =(int) reader["AppointmentID"];
+                                BloodPressure = reader["BloodPressure"].ToString();
+                                Temperature = (decimal)reader["Temperature"];
+                                Weight = (decimal)reader["Weight"];
+                                Pulse = (short)reader["Pulse"];
+                                RecordedDate = (DateTime)reader["RecordedDate"];
+                                CreatedByUserID = (int)reader["CreatedByUserID"];
                                 IsFound = true;
                             }
                         }
@@ -105,7 +145,7 @@ namespace Clinic_DataAccess
             return IsUpdated;
         }
 
-        public static bool UpdateVitals(int VitalID, string BloodPressure, decimal Temperature, decimal Weight, short Pulse)
+        public static bool UpdateVitals(int VitalID, string BloodPressure, decimal Temperature, decimal Weight, short Pulse,int CreatedByUserID)
         {
             bool IsUpdated = false;
             try
@@ -117,7 +157,8 @@ namespace Clinic_DataAccess
                                      SET BloodPressure = @BloodPressure, 
                                          Temperature = @Temperature, 
                                          Weight = @Weight, 
-                                         Pulse = @Pulse 
+                                         Pulse = @Pulse ,
+                                         CreatedByUserID=@CreatedByUserID
                                      WHERE VitalID = @VitalID";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -127,6 +168,7 @@ namespace Clinic_DataAccess
                         command.Parameters.AddWithValue("@Temperature", Temperature);
                         command.Parameters.AddWithValue("@Weight", Weight);
                         command.Parameters.AddWithValue("@Pulse", Pulse);
+                        command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
 
                         connection.Open();
                         int rowsAffected = command.ExecuteNonQuery();

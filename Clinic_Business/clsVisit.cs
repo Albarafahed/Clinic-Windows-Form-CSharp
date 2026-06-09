@@ -16,8 +16,15 @@ namespace Clinic_Business
         public int AppointmentID { get; set; }
         public string VisitNotes { get; set; }
         public int DoctorID { get; set; }
-        public bool VisitStatus { get; set; }
-
+        public byte VisitStatus { get; set; }
+        public int CreatedByUserID { get; set; }
+        public decimal TotalAmount { get; set; }
+        public enum enVisitStatus
+        {
+            Active = 1,
+            Pending_Billing = 2,
+            Completed = 3
+        }
         public clsVisit()
         {
             this.VisitID = -1;
@@ -25,14 +32,15 @@ namespace Clinic_Business
             this.DoctorID = -1;
             this.AppointmentID = -1;
             this.VisitNotes = "";
-            this.VisitStatus = false;
+            this.VisitStatus = 0;
             this.Diagnosis = "";
             this.VisitDate = DateTime.Now;
             _Mode = enMode.AddNew;
         }
 
         private clsVisit(int VisitID, int PatientID, int DoctorID, int AppointmentID,
-                         string Diagnosis, string VisitNotes, DateTime VisitDate, bool VisitStatus)
+                         string Diagnosis, string VisitNotes, DateTime VisitDate,
+                         byte VisitStatus, decimal TotalAmount, int CreatedByUserID)
         {
             this.VisitID = VisitID;
             this.PatientID = PatientID;
@@ -42,19 +50,20 @@ namespace Clinic_Business
             this.VisitStatus = VisitStatus;
             this.Diagnosis = Diagnosis;
             this.VisitDate = VisitDate;
+            this.TotalAmount = TotalAmount;
+            this.CreatedByUserID = CreatedByUserID;
             _Mode = enMode.Update;
         }
 
         private bool _AddNewVisit()
         {
-            this.VisitID = clsVisitData.AddNewVisit(this.PatientID, this.Diagnosis, this.VisitDate,
-                                                    this.AppointmentID, this.VisitNotes, this.DoctorID, this.VisitStatus);
+            this.VisitID = clsVisitData.SaveVisitAndLinkVitals(AppointmentID, PatientID, Diagnosis, VisitNotes, DoctorID, VisitDate, CreatedByUserID, TotalAmount);
             return (this.VisitID != -1);
         }
 
         private bool _UpdateVisit()
         {
-            return clsVisitData.UpdateVisit(this.VisitID, this.Diagnosis, this.VisitNotes, this.VisitStatus);
+            return clsVisitData.UpdateVisit(VisitID, Diagnosis, VisitNotes, VisitStatus, CreatedByUserID);
         }
 
         public bool Save()
@@ -80,14 +89,20 @@ namespace Clinic_Business
             int PatientID = -1, AppointmentID = -1, DoctorID = -1;
             string Diagnosis = "", VisitNotes = "";
             DateTime VisitDate = DateTime.Now;
-            bool VisitStatus = false;
+            byte VisitStatus = 0;
+            decimal TotalAmount = 0.0m;
+            int CreatedByUserID = -1;
 
-            if (clsVisitData.GetVisitByID(VisitID, ref PatientID, ref Diagnosis, ref VisitDate,
-                                          ref AppointmentID, ref VisitNotes, ref DoctorID, ref VisitStatus))
+            if (clsVisitData.GetVisitByID(VisitID,ref PatientID,ref Diagnosis,ref VisitDate,ref AppointmentID,ref VisitNotes,ref DoctorID,ref VisitStatus,ref TotalAmount,ref CreatedByUserID))
             {
-                return new clsVisit(VisitID, PatientID, DoctorID, AppointmentID, Diagnosis, VisitNotes, VisitDate, VisitStatus);
+                return new clsVisit(VisitID, PatientID, DoctorID, AppointmentID, Diagnosis, VisitNotes, VisitDate, VisitStatus,TotalAmount,CreatedByUserID);
             }
             return null;
+        }
+
+         public static bool IsVisitClosed(int VisitID)
+        {
+            return clsVisit.IsVisitClosed(VisitID);
         }
 
         public static DataTable GetPatientsWaitingForDoctors(int DoctorID)

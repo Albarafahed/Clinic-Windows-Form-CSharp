@@ -142,7 +142,7 @@ namespace Clinic.Medical_Services.Appointment
             _Appointment.AppointmentFees = Convert.ToDecimal(lblTotalAppointmentFees.Text);
             _Appointment.AppointmentDate = dtpAppointmentDate.Value;
             if (_Mode == enMode.AddNew)
-                _Appointment.AppointmentStatus = (short)clsAppointment.enAppointmentStatus.Scheduled;
+                _Appointment.AppointmentStatus = (byte)clsAppointment.enAppointmentStatus.Scheduled;
         }
 
         private void _TotalAppointment()

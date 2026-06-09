@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gpPatientInfo = new System.Windows.Forms.GroupBox();
             this.llDoctorInfo = new System.Windows.Forms.LinkLabel();
             this.llPatientInfo = new System.Windows.Forms.LinkLabel();
@@ -51,8 +52,45 @@
             this.lblVisitID = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tcVisitInfo = new System.Windows.Forms.TabControl();
+            this.tpVisitInfo = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lbVisitDate = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.lbVisitID = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.lbBP = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.lbWeight = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.lblTemp = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.pictureBox14 = new System.Windows.Forms.PictureBox();
+            this.lbPluse = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.txtDiagnosis = new System.Windows.Forms.TextBox();
+            this.txtNotes = new System.Windows.Forms.TextBox();
+            this.btnSaveVisit = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.panWaittingList = new System.Windows.Forms.Panel();
+            this.lblRecordsCount = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.dgvDoctorQueue = new System.Windows.Forms.DataGridView();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.tpServices = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnSaveVisitServices = new System.Windows.Forms.Button();
             this.dgvServices = new System.Windows.Forms.DataGridView();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label21 = new System.Windows.Forms.Label();
@@ -60,7 +98,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.nudQuality = new System.Windows.Forms.NumericUpDown();
             this.cmbServices = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAddService = new System.Windows.Forms.Button();
             this.tpPrescriptionInfo = new System.Windows.Forms.TabPage();
             this.button3 = new System.Windows.Forms.Button();
             this.dgvMedicines = new System.Windows.Forms.DataGridView();
@@ -75,53 +113,39 @@
             this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.pnlActions = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnInProgress = new System.Windows.Forms.Button();
+            this.btnPostpone = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnNextPatient = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panTitle = new System.Windows.Forms.Panel();
-            this.lbTitle = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dgvNurseQueue = new System.Windows.Forms.DataGridView();
-            this.tpVisitInfo = new System.Windows.Forms.TabPage();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.dtpDateTime = new System.Windows.Forms.DateTimePicker();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnSaveandNext = new System.Windows.Forms.Button();
-            this.txtNotes = new System.Windows.Forms.TextBox();
-            this.txtDiagnosis = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.lbPluse = new System.Windows.Forms.Label();
-            this.pictureBox14 = new System.Windows.Forms.PictureBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.lblTemp = new System.Windows.Forms.Label();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.lbWeight = new System.Windows.Forms.Label();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.lbBP = new System.Windows.Forms.Label();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.lbDate = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.gpPatientInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tcVisitInfo.SuspendLayout();
+            this.tpVisitInfo.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            this.panWaittingList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDoctorQueue)).BeginInit();
+            this.panel2.SuspendLayout();
             this.tpServices.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvServices)).BeginInit();
             this.panel5.SuspendLayout();
@@ -134,20 +158,7 @@
             this.pnlActions.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panTitle.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNurseQueue)).BeginInit();
-            this.tpVisitInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            this.panel7.SuspendLayout();
-            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // gpPatientInfo
@@ -339,16 +350,489 @@
             this.tcVisitInfo.Size = new System.Drawing.Size(1495, 576);
             this.tcVisitInfo.TabIndex = 1;
             // 
+            // tpVisitInfo
+            // 
+            this.tpVisitInfo.Controls.Add(this.panel4);
+            this.tpVisitInfo.Controls.Add(this.panWaittingList);
+            this.tpVisitInfo.Controls.Add(this.label6);
+            this.tpVisitInfo.Controls.Add(this.label14);
+            this.tpVisitInfo.Location = new System.Drawing.Point(4, 37);
+            this.tpVisitInfo.Margin = new System.Windows.Forms.Padding(6);
+            this.tpVisitInfo.Name = "tpVisitInfo";
+            this.tpVisitInfo.Padding = new System.Windows.Forms.Padding(5);
+            this.tpVisitInfo.Size = new System.Drawing.Size(1487, 535);
+            this.tpVisitInfo.TabIndex = 0;
+            this.tpVisitInfo.Text = "VisitInfo";
+            this.tpVisitInfo.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.lbVisitDate);
+            this.panel4.Controls.Add(this.panel7);
+            this.panel4.Controls.Add(this.groupBox1);
+            this.panel4.Controls.Add(this.txtDiagnosis);
+            this.panel4.Controls.Add(this.txtNotes);
+            this.panel4.Controls.Add(this.btnSaveVisit);
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Controls.Add(this.pictureBox8);
+            this.panel4.Controls.Add(this.pictureBox7);
+            this.panel4.Controls.Add(this.pictureBox6);
+            this.panel4.Controls.Add(this.label12);
+            this.panel4.Controls.Add(this.label10);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(581, 5);
+            this.panel4.Name = "panel4";
+            this.panel4.Padding = new System.Windows.Forms.Padding(5);
+            this.panel4.Size = new System.Drawing.Size(901, 525);
+            this.panel4.TabIndex = 227;
+            // 
+            // lbVisitDate
+            // 
+            this.lbVisitDate.AutoSize = true;
+            this.lbVisitDate.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbVisitDate.ForeColor = System.Drawing.Color.Black;
+            this.lbVisitDate.Location = new System.Drawing.Point(213, 239);
+            this.lbVisitDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbVisitDate.Name = "lbVisitDate";
+            this.lbVisitDate.Size = new System.Drawing.Size(97, 38);
+            this.lbVisitDate.TabIndex = 237;
+            this.lbVisitDate.Text = "[? ? ? ]";
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(40)))), ((int)(((byte)(90)))));
+            this.panel7.Controls.Add(this.lbVisitID);
+            this.panel7.Controls.Add(this.label16);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel7.Location = new System.Drawing.Point(5, 5);
+            this.panel7.Margin = new System.Windows.Forms.Padding(5);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(891, 66);
+            this.panel7.TabIndex = 254;
+            // 
+            // lbVisitID
+            // 
+            this.lbVisitID.AutoSize = true;
+            this.lbVisitID.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbVisitID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.lbVisitID.Location = new System.Drawing.Point(195, 18);
+            this.lbVisitID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbVisitID.Name = "lbVisitID";
+            this.lbVisitID.Size = new System.Drawing.Size(97, 38);
+            this.lbVisitID.TabIndex = 236;
+            this.lbVisitID.Text = "[? ? ? ]";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.White;
+            this.label16.Location = new System.Drawing.Point(33, 10);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(149, 45);
+            this.label16.TabIndex = 235;
+            this.label16.Text = "Visit ID :";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.groupBox1.Controls.Add(this.pictureBox9);
+            this.groupBox1.Controls.Add(this.lbBP);
+            this.groupBox1.Controls.Add(this.label18);
+            this.groupBox1.Controls.Add(this.pictureBox10);
+            this.groupBox1.Controls.Add(this.lbWeight);
+            this.groupBox1.Controls.Add(this.label20);
+            this.groupBox1.Controls.Add(this.pictureBox5);
+            this.groupBox1.Controls.Add(this.lblTemp);
+            this.groupBox1.Controls.Add(this.label17);
+            this.groupBox1.Controls.Add(this.pictureBox14);
+            this.groupBox1.Controls.Add(this.lbPluse);
+            this.groupBox1.Controls.Add(this.label23);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Location = new System.Drawing.Point(55, 76);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(5);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(598, 154);
+            this.groupBox1.TabIndex = 253;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Vitals Info";
+            // 
+            // pictureBox9
+            // 
+            this.pictureBox9.Image = global::Clinic.Properties.Resources.ID_32;
+            this.pictureBox9.Location = new System.Drawing.Point(336, 102);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox9.TabIndex = 232;
+            this.pictureBox9.TabStop = false;
+            // 
+            // lbBP
+            // 
+            this.lbBP.BackColor = System.Drawing.Color.Silver;
+            this.lbBP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lbBP.Location = new System.Drawing.Point(446, 102);
+            this.lbBP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbBP.Name = "lbBP";
+            this.lbBP.Size = new System.Drawing.Size(130, 38);
+            this.lbBP.TabIndex = 231;
+            this.lbBP.Text = "[???] mmHg";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label18.Location = new System.Drawing.Point(374, 102);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(42, 28);
+            this.label18.TabIndex = 230;
+            this.label18.Text = "BP:";
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Image = global::Clinic.Properties.Resources.ID_32;
+            this.pictureBox10.Location = new System.Drawing.Point(16, 102);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox10.TabIndex = 229;
+            this.pictureBox10.TabStop = false;
+            // 
+            // lbWeight
+            // 
+            this.lbWeight.BackColor = System.Drawing.Color.Silver;
+            this.lbWeight.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lbWeight.Location = new System.Drawing.Point(148, 100);
+            this.lbWeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbWeight.Name = "lbWeight";
+            this.lbWeight.Size = new System.Drawing.Size(130, 38);
+            this.lbWeight.TabIndex = 228;
+            this.lbWeight.Text = "[???] kg";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label20.Location = new System.Drawing.Point(54, 102);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(85, 28);
+            this.label20.TabIndex = 227;
+            this.label20.Text = "Weight:";
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::Clinic.Properties.Resources.ID_32;
+            this.pictureBox5.Location = new System.Drawing.Point(336, 44);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 226;
+            this.pictureBox5.TabStop = false;
+            // 
+            // lblTemp
+            // 
+            this.lblTemp.BackColor = System.Drawing.Color.Silver;
+            this.lblTemp.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblTemp.Location = new System.Drawing.Point(446, 44);
+            this.lblTemp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTemp.Name = "lblTemp";
+            this.lblTemp.Size = new System.Drawing.Size(130, 38);
+            this.lblTemp.TabIndex = 225;
+            this.lblTemp.Text = "[???] °C";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label17.Location = new System.Drawing.Point(374, 44);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(68, 28);
+            this.label17.TabIndex = 224;
+            this.label17.Text = "Temp:";
+            // 
+            // pictureBox14
+            // 
+            this.pictureBox14.Image = global::Clinic.Properties.Resources.ID_32;
+            this.pictureBox14.Location = new System.Drawing.Point(16, 44);
+            this.pictureBox14.Name = "pictureBox14";
+            this.pictureBox14.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox14.TabIndex = 223;
+            this.pictureBox14.TabStop = false;
+            // 
+            // lbPluse
+            // 
+            this.lbPluse.BackColor = System.Drawing.Color.Silver;
+            this.lbPluse.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lbPluse.Location = new System.Drawing.Point(148, 42);
+            this.lbPluse.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbPluse.Name = "lbPluse";
+            this.lbPluse.Size = new System.Drawing.Size(130, 38);
+            this.lbPluse.TabIndex = 222;
+            this.lbPluse.Text = "[???] bpm";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label23.Location = new System.Drawing.Point(54, 44);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(67, 28);
+            this.label23.TabIndex = 221;
+            this.label23.Text = "Pluse:";
+            // 
+            // txtDiagnosis
+            // 
+            this.txtDiagnosis.Location = new System.Drawing.Point(208, 288);
+            this.txtDiagnosis.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtDiagnosis.MaxLength = 50;
+            this.txtDiagnosis.Multiline = true;
+            this.txtDiagnosis.Name = "txtDiagnosis";
+            this.txtDiagnosis.Size = new System.Drawing.Size(445, 63);
+            this.txtDiagnosis.TabIndex = 252;
+            this.txtDiagnosis.Validating += new System.ComponentModel.CancelEventHandler(this.txtDiagnosis_Validating);
+            // 
+            // txtNotes
+            // 
+            this.txtNotes.Location = new System.Drawing.Point(54, 386);
+            this.txtNotes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtNotes.MaxLength = 50;
+            this.txtNotes.Multiline = true;
+            this.txtNotes.Name = "txtNotes";
+            this.txtNotes.Size = new System.Drawing.Size(599, 72);
+            this.txtNotes.TabIndex = 251;
+            // 
+            // btnSaveVisit
+            // 
+            this.btnSaveVisit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
+            this.btnSaveVisit.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnSaveVisit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveVisit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.btnSaveVisit.Image = global::Clinic.Properties.Resources.Next_32;
+            this.btnSaveVisit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSaveVisit.Location = new System.Drawing.Point(475, 463);
+            this.btnSaveVisit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSaveVisit.Name = "btnSaveVisit";
+            this.btnSaveVisit.Size = new System.Drawing.Size(195, 48);
+            this.btnSaveVisit.TabIndex = 250;
+            this.btnSaveVisit.Text = "Save and Next";
+            this.btnSaveVisit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveVisit.UseVisualStyleBackColor = false;
+            this.btnSaveVisit.Click += new System.EventHandler(this.btnSaveandNext_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(56, 360);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 28);
+            this.label4.TabIndex = 249;
+            this.label4.Text = "Notes:";
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = global::Clinic.Properties.Resources.Calendar_32;
+            this.pictureBox8.Location = new System.Drawing.Point(163, 251);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox8.TabIndex = 248;
+            this.pictureBox8.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::Clinic.Properties.Resources.Notes_32;
+            this.pictureBox7.Location = new System.Drawing.Point(163, 353);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox7.TabIndex = 246;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::Clinic.Properties.Resources.Diagnosis_32;
+            this.pictureBox6.Location = new System.Drawing.Point(163, 303);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 245;
+            this.pictureBox6.TabStop = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label12.Location = new System.Drawing.Point(40, 308);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(109, 28);
+            this.label12.TabIndex = 244;
+            this.label12.Text = "Diagnosis:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label10.Location = new System.Drawing.Point(30, 251);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(110, 28);
+            this.label10.TabIndex = 243;
+            this.label10.Text = "Visit Date:";
+            // 
+            // panWaittingList
+            // 
+            this.panWaittingList.Controls.Add(this.lblRecordsCount);
+            this.panWaittingList.Controls.Add(this.label22);
+            this.panWaittingList.Controls.Add(this.dgvDoctorQueue);
+            this.panWaittingList.Controls.Add(this.panel2);
+            this.panWaittingList.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panWaittingList.Location = new System.Drawing.Point(5, 5);
+            this.panWaittingList.Name = "panWaittingList";
+            this.panWaittingList.Padding = new System.Windows.Forms.Padding(5);
+            this.panWaittingList.Size = new System.Drawing.Size(576, 525);
+            this.panWaittingList.TabIndex = 226;
+            // 
+            // lblRecordsCount
+            // 
+            this.lblRecordsCount.AutoSize = true;
+            this.lblRecordsCount.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblRecordsCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
+            this.lblRecordsCount.Location = new System.Drawing.Point(113, 486);
+            this.lblRecordsCount.Name = "lblRecordsCount";
+            this.lblRecordsCount.Size = new System.Drawing.Size(28, 25);
+            this.lblRecordsCount.TabIndex = 245;
+            this.lblRecordsCount.Text = "??";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.label22.Location = new System.Drawing.Point(8, 486);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(104, 25);
+            this.label22.TabIndex = 244;
+            this.label22.Text = "# Records:";
+            // 
+            // dgvDoctorQueue
+            // 
+            this.dgvDoctorQueue.AllowUserToAddRows = false;
+            this.dgvDoctorQueue.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.dgvDoctorQueue.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvDoctorQueue.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDoctorQueue.BackgroundColor = System.Drawing.Color.White;
+            this.dgvDoctorQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvDoctorQueue.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDoctorQueue.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvDoctorQueue.ColumnHeadersHeight = 45;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDoctorQueue.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvDoctorQueue.EnableHeadersVisualStyles = false;
+            this.dgvDoctorQueue.Location = new System.Drawing.Point(5, 71);
+            this.dgvDoctorQueue.MultiSelect = false;
+            this.dgvDoctorQueue.Name = "dgvDoctorQueue";
+            this.dgvDoctorQueue.ReadOnly = true;
+            this.dgvDoctorQueue.RowHeadersVisible = false;
+            this.dgvDoctorQueue.RowHeadersWidth = 51;
+            this.dgvDoctorQueue.RowTemplate.Height = 40;
+            this.dgvDoctorQueue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvDoctorQueue.Size = new System.Drawing.Size(566, 413);
+            this.dgvDoctorQueue.TabIndex = 243;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
+            this.panel2.Controls.Add(this.btnRefresh);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(5, 5);
+            this.panel2.Margin = new System.Windows.Forms.Padding(5);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(566, 66);
+            this.panel2.TabIndex = 242;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(190)))), ((int)(((byte)(100)))));
+            this.btnRefresh.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefresh.ForeColor = System.Drawing.Color.White;
+            this.btnRefresh.Location = new System.Drawing.Point(361, 9);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(146, 46);
+            this.btnRefresh.TabIndex = 236;
+            this.btnRefresh.Text = " Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label2.Location = new System.Drawing.Point(13, 12);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(217, 45);
+            this.label2.TabIndex = 235;
+            this.label2.Text = "Waitting List";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(499, 356);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(73, 28);
+            this.label6.TabIndex = 225;
+            this.label6.Text = "Notes:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(-68, 208);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(68, 25);
+            this.label14.TabIndex = 219;
+            this.label14.Text = "Notes";
+            // 
             // tpServices
             // 
-            this.tpServices.Controls.Add(this.button2);
+            this.tpServices.Controls.Add(this.btnSaveVisitServices);
             this.tpServices.Controls.Add(this.dgvServices);
             this.tpServices.Controls.Add(this.panel5);
             this.tpServices.Controls.Add(this.label8);
             this.tpServices.Controls.Add(this.label9);
             this.tpServices.Controls.Add(this.nudQuality);
             this.tpServices.Controls.Add(this.cmbServices);
-            this.tpServices.Controls.Add(this.button1);
+            this.tpServices.Controls.Add(this.btnAddService);
             this.tpServices.Location = new System.Drawing.Point(4, 37);
             this.tpServices.Name = "tpServices";
             this.tpServices.Padding = new System.Windows.Forms.Padding(3);
@@ -357,22 +841,23 @@
             this.tpServices.Text = "Services";
             this.tpServices.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnSaveVisitServices
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            this.button2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.button2.Image = global::Clinic.Properties.Resources.Next_32;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button2.Location = new System.Drawing.Point(782, 480);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(195, 48);
-            this.button2.TabIndex = 244;
-            this.button2.Text = "Save and Next";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnSaveVisitServices.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
+            this.btnSaveVisitServices.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnSaveVisitServices.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveVisitServices.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.btnSaveVisitServices.Image = global::Clinic.Properties.Resources.Next_32;
+            this.btnSaveVisitServices.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSaveVisitServices.Location = new System.Drawing.Point(782, 480);
+            this.btnSaveVisitServices.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSaveVisitServices.Name = "btnSaveVisitServices";
+            this.btnSaveVisitServices.Size = new System.Drawing.Size(195, 48);
+            this.btnSaveVisitServices.TabIndex = 244;
+            this.btnSaveVisitServices.Text = "Save and Next";
+            this.btnSaveVisitServices.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveVisitServices.UseVisualStyleBackColor = false;
+            this.btnSaveVisitServices.Click += new System.EventHandler(this.button2_Click);
             // 
             // dgvServices
             // 
@@ -476,21 +961,22 @@
             this.cmbServices.Size = new System.Drawing.Size(309, 36);
             this.cmbServices.TabIndex = 236;
             // 
-            // button1
+            // btnAddService
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Image = global::Clinic.Properties.Resources.add_32;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(264, 187);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(236, 41);
-            this.button1.TabIndex = 240;
-            this.button1.Text = "Add New Services";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnAddService.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.btnAddService.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAddService.ForeColor = System.Drawing.Color.White;
+            this.btnAddService.Image = global::Clinic.Properties.Resources.add_32;
+            this.btnAddService.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddService.Location = new System.Drawing.Point(264, 187);
+            this.btnAddService.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAddService.Name = "btnAddService";
+            this.btnAddService.Size = new System.Drawing.Size(236, 41);
+            this.btnAddService.TabIndex = 240;
+            this.btnAddService.Text = "Add New Services";
+            this.btnAddService.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddService.UseVisualStyleBackColor = false;
+            this.btnAddService.Click += new System.EventHandler(this.btnAddService_Click);
             // 
             // tpPrescriptionInfo
             // 
@@ -671,9 +1157,10 @@
             // 
             this.pnlActions.BackColor = System.Drawing.Color.Transparent;
             this.pnlActions.Controls.Add(this.btnClose);
-            this.pnlActions.Controls.Add(this.button6);
+            this.pnlActions.Controls.Add(this.btnInProgress);
+            this.pnlActions.Controls.Add(this.btnPostpone);
             this.pnlActions.Controls.Add(this.button5);
-            this.pnlActions.Controls.Add(this.button4);
+            this.pnlActions.Controls.Add(this.btnNextPatient);
             this.pnlActions.Controls.Add(this.btnSave);
             this.pnlActions.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlActions.Location = new System.Drawing.Point(1282, 0);
@@ -687,7 +1174,7 @@
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(47, 422);
+            this.btnClose.Location = new System.Drawing.Point(47, 478);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(113, 48);
             this.btnClose.TabIndex = 5;
@@ -695,48 +1182,61 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // button6
+            // btnInProgress
             // 
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.ForeColor = System.Drawing.Color.Black;
-            this.button6.Location = new System.Drawing.Point(6, 288);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(200, 68);
-            this.button6.TabIndex = 4;
-            this.button6.Text = "Postpone";
-            this.button6.UseVisualStyleBackColor = false;
+            this.btnInProgress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(100)))), ((int)(((byte)(7)))));
+            this.btnInProgress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInProgress.ForeColor = System.Drawing.Color.Black;
+            this.btnInProgress.Location = new System.Drawing.Point(9, 205);
+            this.btnInProgress.Name = "btnInProgress";
+            this.btnInProgress.Size = new System.Drawing.Size(200, 68);
+            this.btnInProgress.TabIndex = 6;
+            this.btnInProgress.Text = "In-Progress";
+            this.btnInProgress.UseVisualStyleBackColor = false;
+            // 
+            // btnPostpone
+            // 
+            this.btnPostpone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.btnPostpone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPostpone.ForeColor = System.Drawing.Color.Black;
+            this.btnPostpone.Location = new System.Drawing.Point(6, 373);
+            this.btnPostpone.Name = "btnPostpone";
+            this.btnPostpone.Size = new System.Drawing.Size(200, 68);
+            this.btnPostpone.TabIndex = 4;
+            this.btnPostpone.Text = "Postpone";
+            this.btnPostpone.UseVisualStyleBackColor = false;
             // 
             // button5
             // 
             this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(6, 201);
+            this.button5.Location = new System.Drawing.Point(6, 289);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(200, 68);
             this.button5.TabIndex = 3;
             this.button5.Text = "Cancel Visit";
             this.button5.UseVisualStyleBackColor = false;
             // 
-            // button4
+            // btnNextPatient
             // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(6, 114);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(200, 68);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Schedule Follow-up";
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnNextPatient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
+            this.btnNextPatient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNextPatient.ForeColor = System.Drawing.Color.White;
+            this.btnNextPatient.Location = new System.Drawing.Point(6, 121);
+            this.btnNextPatient.Name = "btnNextPatient";
+            this.btnNextPatient.Size = new System.Drawing.Size(200, 68);
+            this.btnNextPatient.TabIndex = 2;
+            this.btnNextPatient.Text = "Next Patient";
+            this.btnNextPatient.UseVisualStyleBackColor = false;
+            this.btnNextPatient.Click += new System.EventHandler(this.btnNextPatient_Click);
             // 
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(3, 27);
+            this.btnSave.Location = new System.Drawing.Point(4, 37);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(200, 68);
             this.btnSave.TabIndex = 1;
@@ -756,7 +1256,9 @@
             // panTitle
             // 
             this.panTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(40)))), ((int)(((byte)(90)))));
-            this.panTitle.Controls.Add(this.lbTitle);
+            this.panTitle.Controls.Add(this.lbDate);
+            this.panTitle.Controls.Add(this.label24);
+            this.panTitle.Controls.Add(this.lblTitle);
             this.panTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panTitle.Location = new System.Drawing.Point(10, 10);
             this.panTitle.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
@@ -764,448 +1266,54 @@
             this.panTitle.Size = new System.Drawing.Size(1495, 83);
             this.panTitle.TabIndex = 237;
             // 
-            // lbTitle
-            // 
-            this.lbTitle.AutoSize = true;
-            this.lbTitle.Font = new System.Drawing.Font("Segoe UI", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.lbTitle.Location = new System.Drawing.Point(574, 9);
-            this.lbTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(339, 62);
-            this.lbTitle.TabIndex = 236;
-            this.lbTitle.Text = "Add New Visit";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(-68, 208);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(68, 25);
-            this.label14.TabIndex = 219;
-            this.label14.Text = "Notes";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(499, 356);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(73, 28);
-            this.label6.TabIndex = 225;
-            this.label6.Text = "Notes:";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.dgvNurseQueue);
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(5, 5);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(5);
-            this.panel1.Size = new System.Drawing.Size(576, 525);
-            this.panel1.TabIndex = 226;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(5, 5);
-            this.panel2.Margin = new System.Windows.Forms.Padding(5);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(566, 66);
-            this.panel2.TabIndex = 242;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label2.Location = new System.Drawing.Point(13, 12);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(217, 45);
-            this.label2.TabIndex = 235;
-            this.label2.Text = "Waitting List";
-            // 
-            // dgvNurseQueue
-            // 
-            this.dgvNurseQueue.AllowUserToAddRows = false;
-            this.dgvNurseQueue.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
-            this.dgvNurseQueue.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvNurseQueue.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvNurseQueue.BackgroundColor = System.Drawing.Color.White;
-            this.dgvNurseQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvNurseQueue.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvNurseQueue.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvNurseQueue.ColumnHeadersHeight = 45;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvNurseQueue.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvNurseQueue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvNurseQueue.EnableHeadersVisualStyles = false;
-            this.dgvNurseQueue.Location = new System.Drawing.Point(5, 71);
-            this.dgvNurseQueue.MultiSelect = false;
-            this.dgvNurseQueue.Name = "dgvNurseQueue";
-            this.dgvNurseQueue.ReadOnly = true;
-            this.dgvNurseQueue.RowHeadersVisible = false;
-            this.dgvNurseQueue.RowHeadersWidth = 51;
-            this.dgvNurseQueue.RowTemplate.Height = 40;
-            this.dgvNurseQueue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNurseQueue.Size = new System.Drawing.Size(566, 449);
-            this.dgvNurseQueue.TabIndex = 243;
-            // 
-            // tpVisitInfo
-            // 
-            this.tpVisitInfo.Controls.Add(this.panel4);
-            this.tpVisitInfo.Controls.Add(this.panel1);
-            this.tpVisitInfo.Controls.Add(this.label6);
-            this.tpVisitInfo.Controls.Add(this.label14);
-            this.tpVisitInfo.Location = new System.Drawing.Point(4, 37);
-            this.tpVisitInfo.Margin = new System.Windows.Forms.Padding(6);
-            this.tpVisitInfo.Name = "tpVisitInfo";
-            this.tpVisitInfo.Padding = new System.Windows.Forms.Padding(5);
-            this.tpVisitInfo.Size = new System.Drawing.Size(1487, 535);
-            this.tpVisitInfo.TabIndex = 0;
-            this.tpVisitInfo.Text = "VisitInfo";
-            this.tpVisitInfo.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label10.Location = new System.Drawing.Point(30, 261);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(110, 28);
-            this.label10.TabIndex = 243;
-            this.label10.Text = "Visit Date:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label12.Location = new System.Drawing.Point(40, 308);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(109, 28);
-            this.label12.TabIndex = 244;
-            this.label12.Text = "Diagnosis:";
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::Clinic.Properties.Resources.Diagnosis_32;
-            this.pictureBox6.Location = new System.Drawing.Point(163, 303);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox6.TabIndex = 245;
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = global::Clinic.Properties.Resources.Notes_32;
-            this.pictureBox7.Location = new System.Drawing.Point(163, 353);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox7.TabIndex = 246;
-            this.pictureBox7.TabStop = false;
-            // 
-            // dtpDateTime
-            // 
-            this.dtpDateTime.CustomFormat = "dd/M/yyyy";
-            this.dtpDateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDateTime.Location = new System.Drawing.Point(208, 246);
-            this.dtpDateTime.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
-            this.dtpDateTime.Name = "dtpDateTime";
-            this.dtpDateTime.Size = new System.Drawing.Size(177, 34);
-            this.dtpDateTime.TabIndex = 247;
-            this.dtpDateTime.Value = new System.DateTime(2000, 12, 31, 0, 0, 0, 0);
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = global::Clinic.Properties.Resources.Calendar_32;
-            this.pictureBox8.Location = new System.Drawing.Point(163, 254);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox8.TabIndex = 248;
-            this.pictureBox8.TabStop = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(56, 360);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 28);
-            this.label4.TabIndex = 249;
-            this.label4.Text = "Notes:";
-            // 
-            // btnSaveandNext
-            // 
-            this.btnSaveandNext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            this.btnSaveandNext.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnSaveandNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveandNext.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.btnSaveandNext.Image = global::Clinic.Properties.Resources.Next_32;
-            this.btnSaveandNext.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSaveandNext.Location = new System.Drawing.Point(475, 463);
-            this.btnSaveandNext.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnSaveandNext.Name = "btnSaveandNext";
-            this.btnSaveandNext.Size = new System.Drawing.Size(195, 48);
-            this.btnSaveandNext.TabIndex = 250;
-            this.btnSaveandNext.Text = "Save and Next";
-            this.btnSaveandNext.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveandNext.UseVisualStyleBackColor = false;
-            // 
-            // txtNotes
-            // 
-            this.txtNotes.Location = new System.Drawing.Point(54, 386);
-            this.txtNotes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtNotes.MaxLength = 50;
-            this.txtNotes.Multiline = true;
-            this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(599, 72);
-            this.txtNotes.TabIndex = 251;
-            // 
-            // txtDiagnosis
-            // 
-            this.txtDiagnosis.Location = new System.Drawing.Point(208, 288);
-            this.txtDiagnosis.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtDiagnosis.MaxLength = 50;
-            this.txtDiagnosis.Multiline = true;
-            this.txtDiagnosis.Name = "txtDiagnosis";
-            this.txtDiagnosis.Size = new System.Drawing.Size(445, 63);
-            this.txtDiagnosis.TabIndex = 252;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.groupBox1.Controls.Add(this.pictureBox9);
-            this.groupBox1.Controls.Add(this.lbBP);
-            this.groupBox1.Controls.Add(this.label18);
-            this.groupBox1.Controls.Add(this.pictureBox10);
-            this.groupBox1.Controls.Add(this.lbWeight);
-            this.groupBox1.Controls.Add(this.label20);
-            this.groupBox1.Controls.Add(this.pictureBox5);
-            this.groupBox1.Controls.Add(this.lblTemp);
-            this.groupBox1.Controls.Add(this.label17);
-            this.groupBox1.Controls.Add(this.pictureBox14);
-            this.groupBox1.Controls.Add(this.lbPluse);
-            this.groupBox1.Controls.Add(this.label23);
-            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(55, 76);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(5);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(598, 154);
-            this.groupBox1.TabIndex = 253;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Vitals Info";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label23.Location = new System.Drawing.Point(54, 44);
-            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(67, 28);
-            this.label23.TabIndex = 221;
-            this.label23.Text = "Pluse:";
-            // 
-            // lbPluse
-            // 
-            this.lbPluse.BackColor = System.Drawing.Color.Silver;
-            this.lbPluse.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lbPluse.Location = new System.Drawing.Point(148, 42);
-            this.lbPluse.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbPluse.Name = "lbPluse";
-            this.lbPluse.Size = new System.Drawing.Size(130, 38);
-            this.lbPluse.TabIndex = 222;
-            this.lbPluse.Text = "[???] bpm";
-            // 
-            // pictureBox14
-            // 
-            this.pictureBox14.Image = global::Clinic.Properties.Resources.ID_32;
-            this.pictureBox14.Location = new System.Drawing.Point(16, 44);
-            this.pictureBox14.Name = "pictureBox14";
-            this.pictureBox14.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox14.TabIndex = 223;
-            this.pictureBox14.TabStop = false;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label17.Location = new System.Drawing.Point(374, 44);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(68, 28);
-            this.label17.TabIndex = 224;
-            this.label17.Text = "Temp:";
-            // 
-            // lblTemp
-            // 
-            this.lblTemp.BackColor = System.Drawing.Color.Silver;
-            this.lblTemp.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTemp.Location = new System.Drawing.Point(446, 44);
-            this.lblTemp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTemp.Name = "lblTemp";
-            this.lblTemp.Size = new System.Drawing.Size(130, 38);
-            this.lblTemp.TabIndex = 225;
-            this.lblTemp.Text = "[???] °C";
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::Clinic.Properties.Resources.ID_32;
-            this.pictureBox5.Location = new System.Drawing.Point(336, 44);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 226;
-            this.pictureBox5.TabStop = false;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label20.Location = new System.Drawing.Point(54, 102);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(85, 28);
-            this.label20.TabIndex = 227;
-            this.label20.Text = "Weight:";
-            // 
-            // lbWeight
-            // 
-            this.lbWeight.BackColor = System.Drawing.Color.Silver;
-            this.lbWeight.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lbWeight.Location = new System.Drawing.Point(148, 100);
-            this.lbWeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbWeight.Name = "lbWeight";
-            this.lbWeight.Size = new System.Drawing.Size(130, 38);
-            this.lbWeight.TabIndex = 228;
-            this.lbWeight.Text = "[???] kg";
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Image = global::Clinic.Properties.Resources.ID_32;
-            this.pictureBox10.Location = new System.Drawing.Point(16, 102);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox10.TabIndex = 229;
-            this.pictureBox10.TabStop = false;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label18.Location = new System.Drawing.Point(374, 102);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(42, 28);
-            this.label18.TabIndex = 230;
-            this.label18.Text = "BP:";
-            // 
-            // lbBP
-            // 
-            this.lbBP.BackColor = System.Drawing.Color.Silver;
-            this.lbBP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lbBP.Location = new System.Drawing.Point(446, 102);
-            this.lbBP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbBP.Name = "lbBP";
-            this.lbBP.Size = new System.Drawing.Size(130, 38);
-            this.lbBP.TabIndex = 231;
-            this.lbBP.Text = "[???] mmHg";
-            // 
-            // pictureBox9
-            // 
-            this.pictureBox9.Image = global::Clinic.Properties.Resources.ID_32;
-            this.pictureBox9.Location = new System.Drawing.Point(336, 102);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox9.TabIndex = 232;
-            this.pictureBox9.TabStop = false;
-            // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(40)))), ((int)(((byte)(90)))));
-            this.panel7.Controls.Add(this.label19);
-            this.panel7.Controls.Add(this.label16);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel7.Location = new System.Drawing.Point(5, 5);
-            this.panel7.Margin = new System.Windows.Forms.Padding(5);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(891, 66);
-            this.panel7.TabIndex = 254;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.White;
-            this.label16.Location = new System.Drawing.Point(33, 10);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(149, 45);
-            this.label16.TabIndex = 235;
-            this.label16.Text = "Visit ID :";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label19.Location = new System.Drawing.Point(195, 18);
-            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(97, 38);
-            this.label19.TabIndex = 236;
-            this.label19.Text = "[? ? ? ]";
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.panel7);
-            this.panel4.Controls.Add(this.groupBox1);
-            this.panel4.Controls.Add(this.txtDiagnosis);
-            this.panel4.Controls.Add(this.txtNotes);
-            this.panel4.Controls.Add(this.btnSaveandNext);
-            this.panel4.Controls.Add(this.label4);
-            this.panel4.Controls.Add(this.pictureBox8);
-            this.panel4.Controls.Add(this.dtpDateTime);
-            this.panel4.Controls.Add(this.pictureBox7);
-            this.panel4.Controls.Add(this.pictureBox6);
-            this.panel4.Controls.Add(this.label12);
-            this.panel4.Controls.Add(this.label10);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(581, 5);
-            this.panel4.Name = "panel4";
-            this.panel4.Padding = new System.Windows.Forms.Padding(5);
-            this.panel4.Size = new System.Drawing.Size(901, 525);
-            this.panel4.TabIndex = 227;
+            // lbDate
+            // 
+            this.lbDate.AutoSize = true;
+            this.lbDate.Font = new System.Drawing.Font("Segoe UI", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.lbDate.Location = new System.Drawing.Point(24, 9);
+            this.lbDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbDate.Name = "lbDate";
+            this.lbDate.Size = new System.Drawing.Size(252, 62);
+            this.lbDate.TabIndex = 239;
+            this.lbDate.Text = "Date Time";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label24.Location = new System.Drawing.Point(1037, 23);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(493, 45);
+            this.label24.TabIndex = 238;
+            this.label24.Text = "Modern Clinic - Doctor Station";
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.lblTitle.Location = new System.Drawing.Point(574, 9);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(339, 62);
+            this.lblTitle.TabIndex = 236;
+            this.lblTitle.Text = "Add New Visit";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 30000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // frmDoctor
             // 
@@ -1236,6 +1344,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tcVisitInfo.ResumeLayout(false);
+            this.tpVisitInfo.ResumeLayout(false);
+            this.tpVisitInfo.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            this.panWaittingList.ResumeLayout(false);
+            this.panWaittingList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDoctorQueue)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.tpServices.ResumeLayout(false);
             this.tpServices.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvServices)).EndInit();
@@ -1253,25 +1381,7 @@
             this.panel3.ResumeLayout(false);
             this.panTitle.ResumeLayout(false);
             this.panTitle.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNurseQueue)).EndInit();
-            this.tpVisitInfo.ResumeLayout(false);
-            this.tpVisitInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1295,11 +1405,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tcVisitInfo;
         private System.Windows.Forms.TabPage tpServices;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnSaveVisitServices;
         private System.Windows.Forms.DataGridView dgvServices;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAddService;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown nudQuality;
@@ -1318,17 +1428,17 @@
         private System.Windows.Forms.PictureBox pictureBox12;
         private System.Windows.Forms.Panel pnlActions;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnPostpone;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnNextPatient;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panTitle;
-        private System.Windows.Forms.Label lbTitle;
+        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.TabPage tpVisitInfo;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label lbVisitID;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBox9;
@@ -1345,19 +1455,28 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox txtDiagnosis;
         private System.Windows.Forms.TextBox txtNotes;
-        private System.Windows.Forms.Button btnSaveandNext;
+        private System.Windows.Forms.Button btnSaveVisit;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.DateTimePicker dtpDateTime;
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView dgvNurseQueue;
+        private System.Windows.Forms.Panel panWaittingList;
+        private System.Windows.Forms.DataGridView dgvDoctorQueue;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btnInProgress;
+        private System.Windows.Forms.Label lblRecordsCount;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label lbDate;
+        private System.Windows.Forms.Label lbVisitDate;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

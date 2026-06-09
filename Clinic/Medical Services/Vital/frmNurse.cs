@@ -23,7 +23,7 @@ namespace Clinic.Medical_Services.Vital
             InitializeComponent();
         }
 
-        private void _ResetDefault()
+        private void _RefreashData()
         {
             _dtAllVitals = clsVital.GetPatientsWaitingForVitals();
             dgvNurseQueue.DataSource = _dtAllVitals;
@@ -36,7 +36,7 @@ namespace Clinic.Medical_Services.Vital
 
         private void frmNurse_Load(object sender, EventArgs e)
         {
-            _ResetDefault();
+            _RefreashData();
 
             if (_dtAllVitals.Rows.Count == 0)
                 return;
@@ -55,12 +55,12 @@ namespace Clinic.Medical_Services.Vital
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            _ResetDefault();
+            _RefreashData();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            _ResetDefault();
+            _RefreashData();
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -105,6 +105,7 @@ namespace Clinic.Medical_Services.Vital
             _Vital.Pulse = (short)nudPulse.Value;
             _Vital.Temperature = nudTemperature.Value;
             _Vital.Weight = nudWeight.Value;
+            _Vital.CreatedByUserID = clsGlobal.CurrentUser.UserID;
 
             if (_Vital.Save())
             {
@@ -114,7 +115,7 @@ namespace Clinic.Medical_Services.Vital
 
                 MessageBox.Show("Vital signs saved successfully, and the next patient has been called.", "Process Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                _ResetDefault();
+                _RefreashData();
             }
             else
             {
