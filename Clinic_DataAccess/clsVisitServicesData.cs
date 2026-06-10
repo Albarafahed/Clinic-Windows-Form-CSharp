@@ -11,7 +11,7 @@ namespace Clinic_DataAccess
 {
     public class clsVisitServicesData
     {
-      
+
         public static DataTable GetVisitServices(int VisitID)
         {
             DataTable dt = new DataTable();
@@ -60,31 +60,30 @@ namespace Clinic_DataAccess
                             cmdDelete.Parameters.AddWithValue("@VisitID", VisitID);
                             cmdDelete.ExecuteNonQuery();
                         }
-
+                       
                         // الإدراج الجماعي
                         using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
-                        {
-                            bulkCopy.DestinationTableName = "VisitServices";
+                    {
+                        bulkCopy.DestinationTableName = "VisitServices";
+                        bulkCopy.ColumnMappings.Add("ServiceID", "ServiceID");
+                        bulkCopy.ColumnMappings.Add("VisitID", "VisitID");
+                        bulkCopy.ColumnMappings.Add("Quantity", "Quantity");
+                        bulkCopy.ColumnMappings.Add("SavedServicePrice", "SavedServicePrice");
+                        bulkCopy.ColumnMappings.Add("Discount", "Discount");
 
-                            bulkCopy.ColumnMappings.Add("VisitID", "VisitID");
-                            bulkCopy.ColumnMappings.Add("ServiceID", "ServiceID");
-                            bulkCopy.ColumnMappings.Add("Quantity", "Quantity");
-                            bulkCopy.ColumnMappings.Add("SavedServicePrice", "SavedServicePrice");
-                            bulkCopy.ColumnMappings.Add("Discount", "Discount");
-
-                            bulkCopy.WriteToServer(dtServices);
-                        }
-
-                        transaction.Commit();
-                        return true;
+                        bulkCopy.WriteToServer(dtServices);
                     }
+
+                    transaction.Commit();
+                    return true;
+                }
                     catch (Exception)
                     {
-                        transaction.Rollback();
-                        return false;
-                    }
+                    transaction.Rollback();
+                    return false;
                 }
             }
         }
     }
+}
 }

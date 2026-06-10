@@ -51,6 +51,7 @@
     <Compile Include="clsGlobleData.cs" />
     <Compile Include="clsPatientData.cs" />
     <Compile Include="clsPersonData.cs" />
+    <Compile Include="clsPrescriptionData.cs" />
     <Compile Include="clsRoleData.cs" />
     <Compile Include="clsServicesTypeData.cs" />
     <Compile Include="clsSpecializationData.cs" />

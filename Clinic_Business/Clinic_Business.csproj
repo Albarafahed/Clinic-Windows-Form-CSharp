@@ -50,6 +50,7 @@
     <Compile Include="clsDoctor.cs" />
     <Compile Include="clsPatient.cs" />
     <Compile Include="clsPerson.cs" />
+    <Compile Include="clsPrescription.cs" />
     <Compile Include="clsRole.cs" />
     <Compile Include="clsServicesType.cs" />
     <Compile Include="clsSpecialization.cs" />
