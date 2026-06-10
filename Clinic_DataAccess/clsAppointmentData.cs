@@ -474,7 +474,7 @@ namespace Clinic_DataAccess
                                           ,CheckInTime
                                           ,StatusText
                                       FROM View_WaitingPatients
-                                      WHERE DoctorID = 14
+                                      WHERE DoctorID = @DoctorID
                                       AND AppointmentStatus IN (2, 7, 8)
                                        ORDER BY CheckInTime ASC";
                     using (SqlCommand cmd = new SqlCommand(query, conn))

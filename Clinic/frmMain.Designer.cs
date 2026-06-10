@@ -129,6 +129,7 @@ namespace Clinic
             this.visitsToolStripMenuItem.Name = "visitsToolStripMenuItem";
             this.visitsToolStripMenuItem.Size = new System.Drawing.Size(358, 70);
             this.visitsToolStripMenuItem.Text = "Manage Visits";
+            this.visitsToolStripMenuItem.Click += new System.EventHandler(this.visitsToolStripMenuItem_Click);
             // 
             // prescriptionsToolStripMenuItem
             // 
@@ -199,21 +200,21 @@ namespace Clinic
             // nurseToolStripMenuItem
             // 
             this.nurseToolStripMenuItem.Name = "nurseToolStripMenuItem";
-            this.nurseToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.nurseToolStripMenuItem.Size = new System.Drawing.Size(212, 30);
             this.nurseToolStripMenuItem.Text = "List Doctors";
             this.nurseToolStripMenuItem.Click += new System.EventHandler(this.nurseToolStripMenuItem_Click);
             // 
             // doctorToolStripMenuItem
             // 
             this.doctorToolStripMenuItem.Name = "doctorToolStripMenuItem";
-            this.doctorToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.doctorToolStripMenuItem.Size = new System.Drawing.Size(212, 30);
             this.doctorToolStripMenuItem.Text = "Nurse";
             this.doctorToolStripMenuItem.Click += new System.EventHandler(this.doctorToolStripMenuItem_Click);
             // 
             // doctorToolStripMenuItem1
             // 
             this.doctorToolStripMenuItem1.Name = "doctorToolStripMenuItem1";
-            this.doctorToolStripMenuItem1.Size = new System.Drawing.Size(224, 30);
+            this.doctorToolStripMenuItem1.Size = new System.Drawing.Size(212, 30);
             this.doctorToolStripMenuItem1.Text = "Doctor";
             this.doctorToolStripMenuItem1.Click += new System.EventHandler(this.doctorToolStripMenuItem1_Click);
             // 

@@ -146,5 +146,11 @@ namespace Clinic
             frmDoctor frm = new frmDoctor();
             frm.ShowDialog();
         }
+
+        private void visitsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmListVisits frm = new frmListVisits();
+            frm.ShowDialog();
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Clinic_Business
 
         public static DataTable GetVisitServices(int VisitID)
         {
-            return clsVisitServices.GetVisitServices(VisitID);
+            return clsVisitServicesData.GetVisitServices(VisitID);
         }
 
         public static bool SaveVisitServices(int VisitID, DataTable dtServices)

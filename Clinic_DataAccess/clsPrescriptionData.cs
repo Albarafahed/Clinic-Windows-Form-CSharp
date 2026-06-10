@@ -56,7 +56,7 @@ namespace Clinic_DataAccess
 
                             bulkCopy.WriteToServer(dtMedicines);
                         }
-
+                        clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
                         transaction.Commit();
                         return prescriptionID;
                     }
@@ -124,6 +124,7 @@ namespace Clinic_DataAccess
 
                             bulkCopy.WriteToServer(dtMedicines);
                         }
+                        clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
 
                         transaction.Commit();
                         return true;
@@ -191,6 +192,7 @@ namespace Clinic_DataAccess
                     using(SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@VisitID", VisitID);
+                        connection.Open();
                         using(SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())

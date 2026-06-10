@@ -1,4 +1,6 @@
 ﻿using Clinic.Controls;
+using Clinic.Doctor;
+using Clinic.Patient;
 using Clinic_Business;
 using System;
 using System.Collections;
@@ -38,9 +40,23 @@ namespace Clinic.Medical_Services.Visit
                 return;
         }
 
+        public frmDoctor(int VisitID)
+        {
+            if (clsGlobal.CurrentUser.RoleID == 1
+                ||
+               clsGlobal.CurrentUser.RoleID == 2)
+            {
+                InitializeComponent();
+                _VisitID = VisitID;
+                _Mode = enMode.Update;
+            }
+            else
+                return;
+        }
         private void _RefreashData()
         {
             _dtAllVisit = clsVisit.GetPatientsWaitingForDoctors(_DoctorPersonID);
+            lbVisitDate.Text=DateTime.Now.ToShortDateString();
             dgvDoctorQueue.DataSource = _dtAllVisit;
             lblRecordsCount.Text = _dtAllVisit.DefaultView.Count.ToString();
 
@@ -492,7 +508,8 @@ namespace Clinic.Medical_Services.Visit
             if (_Prescription.Save())
             {
                 MessageBox.Show("SavedServices SuccessFully");
-                lbPrescriptionID.Text = _Prescription.PrescriptionID.ToString();
+                _PrescriptionID=_Prescription.PrescriptionID;
+                lbPrescriptionID.Text = _PrescriptionID.ToString();
             }
             else
                 MessageBox.Show("SavedServices Falid");
@@ -536,8 +553,59 @@ namespace Clinic.Medical_Services.Visit
             }
         }
 
+
         #endregion
 
+        private void llPatientInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmPatientInfo frm=new frmPatientInfo(int.Parse(lblPatientID.Text));
+            frm.ShowDialog();
+        }
 
+        private void llDoctorInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmDoctorInfo frm = new frmDoctorInfo(int.Parse(lblDoctorID.Text));
+            frm.ShowDialog();
+        }
+
+        private void dataGridView_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridView dataGrid =sender as DataGridView;
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0 && dataGrid.Columns[e.ColumnIndex].Name == "Delete")
+            {
+                dataGrid.Cursor = Cursors.Hand; // يتحول الماوس ليد
+            }
+            else
+            {
+                dataGrid.Cursor = Cursors.Default; // يعود لشكل السهم
+            }
+        }
+
+        private void dgvMedicines_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0 && dgvMedicines.Columns[e.ColumnIndex].Name == "Delete")
+            {
+                // تأكيد الحذف
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this Medicine?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    _dtAllMedicines.Rows.RemoveAt(e.RowIndex);
+                }
+            }
+        }
+
+        private void dgvServices_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0 && dgvServices.Columns[e.ColumnIndex].Name == "Delete")
+            {
+                // تأكيد الحذف
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this shift?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    _dtAllServieces.Rows.RemoveAt(e.RowIndex);
+                }
+            }
+        }
     }
 }

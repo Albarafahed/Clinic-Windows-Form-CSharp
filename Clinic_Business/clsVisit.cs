@@ -66,6 +66,11 @@ namespace Clinic_Business
             return clsVisitData.UpdateVisit(VisitID, Diagnosis, VisitNotes, VisitStatus, CreatedByUserID);
         }
 
+        public static bool DeleteVisit(int VisitID,int AppointmentID)
+        {
+            return clsVisitData.DeleteVisit(VisitID, AppointmentID);
+        }
+
         public bool Save()
         {
             switch (_Mode)
@@ -108,6 +113,11 @@ namespace Clinic_Business
         public static DataTable GetPatientsWaitingForDoctors(int DoctorID)
         {
             return clsVisitData.GetPatientsWaitingForDoctors(DoctorID);
+        }
+
+        public static DataTable GetAllVisits()
+        {
+            return clsVisitData.GetAllVisits();
         }
     }
 }

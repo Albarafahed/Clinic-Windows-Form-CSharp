@@ -45,7 +45,6 @@ namespace Clinic_DataAccess
 
         public static bool SaveVisitServices(int VisitID, DataTable dtServices)
         {
-            // لا نحتاج لـ foreach! الجدول يعرف قيمته الحالية بفضل الـ Expression
 
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -73,7 +72,7 @@ namespace Clinic_DataAccess
 
                         bulkCopy.WriteToServer(dtServices);
                     }
-
+                        clsVisitData.UpdateVisitTotalAmount(VisitID,transaction);
                     transaction.Commit();
                     return true;
                 }

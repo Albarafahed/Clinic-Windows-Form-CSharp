@@ -150,6 +150,34 @@ namespace Clinic_DataAccess
 
         }
 
+        public static bool UpdateVisitTotalAmount(int VisitID, SqlTransaction transaction)
+        {
+            try { 
+            string query = @"
+        UPDATE Visits 
+        SET TotalAmount = 
+            (SELECT ISNULL(SUM(PPD.SavedMedicinePrice * PPD.Quantity), 0) 
+             FROM PrescriptionDetails PPD 
+             WHERE PPD.PrescriptionID = (SELECT PrescriptionID FROM Visits WHERE VisitID = @VisitID))
+            +
+            (SELECT ISNULL(SUM(SD.SavedServicePrice * SD.Quantity - SD.Discount), 0) 
+             FROM VisitServices SD 
+             WHERE SD.VisitID = @VisitID)
+        WHERE VisitID = @VisitID";
+
+            // استخدم الـ transaction.Connection مباشرة
+            using (SqlCommand cmd = new SqlCommand(query, transaction.Connection, transaction))
+            {
+                cmd.Parameters.AddWithValue("@VisitID", VisitID);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }catch (Exception ex)
+            {
+                return false;
+            }
+        
+        }
+
         public static bool IsVisitClosed(int VisitID)
         {
             try
@@ -205,6 +233,67 @@ namespace Clinic_DataAccess
             {
                 clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
 
+            }
+            return dt;
+        }
+
+
+        public static bool DeleteVisit(int VisitID,int AppointmentID)
+        {
+            int rowsAffected = 0;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"UPDATE Vitals 
+                                      SET VisitID=NULL
+                                      WHERE AppointmentID=@AppointmentID;
+                        DELETE FROM Visits WHERE VisitID = @VisitID";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@VisitID", VisitID);
+                        command.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                        connection.Open();
+                        rowsAffected = command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                return false;
+            }
+            return rowsAffected > 0;
+        }
+
+        public static DataTable GetAllVisits()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT * FROM View_VisitDetails
+                                  ORDER BY VisitDate DESC;";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                dt.Load(reader);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
             }
             return dt;
         }
