@@ -699,7 +699,9 @@ namespace Clinic_DataAccess
                         cmdPay.ExecuteNonQuery();
 
                         // 5. تحديث حالة الموعد
-                        string queryUpdateApp = "UPDATE Appointments SET AppointmentStatus = 2 WHERE AppointmentID = @AppID";
+                        string queryUpdateApp = @"UPDATE Appointments SET AppointmentStatus = 2,
+                                                        CheckInTime=GETDATE()
+                                                        WHERE AppointmentID = @AppID";
                         SqlCommand cmdApp = new SqlCommand(queryUpdateApp, connection, transaction);
                         cmdApp.Parameters.AddWithValue("@AppID", AppointmentID);
                         cmdApp.ExecuteNonQuery();

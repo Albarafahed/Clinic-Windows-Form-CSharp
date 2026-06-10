@@ -147,8 +147,7 @@ namespace Clinic_DataAccess
                     string query = @"
                                       SELECT
                                     PPD.MedicineID, 
-                                    PP.VisitID, 
-                                    PPD.SavedMedicineName 
+                                    PPD.SavedMedicineName, 
                                     PPD.Dosage, 
                                     PPD.Instructions,
                                     PPD.SavedMedicinePrice, 
@@ -178,6 +177,35 @@ namespace Clinic_DataAccess
             return dt;
         }
 
+        public static DataTable GetAllMedicines()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT MedicineID,MedicineName,MedicinePrice
+                                       FROM Medicines;";
+                                   
+
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows) dt.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+            }
+
+            return dt;
+        }
         public static bool Find(int VisitID, ref int PrescriptionID,ref string PrescriptionNotes, ref DateTime PrescriptionDate)
         {
             try

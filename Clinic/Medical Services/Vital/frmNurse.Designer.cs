@@ -96,7 +96,7 @@
             this.panTitle.Location = new System.Drawing.Point(10, 10);
             this.panTitle.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.panTitle.Name = "panTitle";
-            this.panTitle.Size = new System.Drawing.Size(1271, 83);
+            this.panTitle.Size = new System.Drawing.Size(1379, 83);
             this.panTitle.TabIndex = 238;
             // 
             // label11
@@ -150,7 +150,7 @@
             this.panel1.Location = new System.Drawing.Point(10, 93);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(10);
-            this.panel1.Size = new System.Drawing.Size(1271, 599);
+            this.panel1.Size = new System.Drawing.Size(1379, 599);
             this.panel1.TabIndex = 239;
             // 
             // lblRecordsCount
@@ -185,7 +185,7 @@
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = global::Clinic.Properties.Resources.Save_32;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(625, 524);
+            this.btnSave.Location = new System.Drawing.Point(733, 524);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(354, 67);
             this.btnSave.TabIndex = 4;
@@ -204,7 +204,7 @@
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(1109, 535);
+            this.btnClose.Location = new System.Drawing.Point(1217, 535);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(136, 56);
             this.btnClose.TabIndex = 5;
@@ -235,7 +235,7 @@
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.lblPlaceholderBP);
             this.panel3.Controls.Add(this.txtBloodPressure);
-            this.panel3.Location = new System.Drawing.Point(625, 10);
+            this.panel3.Location = new System.Drawing.Point(733, 10);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(10);
             this.panel3.Size = new System.Drawing.Size(633, 516);
@@ -513,7 +513,7 @@
             this.panel2.Location = new System.Drawing.Point(10, 10);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(10);
-            this.panel2.Size = new System.Drawing.Size(596, 553);
+            this.panel2.Size = new System.Drawing.Size(704, 553);
             this.panel2.TabIndex = 0;
             // 
             // dgvNurseQueue
@@ -553,7 +553,7 @@
             this.dgvNurseQueue.RowHeadersWidth = 51;
             this.dgvNurseQueue.RowTemplate.Height = 40;
             this.dgvNurseQueue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvNurseQueue.Size = new System.Drawing.Size(576, 478);
+            this.dgvNurseQueue.Size = new System.Drawing.Size(684, 478);
             this.dgvNurseQueue.TabIndex = 240;
             this.dgvNurseQueue.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvNurseQueue_DataBindingComplete);
             this.dgvNurseQueue.SelectionChanged += new System.EventHandler(this.dgvNurseQueue_SelectionChanged);
@@ -566,7 +566,7 @@
             this.panel4.Location = new System.Drawing.Point(10, 10);
             this.panel4.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(576, 55);
+            this.panel4.Size = new System.Drawing.Size(684, 55);
             this.panel4.TabIndex = 239;
             // 
             // label1
@@ -600,7 +600,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(246)))), ((int)(((byte)(247)))));
-            this.ClientSize = new System.Drawing.Size(1291, 702);
+            this.ClientSize = new System.Drawing.Size(1399, 702);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panTitle);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

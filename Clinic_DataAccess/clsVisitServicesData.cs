@@ -59,7 +59,9 @@ namespace Clinic_DataAccess
                             cmdDelete.Parameters.AddWithValue("@VisitID", VisitID);
                             cmdDelete.ExecuteNonQuery();
                         }
-                       
+
+                        dtServices.Columns.Add("VisitID", typeof(int), VisitID.ToString());
+
                         // الإدراج الجماعي
                         using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
                     {

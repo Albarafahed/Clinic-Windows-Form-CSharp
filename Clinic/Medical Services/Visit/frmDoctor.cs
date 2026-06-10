@@ -60,6 +60,24 @@ namespace Clinic.Medical_Services.Visit
             dgvDoctorQueue.DataSource = _dtAllVisit;
             lblRecordsCount.Text = _dtAllVisit.DefaultView.Count.ToString();
 
+
+            if (dgvDoctorQueue.Columns["IsCalled"] != null)
+            {
+                // إخفاء العمود الأصلي
+                dgvDoctorQueue.Columns["IsCalled"].Visible = false;
+
+                // إنشاء عمود CheckBox جديد
+                DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
+                chk.Name = "IsCalledCheck";
+                chk.HeaderText = "Is Called";
+                chk.DataPropertyName = "IsCalled"; // سيربطه بالقيم (1 و 0)
+                chk.TrueValue = 1;
+                chk.FalseValue = 0;
+
+                // إضافته للجدول
+                dgvDoctorQueue.Columns.Add(chk);
+            }
+
         }
 
         private void _FillVitalsInfo(int AppointmentID = -1)
@@ -101,7 +119,7 @@ namespace Clinic.Medical_Services.Visit
                 return;
             }
 
-            lblVisitID.Text = Appointment.PatientID.ToString();
+            lblVisitID.Text =_VisitID==-1? "[???]":_VisitID.ToString();
             lblAppointmentID.Text = Appointment.AppointmentID.ToString();
             lblDoctorID.Text = Appointment.DoctorID.ToString();
             lblPatientID.Text = Appointment.PatientID.ToString();
@@ -122,30 +140,21 @@ namespace Clinic.Medical_Services.Visit
 
         #region Data Grid Setup,Initialization and Load of Prescriptions
 
-        DataTable _dtAllMedicines = new DataTable();
+        DataTable _dtAllMedicines=new DataTable();
         private void InitializePrescriptionsTable()
         {
             _dtAllMedicines.Columns.Clear(); // تنظيف الجدول أولاً
 
-            // 1. الأعمدة الأساسية (تطابق قاعدة البيانات تماماً)
             _dtAllMedicines.Columns.Add("MedicineID", typeof(int));
-            _dtAllMedicines.Columns.Add("VisitID", typeof(int));
             _dtAllMedicines.Columns.Add("Quantity", typeof(int)).DefaultValue = 1;
             _dtAllMedicines.Columns.Add("Dosage", typeof(string));
 
-            // ملاحظة: Instructions لم تكن موجودة في تعريفك، أضفتها لتطابق الـ Mapping
             _dtAllMedicines.Columns.Add("Instructions", typeof(string));
 
-            _dtAllMedicines.Columns.Add("SavedMedicineName", typeof(string)); // بديل للـ MedicineName
+            _dtAllMedicines.Columns.Add("SavedMedicineName", typeof(string)); 
             _dtAllMedicines.Columns.Add("SavedMedicinePrice", typeof(decimal)).DefaultValue = 0m;
 
-            // 2. قيم افتراضية
-            _dtAllMedicines.Columns["VisitID"].DefaultValue = _VisitID;
 
-            // 3. أعمدة العرض (فقط للـ UI)
-            // نستخدم اسم MedicineName للعرض في الـ Grid
-
-            // عمود Total للحسابات التلقائية في الـ UI
             _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)");
         }
         private void _SetupPrescriptionsColumnsGrid()
@@ -155,7 +164,6 @@ namespace Clinic.Medical_Services.Visit
 
             // الأعمدة المخفية (للحفظ)
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "MedicineID", DataPropertyName = "MedicineID", Visible = false });
-            dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "VisitID", DataPropertyName = "VisitID", Visible = false });
 
             // الأعمدة المرئية (نستخدم الأسماء الجديدة لتطابق الجدول)
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "SavedMedicineName", HeaderText = "Medicine Name", DataPropertyName = "SavedMedicineName", ReadOnly = true });
@@ -180,6 +188,16 @@ namespace Clinic.Medical_Services.Visit
             };
             dgvMedicines.Columns.Add(imgDelete);
 
+            DataGridViewImageColumn imgUpdate = new DataGridViewImageColumn
+            {
+                Name = "Edit",
+                HeaderText = "Action",
+                Image = Properties.Resources.edit_32,
+                ImageLayout = DataGridViewImageCellLayout.Zoom,
+                Width = 50
+            };
+            dgvMedicines.Columns.Add(imgUpdate);
+
             dgvMedicines.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             InitializePrescriptionsTable();
             dgvMedicines.DataSource = _dtAllMedicines;
@@ -190,7 +208,9 @@ namespace Clinic.Medical_Services.Visit
             _Prescription = clsPrescription.Find(VisitID);
             if (_Prescription == null)
             {
-                MessageBox.Show("DontFound any Prescription"); return;
+                MessageBox.Show("DontFound any Prescription");
+                _Prescription = new clsPrescription();
+                return;
             }
             lbPrescriptionID.Text = _Prescription.PrescriptionID.ToString();
             dtpPrescriptionDate.Value = _Prescription.PrescriptionDate;
@@ -212,18 +232,16 @@ namespace Clinic.Medical_Services.Visit
 
         #region Data Grid Setup,Initialization and Load of Services
 
-        DataTable _dtAllServieces = new DataTable();
+        DataTable _dtAllServieces=new DataTable() ;
 
         private void InitializeServicesTable()
         {
             _dtAllServieces.Columns.Add("ServiceID", typeof(int));
-            _dtAllServieces.Columns.Add("VisitID", typeof(int));
             _dtAllServieces.Columns.Add("ServiceName", typeof(string));
             _dtAllServieces.Columns.Add("Quantity", typeof(int));
             _dtAllServieces.Columns.Add("SavedServicePrice", typeof(decimal));
             _dtAllServieces.Columns.Add("Discount", typeof(decimal));
 
-            _dtAllServieces.Columns["VisitID"].Expression = _VisitID.ToString();
             // هذا السطر يقوم بحساب "Total" تلقائياً عند إضافة أو تعديل البيانات
             _dtAllServieces.Columns.Add("Total", typeof(decimal), "(SavedServicePrice * Quantity) - Discount");
         }
@@ -234,7 +252,6 @@ namespace Clinic.Medical_Services.Visit
             dgvServices.AutoGenerateColumns = false;
 
             dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "ServiceID", DataPropertyName = "ServiceID", Visible = false });
-            dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "VisitID", DataPropertyName = "VisitID", Visible = false });
             dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "ServiceName", HeaderText = "Service Name", DataPropertyName = "ServiceName", ReadOnly = true });
             dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "SavedServicePrice", HeaderText = "Unit Price", DataPropertyName = "SavedServicePrice", ReadOnly = true });
             dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "Quantity", HeaderText = "Qty", DataPropertyName = "Quantity", ReadOnly = true });
@@ -278,6 +295,10 @@ namespace Clinic.Medical_Services.Visit
         {
             tpServices.Enabled = false;
             tpPrescriptionInfo.Enabled = false;
+            dtpPrescriptionDate.Value= DateTime.Now;
+            nudQuality.Value = 1;
+            _FillServicesInCheckBox();
+           
 
             if (_Mode == enMode.AddNew)
             {
@@ -285,7 +306,7 @@ namespace Clinic.Medical_Services.Visit
                 _Prescription = new clsPrescription();
                 lblTitle.Text = "Add New Visit";
                 timer1.Start();
-                panWaittingList.Visible = true;
+                pnlWaittingList.Visible = true;
                 _SetupDataGridViewWaitingListColumns();
                 if (_dtAllVisit.Rows.Count > 0)
                 {
@@ -321,13 +342,17 @@ namespace Clinic.Medical_Services.Visit
             lbVisitID.Text = _VisitID.ToString();
             _FillPatientInfo(_Visit.AppointmentID);
             _FillVitalsInfo(_Visit.VisitID);
-            lbVisitDate.Text = _Visit.VisitDate.ToString();
+            lbVisitDate.Text = _Visit.VisitDate.ToShortDateString();
             txtDiagnosis.Text = _Visit.Diagnosis;
             txtNotes.Text = _Visit.VisitNotes;
+            _SetupServicesColumnsGrid();
             _LoadVisitServices(_VisitID);
+            _SetupPrescriptionsColumnsGrid();
             _LoadVisitPrescription(_VisitID);
             tpPrescriptionInfo.Enabled = true;
             tpServices.Enabled = true;
+            pnlActions.Enabled = true;
+            pnlWaittingList.Visible = false;
           
         }
 
@@ -337,18 +362,20 @@ namespace Clinic.Medical_Services.Visit
             if (_dtAllVisit.Rows.Count == 0)
                 return;
             dgvDoctorQueue.Columns["AppointmentID"].HeaderText = "Ap.ID";
-            dgvDoctorQueue.Columns["AppointmentID"].Width = 120;
+            dgvDoctorQueue.Columns["AppointmentID"].Width = 90;
 
-            dgvDoctorQueue.Columns["PatientName"].HeaderText = "Patient Name";
-            dgvDoctorQueue.Columns["PatientName"].Width = 250;
+            dgvDoctorQueue.Columns["PatientName"].HeaderText = "P.Name";
+            dgvDoctorQueue.Columns["PatientName"].Width = 120;
 
             dgvDoctorQueue.Columns["CheckInTime"].HeaderText = "CheckInTime";
             dgvDoctorQueue.Columns["CheckInTime"].Width = 150;
 
-            dgvDoctorQueue.Columns["StatusText"].Visible=false;
+            dgvDoctorQueue.Columns["StatusText"].HeaderText="Status";
+            dgvDoctorQueue.Columns["StatusText"].Width = 150;
 
-            dgvDoctorQueue.Columns["IsCalled"].HeaderText = "Call";
-            dgvDoctorQueue.Columns["IsCalled"].Width = 70;
+            dgvDoctorQueue.Columns["IsCalledCheck"].HeaderText = "Call";
+            dgvDoctorQueue.Columns["IsCalledCheck"].Width = 70;
+           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -363,6 +390,10 @@ namespace Clinic.Medical_Services.Visit
         #endregion
         private void btnClose_Click(object sender, EventArgs e)
         {
+            timer1.Stop();
+            timer1.Dispose();
+            timer2.Stop();
+            timer2.Dispose();
             this.Close();
         }
 
@@ -370,8 +401,8 @@ namespace Clinic.Medical_Services.Visit
         {
             if (dgvDoctorQueue.SelectedRows.Count > 0)
             {
-                bool IsCalled = (bool)dgvDoctorQueue.CurrentRow.Cells["IsCalled"].Value;
-
+                // استخدم Convert.ToBoolean فهو يتعامل بذكاء مع الأرقام 0 و 1
+                bool IsCalled = Convert.ToBoolean(dgvDoctorQueue.CurrentRow.Cells["IsCalledCheck"].Value);
                 if (IsCalled)
                 {
                     int AppointmentID = (int)dgvDoctorQueue.CurrentRow.Cells["AppointmentID"].Value;
@@ -438,11 +469,15 @@ namespace Clinic.Medical_Services.Visit
         #region SaveData To DataBase
         private void btnSaveVisit_Click(object sender, EventArgs e)
         {
-            if (dgvDoctorQueue.CurrentRow == null)
+            if(enMode.AddNew==_Mode)
             {
-                MessageBox.Show("Please select a patient from the queue first.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (dgvDoctorQueue.CurrentRow == null)
+                {
+                    MessageBox.Show("Please select a patient from the queue first.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
+           
 
             if (!this.ValidateChildren())
             {
@@ -463,15 +498,17 @@ namespace Clinic.Medical_Services.Visit
             if (_Visit.Save())
             {
                 MessageBox.Show("Saved Success.", "Sucess", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                if (_Mode == enMode.Update)
+                    return;
                 _VisitID = _Visit.VisitID;
                 lblVisitID.Text = _VisitID.ToString();
                 lbVisitID.Text = _VisitID.ToString();
                 tpServices.Enabled = true;
                 tpPrescriptionInfo.Enabled = true;
 
-                _FillServicesInCheckBox();
                 _SetupPrescriptionsColumnsGrid();
                 _SetupServicesColumnsGrid();
+                tcVisitInfo.SelectedIndex = 1;
                 
             }
             else
@@ -491,7 +528,11 @@ namespace Clinic.Medical_Services.Visit
             }
 
             if (clsVisitServices.SaveVisitServices(_VisitID, _dtAllServieces))
+            {
+
                 MessageBox.Show("SavedServices SuccessFully");
+                tcVisitInfo.SelectedIndex = 2;
+            }
             else
                 MessageBox.Show("SavedServices Falid");
 
@@ -500,7 +541,7 @@ namespace Clinic.Medical_Services.Visit
 
         private void btnSavePrescription_Click(object sender, EventArgs e)
         {
-            _Prescription.PrescriptionDate = dtpPrescriptionDate.Value;
+            _Prescription.PrescriptionDate =dtpPrescriptionDate.Value;
             _Prescription.VisitID = _VisitID;
             _Prescription.PrescriptionNotes = txtPrescriptionNotes.Text;
             _Prescription.dtMedicines = _dtAllMedicines;
@@ -553,6 +594,13 @@ namespace Clinic.Medical_Services.Visit
             }
         }
 
+        private void btnAddMedicen_Click(object sender, EventArgs e)
+        {
+            frmAddUpdateMedicineToPrescription frm = new frmAddUpdateMedicineToPrescription(ref _dtAllMedicines);
+            frm.DataBack += (sendform) => dgvMedicines.Refresh();
+            frm.Show();
+        }
+
 
         #endregion
 
@@ -592,6 +640,22 @@ namespace Clinic.Medical_Services.Visit
                     _dtAllMedicines.Rows.RemoveAt(e.RowIndex);
                 }
             }
+
+            if (e.ColumnIndex >= 0 && dgvMedicines.Columns[e.ColumnIndex].Name == "Edit")
+            {
+              
+                DataRow selectedRow = ((DataRowView)dgvMedicines.Rows[e.RowIndex].DataBoundItem).Row;
+
+                // 2. إرسال الصف إلى فورم التعديل مع تمرير الـ DataTable بالمرجع (ref)
+                frmAddUpdateMedicineToPrescription frm = new frmAddUpdateMedicineToPrescription(ref _dtAllMedicines, selectedRow);
+
+             
+                frm.DataBack += (senderForm) => {
+                    dgvMedicines.Refresh(); 
+                };
+
+                frm.ShowDialog();
+            }
         }
 
         private void dgvServices_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -606,6 +670,109 @@ namespace Clinic.Medical_Services.Visit
                     _dtAllServieces.Rows.RemoveAt(e.RowIndex);
                 }
             }
+        }
+
+        private void _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus newStatus, string actionName)
+        {
+            if (dgvDoctorQueue.CurrentRow == null) return;
+
+            int currentAppointmentID = (int)dgvDoctorQueue.CurrentRow.Cells["AppointmentID"].Value;
+
+            string message = $"Are you sure you want to {actionName}?";
+            string title = "Confirm Action";
+
+            if (MessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (clsAppointment.UpdateAppointmentStatus(currentAppointmentID, newStatus, clsGlobal.CurrentUser.UserID))
+                {
+                    if (newStatus == clsAppointment.enAppointmentStatus.InQueue)
+                    {
+                        if (dgvDoctorQueue.CurrentRow == null) return;
+                        int appointmentID = (int)dgvDoctorQueue.CurrentRow.Cells["AppointmentID"].Value;
+                    }
+                    MessageBox.Show($"✅ The operation was completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _RefreashData();
+                }
+
+                else
+                {
+                    MessageBox.Show($"❌ An error occurred while updating the status.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void btnInProgress_Click(object sender, EventArgs e) => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Progress, "Progress this appointment");
+
+        private void btnPostpone_Click(object sender, EventArgs e) => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Postponed, "postpone this appointment");
+
+        private void btnCalnceVisit_Click(object sender, EventArgs e) => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Cancelled, "cancel this appointment");
+
+
+        private void frmDoctor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            timer2.Stop();
+            timer2.Dispose();
+
+            timer1.Stop();
+            timer1.Dispose();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            lbPluse.Text = "[???]  bpm";
+            lblTemp.Text = "[???]  °C";
+            lbBP.Text = "[???]  mmHg";
+            lbWeight.Text = "[???]  kg";
+
+            lblVisitID.Text = "[???]";
+            lblAppointmentID.Text = "[???]";
+            lblDoctorID.Text = "[???]";
+            lblPatientID.Text = "[???]";
+            TotalAmount = 0.0m;
+
+            lbVisitID.Text = "[???]";
+            lbVisitDate.Text = DateTime.Now.ToShortDateString();
+            txtDiagnosis.Text = "";
+            txtNotes.Text = "";
+
+            dgvServices.DataSource = null;
+
+            dgvMedicines.DataSource = null;
+            lbPrescriptionID.Text = "[???]";
+            txtPrescriptionNotes.Text = "";
+
+            _dtAllMedicines = null;
+            _dtAllServieces = null;
+            _Visit = null;
+            _Prescription = null;
+
+            tcVisitInfo.SelectedIndex=0;
+
+            _ResetDefaultValues();
+
+            _CallNextPatientInQueue();
+        }
+
+        private void dgvDoctorQueue_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewColumn column in dgvDoctorQueue.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+        }
+
+        private void dgvDoctorQueue_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvDoctorQueue.Rows.Count == 0) return;
+
+            if (dgvDoctorQueue.CurrentRow != null && dgvDoctorQueue.CurrentRow.Index == 0) return;
+
+            dgvDoctorQueue.SelectionChanged -= dgvDoctorQueue_SelectionChanged;
+
+            dgvDoctorQueue.ClearSelection();
+            dgvDoctorQueue.Rows[0].Selected = true;
+            dgvDoctorQueue.CurrentCell = dgvDoctorQueue.Rows[0].Cells[0];
+
+            dgvDoctorQueue.SelectionChanged += dgvDoctorQueue_SelectionChanged;
         }
     }
 }

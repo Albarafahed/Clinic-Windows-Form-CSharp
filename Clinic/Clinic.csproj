@@ -325,6 +325,9 @@
     <EmbeddedResource Include="Medical Services\Appointment\frmReschedule.resx">
       <DependentUpon>frmReschedule.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Visit\frmAddUpdateMedicineToPrescription.resx">
+      <DependentUpon>frmAddUpdateMedicineToPrescription.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Visit\frmDoctor.resx">
       <DependentUpon>frmDoctor.cs</DependentUpon>
     </EmbeddedResource>

@@ -49,6 +49,14 @@ namespace Clinic_DataAccess
                                     cmdVitals.ExecuteNonQuery();
                                 }
 
+                                string queryBils = "UPDATE Bills SET VisitID = @VisitID WHERE AppointmentID = @AppointmentID AND VisitID IS NULL";
+                                using (SqlCommand cmdVitals = new SqlCommand(queryBils, connection, transaction))
+                                {
+                                    cmdVitals.Parameters.AddWithValue("@VisitID", VisitID);
+                                    cmdVitals.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                                    cmdVitals.ExecuteNonQuery();
+                                }
+
                                 // تحديث حالة الموعد
                                 string queryAppt = "UPDATE Appointments SET AppointmentStatus = 9 WHERE AppointmentID = @AppointmentID";
                                 using (SqlCommand cmdAppt = new SqlCommand(queryAppt, connection, transaction))
@@ -155,7 +163,7 @@ namespace Clinic_DataAccess
             try { 
             string query = @"
         UPDATE Visits 
-        SET TotalAmount = 
+        SET TotalAmount = TotalAmount+
             (SELECT ISNULL(SUM(PPD.SavedMedicinePrice * PPD.Quantity), 0) 
              FROM PrescriptionDetails PPD 
              WHERE PPD.PrescriptionID = (SELECT PrescriptionID FROM Visits WHERE VisitID = @VisitID))
@@ -215,7 +223,7 @@ namespace Clinic_DataAccess
                                           ,StatusText
                                           ,IsCalled
                                       FROM View_PatientsWaitingForDoctors
-                                      WHERE DoctorPersonID=@DoctorPersonID and StatusText='Ready_For_Doctor'
+                                      WHERE DoctorPersonID=@DoctorPersonID and StatusText in('Ready_For_Doctor','In-Progress')
                                       ORDER BY CheckInTime;";
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
@@ -238,7 +246,7 @@ namespace Clinic_DataAccess
         }
 
 
-        public static bool DeleteVisit(int VisitID,int AppointmentID)
+        public static bool DeleteVisit(int VisitID, int AppointmentID)
         {
             int rowsAffected = 0;
 

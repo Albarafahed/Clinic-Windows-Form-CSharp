@@ -47,13 +47,6 @@ namespace Clinic_Business
             _Mode = enMode.Update;
         }
 
-
-        private DataTable GetVisitMedicines()
-        {
-
-            return clsPrescriptionData.GetVisitMedicines(this.VisitID);
-        }
-
         private bool _AddNewPrescription()
         {
             this.PrescriptionID = clsPrescriptionData.SavePrescription(VisitID, PrescriptionNotes, PrescriptionDate, dtMedicines);
@@ -98,6 +91,18 @@ namespace Clinic_Business
                 default:
                     return false;
             }
+        }
+
+        private DataTable GetVisitMedicines()
+        {
+
+            return clsPrescriptionData.GetVisitMedicines(this.VisitID);
+        }
+
+        public static DataTable GetAllMedicines()
+        {
+
+            return clsPrescriptionData.GetAllMedicines();
         }
     }
 }

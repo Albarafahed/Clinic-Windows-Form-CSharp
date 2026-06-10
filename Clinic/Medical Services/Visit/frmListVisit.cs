@@ -56,8 +56,8 @@ namespace Clinic.Medical_Services.Visit
                 dgvVisit.Columns["PatientID"].Visible = false; //PatientID
                 dgvVisit.Columns["DoctorID"].Visible = false; //DoctorID
 
-                dgvVisit.Columns["AppointmentID"].HeaderText = "Appointment ID";
-                dgvVisit.Columns["AppointmentID"].Width = 110;
+                dgvVisit.Columns["AppointmentID"].HeaderText = "App.ID";
+                dgvVisit.Columns["AppointmentID"].Width = 90;
 
                 dgvVisit.Columns["PatientName"].HeaderText = "Patient Name";
                 dgvVisit.Columns["PatientName"].Width = 260;
@@ -71,8 +71,8 @@ namespace Clinic.Medical_Services.Visit
                 dgvVisit.Columns["Diagnosis"].HeaderText = "Diagnosis";
                 dgvVisit.Columns["Diagnosis"].Width = 260;
 
-                dgvVisit.Columns["CreatedByUserID"].HeaderText = "CreatedByUserID";
-                dgvVisit.Columns["CreatedByUserID"].Width = 120;
+                dgvVisit.Columns["CreatedByUserID"].HeaderText = "C.UserID";
+                dgvVisit.Columns["CreatedByUserID"].Width = 90;
             }
         }
 
