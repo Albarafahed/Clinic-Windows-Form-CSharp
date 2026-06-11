@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -141,7 +142,8 @@ namespace Clinic.Medical_Services.Visit
                 DataRow[] existingRows = _dtMedicines.Select($"MedicineID = {(int)cbMedicines.SelectedValue}");
                 if (existingRows.Length > 0)
                 {
-                    MessageBox.Show("هذه الوصفة مضافة بالفعل للزيارة!", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+       
+                    MessageBox.Show("This Medicine has already been added to the visit.", "⚠️ Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 

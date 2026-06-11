@@ -1403,7 +1403,7 @@
             this.Text = "frmDoctor";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmDoctor_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.frmDoctor_Load);
             this.gpPatientInfo.ResumeLayout(false);
             this.gpPatientInfo.PerformLayout();
             this.tcVisitInfo.ResumeLayout(false);
