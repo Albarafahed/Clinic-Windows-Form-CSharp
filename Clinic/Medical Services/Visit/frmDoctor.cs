@@ -5,6 +5,7 @@ using Clinic_Business;
 using System;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Windows.Forms;
 
 namespace Clinic.Medical_Services.Visit
@@ -25,7 +26,7 @@ namespace Clinic.Medical_Services.Visit
         public enum enMode { AddNew = 1, Update = 2, ShowVisit = 3 }
 
         #region Constructor
-        public frmDoctor(int visitID = -1,enMode mode=enMode.AddNew)
+        public frmDoctor(int visitID = -1, enMode mode = enMode.AddNew)
         {
             InitializeComponent();
             _VisitID = visitID;
@@ -51,7 +52,7 @@ namespace Clinic.Medical_Services.Visit
 
             if (_Mode == enMode.AddNew)
                 _LoadAddNewMode();
-            else if(_Mode == enMode.Update)
+            else if (_Mode == enMode.Update)
                 _LoadUpdateMode();
             else
                 _LoadShowMode();
@@ -116,23 +117,23 @@ namespace Clinic.Medical_Services.Visit
             lblTitle.Text = "Visit Details";
             _LoadVisitData(_VisitID);
 
-            pnlVisitInfo.Enabled=false;
-            btnSaveVisit.Visible=false;
+            pnlVisitInfo.Enabled = false;
+            btnSaveVisit.Visible = false;
 
             pnlServicesInfo.Enabled = false;
-            btnSaveVisitServices.Visible=false;
-            btnAddService.Visible=false;
-            lbServeces.Visible=false;
-            cmbServices.Visible=false;
-            lbQuality.Visible=false;
-            nudQuality.Visible=false;
+            btnSaveVisitServices.Visible = false;
+            btnAddService.Visible = false;
+            lbServeces.Visible = false;
+            cmbServices.Visible = false;
+            lbQuality.Visible = false;
+            nudQuality.Visible = false;
 
-           pnlPrescriptionInfo.Enabled=false;
-            btnSavePrescription.Visible=false;
-            btnAddMedicen.Visible=false;
-            lbPrescriptionDate.Visible=false;
+            pnlPrescriptionInfo.Enabled = false;
+            btnSavePrescription.Visible = false;
+            btnAddMedicen.Visible = false;
+            lbPrescriptionDate.Visible = false;
             dtpPrescriptionDate.Visible = false;
-            pbPrecriptionDate.Visible= false;
+            pbPrecriptionDate.Visible = false;
 
         }
         #endregion
@@ -160,25 +161,42 @@ namespace Clinic.Medical_Services.Visit
 
             // Load detail tables
             _dtAllServices = clsVisitServices.GetVisitServices(visitID);
-            if (!_dtAllServices.Columns.Contains("Total"))
+
+            if (_dtAllServices.Rows.Count > 0)
             {
-                _dtAllServices.Columns.Add("Total", typeof(decimal), "(SavedServicePrice * Quantity) - Discount");
+
+                if (!_dtAllServices.Columns.Contains("Total"))
+                {
+                    
+                    _dtAllServices.Columns.Add("Total", typeof(decimal), "(SavedServicePrice * Quantity) - Discount");
+                }
             }
+            else
+            {
+                InitializeServicesTable();
+            }
+
             dgvServices.DataSource = _dtAllServices;
 
             _Prescription = clsPrescription.Find(visitID);
             if (_Prescription != null)
             {
                 _dtAllMedicines = _Prescription.dtMedicines;
-                if (!_dtAllMedicines.Columns.Contains("Total"))
+                if (_dtAllMedicines.Rows.Count > 0)
                 {
-                    _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)");
+                    if (!_dtAllMedicines.Columns.Contains("Total"))
+                    {
+                        _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)");
+                    }
                 }
+                else
+                    InitializePrescriptionsTable();
+
                 lbPrescriptionID.Text = _Prescription.PrescriptionID.ToString();
                 dtpPrescriptionDate.Value = _Prescription.PrescriptionDate;
                 txtPrescriptionNotes.Text = _Prescription.PrescriptionNotes;
-
                 dgvMedicines.DataSource = _dtAllMedicines;
+
             }
 
 
@@ -225,7 +243,7 @@ namespace Clinic.Medical_Services.Visit
             clsAppointment Appointment = clsAppointment.Find(AppointmentID);
             if (Appointment == null)
             {
-               ShowError("Appointment Not Found");
+                ShowError("Appointment Not Found");
                 return;
             }
 
@@ -290,11 +308,11 @@ namespace Clinic.Medical_Services.Visit
 
         private void btnSaveVisitServices_Click(object sender, EventArgs e)
         {
-            if (_dtAllServices.Rows.Count == 0)
-            {
-                ShowWarning("The service list is empty. Please add services first.");
-                return;
-            }
+            //if (_dtAllServices.Rows.Count == 0)
+            //{
+            //    ShowWarning("The service list is empty. Please add services first.");
+            //    return;
+            //}
 
             if (clsVisitServices.SaveVisitServices(_VisitID, _dtAllServices))
             {
@@ -327,14 +345,13 @@ namespace Clinic.Medical_Services.Visit
 
             int serviceID = (int)cmbServices.SelectedValue;
 
-            // 1. منع التكرار
-            DataRow[] existingRows = _dtAllServices.Select($"ServiceID = {serviceID}");
+            // 1. منع التكرار
+            DataRow[] existingRows = _dtAllServices.Select($"ServiceID = {serviceID}");
             if (existingRows.Length > 0)
             {
                 ShowWarning("This service has already been added to the visit.");
                 return;
             }
-
             // 2. الحصول على سعر الخدمة من الـ DataSource الخاص بالـ ComboBox (لا حاجة لقاعدة البيانات)
             DataTable dtSource = (DataTable)cmbServices.DataSource;
             DataRow[] foundRows = dtSource.Select($"ServiceID = {serviceID}");
@@ -358,7 +375,7 @@ namespace Clinic.Medical_Services.Visit
         private void btnAddMedicen_Click(object sender, EventArgs e)
         {
             frmAddUpdateMedicineToPrescription frm = new frmAddUpdateMedicineToPrescription(ref _dtAllMedicines);
-            frm.DataBack += (sendform) => dgvMedicines.Refresh();
+            frm.DataBack += (sendform) => dgvMedicines.DataSource = _dtAllMedicines;
             frm.Show();
         }
 
@@ -397,10 +414,11 @@ namespace Clinic.Medical_Services.Visit
         }
         private void _SetupServicesGrid()
         {
+
             dgvServices.AutoGenerateColumns = false;
-            if (dgvServices.Columns.Count > 0)
+            if (dgvServices.Rows.Count > 0)
                 return;
-                dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "ServiceID", DataPropertyName = "ServiceID", Visible = false });
+            dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "ServiceID", DataPropertyName = "ServiceID", Visible = false });
             dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "ServiceName", HeaderText = "Service Name", DataPropertyName = "ServiceName", ReadOnly = true });
             dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "SavedServicePrice", HeaderText = "Unit Price", DataPropertyName = "SavedServicePrice", ReadOnly = true });
             dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "Quantity", HeaderText = "Qty", DataPropertyName = "Quantity", ReadOnly = true });
@@ -417,14 +435,16 @@ namespace Clinic.Medical_Services.Visit
                 Width = 50
             };
             dgvServices.Columns.Add(imgDelete);
-            InitializeServicesTable();
             dgvServices.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            InitializeServicesTable();
+
             dgvServices.DataSource = _dtAllServices;
         }
 
         private void _SetupMedicinesGrid()
         {
-           
+
+
             dgvMedicines.AutoGenerateColumns = false;
 
             if (dgvMedicines.Columns.Count > 0)
@@ -439,6 +459,7 @@ namespace Clinic.Medical_Services.Visit
             // استخدام السعر المحفوظ للعرض
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "SavedMedicinePrice", HeaderText = "Unit Price", DataPropertyName = "SavedMedicinePrice", ReadOnly = true });
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "Quantity", HeaderText = "Qty", DataPropertyName = "Quantity", ReadOnly = true });
+            dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "Frequency", HeaderText = "FRY", DataPropertyName = "Frequency", ReadOnly = true });
 
             // الإجمالي (يستخدم عمود Total المحسوب في الـ DataTable)
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "Total", HeaderText = "Total", DataPropertyName = "Total", ReadOnly = true });
@@ -463,9 +484,8 @@ namespace Clinic.Medical_Services.Visit
                 Width = 50
             };
             dgvMedicines.Columns.Add(imgUpdate);
-
-            dgvMedicines.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             InitializePrescriptionsTable();
+            dgvMedicines.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvMedicines.DataSource = _dtAllMedicines;
         }
         #endregion
@@ -473,12 +493,12 @@ namespace Clinic.Medical_Services.Visit
         #region Table Definitions
         private void InitializePrescriptionsTable()
         {
-            //_dtAllMedicines.Columns.Clear(); // تنظيف الجدول أولاً
+            _dtAllMedicines.Columns.Clear(); // تنظيف الجدول أولاً
 
             _dtAllMedicines.Columns.Add("MedicineID", typeof(int));
             _dtAllMedicines.Columns.Add("Quantity", typeof(int)).DefaultValue = 1;
             _dtAllMedicines.Columns.Add("Dosage", typeof(string));
-
+            _dtAllMedicines.Columns.Add("Frequency", typeof(int));
             _dtAllMedicines.Columns.Add("Instructions", typeof(string));
 
             _dtAllMedicines.Columns.Add("SavedMedicineName", typeof(string));
@@ -490,14 +510,16 @@ namespace Clinic.Medical_Services.Visit
 
         private void InitializeServicesTable()
         {
+            _dtAllServices.Columns.Clear(); // تنظيف الجدول أولاً
+
             _dtAllServices.Columns.Add("ServiceID", typeof(int));
             _dtAllServices.Columns.Add("ServiceName", typeof(string));
             _dtAllServices.Columns.Add("Quantity", typeof(int));
             _dtAllServices.Columns.Add("SavedServicePrice", typeof(decimal));
             _dtAllServices.Columns.Add("Discount", typeof(decimal));
+            _dtAllServices.Columns.Add("Total", typeof(decimal), "(SavedServicePrice * Quantity) - Discount");
 
-            // هذا السطر يقوم بحساب "Total" تلقائياً عند إضافة أو تعديل البيانات
-            _dtAllServices.Columns.Add("Total", typeof(decimal), "(SavedServicePrice * Quantity) - Discount");
+
         }
 
         #endregion
@@ -538,8 +560,8 @@ namespace Clinic.Medical_Services.Visit
             lblAppointmentID.Text = "[???]";
             lblDoctorID.Text = "[???]";
             lblVisitID.Text = "[???]";
-            llDoctorInfo.Enabled= false;
-            llPatientInfo.Enabled= false;
+            llDoctorInfo.Enabled = false;
+            llPatientInfo.Enabled = false;
 
             // 4. إعادة ضبط خيارات افتراضية
             nudQuality.Value = 1;
@@ -604,7 +626,7 @@ namespace Clinic.Medical_Services.Visit
                 _FillVitalsInfo(nextAppointmentID);
                 _FillPatientInfo(nextAppointmentID);
             }
-           
+
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -672,7 +694,8 @@ namespace Clinic.Medical_Services.Visit
                 frmAddUpdateMedicineToPrescription frm = new frmAddUpdateMedicineToPrescription(ref _dtAllMedicines, selectedRow);
 
 
-                frm.DataBack += (senderForm) => {
+                frm.DataBack += (senderForm) =>
+                {
                     dgvMedicines.Refresh();
                 };
 
@@ -776,7 +799,7 @@ namespace Clinic.Medical_Services.Visit
 
         #endregion
 
-      
-     
+
+
     }
 }

@@ -828,5 +828,8 @@
   <ItemGroup>
     <None Include="Resources\refresh-48 1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Medical Services\Pharmaciy\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

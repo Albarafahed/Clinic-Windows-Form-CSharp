@@ -78,6 +78,7 @@ namespace Clinic.Medical_Services.Visit
             }
             cbMedicines.SelectedValue = _Row["MedicineID"];
             NUDQuantity.Value =(int) _Row["Quantity"];
+            nudFrequency.Value = (int)_Row["Frequency"];
             txtDosage.Text = _Row["Dosage"].ToString();
             txtInstructions.Text = _Row["Instructions"] == DBNull.Value || _Row["Instructions"] == null ? "" : _Row["Instructions"].ToString();
 
@@ -152,6 +153,7 @@ namespace Clinic.Medical_Services.Visit
                 newRow["MedicineID"] = cbMedicines.SelectedValue;
                 newRow["SavedMedicineName"] = cbMedicines.Text;
                 newRow["Quantity"] = NUDQuantity.Value;
+                newRow["Frequency"] = nudFrequency.Value;
                 newRow["SavedMedicinePrice"] = lblMedicinePrice.Text;
                 newRow["Dosage"]=txtDosage.Text;
                 newRow["Instructions"] = txtInstructions.Text;

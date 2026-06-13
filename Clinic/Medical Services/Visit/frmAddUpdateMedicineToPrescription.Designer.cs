@@ -48,6 +48,9 @@
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.nudFrequency = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
@@ -55,6 +58,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFrequency)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // cbMedicines
@@ -115,7 +120,7 @@
             // 
             // txtDosage
             // 
-            this.txtDosage.Location = new System.Drawing.Point(151, 257);
+            this.txtDosage.Location = new System.Drawing.Point(151, 312);
             this.txtDosage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtDosage.MaxLength = 50;
             this.txtDosage.Multiline = true;
@@ -128,7 +133,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(13, 223);
+            this.label12.Location = new System.Drawing.Point(13, 278);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(93, 25);
@@ -137,7 +142,7 @@
             // 
             // txtInstructions
             // 
-            this.txtInstructions.Location = new System.Drawing.Point(151, 393);
+            this.txtInstructions.Location = new System.Drawing.Point(151, 448);
             this.txtInstructions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtInstructions.MaxLength = 50;
             this.txtInstructions.Multiline = true;
@@ -149,7 +154,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(13, 359);
+            this.label14.Location = new System.Drawing.Point(13, 414);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(130, 25);
@@ -220,7 +225,7 @@
             // pictureBox7
             // 
             this.pictureBox7.Image = global::Clinic.Properties.Resources.instruction_32;
-            this.pictureBox7.Location = new System.Drawing.Point(151, 359);
+            this.pictureBox7.Location = new System.Drawing.Point(151, 414);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(31, 26);
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -230,7 +235,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Clinic.Properties.Resources.dosage_32;
-            this.pictureBox1.Location = new System.Drawing.Point(151, 223);
+            this.pictureBox1.Location = new System.Drawing.Point(151, 278);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(31, 26);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -267,6 +272,44 @@
             this.pictureBox3.TabIndex = 166;
             this.pictureBox3.TabStop = false;
             // 
+            // nudFrequency
+            // 
+            this.nudFrequency.Location = new System.Drawing.Point(206, 210);
+            this.nudFrequency.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudFrequency.Name = "nudFrequency";
+            this.nudFrequency.Size = new System.Drawing.Size(89, 30);
+            this.nudFrequency.TabIndex = 225;
+            this.nudFrequency.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(13, 210);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(121, 25);
+            this.label2.TabIndex = 224;
+            this.label2.Text = "Frequency:";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Clinic.Properties.Resources.quantity_32;
+            this.pictureBox2.Location = new System.Drawing.Point(150, 214);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 226;
+            this.pictureBox2.TabStop = false;
+            // 
             // frmAddUpdateMedicineToPrescription
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -274,6 +317,9 @@
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(758, 593);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.nudFrequency);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.NUDQuantity);
             this.Controls.Add(this.btnClose);
@@ -306,6 +352,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFrequency)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,5 +380,8 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.NumericUpDown NUDQuantity;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.NumericUpDown nudFrequency;
+        private System.Windows.Forms.Label label2;
     }
 }

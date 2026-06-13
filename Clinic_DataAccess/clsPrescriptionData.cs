@@ -53,6 +53,7 @@ namespace Clinic_DataAccess
                             bulkCopy.ColumnMappings.Add("Instructions", "Instructions");
                             bulkCopy.ColumnMappings.Add("SavedMedicineName", "SavedMedicineName");
                             bulkCopy.ColumnMappings.Add("SavedMedicinePrice", "SavedMedicinePrice");
+                            bulkCopy.ColumnMappings.Add("Frequency", "Frequency");
 
                             bulkCopy.WriteToServer(dtMedicines);
                         }
@@ -121,6 +122,7 @@ namespace Clinic_DataAccess
                             bulkCopy.ColumnMappings.Add("Instructions", "Instructions");
                             bulkCopy.ColumnMappings.Add("SavedMedicineName", "SavedMedicineName");
                             bulkCopy.ColumnMappings.Add("SavedMedicinePrice", "SavedMedicinePrice");
+                            bulkCopy.ColumnMappings.Add("Frequency", "Frequency");
 
                             bulkCopy.WriteToServer(dtMedicines);
                         }
@@ -151,7 +153,8 @@ namespace Clinic_DataAccess
                                     PPD.Dosage, 
                                     PPD.Instructions,
                                     PPD.SavedMedicinePrice, 
-                                    PPD.Quantity
+                                    PPD.Quantity,
+                                    PPD.Frequency
                                 FROM PrescriptionS PP
                                 INNER JOIN PrescriptionDetails PPD ON 
                                     PP.PrescriptionID = PPD.PrescriptionID
