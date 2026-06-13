@@ -25,11 +25,11 @@ namespace Clinic.Medical_Services.Visit
         public enum enMode { AddNew = 1, Update = 2, ShowVisit = 3 }
 
         #region Constructor
-        public frmDoctor(int visitID = -1)
+        public frmDoctor(int visitID = -1,enMode mode=enMode.AddNew)
         {
             InitializeComponent();
             _VisitID = visitID;
-            _Mode = (visitID == -1) ? enMode.AddNew : enMode.Update;
+            _Mode = mode;
         }
         #endregion
 
@@ -51,8 +51,10 @@ namespace Clinic.Medical_Services.Visit
 
             if (_Mode == enMode.AddNew)
                 _LoadAddNewMode();
-            else
+            else if(_Mode == enMode.Update)
                 _LoadUpdateMode();
+            else
+                _LoadShowMode();
         }
 
         private bool CheckAuth()
@@ -95,12 +97,43 @@ namespace Clinic.Medical_Services.Visit
                 _FillPatientInfo(AppoinmentID);
                 _FillVitalsInfo(AppoinmentID);
             }
+            else
+            {
+                llPatientInfo.Enabled = false;
+                llDoctorInfo.Enabled = false;
+            }
+
         }
 
         private void _LoadUpdateMode()
         {
             lblTitle.Text = "Update Visit Info";
             _LoadVisitData(_VisitID);
+        }
+
+        private void _LoadShowMode()
+        {
+            lblTitle.Text = "Visit Details";
+            _LoadVisitData(_VisitID);
+
+            pnlVisitInfo.Enabled=false;
+            btnSaveVisit.Visible=false;
+
+            pnlServicesInfo.Enabled = false;
+            btnSaveVisitServices.Visible=false;
+            btnAddService.Visible=false;
+            lbServeces.Visible=false;
+            cmbServices.Visible=false;
+            lbQuality.Visible=false;
+            nudQuality.Visible=false;
+
+           pnlPrescriptionInfo.Enabled=false;
+            btnSavePrescription.Visible=false;
+            btnAddMedicen.Visible=false;
+            lbPrescriptionDate.Visible=false;
+            dtpPrescriptionDate.Visible = false;
+            pbPrecriptionDate.Visible= false;
+
         }
         #endregion
 
@@ -120,7 +153,7 @@ namespace Clinic.Medical_Services.Visit
             txtDiagnosis.Text = _Visit.Diagnosis;
             txtNotes.Text = _Visit.VisitNotes;
             lbVisitDate.Text = _Visit.VisitDate.ToShortDateString();
-
+            pnlAction.Visible = false;
 
             _FillPatientInfo(_Visit.AppointmentID);
             _FillVitalsInfo(_Visit.VisitID);
@@ -159,6 +192,8 @@ namespace Clinic.Medical_Services.Visit
 
         private void _FillVitalsInfo(int AppointmentID)
         {
+            if (AppointmentID == -1)
+                return;
             clsVital vital;
             if (_Mode == enMode.AddNew)
             {
@@ -173,7 +208,8 @@ namespace Clinic.Medical_Services.Visit
 
             if (vital == null)
             {
-                ShowError("Vital Not Found");
+                clsAppointment.UpdateAppointmentStatus(AppointmentID, clsAppointment.enAppointmentStatus.Waiting_For_Vitals, clsGlobal.CurrentUser.UserID);
+                _RefreshQueueData();
                 return;
             }
 
@@ -189,7 +225,7 @@ namespace Clinic.Medical_Services.Visit
             clsAppointment Appointment = clsAppointment.Find(AppointmentID);
             if (Appointment == null)
             {
-                MessageBox.Show("Appointment Not Found");
+               ShowError("Appointment Not Found");
                 return;
             }
 
@@ -244,6 +280,7 @@ namespace Clinic.Medical_Services.Visit
                 tpPrescriptionInfo.Enabled = true;
                 lblVisitID.Text = _VisitID.ToString();
                 lbVisitID.Text = _VisitID.ToString();
+                tcVisitInfo.SelectedIndex = 1;
             }
             else
             {
@@ -260,7 +297,10 @@ namespace Clinic.Medical_Services.Visit
             }
 
             if (clsVisitServices.SaveVisitServices(_VisitID, _dtAllServices))
+            {
                 ShowSuccess("Services saved successfully.");
+                tcVisitInfo.SelectedIndex = 2;
+            }
             else
                 ShowError("Failed to save services.");
         }
@@ -331,7 +371,6 @@ namespace Clinic.Medical_Services.Visit
         #endregion
 
         #region Grid Definitions
-
         private void _SetupWaitingListGrid()
         {
             dgvDoctorQueue.AutoGenerateColumns = false;
@@ -358,11 +397,10 @@ namespace Clinic.Medical_Services.Visit
         }
         private void _SetupServicesGrid()
         {
-
-            dgvServices.Columns.Clear();
             dgvServices.AutoGenerateColumns = false;
-
-            dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "ServiceID", DataPropertyName = "ServiceID", Visible = false });
+            if (dgvServices.Columns.Count > 0)
+                return;
+                dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "ServiceID", DataPropertyName = "ServiceID", Visible = false });
             dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "ServiceName", HeaderText = "Service Name", DataPropertyName = "ServiceName", ReadOnly = true });
             dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "SavedServicePrice", HeaderText = "Unit Price", DataPropertyName = "SavedServicePrice", ReadOnly = true });
             dgvServices.Columns.Add(new DataGridViewTextBoxColumn { Name = "Quantity", HeaderText = "Qty", DataPropertyName = "Quantity", ReadOnly = true });
@@ -386,14 +424,15 @@ namespace Clinic.Medical_Services.Visit
 
         private void _SetupMedicinesGrid()
         {
-            dgvMedicines.Columns.Clear();
+           
             dgvMedicines.AutoGenerateColumns = false;
 
-            // الأعمدة المخفية (للحفظ)
-            dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "MedicineID", DataPropertyName = "MedicineID", Visible = false });
+            if (dgvMedicines.Columns.Count > 0)
+                return;
+            dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "MedicineID", DataPropertyName = "MedicineID", Visible = false });
 
             // الأعمدة المرئية (نستخدم الأسماء الجديدة لتطابق الجدول)
-            dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "SavedMedicineName", HeaderText = "Medicine Name", DataPropertyName = "SavedMedicineName", ReadOnly = true });
+            dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "SavedMedicineName", HeaderText = "M.Name", DataPropertyName = "SavedMedicineName", ReadOnly = true });
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "Dosage", HeaderText = "Dosage", DataPropertyName = "Dosage", ReadOnly = true });
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "Instructions", HeaderText = "Instructions", DataPropertyName = "Instructions", ReadOnly = true });
 
@@ -499,6 +538,8 @@ namespace Clinic.Medical_Services.Visit
             lblAppointmentID.Text = "[???]";
             lblDoctorID.Text = "[???]";
             lblVisitID.Text = "[???]";
+            llDoctorInfo.Enabled= false;
+            llPatientInfo.Enabled= false;
 
             // 4. إعادة ضبط خيارات افتراضية
             nudQuality.Value = 1;
@@ -563,6 +604,7 @@ namespace Clinic.Medical_Services.Visit
                 _FillVitalsInfo(nextAppointmentID);
                 _FillPatientInfo(nextAppointmentID);
             }
+           
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -582,12 +624,16 @@ namespace Clinic.Medical_Services.Visit
         }
         private void llPatientInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            if (lblPatientID.Text == "[???]")
+                return;
             frmPatientInfo frm = new frmPatientInfo(int.Parse(lblPatientID.Text));
             frm.ShowDialog();
         }
 
         private void llDoctorInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            if (lblDoctorID.Text == "[???]")
+                return;
             frmDoctorInfo frm = new frmDoctorInfo(int.Parse(lblDoctorID.Text));
             frm.ShowDialog();
         }
@@ -726,8 +772,11 @@ namespace Clinic.Medical_Services.Visit
         }
 
 
+
+
         #endregion
 
-
+      
+     
     }
 }

@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -29,33 +30,47 @@ namespace Clinic.Medical_Services.Vital
             dgvNurseQueue.DataSource = _dtAllVitals;
             lblRecordsCount.Text = _dtAllVitals.DefaultView.Count.ToString();
         }
-        private void label3_Click(object sender, EventArgs e)
+
+        private void _SetupNurseGrid()
         {
-            txtBloodPressure.Focus();
+
+            dgvNurseQueue.AutoGenerateColumns = false;
+
+            if (dgvNurseQueue.Columns.Count > 0)
+                return;
+
+            // الأعمدة المرئية (نستخدم الأسماء الجديدة لتطابق الجدول)
+            dgvNurseQueue.Columns.Add(new DataGridViewTextBoxColumn { Name = "AppointmentID", HeaderText = "App.ID", DataPropertyName = "AppointmentID", ReadOnly = true, Width = 100 });
+            dgvNurseQueue.Columns.Add(new DataGridViewTextBoxColumn { Name = "PatientName", HeaderText = "Patient Name", DataPropertyName = "PatientName", ReadOnly = true, Width = 280 });
+            dgvNurseQueue.Columns.Add(new DataGridViewTextBoxColumn { Name = "CheckInTime", HeaderText = "CheckInTime", DataPropertyName = "CheckInTime", ReadOnly = true, Width = 150 });
+            dgvNurseQueue.Columns.Add(new DataGridViewTextBoxColumn { Name = "StatusText", HeaderText = "StatusText", DataPropertyName = "StatusText", ReadOnly = true, Width = 150 });
+
         }
 
         private void frmNurse_Load(object sender, EventArgs e)
         {
             _RefreashData();
-
-            if (_dtAllVitals.Rows.Count == 0)
-                return;
+            _SetupNurseGrid();
             timer1.Start();
             timer2.Start();
 
-            dgvNurseQueue.Columns["AppointmentID"].HeaderText = "AppointmentID";
-            dgvNurseQueue.Columns["AppointmentID"].Width = 100;
-
-            dgvNurseQueue.Columns["PatientName"].HeaderText = "Patient Name";
-            dgvNurseQueue.Columns["PatientName"].Width = 280;
-
-            dgvNurseQueue.Columns["CheckInTime"].HeaderText = "CheckInTime";
-            dgvNurseQueue.Columns["CheckInTime"].Width = 150;
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void _ResetForm()
         {
             _RefreashData();
+
+            txtBloodPressure.Text = string.Empty;
+            lblPlaceholderBP.Visible = true;
+            nudTemperature.Value = 30;
+            nudWeight.Value = 20;
+            nudPulse.Value = 30;
+            errorProvider1.Clear();
+        }
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            _ResetForm();
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -115,7 +130,8 @@ namespace Clinic.Medical_Services.Vital
 
                 MessageBox.Show("Vital signs saved successfully, and the next patient has been called.", "Process Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                _RefreashData();
+                _ResetForm();
+
             }
             else
             {
@@ -130,6 +146,10 @@ namespace Clinic.Medical_Services.Vital
             if (dtQueue.Rows.Count > 0)
             {
                 int nextAppointmentID = (int)dtQueue.Rows[0]["AppointmentID"];
+                bool IsWaiting_For_Vitals = dtQueue.Rows[0]["StatusText"].ToString() == "Waiting_For_Vitals" ? true : false;
+                if(!IsWaiting_For_Vitals)
+                    clsAppointment.UpdateAppointmentStatus(nextAppointmentID, clsAppointment.enAppointmentStatus.Waiting_For_Vitals, clsGlobal.CurrentUser.UserID);
+
 
                 clsAppointment.UpdatePatientCallStatus(nextAppointmentID, true, 1);
             }
@@ -137,12 +157,25 @@ namespace Clinic.Medical_Services.Vital
 
         private void txtBloodPressure_Validating(object sender, CancelEventArgs e)
         {
-            e.Cancel = string.IsNullOrEmpty(txtBloodPressure.Text);
 
-            if (e.Cancel)
-                errorProvider1.SetError(txtBloodPressure, "The Faile is Recuerid");
+            string input = txtBloodPressure.Text.Trim();
+            string pattern = @"^\d{1,3}/\d{1,3}$";
+
+            if (string.IsNullOrEmpty(input))
+            {
+                errorProvider1.SetError(txtBloodPressure, "This field is required.");
+                e.Cancel = true;
+            }
+            else if (!Regex.IsMatch(input, pattern))
+            {
+                errorProvider1.SetError(txtBloodPressure, "Invalid format! Please use (e.g., 120/80).");
+                e.Cancel = true;
+            }
             else
+            {
                 errorProvider1.SetError(txtBloodPressure, null);
+                e.Cancel = false;
+            }
         }
 
 
@@ -152,17 +185,6 @@ namespace Clinic.Medical_Services.Vital
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-
-           
-        }
-
-        private void frmNurse_Resize(object sender, EventArgs e)
-        {
-            int padding = 10;
-            if (this.Width > 1300)
-                padding = 40;
-            this.Padding = new Padding(padding);
-            
 
 
         }
@@ -181,5 +203,56 @@ namespace Clinic.Medical_Services.Vital
 
             dgvNurseQueue.SelectionChanged += dgvNurseQueue_SelectionChanged;
         }
+
+        private void txtBloodPressure_TextChanged(object sender, EventArgs e)
+        {
+            lblPlaceholderBP.Visible = string.IsNullOrEmpty(txtBloodPressure.Text);
+        }
+
+        private void lblPlaceholderBP_Click(object sender, EventArgs e)
+        {
+            txtBloodPressure.Focus();
+        }
+
+        private void btnWaiting_For_Vitals_Click(object sender, EventArgs e)
+        {
+            bool IsWaiting_For_Vitals = dgvNurseQueue.CurrentRow.Cells["StatusText"].ToString() == "Waiting_For_Vitals" ? true : false;
+            if (IsWaiting_For_Vitals)
+                return;
+            int AppoinmetnID = (int)dgvNurseQueue.CurrentRow.Cells["AppointmentID"].Value;
+
+            if (clsAppointment.UpdateAppointmentStatus(AppoinmetnID, clsAppointment.enAppointmentStatus.Waiting_For_Vitals, clsGlobal.CurrentUser.UserID))
+                _ResetForm();
+
+
+        }
+
+        private void btnNextPatient_Click(object sender, EventArgs e)
+        {
+
+            if (dgvNurseQueue.SelectedRows.Count > 0)
+            {
+                int AppoinmetnID = (int)dgvNurseQueue.CurrentRow.Cells["AppointmentID"].Value;
+                bool IsCalled = Convert.ToBoolean(dgvNurseQueue.CurrentRow.Cells["IsCalled"].Value);
+                if (IsCalled)
+                    return;
+                else
+                    _CallNextPatientInQueue();
+
+            }
+        }
+
+        private void frmNurse_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            timer1.Stop();
+            timer1.Dispose();
+
+            timer2.Stop();
+            timer2.Dispose();
+        }
+
+     
+
+     
     }
 }

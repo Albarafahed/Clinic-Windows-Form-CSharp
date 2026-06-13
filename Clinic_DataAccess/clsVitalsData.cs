@@ -193,7 +193,7 @@ namespace Clinic_DataAccess
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
                     string query = @"SELECT * FROM View_PatientsWaitingForVitals 
-                             WHERE StatusText = 'Waiting_For_Vitals' 
+                             WHERE StatusText in('Waiting_For_Vitals','In-Queue')
                             ORDER BY CheckInTime ASC";
 
                                                                 

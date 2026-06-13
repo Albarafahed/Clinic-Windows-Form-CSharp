@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gpPatientInfo = new System.Windows.Forms.GroupBox();
             this.llDoctorInfo = new System.Windows.Forms.LinkLabel();
             this.llPatientInfo = new System.Windows.Forms.LinkLabel();
@@ -49,11 +49,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tcVisitInfo = new System.Windows.Forms.TabControl();
             this.tpVisitInfo = new System.Windows.Forms.TabPage();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.lbVisitDate = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.lbVisitID = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.pnlVisitInfo = new System.Windows.Forms.Panel();
+            this.lbVisitDate = new System.Windows.Forms.Label();
+            this.txtDiagnosis = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbBP = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -63,7 +64,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.lbPluse = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.txtDiagnosis = new System.Windows.Forms.TextBox();
             this.txtNotes = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -74,34 +74,36 @@
             this.label22 = new System.Windows.Forms.Label();
             this.dgvDoctorQueue = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.tpServices = new System.Windows.Forms.TabPage();
+            this.pnlServicesInfo = new System.Windows.Forms.Panel();
             this.dgvServices = new System.Windows.Forms.DataGridView();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lbQuality = new System.Windows.Forms.Label();
+            this.lbServeces = new System.Windows.Forms.Label();
             this.nudQuality = new System.Windows.Forms.NumericUpDown();
             this.cmbServices = new System.Windows.Forms.ComboBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label21 = new System.Windows.Forms.Label();
             this.tpPrescriptionInfo = new System.Windows.Forms.TabPage();
+            this.pnlPrescriptionInfo = new System.Windows.Forms.Panel();
             this.dgvMedicines = new System.Windows.Forms.DataGridView();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.lbPrescriptionID = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.txtPrescriptionNotes = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.dtpPrescriptionDate = new System.Windows.Forms.DateTimePicker();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lbPrescriptionDate = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.lbPrescriptionID = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.pnlActions = new System.Windows.Forms.Panel();
-            this.btnClose = new System.Windows.Forms.Button();
+            this.pnlAction = new System.Windows.Forms.Panel();
             this.btnInProgress = new System.Windows.Forms.Button();
-            this.btnPostpone = new System.Windows.Forms.Button();
             this.btnCalnceVisit = new System.Windows.Forms.Button();
+            this.btnPostpone = new System.Windows.Forms.Button();
             this.btnNextPatient = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panTitle = new System.Windows.Forms.Panel();
             this.lbDate = new System.Windows.Forms.Label();
@@ -118,12 +120,13 @@
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.btnSaveVisitServices = new System.Windows.Forms.Button();
             this.btnAddService = new System.Windows.Forms.Button();
             this.btnSavePrescription = new System.Windows.Forms.Button();
             this.btnAddMedicen = new System.Windows.Forms.Button();
             this.pictureBox13 = new System.Windows.Forms.PictureBox();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.pbPrecriptionDate = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -131,21 +134,24 @@
             this.gpPatientInfo.SuspendLayout();
             this.tcVisitInfo.SuspendLayout();
             this.tpVisitInfo.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.pnlVisitInfo.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.pnlWaittingList.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDoctorQueue)).BeginInit();
             this.panel2.SuspendLayout();
             this.tpServices.SuspendLayout();
+            this.pnlServicesInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvServices)).BeginInit();
-            this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuality)).BeginInit();
+            this.panel5.SuspendLayout();
             this.tpPrescriptionInfo.SuspendLayout();
+            this.pnlPrescriptionInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMedicines)).BeginInit();
             this.panel6.SuspendLayout();
             this.pnlActions.SuspendLayout();
+            this.pnlAction.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -157,7 +163,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPrecriptionDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -317,7 +323,8 @@
             // 
             // tpVisitInfo
             // 
-            this.tpVisitInfo.Controls.Add(this.panel4);
+            this.tpVisitInfo.Controls.Add(this.panel7);
+            this.tpVisitInfo.Controls.Add(this.pnlVisitInfo);
             this.tpVisitInfo.Controls.Add(this.pnlWaittingList);
             this.tpVisitInfo.Controls.Add(this.label6);
             this.tpVisitInfo.Controls.Add(this.label14);
@@ -330,51 +337,17 @@
             this.tpVisitInfo.Text = "VisitInfo";
             this.tpVisitInfo.UseVisualStyleBackColor = true;
             // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.lbVisitDate);
-            this.panel4.Controls.Add(this.panel7);
-            this.panel4.Controls.Add(this.txtDiagnosis);
-            this.panel4.Controls.Add(this.groupBox1);
-            this.panel4.Controls.Add(this.txtNotes);
-            this.panel4.Controls.Add(this.btnSaveVisit);
-            this.panel4.Controls.Add(this.label4);
-            this.panel4.Controls.Add(this.pictureBox8);
-            this.panel4.Controls.Add(this.pictureBox7);
-            this.panel4.Controls.Add(this.pictureBox6);
-            this.panel4.Controls.Add(this.label12);
-            this.panel4.Controls.Add(this.label10);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(610, 5);
-            this.panel4.Name = "panel4";
-            this.panel4.Padding = new System.Windows.Forms.Padding(5);
-            this.panel4.Size = new System.Drawing.Size(892, 525);
-            this.panel4.TabIndex = 227;
-            // 
-            // lbVisitDate
-            // 
-            this.lbVisitDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbVisitDate.AutoSize = true;
-            this.lbVisitDate.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbVisitDate.ForeColor = System.Drawing.Color.Black;
-            this.lbVisitDate.Location = new System.Drawing.Point(184, 233);
-            this.lbVisitDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbVisitDate.Name = "lbVisitDate";
-            this.lbVisitDate.Size = new System.Drawing.Size(97, 38);
-            this.lbVisitDate.TabIndex = 237;
-            this.lbVisitDate.Text = "[? ? ? ]";
-            // 
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(40)))), ((int)(((byte)(90)))));
             this.panel7.Controls.Add(this.lbVisitID);
             this.panel7.Controls.Add(this.label16);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel7.Location = new System.Drawing.Point(5, 5);
+            this.panel7.Location = new System.Drawing.Point(610, 5);
             this.panel7.Margin = new System.Windows.Forms.Padding(5);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(882, 66);
-            this.panel7.TabIndex = 254;
+            this.panel7.Size = new System.Drawing.Size(892, 66);
+            this.panel7.TabIndex = 255;
             // 
             // lbVisitID
             // 
@@ -400,9 +373,55 @@
             this.label16.TabIndex = 235;
             this.label16.Text = "Visit ID :";
             // 
+            // pnlVisitInfo
+            // 
+            this.pnlVisitInfo.Controls.Add(this.lbVisitDate);
+            this.pnlVisitInfo.Controls.Add(this.txtDiagnosis);
+            this.pnlVisitInfo.Controls.Add(this.groupBox1);
+            this.pnlVisitInfo.Controls.Add(this.txtNotes);
+            this.pnlVisitInfo.Controls.Add(this.btnSaveVisit);
+            this.pnlVisitInfo.Controls.Add(this.label4);
+            this.pnlVisitInfo.Controls.Add(this.pictureBox8);
+            this.pnlVisitInfo.Controls.Add(this.pictureBox7);
+            this.pnlVisitInfo.Controls.Add(this.pictureBox6);
+            this.pnlVisitInfo.Controls.Add(this.label12);
+            this.pnlVisitInfo.Controls.Add(this.label10);
+            this.pnlVisitInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlVisitInfo.Location = new System.Drawing.Point(610, 5);
+            this.pnlVisitInfo.Name = "pnlVisitInfo";
+            this.pnlVisitInfo.Padding = new System.Windows.Forms.Padding(5);
+            this.pnlVisitInfo.Size = new System.Drawing.Size(892, 525);
+            this.pnlVisitInfo.TabIndex = 227;
+            // 
+            // lbVisitDate
+            // 
+            this.lbVisitDate.AutoSize = true;
+            this.lbVisitDate.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbVisitDate.ForeColor = System.Drawing.Color.Black;
+            this.lbVisitDate.Location = new System.Drawing.Point(184, 242);
+            this.lbVisitDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbVisitDate.Name = "lbVisitDate";
+            this.lbVisitDate.Size = new System.Drawing.Size(78, 31);
+            this.lbVisitDate.TabIndex = 237;
+            this.lbVisitDate.Text = "[? ? ? ]";
+            // 
+            // txtDiagnosis
+            // 
+            this.txtDiagnosis.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDiagnosis.Location = new System.Drawing.Point(172, 288);
+            this.txtDiagnosis.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtDiagnosis.MaxLength = 50;
+            this.txtDiagnosis.Multiline = true;
+            this.txtDiagnosis.Name = "txtDiagnosis";
+            this.txtDiagnosis.Size = new System.Drawing.Size(445, 63);
+            this.txtDiagnosis.TabIndex = 252;
+            this.txtDiagnosis.Validating += new System.ComponentModel.CancelEventHandler(this.txtDiagnosis_Validating);
+            // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.groupBox1.Controls.Add(this.pictureBox9);
             this.groupBox1.Controls.Add(this.lbBP);
@@ -427,6 +446,7 @@
             // 
             // lbBP
             // 
+            this.lbBP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbBP.BackColor = System.Drawing.Color.Silver;
             this.lbBP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lbBP.Location = new System.Drawing.Point(446, 102);
@@ -438,6 +458,7 @@
             // 
             // label18
             // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label18.Location = new System.Drawing.Point(374, 102);
@@ -471,6 +492,7 @@
             // 
             // lblTemp
             // 
+            this.lblTemp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTemp.BackColor = System.Drawing.Color.Silver;
             this.lblTemp.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblTemp.Location = new System.Drawing.Point(446, 44);
@@ -482,6 +504,7 @@
             // 
             // label17
             // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label17.Location = new System.Drawing.Point(374, 44);
@@ -513,21 +536,10 @@
             this.label23.TabIndex = 221;
             this.label23.Text = "Pluse:";
             // 
-            // txtDiagnosis
-            // 
-            this.txtDiagnosis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDiagnosis.Location = new System.Drawing.Point(172, 276);
-            this.txtDiagnosis.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtDiagnosis.MaxLength = 50;
-            this.txtDiagnosis.Multiline = true;
-            this.txtDiagnosis.Name = "txtDiagnosis";
-            this.txtDiagnosis.Size = new System.Drawing.Size(445, 63);
-            this.txtDiagnosis.TabIndex = 252;
-            this.txtDiagnosis.Validating += new System.ComponentModel.CancelEventHandler(this.txtDiagnosis_Validating);
-            // 
             // txtNotes
             // 
-            this.txtNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNotes.Location = new System.Drawing.Point(16, 388);
             this.txtNotes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNotes.MaxLength = 50;
@@ -538,7 +550,6 @@
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label4.Location = new System.Drawing.Point(30, 355);
@@ -550,7 +561,6 @@
             // 
             // label12
             // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label12.Location = new System.Drawing.Point(11, 303);
@@ -562,7 +572,6 @@
             // 
             // label10
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label10.Location = new System.Drawing.Point(11, 247);
@@ -620,28 +629,28 @@
             // 
             this.dgvDoctorQueue.AllowUserToAddRows = false;
             this.dgvDoctorQueue.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
-            this.dgvDoctorQueue.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.dgvDoctorQueue.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDoctorQueue.BackgroundColor = System.Drawing.Color.White;
             this.dgvDoctorQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvDoctorQueue.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDoctorQueue.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDoctorQueue.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDoctorQueue.ColumnHeadersHeight = 45;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvDoctorQueue.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDoctorQueue.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvDoctorQueue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDoctorQueue.EnableHeadersVisualStyles = false;
             this.dgvDoctorQueue.Location = new System.Drawing.Point(5, 71);
@@ -668,21 +677,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(595, 66);
             this.panel2.TabIndex = 242;
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(190)))), ((int)(((byte)(100)))));
-            this.btnRefresh.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefresh.ForeColor = System.Drawing.Color.White;
-            this.btnRefresh.Location = new System.Drawing.Point(361, 9);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(146, 46);
-            this.btnRefresh.TabIndex = 236;
-            this.btnRefresh.Text = " Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = false;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // label2
             // 
@@ -720,14 +714,8 @@
             // 
             // tpServices
             // 
-            this.tpServices.Controls.Add(this.btnSaveVisitServices);
-            this.tpServices.Controls.Add(this.dgvServices);
+            this.tpServices.Controls.Add(this.pnlServicesInfo);
             this.tpServices.Controls.Add(this.panel5);
-            this.tpServices.Controls.Add(this.label8);
-            this.tpServices.Controls.Add(this.label9);
-            this.tpServices.Controls.Add(this.nudQuality);
-            this.tpServices.Controls.Add(this.cmbServices);
-            this.tpServices.Controls.Add(this.btnAddService);
             this.tpServices.Location = new System.Drawing.Point(4, 37);
             this.tpServices.Name = "tpServices";
             this.tpServices.Padding = new System.Windows.Forms.Padding(3);
@@ -735,6 +723,21 @@
             this.tpServices.TabIndex = 1;
             this.tpServices.Text = "Services";
             this.tpServices.UseVisualStyleBackColor = true;
+            // 
+            // pnlServicesInfo
+            // 
+            this.pnlServicesInfo.Controls.Add(this.btnSaveVisitServices);
+            this.pnlServicesInfo.Controls.Add(this.dgvServices);
+            this.pnlServicesInfo.Controls.Add(this.lbQuality);
+            this.pnlServicesInfo.Controls.Add(this.lbServeces);
+            this.pnlServicesInfo.Controls.Add(this.nudQuality);
+            this.pnlServicesInfo.Controls.Add(this.cmbServices);
+            this.pnlServicesInfo.Controls.Add(this.btnAddService);
+            this.pnlServicesInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlServicesInfo.Location = new System.Drawing.Point(3, 69);
+            this.pnlServicesInfo.Name = "pnlServicesInfo";
+            this.pnlServicesInfo.Size = new System.Drawing.Size(1501, 475);
+            this.pnlServicesInfo.TabIndex = 245;
             // 
             // dgvServices
             // 
@@ -745,40 +748,87 @@
             this.dgvServices.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvServices.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvServices.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvServices.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvServices.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvServices.ColumnHeadersHeight = 40;
             this.dgvServices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvServices.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvServices.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.dgvServices.Location = new System.Drawing.Point(254, 250);
+            this.dgvServices.Location = new System.Drawing.Point(314, 159);
             this.dgvServices.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvServices.MultiSelect = false;
             this.dgvServices.Name = "dgvServices";
             this.dgvServices.ReadOnly = true;
             this.dgvServices.RowHeadersVisible = false;
             this.dgvServices.RowHeadersWidth = 51;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvServices.RowsDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvServices.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvServices.RowTemplate.Height = 38;
             this.dgvServices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvServices.Size = new System.Drawing.Size(783, 220);
-            this.dgvServices.TabIndex = 243;
+            this.dgvServices.TabIndex = 250;
             this.dgvServices.TabStop = false;
             this.dgvServices.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvServices_CellContentClick);
             this.dgvServices.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseMove);
+            // 
+            // lbQuality
+            // 
+            this.lbQuality.AutoSize = true;
+            this.lbQuality.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbQuality.Location = new System.Drawing.Point(722, 44);
+            this.lbQuality.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbQuality.Name = "lbQuality";
+            this.lbQuality.Size = new System.Drawing.Size(93, 25);
+            this.lbQuality.TabIndex = 248;
+            this.lbQuality.Text = "Quality :";
+            // 
+            // lbServeces
+            // 
+            this.lbServeces.AutoSize = true;
+            this.lbServeces.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbServeces.Location = new System.Drawing.Point(188, 44);
+            this.lbServeces.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbServeces.Name = "lbServeces";
+            this.lbServeces.Size = new System.Drawing.Size(109, 25);
+            this.lbServeces.TabIndex = 247;
+            this.lbServeces.Text = "Services :";
+            // 
+            // nudQuality
+            // 
+            this.nudQuality.Location = new System.Drawing.Point(822, 40);
+            this.nudQuality.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudQuality.Name = "nudQuality";
+            this.nudQuality.Size = new System.Drawing.Size(125, 34);
+            this.nudQuality.TabIndex = 246;
+            this.nudQuality.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // cmbServices
+            // 
+            this.cmbServices.FormattingEnabled = true;
+            this.cmbServices.Location = new System.Drawing.Point(314, 38);
+            this.cmbServices.Name = "cmbServices";
+            this.cmbServices.Size = new System.Drawing.Size(309, 36);
+            this.cmbServices.TabIndex = 245;
             // 
             // panel5
             // 
@@ -803,65 +853,10 @@
             this.label21.TabIndex = 235;
             this.label21.Text = "Services & Procedures";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(662, 135);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(93, 25);
-            this.label8.TabIndex = 239;
-            this.label8.Text = "Quality :";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(128, 135);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(109, 25);
-            this.label9.TabIndex = 238;
-            this.label9.Text = "Services :";
-            // 
-            // nudQuality
-            // 
-            this.nudQuality.Location = new System.Drawing.Point(762, 131);
-            this.nudQuality.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudQuality.Name = "nudQuality";
-            this.nudQuality.Size = new System.Drawing.Size(125, 34);
-            this.nudQuality.TabIndex = 237;
-            this.nudQuality.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // cmbServices
-            // 
-            this.cmbServices.FormattingEnabled = true;
-            this.cmbServices.Location = new System.Drawing.Point(254, 129);
-            this.cmbServices.Name = "cmbServices";
-            this.cmbServices.Size = new System.Drawing.Size(309, 36);
-            this.cmbServices.TabIndex = 236;
-            // 
             // tpPrescriptionInfo
             // 
-            this.tpPrescriptionInfo.Controls.Add(this.btnSavePrescription);
-            this.tpPrescriptionInfo.Controls.Add(this.btnAddMedicen);
-            this.tpPrescriptionInfo.Controls.Add(this.dgvMedicines);
+            this.tpPrescriptionInfo.Controls.Add(this.pnlPrescriptionInfo);
             this.tpPrescriptionInfo.Controls.Add(this.panel6);
-            this.tpPrescriptionInfo.Controls.Add(this.txtPrescriptionNotes);
-            this.tpPrescriptionInfo.Controls.Add(this.label15);
-            this.tpPrescriptionInfo.Controls.Add(this.dtpPrescriptionDate);
-            this.tpPrescriptionInfo.Controls.Add(this.label13);
-            this.tpPrescriptionInfo.Controls.Add(this.pictureBox13);
-            this.tpPrescriptionInfo.Controls.Add(this.pictureBox12);
             this.tpPrescriptionInfo.Location = new System.Drawing.Point(4, 37);
             this.tpPrescriptionInfo.Name = "tpPrescriptionInfo";
             this.tpPrescriptionInfo.Padding = new System.Windows.Forms.Padding(3);
@@ -869,6 +864,23 @@
             this.tpPrescriptionInfo.TabIndex = 2;
             this.tpPrescriptionInfo.Text = "Prescription Info";
             this.tpPrescriptionInfo.UseVisualStyleBackColor = true;
+            // 
+            // pnlPrescriptionInfo
+            // 
+            this.pnlPrescriptionInfo.Controls.Add(this.btnSavePrescription);
+            this.pnlPrescriptionInfo.Controls.Add(this.btnAddMedicen);
+            this.pnlPrescriptionInfo.Controls.Add(this.dgvMedicines);
+            this.pnlPrescriptionInfo.Controls.Add(this.txtPrescriptionNotes);
+            this.pnlPrescriptionInfo.Controls.Add(this.label15);
+            this.pnlPrescriptionInfo.Controls.Add(this.dtpPrescriptionDate);
+            this.pnlPrescriptionInfo.Controls.Add(this.lbPrescriptionDate);
+            this.pnlPrescriptionInfo.Controls.Add(this.pictureBox13);
+            this.pnlPrescriptionInfo.Controls.Add(this.pbPrecriptionDate);
+            this.pnlPrescriptionInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlPrescriptionInfo.Location = new System.Drawing.Point(3, 69);
+            this.pnlPrescriptionInfo.Name = "pnlPrescriptionInfo";
+            this.pnlPrescriptionInfo.Size = new System.Drawing.Size(1501, 475);
+            this.pnlPrescriptionInfo.TabIndex = 238;
             // 
             // dgvMedicines
             // 
@@ -879,40 +891,82 @@
             this.dgvMedicines.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvMedicines.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvMedicines.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMedicines.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMedicines.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvMedicines.ColumnHeadersHeight = 40;
             this.dgvMedicines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvMedicines.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvMedicines.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.dgvMedicines.Location = new System.Drawing.Point(243, 169);
+            this.dgvMedicines.Location = new System.Drawing.Point(259, 88);
             this.dgvMedicines.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvMedicines.MultiSelect = false;
             this.dgvMedicines.Name = "dgvMedicines";
             this.dgvMedicines.ReadOnly = true;
             this.dgvMedicines.RowHeadersVisible = false;
             this.dgvMedicines.RowHeadersWidth = 51;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvMedicines.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvMedicines.RowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvMedicines.RowTemplate.Height = 38;
             this.dgvMedicines.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvMedicines.Size = new System.Drawing.Size(876, 248);
-            this.dgvMedicines.TabIndex = 238;
+            this.dgvMedicines.TabIndex = 252;
             this.dgvMedicines.TabStop = false;
             this.dgvMedicines.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMedicines_CellContentClick);
             this.dgvMedicines.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseMove);
+            // 
+            // txtPrescriptionNotes
+            // 
+            this.txtPrescriptionNotes.Location = new System.Drawing.Point(327, 355);
+            this.txtPrescriptionNotes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtPrescriptionNotes.MaxLength = 50;
+            this.txtPrescriptionNotes.Multiline = true;
+            this.txtPrescriptionNotes.Name = "txtPrescriptionNotes";
+            this.txtPrescriptionNotes.Size = new System.Drawing.Size(429, 81);
+            this.txtPrescriptionNotes.TabIndex = 251;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(97, 375);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(195, 25);
+            this.label15.TabIndex = 249;
+            this.label15.Text = "Prescription Notes:";
+            // 
+            // dtpPrescriptionDate
+            // 
+            this.dtpPrescriptionDate.CustomFormat = "";
+            this.dtpPrescriptionDate.Location = new System.Drawing.Point(750, 29);
+            this.dtpPrescriptionDate.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.dtpPrescriptionDate.Name = "dtpPrescriptionDate";
+            this.dtpPrescriptionDate.Size = new System.Drawing.Size(335, 34);
+            this.dtpPrescriptionDate.TabIndex = 246;
+            this.dtpPrescriptionDate.Value = new System.DateTime(2000, 12, 31, 0, 0, 0, 0);
+            // 
+            // lbPrescriptionDate
+            // 
+            this.lbPrescriptionDate.AutoSize = true;
+            this.lbPrescriptionDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPrescriptionDate.Location = new System.Drawing.Point(525, 38);
+            this.lbPrescriptionDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbPrescriptionDate.Name = "lbPrescriptionDate";
+            this.lbPrescriptionDate.Size = new System.Drawing.Size(184, 25);
+            this.lbPrescriptionDate.TabIndex = 247;
+            this.lbPrescriptionDate.Text = "Prescription Date:";
             // 
             // panel6
             // 
@@ -950,66 +1004,103 @@
             this.label11.TabIndex = 235;
             this.label11.Text = "Prescription ID :";
             // 
-            // txtPrescriptionNotes
-            // 
-            this.txtPrescriptionNotes.Location = new System.Drawing.Point(311, 436);
-            this.txtPrescriptionNotes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtPrescriptionNotes.MaxLength = 50;
-            this.txtPrescriptionNotes.Multiline = true;
-            this.txtPrescriptionNotes.Name = "txtPrescriptionNotes";
-            this.txtPrescriptionNotes.Size = new System.Drawing.Size(429, 81);
-            this.txtPrescriptionNotes.TabIndex = 232;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(81, 456);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(195, 25);
-            this.label15.TabIndex = 230;
-            this.label15.Text = "Prescription Notes:";
-            // 
-            // dtpPrescriptionDate
-            // 
-            this.dtpPrescriptionDate.CustomFormat = "";
-            this.dtpPrescriptionDate.Location = new System.Drawing.Point(734, 110);
-            this.dtpPrescriptionDate.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
-            this.dtpPrescriptionDate.Name = "dtpPrescriptionDate";
-            this.dtpPrescriptionDate.Size = new System.Drawing.Size(335, 34);
-            this.dtpPrescriptionDate.TabIndex = 227;
-            this.dtpPrescriptionDate.Value = new System.DateTime(2000, 12, 31, 0, 0, 0, 0);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(509, 119);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(184, 25);
-            this.label13.TabIndex = 228;
-            this.label13.Text = "Prescription Date:";
-            // 
             // pnlActions
             // 
             this.pnlActions.BackColor = System.Drawing.Color.Transparent;
+            this.pnlActions.Controls.Add(this.pnlAction);
             this.pnlActions.Controls.Add(this.btnClose);
-            this.pnlActions.Controls.Add(this.btnInProgress);
-            this.pnlActions.Controls.Add(this.btnPostpone);
-            this.pnlActions.Controls.Add(this.btnCalnceVisit);
-            this.pnlActions.Controls.Add(this.btnNextPatient);
-            this.pnlActions.Controls.Add(this.btnSave);
             this.pnlActions.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlActions.Location = new System.Drawing.Point(1291, 0);
             this.pnlActions.Name = "pnlActions";
             this.pnlActions.Size = new System.Drawing.Size(224, 576);
             this.pnlActions.TabIndex = 222;
             // 
+            // pnlAction
+            // 
+            this.pnlAction.Controls.Add(this.btnInProgress);
+            this.pnlAction.Controls.Add(this.btnCalnceVisit);
+            this.pnlAction.Controls.Add(this.btnPostpone);
+            this.pnlAction.Controls.Add(this.btnNextPatient);
+            this.pnlAction.Controls.Add(this.btnSave);
+            this.pnlAction.Location = new System.Drawing.Point(4, 8);
+            this.pnlAction.Name = "pnlAction";
+            this.pnlAction.Size = new System.Drawing.Size(220, 450);
+            this.pnlAction.TabIndex = 6;
+            // 
+            // btnInProgress
+            // 
+            this.btnInProgress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(100)))), ((int)(((byte)(7)))));
+            this.btnInProgress.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnInProgress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInProgress.ForeColor = System.Drawing.Color.Black;
+            this.btnInProgress.Location = new System.Drawing.Point(16, 179);
+            this.btnInProgress.Name = "btnInProgress";
+            this.btnInProgress.Size = new System.Drawing.Size(200, 68);
+            this.btnInProgress.TabIndex = 10;
+            this.btnInProgress.Text = "In-Progress";
+            this.btnInProgress.UseVisualStyleBackColor = false;
+            this.btnInProgress.Click += new System.EventHandler(this.btnInProgress_Click);
+            // 
+            // btnCalnceVisit
+            // 
+            this.btnCalnceVisit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.btnCalnceVisit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCalnceVisit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCalnceVisit.ForeColor = System.Drawing.Color.White;
+            this.btnCalnceVisit.Location = new System.Drawing.Point(13, 261);
+            this.btnCalnceVisit.Name = "btnCalnceVisit";
+            this.btnCalnceVisit.Size = new System.Drawing.Size(200, 68);
+            this.btnCalnceVisit.TabIndex = 9;
+            this.btnCalnceVisit.Text = "Cancel Visit";
+            this.btnCalnceVisit.UseVisualStyleBackColor = false;
+            this.btnCalnceVisit.Click += new System.EventHandler(this.btnCalnceVisit_Click);
+            // 
+            // btnPostpone
+            // 
+            this.btnPostpone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.btnPostpone.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPostpone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPostpone.ForeColor = System.Drawing.Color.Black;
+            this.btnPostpone.Location = new System.Drawing.Point(10, 349);
+            this.btnPostpone.Name = "btnPostpone";
+            this.btnPostpone.Size = new System.Drawing.Size(200, 68);
+            this.btnPostpone.TabIndex = 4;
+            this.btnPostpone.Text = "Postpone";
+            this.btnPostpone.UseVisualStyleBackColor = false;
+            this.btnPostpone.Click += new System.EventHandler(this.btnPostpone_Click);
+            // 
+            // btnNextPatient
+            // 
+            this.btnNextPatient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
+            this.btnNextPatient.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNextPatient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNextPatient.ForeColor = System.Drawing.Color.White;
+            this.btnNextPatient.Location = new System.Drawing.Point(13, 88);
+            this.btnNextPatient.Name = "btnNextPatient";
+            this.btnNextPatient.Size = new System.Drawing.Size(200, 68);
+            this.btnNextPatient.TabIndex = 8;
+            this.btnNextPatient.Text = "Next Patient";
+            this.btnNextPatient.UseVisualStyleBackColor = false;
+            this.btnNextPatient.Click += new System.EventHandler(this.btnNextPatient_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.ForeColor = System.Drawing.Color.White;
+            this.btnSave.Location = new System.Drawing.Point(11, 14);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(200, 68);
+            this.btnSave.TabIndex = 7;
+            this.btnSave.Text = "Save Visit";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // btnClose
             // 
             this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.ForeColor = System.Drawing.Color.White;
@@ -1020,71 +1111,6 @@
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnInProgress
-            // 
-            this.btnInProgress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(100)))), ((int)(((byte)(7)))));
-            this.btnInProgress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInProgress.ForeColor = System.Drawing.Color.Black;
-            this.btnInProgress.Location = new System.Drawing.Point(9, 205);
-            this.btnInProgress.Name = "btnInProgress";
-            this.btnInProgress.Size = new System.Drawing.Size(200, 68);
-            this.btnInProgress.TabIndex = 6;
-            this.btnInProgress.Text = "In-Progress";
-            this.btnInProgress.UseVisualStyleBackColor = false;
-            this.btnInProgress.Click += new System.EventHandler(this.btnInProgress_Click);
-            // 
-            // btnPostpone
-            // 
-            this.btnPostpone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
-            this.btnPostpone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPostpone.ForeColor = System.Drawing.Color.Black;
-            this.btnPostpone.Location = new System.Drawing.Point(6, 373);
-            this.btnPostpone.Name = "btnPostpone";
-            this.btnPostpone.Size = new System.Drawing.Size(200, 68);
-            this.btnPostpone.TabIndex = 4;
-            this.btnPostpone.Text = "Postpone";
-            this.btnPostpone.UseVisualStyleBackColor = false;
-            this.btnPostpone.Click += new System.EventHandler(this.btnPostpone_Click);
-            // 
-            // btnCalnceVisit
-            // 
-            this.btnCalnceVisit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
-            this.btnCalnceVisit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCalnceVisit.ForeColor = System.Drawing.Color.White;
-            this.btnCalnceVisit.Location = new System.Drawing.Point(6, 289);
-            this.btnCalnceVisit.Name = "btnCalnceVisit";
-            this.btnCalnceVisit.Size = new System.Drawing.Size(200, 68);
-            this.btnCalnceVisit.TabIndex = 3;
-            this.btnCalnceVisit.Text = "Cancel Visit";
-            this.btnCalnceVisit.UseVisualStyleBackColor = false;
-            this.btnCalnceVisit.Click += new System.EventHandler(this.btnCalnceVisit_Click);
-            // 
-            // btnNextPatient
-            // 
-            this.btnNextPatient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
-            this.btnNextPatient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNextPatient.ForeColor = System.Drawing.Color.White;
-            this.btnNextPatient.Location = new System.Drawing.Point(6, 121);
-            this.btnNextPatient.Name = "btnNextPatient";
-            this.btnNextPatient.Size = new System.Drawing.Size(200, 68);
-            this.btnNextPatient.TabIndex = 2;
-            this.btnNextPatient.Text = "Next Patient";
-            this.btnNextPatient.UseVisualStyleBackColor = false;
-            this.btnNextPatient.Click += new System.EventHandler(this.btnNextPatient_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(4, 37);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(200, 68);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Save Visit";
-            this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // panel3
             // 
@@ -1160,6 +1186,7 @@
             // 
             // pictureBox9
             // 
+            this.pictureBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox9.Image = global::Clinic.Properties.Resources.ID_32;
             this.pictureBox9.Location = new System.Drawing.Point(336, 102);
             this.pictureBox9.Name = "pictureBox9";
@@ -1180,6 +1207,7 @@
             // 
             // pictureBox5
             // 
+            this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox5.Image = global::Clinic.Properties.Resources.ID_32;
             this.pictureBox5.Location = new System.Drawing.Point(336, 44);
             this.pictureBox5.Name = "pictureBox5";
@@ -1202,7 +1230,7 @@
             // 
             this.btnSaveVisit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveVisit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            this.btnSaveVisit.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnSaveVisit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSaveVisit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveVisit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.btnSaveVisit.Image = global::Clinic.Properties.Resources.Next_32;
@@ -1219,7 +1247,6 @@
             // 
             // pictureBox8
             // 
-            this.pictureBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox8.Image = global::Clinic.Properties.Resources.Calendar_32;
             this.pictureBox8.Location = new System.Drawing.Point(134, 245);
             this.pictureBox8.Name = "pictureBox8";
@@ -1230,9 +1257,8 @@
             // 
             // pictureBox7
             // 
-            this.pictureBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox7.Image = global::Clinic.Properties.Resources.Notes_32;
-            this.pictureBox7.Location = new System.Drawing.Point(134, 347);
+            this.pictureBox7.Location = new System.Drawing.Point(110, 357);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(31, 26);
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1241,7 +1267,6 @@
             // 
             // pictureBox6
             // 
-            this.pictureBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox6.Image = global::Clinic.Properties.Resources.Diagnosis_32;
             this.pictureBox6.Location = new System.Drawing.Point(134, 297);
             this.pictureBox6.Name = "pictureBox6";
@@ -1250,19 +1275,35 @@
             this.pictureBox6.TabIndex = 245;
             this.pictureBox6.TabStop = false;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.BackColor = System.Drawing.Color.Transparent;
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefresh.ForeColor = System.Drawing.Color.White;
+            this.btnRefresh.Image = global::Clinic.Properties.Resources.refresh_48_1;
+            this.btnRefresh.Location = new System.Drawing.Point(351, 12);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(146, 48);
+            this.btnRefresh.TabIndex = 236;
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // btnSaveVisitServices
             // 
             this.btnSaveVisitServices.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            this.btnSaveVisitServices.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnSaveVisitServices.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSaveVisitServices.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveVisitServices.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.btnSaveVisitServices.Image = global::Clinic.Properties.Resources.Next_32;
             this.btnSaveVisitServices.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSaveVisitServices.Location = new System.Drawing.Point(1057, 467);
+            this.btnSaveVisitServices.Location = new System.Drawing.Point(1082, 389);
             this.btnSaveVisitServices.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSaveVisitServices.Name = "btnSaveVisitServices";
             this.btnSaveVisitServices.Size = new System.Drawing.Size(195, 48);
-            this.btnSaveVisitServices.TabIndex = 244;
+            this.btnSaveVisitServices.TabIndex = 251;
             this.btnSaveVisitServices.Text = "Save and Next";
             this.btnSaveVisitServices.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSaveVisitServices.UseVisualStyleBackColor = false;
@@ -1271,15 +1312,16 @@
             // btnAddService
             // 
             this.btnAddService.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.btnAddService.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddService.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAddService.ForeColor = System.Drawing.Color.White;
             this.btnAddService.Image = global::Clinic.Properties.Resources.add_32;
             this.btnAddService.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddService.Location = new System.Drawing.Point(264, 187);
+            this.btnAddService.Location = new System.Drawing.Point(324, 96);
             this.btnAddService.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAddService.Name = "btnAddService";
             this.btnAddService.Size = new System.Drawing.Size(236, 41);
-            this.btnAddService.TabIndex = 240;
+            this.btnAddService.TabIndex = 249;
             this.btnAddService.Text = "Add New Services";
             this.btnAddService.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAddService.UseVisualStyleBackColor = false;
@@ -1288,16 +1330,16 @@
             // btnSavePrescription
             // 
             this.btnSavePrescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
-            this.btnSavePrescription.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnSavePrescription.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSavePrescription.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSavePrescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.btnSavePrescription.Image = global::Clinic.Properties.Resources.Next_32;
             this.btnSavePrescription.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSavePrescription.Location = new System.Drawing.Point(984, 469);
+            this.btnSavePrescription.Location = new System.Drawing.Point(1000, 388);
             this.btnSavePrescription.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSavePrescription.Name = "btnSavePrescription";
             this.btnSavePrescription.Size = new System.Drawing.Size(195, 48);
-            this.btnSavePrescription.TabIndex = 245;
+            this.btnSavePrescription.TabIndex = 254;
             this.btnSavePrescription.Text = "Save and Next";
             this.btnSavePrescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSavePrescription.UseVisualStyleBackColor = false;
@@ -1310,11 +1352,11 @@
             this.btnAddMedicen.ForeColor = System.Drawing.Color.White;
             this.btnAddMedicen.Image = global::Clinic.Properties.Resources.add_32;
             this.btnAddMedicen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddMedicen.Location = new System.Drawing.Point(240, 109);
+            this.btnAddMedicen.Location = new System.Drawing.Point(256, 28);
             this.btnAddMedicen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAddMedicen.Name = "btnAddMedicen";
             this.btnAddMedicen.Size = new System.Drawing.Size(236, 41);
-            this.btnAddMedicen.TabIndex = 241;
+            this.btnAddMedicen.TabIndex = 253;
             this.btnAddMedicen.Text = "Add New Medicen";
             this.btnAddMedicen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAddMedicen.UseVisualStyleBackColor = false;
@@ -1323,22 +1365,22 @@
             // pictureBox13
             // 
             this.pictureBox13.Image = global::Clinic.Properties.Resources.Notes_32;
-            this.pictureBox13.Location = new System.Drawing.Point(273, 456);
+            this.pictureBox13.Location = new System.Drawing.Point(289, 375);
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.Size = new System.Drawing.Size(31, 26);
             this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox13.TabIndex = 231;
+            this.pictureBox13.TabIndex = 250;
             this.pictureBox13.TabStop = false;
             // 
-            // pictureBox12
+            // pbPrecriptionDate
             // 
-            this.pictureBox12.Image = global::Clinic.Properties.Resources.appoint_date_32;
-            this.pictureBox12.Location = new System.Drawing.Point(700, 118);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox12.TabIndex = 229;
-            this.pictureBox12.TabStop = false;
+            this.pbPrecriptionDate.Image = global::Clinic.Properties.Resources.appoint_date_32;
+            this.pbPrecriptionDate.Location = new System.Drawing.Point(716, 37);
+            this.pbPrecriptionDate.Name = "pbPrecriptionDate";
+            this.pbPrecriptionDate.Size = new System.Drawing.Size(31, 26);
+            this.pbPrecriptionDate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPrecriptionDate.TabIndex = 248;
+            this.pbPrecriptionDate.TabStop = false;
             // 
             // pictureBox3
             // 
@@ -1382,7 +1424,6 @@
             // 
             // frmDoctor
             // 
-            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
@@ -1409,10 +1450,10 @@
             this.tcVisitInfo.ResumeLayout(false);
             this.tpVisitInfo.ResumeLayout(false);
             this.tpVisitInfo.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            this.pnlVisitInfo.ResumeLayout(false);
+            this.pnlVisitInfo.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.pnlWaittingList.ResumeLayout(false);
@@ -1422,17 +1463,20 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tpServices.ResumeLayout(false);
-            this.tpServices.PerformLayout();
+            this.pnlServicesInfo.ResumeLayout(false);
+            this.pnlServicesInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvServices)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudQuality)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudQuality)).EndInit();
             this.tpPrescriptionInfo.ResumeLayout(false);
-            this.tpPrescriptionInfo.PerformLayout();
+            this.pnlPrescriptionInfo.ResumeLayout(false);
+            this.pnlPrescriptionInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMedicines)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.pnlActions.ResumeLayout(false);
+            this.pnlAction.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panTitle.ResumeLayout(false);
             this.panTitle.PerformLayout();
@@ -1445,7 +1489,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPrecriptionDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -1473,41 +1517,20 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tcVisitInfo;
         private System.Windows.Forms.TabPage tpServices;
-        private System.Windows.Forms.Button btnSaveVisitServices;
-        private System.Windows.Forms.DataGridView dgvServices;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Button btnAddService;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown nudQuality;
-        private System.Windows.Forms.ComboBox cmbServices;
         private System.Windows.Forms.TabPage tpPrescriptionInfo;
-        private System.Windows.Forms.Button btnAddMedicen;
-        private System.Windows.Forms.DataGridView dgvMedicines;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label lbPrescriptionID;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txtPrescriptionNotes;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.DateTimePicker dtpPrescriptionDate;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.PictureBox pictureBox13;
-        private System.Windows.Forms.PictureBox pictureBox12;
         private System.Windows.Forms.Panel pnlActions;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnPostpone;
-        private System.Windows.Forms.Button btnCalnceVisit;
-        private System.Windows.Forms.Button btnNextPatient;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panTitle;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.TabPage tpVisitInfo;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label lbVisitID;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Panel pnlVisitInfo;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.Label lbBP;
@@ -1536,7 +1559,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button btnInProgress;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Button btnRefresh;
@@ -1544,9 +1566,34 @@
         private System.Windows.Forms.Label lbDate;
         private System.Windows.Forms.Label lbVisitDate;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.Button btnSavePrescription;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblRecordsCount;
         private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Panel pnlAction;
+        private System.Windows.Forms.Button btnInProgress;
+        private System.Windows.Forms.Button btnCalnceVisit;
+        private System.Windows.Forms.Button btnNextPatient;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnSaveVisitServices;
+        private System.Windows.Forms.DataGridView dgvServices;
+        private System.Windows.Forms.Label lbQuality;
+        private System.Windows.Forms.Label lbServeces;
+        private System.Windows.Forms.NumericUpDown nudQuality;
+        private System.Windows.Forms.ComboBox cmbServices;
+        private System.Windows.Forms.Button btnAddService;
+        private System.Windows.Forms.Panel pnlServicesInfo;
+        private System.Windows.Forms.Panel pnlPrescriptionInfo;
+        private System.Windows.Forms.Button btnSavePrescription;
+        private System.Windows.Forms.Button btnAddMedicen;
+        private System.Windows.Forms.DataGridView dgvMedicines;
+        private System.Windows.Forms.TextBox txtPrescriptionNotes;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.DateTimePicker dtpPrescriptionDate;
+        private System.Windows.Forms.Label lbPrescriptionDate;
+        private System.Windows.Forms.PictureBox pictureBox13;
+        private System.Windows.Forms.PictureBox pbPrecriptionDate;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label lbVisitID;
+        private System.Windows.Forms.Label label16;
     }
 }

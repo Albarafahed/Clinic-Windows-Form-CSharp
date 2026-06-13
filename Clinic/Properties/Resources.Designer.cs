@@ -713,6 +713,36 @@ namespace Clinic.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Gemini_Generated_Image_9c3q299c3q299c3q {
+            get {
+                object obj = ResourceManager.GetObject("Gemini_Generated_Image_9c3q299c3q299c3q", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_refresh_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-refresh-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_synchronize_48_apng {
+            get {
+                object obj = ResourceManager.GetObject("icons8-synchronize-48.apng", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap ID_32 {
             get {
                 object obj = ResourceManager.GetObject("ID 32", resourceCulture);
@@ -1126,6 +1156,56 @@ namespace Clinic.Properties {
         public static System.Drawing.Bitmap Question_32 {
             get {
                 object obj = ResourceManager.GetObject("Question 32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap refresh_48_ {
+            get {
+                object obj = ResourceManager.GetObject("refresh-48 ", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap refresh_48_1 {
+            get {
+                object obj = ResourceManager.GetObject("refresh-48 1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap refrsh {
+            get {
+                object obj = ResourceManager.GetObject("refrsh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap refrsh1 {
+            get {
+                object obj = ResourceManager.GetObject("refrsh1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap refrsh2 {
+            get {
+                object obj = ResourceManager.GetObject("refrsh2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

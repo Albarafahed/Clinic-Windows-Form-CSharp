@@ -161,7 +161,7 @@ namespace Clinic.Medical_Services.Visit
         {
             int VisitID = (int)dgvVisit.CurrentRow.Cells["VisitID"].Value;
 
-            frmDoctor frm = new frmDoctor(VisitID);
+            frmDoctor frm = new frmDoctor(VisitID,frmDoctor.enMode.Update);
             frm.ShowDialog();
             frmListVisits_Load(null, null);
         }
@@ -198,8 +198,8 @@ namespace Clinic.Medical_Services.Visit
 
         private void ShowVisitDetailstoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            //frmShowVisitInfo frm = new frmShowVisitInfo((int)dgvVisit.CurrentRow.Cells[0].Value);
-            //frm.ShowDialog();
+            frmDoctor frm = new frmDoctor((int)dgvVisit.CurrentRow.Cells[0].Value,frmDoctor.enMode.ShowVisit);
+            frm.ShowDialog();
         }
 
         private void rescheduleToolStripMenuItem_Click(object sender, EventArgs e)

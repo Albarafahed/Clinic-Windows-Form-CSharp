@@ -160,18 +160,18 @@ namespace Clinic_DataAccess
 
         public static bool UpdateVisitTotalAmount(int VisitID, SqlTransaction transaction)
         {
-            try { 
+           
             string query = @"
-        UPDATE Visits 
-        SET TotalAmount = TotalAmount+
-            (SELECT ISNULL(SUM(PPD.SavedMedicinePrice * PPD.Quantity), 0) 
-             FROM PrescriptionDetails PPD 
-             WHERE PPD.PrescriptionID = (SELECT PrescriptionID FROM Visits WHERE VisitID = @VisitID))
-            +
-            (SELECT ISNULL(SUM(SD.SavedServicePrice * SD.Quantity - SD.Discount), 0) 
-             FROM VisitServices SD 
-             WHERE SD.VisitID = @VisitID)
-        WHERE VisitID = @VisitID";
+                            UPDATE Visits 
+                            SET TotalAmount = TotalAmount+
+                                (SELECT ISNULL(SUM(PPD.SavedMedicinePrice * PPD.Quantity), 0) 
+                                 FROM PrescriptionDetails PPD 
+                                 WHERE PPD.PrescriptionID = (SELECT PrescriptionID FROM Visits WHERE VisitID = @VisitID))
+                                +
+                                (SELECT ISNULL(SUM(SD.SavedServicePrice * SD.Quantity - SD.Discount), 0) 
+                                 FROM VisitServices SD 
+                                 WHERE SD.VisitID = @VisitID)
+                            WHERE VisitID = @VisitID";
 
             // استخدم الـ transaction.Connection مباشرة
             using (SqlCommand cmd = new SqlCommand(query, transaction.Connection, transaction))
@@ -179,10 +179,7 @@ namespace Clinic_DataAccess
                 cmd.Parameters.AddWithValue("@VisitID", VisitID);
                 return cmd.ExecuteNonQuery() > 0;
             }
-        }catch (Exception ex)
-            {
-                return false;
-            }
+        
         
         }
 

@@ -804,6 +804,29 @@
   <ItemGroup>
     <None Include="Resources\WorkingDays 32.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Gemini_Generated_Image_9c3q299c3q299c3q.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-refresh-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-synchronize-48.apng.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refrsh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refrsh1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refrsh2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh-48 .png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh-48 1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
