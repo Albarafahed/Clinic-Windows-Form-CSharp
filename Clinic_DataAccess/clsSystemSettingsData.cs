@@ -39,6 +39,7 @@ namespace Clinic_DataAccess
                 taxRate = 0;
             }
             return taxRate;
+            
         }
     }
 }

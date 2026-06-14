@@ -34,6 +34,8 @@
             this.lblPaymentMethod = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.txtDiscount = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblPatientInfo
@@ -81,7 +83,7 @@
             // btnConfirm
             // 
             this.btnConfirm.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnConfirm.Location = new System.Drawing.Point(151, 160);
+            this.btnConfirm.Location = new System.Drawing.Point(138, 204);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(94, 36);
             this.btnConfirm.TabIndex = 4;
@@ -91,17 +93,42 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(277, 160);
+            this.btnCancel.Location = new System.Drawing.Point(260, 204);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 36);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // txtDiscount
+            // 
+            this.txtDiscount.Location = new System.Drawing.Point(202, 151);
+            this.txtDiscount.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.txtDiscount.MaxLength = 50;
+            this.txtDiscount.Name = "txtDiscount";
+            this.txtDiscount.Size = new System.Drawing.Size(155, 34);
+            this.txtDiscount.TabIndex = 229;
+            this.txtDiscount.Text = "0.00";
+            this.txtDiscount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDiscount_KeyPress);
+            this.txtDiscount.Leave += new System.EventHandler(this.txtDiscount_Leave);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.label3.Location = new System.Drawing.Point(17, 151);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(164, 28);
+            this.label3.TabIndex = 228;
+            this.label3.Text = "DiscountAmount:";
+            // 
             // frmCheckInDialog
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
-            this.ClientSize = new System.Drawing.Size(400, 220);
+            this.ClientSize = new System.Drawing.Size(400, 252);
+            this.Controls.Add(this.txtDiscount);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.lblPatientInfo);
             this.Controls.Add(this.lblFees);
             this.Controls.Add(this.lblPaymentMethod);
@@ -126,5 +153,7 @@
         private System.Windows.Forms.Label lblPaymentMethod;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox txtDiscount;
+        private System.Windows.Forms.Label label3;
     }
 }

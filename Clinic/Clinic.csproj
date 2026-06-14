@@ -95,6 +95,12 @@
     <Compile Include="Medical Services\Appointment\frmReschedule.Designer.cs">
       <DependentUpon>frmReschedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="Medical Services\Pharmaciy\frmPrescriptionDispnsing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Pharmaciy\frmPrescriptionDispnsing.Designer.cs">
+      <DependentUpon>frmPrescriptionDispnsing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Medical Services\Visit\frmDoctor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -324,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Appointment\frmReschedule.resx">
       <DependentUpon>frmReschedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Pharmaciy\frmPrescriptionDispnsing.resx">
+      <DependentUpon>frmPrescriptionDispnsing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Visit\frmAddUpdateMedicineToPrescription.resx">
       <DependentUpon>frmAddUpdateMedicineToPrescription.cs</DependentUpon>
@@ -828,8 +837,6 @@
   <ItemGroup>
     <None Include="Resources\refresh-48 1.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Medical Services\Pharmaciy\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

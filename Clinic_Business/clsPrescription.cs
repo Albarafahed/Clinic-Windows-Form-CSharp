@@ -23,6 +23,17 @@ namespace Clinic_Business
         public int VisitID { get; set; }
         public string PrescriptionNotes { get; set; }
 
+        public byte PrescriptionStatu { get; set; }
+        public enum PrescriptionStatus : byte
+        {
+            Pending = 1,
+            WaitingForPayment = 2,
+            ReadyForDispensing = 3,
+            Dispensed = 4,
+            PartiallyDispensed = 5,
+            Cancelled = 6
+        }
+
         public DataTable dtMedicines { get; set; }
 
         public clsPrescription()
@@ -32,29 +43,30 @@ namespace Clinic_Business
             this.PrescriptionDate = DateTime.Now;
             this.VisitID = -1;
             this.dtMedicines = new DataTable();
-
+            this.PrescriptionStatu =(byte) PrescriptionStatus.Pending;
             _Mode = enMode.AddNew;
 
         }
 
-        public clsPrescription(int PrescriptionID, int VisitID, string PrescriptionNotes, DateTime PrescriptionDate)
+        public clsPrescription(int PrescriptionID, int VisitID, string PrescriptionNotes, DateTime PrescriptionDate,byte PrescriptionStatus)
         {
             this.PrescriptionID = PrescriptionID;
             this.PrescriptionNotes = PrescriptionNotes;
             this.VisitID = VisitID;
             this.PrescriptionDate = PrescriptionDate;
+            this.PrescriptionStatu = PrescriptionStatus;
             this.dtMedicines = GetVisitMedicines();
             _Mode = enMode.Update;
         }
 
         private bool _AddNewPrescription()
         {
-            this.PrescriptionID = clsPrescriptionData.SavePrescription(VisitID, PrescriptionNotes, PrescriptionDate, dtMedicines);
+            this.PrescriptionID = clsPrescriptionData.SavePrescription(VisitID, PrescriptionNotes, PrescriptionDate, dtMedicines,(byte)PrescriptionStatus.Pending);
             return this.PrescriptionID > 0;
         }
         private bool _UpdatePrescription()
         {
-            return clsPrescriptionData.UpdatePrescription(PrescriptionID, VisitID, PrescriptionNotes, PrescriptionDate, dtMedicines);
+            return clsPrescriptionData.UpdatePrescription(PrescriptionID, VisitID, PrescriptionNotes, PrescriptionDate,PrescriptionStatu, dtMedicines);
         }
 
         public static clsPrescription Find(int VisitID)
@@ -63,9 +75,9 @@ namespace Clinic_Business
 
             DateTime PrescriptionDate = DateTime.Now;
             string PrescriptionNotes = string.Empty;
-
-            if(clsPrescriptionData.Find(VisitID,ref PrescriptionID,ref PrescriptionNotes,ref PrescriptionDate))
-                return new clsPrescription(PrescriptionID, VisitID, PrescriptionNotes,PrescriptionDate);
+            byte PrescriptionStatus = 1;
+            if (clsPrescriptionData.Find(VisitID,ref PrescriptionID,ref PrescriptionNotes,ref PrescriptionDate,ref PrescriptionStatus))
+                return new clsPrescription(PrescriptionID, VisitID, PrescriptionNotes,PrescriptionDate,PrescriptionStatus);
             else
                 return null;
                

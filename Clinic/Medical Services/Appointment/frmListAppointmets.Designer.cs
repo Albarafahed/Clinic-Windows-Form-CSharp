@@ -38,30 +38,25 @@
             this.txtFilterValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmsAppointment = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cbStatus = new System.Windows.Forms.ComboBox();
-            this.dgvAppointments = new System.Windows.Forms.DataGridView();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.pnlActions = new System.Windows.Forms.Panel();
-            this.btnCheckIn = new System.Windows.Forms.Button();
-            this.btnPostponed = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.showPatientDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showDoctorDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VisitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startVisitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editVisitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rescheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.dgvAppointments = new System.Windows.Forms.DataGridView();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.btnAddAppointment = new System.Windows.Forms.Button();
             this.pbPersonImage = new System.Windows.Forms.PictureBox();
+            this.CancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkINToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsAppointment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).BeginInit();
-            this.pnlActions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -154,7 +149,83 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cmsAppointment.Name = "contextMenuStrip1";
-            this.cmsAppointment.Size = new System.Drawing.Size(249, 266);
+            this.cmsAppointment.Size = new System.Drawing.Size(249, 238);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showPatientDetailsToolStripMenuItem,
+            this.showDoctorDetailsToolStripMenuItem});
+            this.toolStripMenuItem2.Image = global::Clinic.Properties.Resources.PersonDetails_32;
+            this.toolStripMenuItem2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(248, 38);
+            this.toolStripMenuItem2.Text = "Show Details";
+            // 
+            // showPatientDetailsToolStripMenuItem
+            // 
+            this.showPatientDetailsToolStripMenuItem.Image = global::Clinic.Properties.Resources.Add_Patient_32;
+            this.showPatientDetailsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.showPatientDetailsToolStripMenuItem.Name = "showPatientDetailsToolStripMenuItem";
+            this.showPatientDetailsToolStripMenuItem.Size = new System.Drawing.Size(240, 38);
+            this.showPatientDetailsToolStripMenuItem.Text = "Show Patient Details";
+            this.showPatientDetailsToolStripMenuItem.Click += new System.EventHandler(this.showPatientDetailsToolStripMenuItem_Click);
+            // 
+            // showDoctorDetailsToolStripMenuItem
+            // 
+            this.showDoctorDetailsToolStripMenuItem.Image = global::Clinic.Properties.Resources.doctor1_32;
+            this.showDoctorDetailsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.showDoctorDetailsToolStripMenuItem.Name = "showDoctorDetailsToolStripMenuItem";
+            this.showDoctorDetailsToolStripMenuItem.Size = new System.Drawing.Size(240, 38);
+            this.showDoctorDetailsToolStripMenuItem.Text = "Show Doctor Details";
+            this.showDoctorDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDoctorDetailsToolStripMenuItem_Click);
+            // 
+            // VisitToolStripMenuItem
+            // 
+            this.VisitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkINToolStripMenuItem,
+            this.CancelToolStripMenuItem});
+            this.VisitToolStripMenuItem.Image = global::Clinic.Properties.Resources.start_visit_32;
+            this.VisitToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.VisitToolStripMenuItem.Name = "VisitToolStripMenuItem";
+            this.VisitToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
+            this.VisitToolStripMenuItem.Text = "&Visit";
+            // 
+            // rescheduleToolStripMenuItem
+            // 
+            this.rescheduleToolStripMenuItem.Image = global::Clinic.Properties.Resources.Reschedule_32;
+            this.rescheduleToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.rescheduleToolStripMenuItem.Name = "rescheduleToolStripMenuItem";
+            this.rescheduleToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
+            this.rescheduleToolStripMenuItem.Text = "Reschedule";
+            this.rescheduleToolStripMenuItem.Click += new System.EventHandler(this.rescheduleToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Image = global::Clinic.Properties.Resources.Add_Appointment_32;
+            this.toolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(248, 38);
+            this.toolStripMenuItem1.Text = "Add &New Appointment";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.btnAddAppointment_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit_32;
+            this.editToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
+            this.editToolStripMenuItem.Text = "&Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = global::Clinic.Properties.Resources.Delete_32;
+            this.deleteToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
+            this.deleteToolStripMenuItem.Text = "&Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // cbStatus
             // 
@@ -208,7 +279,7 @@
             this.dgvAppointments.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvAppointments.RowTemplate.Height = 38;
             this.dgvAppointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAppointments.Size = new System.Drawing.Size(1074, 416);
+            this.dgvAppointments.Size = new System.Drawing.Size(1191, 416);
             this.dgvAppointments.TabIndex = 116;
             this.dgvAppointments.TabStop = false;
             this.dgvAppointments.SelectionChanged += new System.EventHandler(this.dgvAppointments_SelectionChanged);
@@ -224,64 +295,14 @@
             this.lblTitle.Text = "Manage Appointments";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pnlActions
-            // 
-            this.pnlActions.BackColor = System.Drawing.Color.Transparent;
-            this.pnlActions.Controls.Add(this.btnCheckIn);
-            this.pnlActions.Controls.Add(this.btnPostponed);
-            this.pnlActions.Controls.Add(this.btnCancel);
-            this.pnlActions.Location = new System.Drawing.Point(1091, 312);
-            this.pnlActions.Name = "pnlActions";
-            this.pnlActions.Size = new System.Drawing.Size(130, 202);
-            this.pnlActions.TabIndex = 119;
-            // 
-            // btnCheckIn
-            // 
-            this.btnCheckIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
-            this.btnCheckIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCheckIn.ForeColor = System.Drawing.Color.White;
-            this.btnCheckIn.Location = new System.Drawing.Point(3, 16);
-            this.btnCheckIn.Name = "btnCheckIn";
-            this.btnCheckIn.Size = new System.Drawing.Size(120, 50);
-            this.btnCheckIn.TabIndex = 0;
-            this.btnCheckIn.Text = "Check-In";
-            this.btnCheckIn.UseVisualStyleBackColor = false;
-            this.btnCheckIn.Click += new System.EventHandler(this.btnCheckIn_Click);
-            // 
-            // btnPostponed
-            // 
-            this.btnPostponed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.btnPostponed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPostponed.ForeColor = System.Drawing.Color.White;
-            this.btnPostponed.Location = new System.Drawing.Point(3, 72);
-            this.btnPostponed.Name = "btnPostponed";
-            this.btnPostponed.Size = new System.Drawing.Size(120, 50);
-            this.btnPostponed.TabIndex = 1;
-            this.btnPostponed.Text = "Postponed";
-            this.btnPostponed.UseVisualStyleBackColor = false;
-            this.btnPostponed.Click += new System.EventHandler(this.btnComplete_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(3, 128);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(120, 50);
-            this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(1084, 216);
+            this.button1.Location = new System.Drawing.Point(1084, 108);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 50);
+            this.button1.Size = new System.Drawing.Size(120, 64);
             this.button1.TabIndex = 3;
             this.button1.Text = "الطابور";
             this.button1.UseVisualStyleBackColor = false;
@@ -305,104 +326,12 @@
             this.btnClose.Text = "  Close";
             this.btnClose.UseVisualStyleBackColor = true;
             // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showPatientDetailsToolStripMenuItem,
-            this.showDoctorDetailsToolStripMenuItem});
-            this.toolStripMenuItem2.Image = global::Clinic.Properties.Resources.PersonDetails_32;
-            this.toolStripMenuItem2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(248, 38);
-            this.toolStripMenuItem2.Text = "Show Details";
-            // 
-            // showPatientDetailsToolStripMenuItem
-            // 
-            this.showPatientDetailsToolStripMenuItem.Image = global::Clinic.Properties.Resources.Add_Patient_32;
-            this.showPatientDetailsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.showPatientDetailsToolStripMenuItem.Name = "showPatientDetailsToolStripMenuItem";
-            this.showPatientDetailsToolStripMenuItem.Size = new System.Drawing.Size(240, 38);
-            this.showPatientDetailsToolStripMenuItem.Text = "Show Patient Details";
-            this.showPatientDetailsToolStripMenuItem.Click += new System.EventHandler(this.showPatientDetailsToolStripMenuItem_Click);
-            // 
-            // showDoctorDetailsToolStripMenuItem
-            // 
-            this.showDoctorDetailsToolStripMenuItem.Image = global::Clinic.Properties.Resources.doctor1_32;
-            this.showDoctorDetailsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.showDoctorDetailsToolStripMenuItem.Name = "showDoctorDetailsToolStripMenuItem";
-            this.showDoctorDetailsToolStripMenuItem.Size = new System.Drawing.Size(240, 38);
-            this.showDoctorDetailsToolStripMenuItem.Text = "Show Doctor Details";
-            this.showDoctorDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDoctorDetailsToolStripMenuItem_Click);
-            // 
-            // VisitToolStripMenuItem
-            // 
-            this.VisitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startVisitToolStripMenuItem,
-            this.editVisitToolStripMenuItem});
-            this.VisitToolStripMenuItem.Image = global::Clinic.Properties.Resources.start_visit_32;
-            this.VisitToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.VisitToolStripMenuItem.Name = "VisitToolStripMenuItem";
-            this.VisitToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
-            this.VisitToolStripMenuItem.Text = "&Visit";
-            // 
-            // startVisitToolStripMenuItem
-            // 
-            this.startVisitToolStripMenuItem.Image = global::Clinic.Properties.Resources.start_32;
-            this.startVisitToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.startVisitToolStripMenuItem.Name = "startVisitToolStripMenuItem";
-            this.startVisitToolStripMenuItem.Size = new System.Drawing.Size(167, 38);
-            this.startVisitToolStripMenuItem.Text = "Start Visit";
-            // 
-            // editVisitToolStripMenuItem
-            // 
-            this.editVisitToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit2_32;
-            this.editVisitToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.editVisitToolStripMenuItem.Name = "editVisitToolStripMenuItem";
-            this.editVisitToolStripMenuItem.Size = new System.Drawing.Size(167, 38);
-            this.editVisitToolStripMenuItem.Text = "Edit Visit";
-            // 
-            // rescheduleToolStripMenuItem
-            // 
-            this.rescheduleToolStripMenuItem.Image = global::Clinic.Properties.Resources.Reschedule_32;
-            this.rescheduleToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.rescheduleToolStripMenuItem.Name = "rescheduleToolStripMenuItem";
-            this.rescheduleToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
-            this.rescheduleToolStripMenuItem.Text = "Reschedule";
-            this.rescheduleToolStripMenuItem.Click += new System.EventHandler(this.rescheduleToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Image = global::Clinic.Properties.Resources.Add_Appointment_32;
-            this.toolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(248, 38);
-            this.toolStripMenuItem1.Text = "Add &New Appointment";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.btnAddAppointment_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit_32;
-            this.editToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
-            this.editToolStripMenuItem.Text = "&Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Image = global::Clinic.Properties.Resources.Delete_32;
-            this.deleteToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
-            this.deleteToolStripMenuItem.Text = "&Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            // 
             // btnAddAppointment
             // 
             this.btnAddAppointment.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnAddAppointment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddAppointment.Image = global::Clinic.Properties.Resources.Add_Appointment_64;
-            this.btnAddAppointment.Location = new System.Drawing.Point(978, 216);
+            this.btnAddAppointment.Location = new System.Drawing.Point(1116, 217);
             this.btnAddAppointment.Name = "btnAddAppointment";
             this.btnAddAppointment.Size = new System.Drawing.Size(72, 76);
             this.btnAddAppointment.TabIndex = 112;
@@ -421,6 +350,24 @@
             this.pbPersonImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPersonImage.TabIndex = 110;
             this.pbPersonImage.TabStop = false;
+            // 
+            // CancelToolStripMenuItem
+            // 
+            this.CancelToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit2_32;
+            this.CancelToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.CancelToolStripMenuItem.Name = "CancelToolStripMenuItem";
+            this.CancelToolStripMenuItem.Size = new System.Drawing.Size(236, 38);
+            this.CancelToolStripMenuItem.Text = "Cancel";
+            this.CancelToolStripMenuItem.Click += new System.EventHandler(this.CancelToolStripMenuItem_Click);
+            // 
+            // checkINToolStripMenuItem
+            // 
+            this.checkINToolStripMenuItem.Image = global::Clinic.Properties.Resources.start_32;
+            this.checkINToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.checkINToolStripMenuItem.Name = "checkINToolStripMenuItem";
+            this.checkINToolStripMenuItem.Size = new System.Drawing.Size(236, 38);
+            this.checkINToolStripMenuItem.Text = "Check_In";
+            this.checkINToolStripMenuItem.Click += new System.EventHandler(this.checkINToolStripMenuItem_Click);
             // 
             // frmListAppointmets
             // 
@@ -442,7 +389,6 @@
             this.Controls.Add(this.cbFilterBy);
             this.Controls.Add(this.txtFilterValue);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pnlActions);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
@@ -452,7 +398,6 @@
             this.Load += new System.EventHandler(this.frmListAppointmets_Load);
             this.cmsAppointment.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).EndInit();
-            this.pnlActions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -480,15 +425,11 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem showPatientDetailsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showDoctorDetailsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startVisitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editVisitToolStripMenuItem;
         private System.Windows.Forms.DataGridView dgvAppointments;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Panel pnlActions;
-        private System.Windows.Forms.Button btnCheckIn;
-        private System.Windows.Forms.Button btnPostponed;
-        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem checkINToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CancelToolStripMenuItem;
     }
 }

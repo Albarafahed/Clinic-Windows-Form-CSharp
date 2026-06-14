@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="clsAppointmentData.cs" />
     <Compile Include="clsAppointmentTypeData.cs" />
+    <Compile Include="clsBillingServiceData.cs" />
     <Compile Include="clsBloodTypeData.cs" />
     <Compile Include="clsCountryData.cs" />
     <Compile Include="clsDataAccessSettings.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="clsVisitData.cs" />
     <Compile Include="clsVisitServicesData.cs" />
     <Compile Include="clsVitalsData.cs" />
+    <Compile Include="clsDiscountData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveExeption\clsGlobalLogger.cs" />
     <Compile Include="SaveExeption\clsLogger.cs" />

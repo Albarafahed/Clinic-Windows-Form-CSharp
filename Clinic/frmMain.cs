@@ -3,6 +3,7 @@ using Clinic.Appointment.AppointmentsType;
 using Clinic.Doctor;
 using Clinic.Login;
 using Clinic.Medical_Services.Appointment;
+using Clinic.Medical_Services.Pharmaciy;
 using Clinic.Medical_Services.Visit;
 using Clinic.Medical_Services.Vital;
 using Clinic.Patient;
@@ -102,7 +103,8 @@ namespace Clinic
 
         private void DoctorsStripMenuItem1_Click(object sender, EventArgs e)
         {
-           
+            frmListDoctors frm = new frmListDoctors();
+            frm.ShowDialog();
         }
 
         private void mangeAppointmentTypeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -129,27 +131,27 @@ namespace Clinic
             frm.ShowDialog();
         }
 
-        private void nurseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmListDoctors frm = new frmListDoctors();
-            frm.ShowDialog();
-        }
-
-        private void doctorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmNurse frm = new frmNurse();
-            frm.ShowDialog();
-        }
-
-        private void doctorToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void doctorToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             frmDoctor frm = new frmDoctor();
             frm.ShowDialog();
         }
 
-        private void visitsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void nurseToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmNurse frm = new frmNurse();
+            frm.ShowDialog();
+        }
+
+        private void listVisitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmListVisits frm = new frmListVisits();
+            frm.ShowDialog();
+        }
+
+        private void prescriptionDispensingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmPrescriptionDispnsing frm=new frmPrescriptionDispnsing();
             frm.ShowDialog();
         }
     }

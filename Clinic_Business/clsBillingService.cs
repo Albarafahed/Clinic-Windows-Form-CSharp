@@ -9,9 +9,9 @@ namespace Clinic_Business
 {
     public class clsBillingService
     {
-        public static bool CheckInPatient(int AppointmentID, decimal Fees, int UserID, string PaymentMethod)
+        public static bool CheckInPatient(int AppointmentID, decimal Fees,decimal Discount,  int UserID, string PaymentMethod)
         {
-          return  clsAppointmentData.CheckInPatient(AppointmentID, Fees, UserID, PaymentMethod);
+            return clsBillingServiceData.CheckInPatient(AppointmentID, Fees, Discount, UserID, PaymentMethod);
         }
     }
 }

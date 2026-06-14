@@ -80,6 +80,7 @@ namespace Clinic.Medical_Services.Visit
             NUDQuantity.Value =(int) _Row["Quantity"];
             nudFrequency.Value = (int)_Row["Frequency"];
             txtDosage.Text = _Row["Dosage"].ToString();
+            txtDiscount.Text = _Row["DiscountAmount"].ToString();
             txtInstructions.Text = _Row["Instructions"] == DBNull.Value || _Row["Instructions"] == null ? "" : _Row["Instructions"].ToString();
 
         }
@@ -135,19 +136,24 @@ namespace Clinic.Medical_Services.Visit
 
             if (cbMedicines.SelectedValue == null) return;
 
+            decimal discount = 0;
+            decimal.TryParse(txtDiscount.Text, out discount);
 
-
+            // التحقق من الصلاحية: (استخدم ! لعكس النتيجة)
+            if (!clsDiscount.ValidateDiscount(clsGlobal.CurrentUser.RoleID, clsDiscount.enTargetType.Medicine, discount))
+            {
+                MessageBox.Show("Discount exceeds your allowed limit or is invalid for this role.", "Unauthorized", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // يجب الخروج وعدم إكمال الحفظ
+            }
 
             if (_Mode == enMode.AddNew)
             {
-                DataRow[] existingRows = _dtMedicines.Select($"MedicineID = {(int)cbMedicines.SelectedValue}");
-                if (existingRows.Length > 0)
+                // التحقق من التكرار
+                if (_dtMedicines.Select($"MedicineID = {(int)cbMedicines.SelectedValue}").Length > 0)
                 {
-       
-                    MessageBox.Show("This Medicine has already been added to the visit.", "⚠️ Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("This Medicine has already been added.", "⚠️ Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
                 // إنشاء صف جديد في الجدول الممرر
                 DataRow newRow = _dtMedicines.NewRow();
                 newRow["MedicineID"] = cbMedicines.SelectedValue;
@@ -157,6 +163,7 @@ namespace Clinic.Medical_Services.Visit
                 newRow["SavedMedicinePrice"] = lblMedicinePrice.Text;
                 newRow["Dosage"]=txtDosage.Text;
                 newRow["Instructions"] = txtInstructions.Text;
+                newRow["DiscountAmount"] = discount;
 
                 _dtMedicines.Rows.Add(newRow);
                 DataBack?.Invoke(this);
@@ -170,6 +177,7 @@ namespace Clinic.Medical_Services.Visit
                 _Row["SavedMedicinePrice"] = lblMedicinePrice.Text;
                 _Row["Dosage"] = txtDosage.Text;
                 _Row["Instructions"] = txtInstructions.Text;
+                _Row["DiscountAmount"] = discount;
                 DataBack?.Invoke(this);
                 this.Close();
             }
@@ -180,6 +188,35 @@ namespace Clinic.Medical_Services.Visit
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtDiscount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // السماح فقط بالأرقام، أزرار التحكم (BackSpace)، والفاصلة
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+
+            // منع تكرار الفاصلة العشرية
+            if (e.KeyChar == '.' && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDiscount_Leave(object sender, EventArgs e)
+        {
+            decimal value;
+            if (decimal.TryParse(txtDiscount.Text, out value))
+            {
+                txtDiscount.Text = value.ToString("F2");
+            }
+            else
+            {
+                // إذا كان الحقل فارغاً أو خطأ، اجعله صفر
+                txtDiscount.Text = "0.00";
+            }
         }
     }
 }

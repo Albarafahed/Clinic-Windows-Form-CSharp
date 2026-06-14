@@ -190,7 +190,8 @@ namespace Clinic_DataAccess
             {
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    string query = "SELECT * FROM View_AppointmentsDetails";
+                    string query = @"SELECT * FROM View_AppointmentsDetails
+                                         ORDER BY AppointmentID DESC";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
 
@@ -645,77 +646,6 @@ namespace Clinic_DataAccess
             {
                 clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
                 return false;
-            }
-        }
-
-
-        public static bool CheckInPatient(int AppointmentID, decimal Fees, int UserID, string PaymentMethod)
-        {
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-            {
-                connection.Open();
-                using (SqlTransaction transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        // 1. جلب نسبة الضريبة
-                        float taxRate = clsSystemSettingsData.GetTaxRateFromSettings();
-                        decimal taxAmount = Fees - (Fees / (1 + (decimal)taxRate));
-
-                        // 2. إنشاء الفاتورة (بدون BillNumber مؤقتاً لنحصل على الـ ID)
-                        string queryBill = @"
-                    INSERT INTO Bills (AppointmentID, TotalCost, TaxAmount, PaymentStatus, CreatedByUserID, BillDate)
-                    VALUES (@AppointmentID, @TotalCost, @TaxAmount, 2, @UserID, GETDATE());
-                    SELECT SCOPE_IDENTITY();";
-
-                        SqlCommand cmdBill = new SqlCommand(queryBill, connection, transaction);
-                        cmdBill.Parameters.AddWithValue("@AppointmentID", AppointmentID);
-                        cmdBill.Parameters.AddWithValue("@TotalCost", Fees);
-                        cmdBill.Parameters.AddWithValue("@TaxAmount", taxAmount);
-                        cmdBill.Parameters.AddWithValue("@UserID", UserID);
-
-                        int BillID = Convert.ToInt32(cmdBill.ExecuteScalar());
-
-                        // 3. تحديث الفاتورة بـ BillNumber المنسق بناءً على الـ ID الجديد
-                        string queryUpdateBillNumber = @"
-                    UPDATE Bills 
-                    SET BillNumber = 'INV-' + CAST(YEAR(GETDATE()) AS VARCHAR) + '-' + RIGHT('0000' + CAST(@BillID AS VARCHAR), 4)
-                    WHERE BillID = @BillID";
-
-                        SqlCommand cmdUpdate = new SqlCommand(queryUpdateBillNumber, connection, transaction);
-                        cmdUpdate.Parameters.AddWithValue("@BillID", BillID);
-                        cmdUpdate.ExecuteNonQuery();
-
-                        // 4. تسجيل الدفعة (Payments)
-                        string queryPay = @"
-                    INSERT INTO Payments (BillID, PaymentAmount, PaymentDate, PaymentMethod, CreatedByUserID)
-                    VALUES (@BillID, @Amount, GETDATE(), @Method, @UserID)";
-
-                        SqlCommand cmdPay = new SqlCommand(queryPay, connection, transaction);
-                        cmdPay.Parameters.AddWithValue("@BillID", BillID);
-                        cmdPay.Parameters.AddWithValue("@Amount", Fees);
-                        cmdPay.Parameters.AddWithValue("@Method", PaymentMethod);
-                        cmdPay.Parameters.AddWithValue("@UserID", UserID);
-                        cmdPay.ExecuteNonQuery();
-
-                        // 5. تحديث حالة الموعد
-                        string queryUpdateApp = @"UPDATE Appointments SET AppointmentStatus = 2,
-                                                        CheckInTime=GETDATE()
-                                                        WHERE AppointmentID = @AppID";
-                        SqlCommand cmdApp = new SqlCommand(queryUpdateApp, connection, transaction);
-                        cmdApp.Parameters.AddWithValue("@AppID", AppointmentID);
-                        cmdApp.ExecuteNonQuery();
-
-                        transaction.Commit();
-                        return true;
-                    }
-                    catch (SqlException ex)
-                    {
-                        transaction.Rollback();
-                        clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
-                        return false;
-                    }
-                }
             }
         }
 

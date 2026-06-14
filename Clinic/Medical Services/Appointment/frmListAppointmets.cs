@@ -268,49 +268,20 @@ namespace Clinic.Medical_Services.Appointment
             }
         }
 
-        private void btnCheckIn_Click(object sender, EventArgs e)
-        {
-            if(dgvAppointments.CurrentRow==null) return;
-            int AppointmentID =(int) dgvAppointments.CurrentRow.Cells["AppointmentID"].Value;
-            decimal AppointmentFees = (decimal)dgvAppointments.CurrentRow.Cells["AppointmentFees"].Value;
-            string PatientName = dgvAppointments.CurrentRow.Cells["PatientName"].Value.ToString();
-
-            frmCheckInDialog frm = new frmCheckInDialog(AppointmentID, AppointmentFees, PatientName);
-
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                string method = frm.SelectedPaymentMethod;
-                int userID = clsGlobal.CurrentUser.UserID; 
-                if (clsBillingService.CheckInPatient(AppointmentID, AppointmentFees, userID, method))
-                {
-                    clsAppointment.RefreshQueueForDoctor(clsAppointment.Find(AppointmentID).DoctorID);
-                    MessageBox.Show($"✅ Patient checked was completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    _DataBackToUpdate(this, AppointmentID);
-                }
-               
-            }
-        }
-        private void btnComplete_Click(object sender, EventArgs e)
-            => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Postponed, "postpone this appointment");
-
-        private void btnCancel_Click(object sender, EventArgs e)
-            => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Cancelled, "cancel this appointment");
-
         private void dgvAppointments_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvAppointments.CurrentRow == null) return;
 
             string currentStatus = dgvAppointments.CurrentRow.Cells["AppointmentStatusText"].Value.ToString();
 
-            btnCheckIn.Enabled = (currentStatus == "Scheduled");
+            checkINToolStripMenuItem.Enabled = (currentStatus == "Scheduled");
 
-            btnPostponed.Enabled = (currentStatus == "In-Queue" || currentStatus == "In-Progress");
 
-            btnCancel.Enabled = (currentStatus != "Completed");
+            CancelToolStripMenuItem.Enabled = (currentStatus != "Completed");
 
             rescheduleToolStripMenuItem.Enabled = (currentStatus == "Scheduled" || currentStatus == "Postponed");
 
-            deleteToolStripMenuItem.Enabled = !btnPostponed.Enabled && btnCancel.Enabled ;
+            deleteToolStripMenuItem.Enabled = CancelToolStripMenuItem.Enabled;
             editToolStripMenuItem.Enabled = deleteToolStripMenuItem.Enabled && (currentStatus != "Cancelled");
         }
 
@@ -342,5 +313,32 @@ namespace Clinic.Medical_Services.Appointment
             frm.ShowDialog();
             _RefreshAppointmentsList();
         }
+
+        private void checkINToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dgvAppointments.CurrentRow == null) return;
+            int AppointmentID = (int)dgvAppointments.CurrentRow.Cells["AppointmentID"].Value;
+            decimal AppointmentFees = (decimal)dgvAppointments.CurrentRow.Cells["AppointmentFees"].Value;
+            string PatientName = dgvAppointments.CurrentRow.Cells["PatientName"].Value.ToString();
+
+            frmCheckInDialog frm = new frmCheckInDialog(AppointmentID, AppointmentFees, PatientName);
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                string method = frm.SelectedPaymentMethod;
+                int userID = clsGlobal.CurrentUser.UserID;
+                decimal discount = frm.Descount;
+                if (clsBillingService.CheckInPatient(AppointmentID, AppointmentFees, discount, userID, method))
+                {
+                    clsAppointment.RefreshQueueForDoctor(clsAppointment.Find(AppointmentID).DoctorID);
+                    MessageBox.Show($"✅ Patient checked was completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _DataBackToUpdate(this, AppointmentID);
+                }
+            }
+            }
+
+        private void CancelToolStripMenuItem_Click(object sender, EventArgs e)
+                    => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Cancelled, "cancel this appointment");
+
     }
 }

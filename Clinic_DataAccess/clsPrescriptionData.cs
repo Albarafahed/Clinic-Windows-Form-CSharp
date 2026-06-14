@@ -11,7 +11,7 @@ namespace Clinic_DataAccess
 {
     public class clsPrescriptionData
     {
-        public static int SavePrescription(int VisitID, string Notes, DateTime Date, DataTable dtMedicines)
+        public static int SavePrescription(int VisitID, string Notes, DateTime Date, DataTable dtMedicines, byte PrescriptionStatus)
         {
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -21,8 +21,8 @@ namespace Clinic_DataAccess
                     try
                     {
                         // 1. حفظ رأس الوصفة واسترجاع الـ ID
-                        string queryMaster = @"INSERT INTO Prescriptions (VisitID, PrescriptionDate, PrescriptionNotes) 
-                                      VALUES (@VisitID, @Date, @Notes);
+                        string queryMaster = @"INSERT INTO Prescriptions (VisitID, PrescriptionDate, PrescriptionNotes,PrescriptionStatus) 
+                                      VALUES (@VisitID, @Date, @Notes,PrescriptionStatus);
                                       SELECT SCOPE_IDENTITY();";
 
                         int prescriptionID = -1;
@@ -31,6 +31,8 @@ namespace Clinic_DataAccess
                             cmdMaster.Parameters.AddWithValue("@VisitID", VisitID);
                             cmdMaster.Parameters.AddWithValue("@Date", Date);
                             cmdMaster.Parameters.AddWithValue("@Notes", Notes.ToDBValue());
+                            cmdMaster.Parameters.AddWithValue("@PrescriptionStatus", PrescriptionStatus);
+
                             prescriptionID = Convert.ToInt32(cmdMaster.ExecuteScalar());
                         }
 
@@ -54,7 +56,7 @@ namespace Clinic_DataAccess
                             bulkCopy.ColumnMappings.Add("SavedMedicineName", "SavedMedicineName");
                             bulkCopy.ColumnMappings.Add("SavedMedicinePrice", "SavedMedicinePrice");
                             bulkCopy.ColumnMappings.Add("Frequency", "Frequency");
-
+                            bulkCopy.ColumnMappings.Add("DiscountAmount", "DiscountAmount");
                             bulkCopy.WriteToServer(dtMedicines);
                         }
                         clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
@@ -71,7 +73,7 @@ namespace Clinic_DataAccess
             }
         }
 
-        public static bool UpdatePrescription(int PrescriptionID, int VisitID, string Notes, DateTime Date, DataTable dtMedicines)
+        public static bool UpdatePrescription(int PrescriptionID, int VisitID, string Notes, DateTime Date, byte PrescriptionStatus,DataTable dtMedicines)
         {
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -83,7 +85,8 @@ namespace Clinic_DataAccess
                         // 1. تحديث بيانات رأس الوصفة (Master)
                         string queryMaster = @"UPDATE Prescriptions 
                                        SET PrescriptionDate = @Date, 
-                                           PrescriptionNotes = @Notes 
+                                           PrescriptionNotes = @Notes ,
+                                            PrescriptionStatus=@PrescriptionStatus
                                        WHERE PrescriptionID = @PrescriptionID";
 
                         using (SqlCommand cmdMaster = new SqlCommand(queryMaster, connection, transaction))
@@ -91,6 +94,8 @@ namespace Clinic_DataAccess
                             cmdMaster.Parameters.AddWithValue("@PrescriptionID", PrescriptionID);
                             cmdMaster.Parameters.AddWithValue("@Date", Date);
                             cmdMaster.Parameters.AddWithValue("@Notes", Notes.ToDBValue());
+                            cmdMaster.Parameters.AddWithValue("@PrescriptionStatus", PrescriptionStatus);
+
                             cmdMaster.ExecuteNonQuery();
                         }
 
@@ -123,7 +128,7 @@ namespace Clinic_DataAccess
                             bulkCopy.ColumnMappings.Add("SavedMedicineName", "SavedMedicineName");
                             bulkCopy.ColumnMappings.Add("SavedMedicinePrice", "SavedMedicinePrice");
                             bulkCopy.ColumnMappings.Add("Frequency", "Frequency");
-
+                            bulkCopy.ColumnMappings.Add("DiscountAmount", "DiscountAmount");
                             bulkCopy.WriteToServer(dtMedicines);
                         }
                         clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
@@ -154,7 +159,8 @@ namespace Clinic_DataAccess
                                     PPD.Instructions,
                                     PPD.SavedMedicinePrice, 
                                     PPD.Quantity,
-                                    PPD.Frequency
+                                    PPD.Frequency,
+                                    PPD.DiscountAmount
                                 FROM PrescriptionS PP
                                 INNER JOIN PrescriptionDetails PPD ON 
                                     PP.PrescriptionID = PPD.PrescriptionID
@@ -209,7 +215,7 @@ namespace Clinic_DataAccess
 
             return dt;
         }
-        public static bool Find(int VisitID, ref int PrescriptionID,ref string PrescriptionNotes, ref DateTime PrescriptionDate)
+        public static bool Find(int VisitID, ref int PrescriptionID,ref string PrescriptionNotes, ref DateTime PrescriptionDate,ref byte PrescriptionStatus)
         {
             try
             {
@@ -217,7 +223,8 @@ namespace Clinic_DataAccess
                 {
                     string query = @"SELECT PrescriptionID,
                                             PrescriptionDate,
-                                          PrescriptionNotes
+                                          PrescriptionNotes,
+                                            PrescriptionStatus
                                       FROM  Prescriptions
                                       WHERE VisitID=@VisitID;";
                     using(SqlCommand command = new SqlCommand(query, connection))
@@ -231,6 +238,8 @@ namespace Clinic_DataAccess
                                 PrescriptionID = (int)reader["PrescriptionID"];
                                 PrescriptionDate = (DateTime)reader["PrescriptionDate"];
                                 PrescriptionNotes = reader["PrescriptionNotes"].ToStringOrEmpty();
+                                PrescriptionStatus =(byte) reader["PrescriptionStatus"];
+
                                 return true;
 
                             }

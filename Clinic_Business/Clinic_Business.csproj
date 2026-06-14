@@ -47,6 +47,7 @@
     <Compile Include="clsBillingService.cs" />
     <Compile Include="clsBloodType.cs" />
     <Compile Include="clsCountry.cs" />
+    <Compile Include="clsDiscount.cs" />
     <Compile Include="clsDoctor.cs" />
     <Compile Include="clsPatient.cs" />
     <Compile Include="clsPerson.cs" />

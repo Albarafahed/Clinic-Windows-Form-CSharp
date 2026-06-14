@@ -186,7 +186,8 @@ namespace Clinic.Medical_Services.Visit
                 {
                     if (!_dtAllMedicines.Columns.Contains("Total"))
                     {
-                        _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)");
+                        _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)-DiscountAmount");
+
                     }
                 }
                 else
@@ -345,6 +346,16 @@ namespace Clinic.Medical_Services.Visit
 
             int serviceID = (int)cmbServices.SelectedValue;
 
+            decimal discount = 0;
+            decimal.TryParse(txtDiscount.Text, out discount);
+
+            // التحقق من الصلاحية: (استخدم ! لعكس النتيجة)
+            if (!clsDiscount.ValidateDiscount(clsGlobal.CurrentUser.RoleID, clsDiscount.enTargetType.MedicalService, discount))
+            {
+                MessageBox.Show("Discount exceeds your allowed limit or is invalid for this role.", "Unauthorized", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // يجب الخروج وعدم إكمال الحفظ
+            }
+
             // 1. منع التكرار
             DataRow[] existingRows = _dtAllServices.Select($"ServiceID = {serviceID}");
             if (existingRows.Length > 0)
@@ -366,7 +377,7 @@ namespace Clinic.Medical_Services.Visit
                 newRow["ServiceName"] = serviceRow["ServiceName"];
                 newRow["SavedServicePrice"] = serviceRow["ServiceFees"];
                 newRow["Quantity"] = nudQuality.Value;
-                newRow["Discount"] = 0;
+                newRow["Discount"] = discount;
 
                 _dtAllServices.Rows.Add(newRow);
             }
@@ -460,6 +471,7 @@ namespace Clinic.Medical_Services.Visit
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "SavedMedicinePrice", HeaderText = "Unit Price", DataPropertyName = "SavedMedicinePrice", ReadOnly = true });
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "Quantity", HeaderText = "Qty", DataPropertyName = "Quantity", ReadOnly = true });
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "Frequency", HeaderText = "FRY", DataPropertyName = "Frequency", ReadOnly = true });
+            dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "DiscountAmount", HeaderText = "Discount", DataPropertyName = "DiscountAmount", ReadOnly = true });
 
             // الإجمالي (يستخدم عمود Total المحسوب في الـ DataTable)
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "Total", HeaderText = "Total", DataPropertyName = "Total", ReadOnly = true });
@@ -500,12 +512,12 @@ namespace Clinic.Medical_Services.Visit
             _dtAllMedicines.Columns.Add("Dosage", typeof(string));
             _dtAllMedicines.Columns.Add("Frequency", typeof(int));
             _dtAllMedicines.Columns.Add("Instructions", typeof(string));
-
+            _dtAllMedicines.Columns.Add("DiscountAmount", typeof(decimal));
             _dtAllMedicines.Columns.Add("SavedMedicineName", typeof(string));
             _dtAllMedicines.Columns.Add("SavedMedicinePrice", typeof(decimal)).DefaultValue = 0m;
 
 
-            _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)");
+            _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)-DiscountAmount");
         }
 
         private void InitializeServicesTable()
@@ -781,6 +793,35 @@ namespace Clinic.Medical_Services.Visit
 
             timer1.Stop();
             timer1.Dispose();
+        }
+
+        private void txtDiscount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // السماح فقط بالأرقام، أزرار التحكم (BackSpace)، والفاصلة
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+
+            // منع تكرار الفاصلة العشرية
+            if (e.KeyChar == '.' && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDiscount_Leave(object sender, EventArgs e)
+        {
+            decimal value;
+            if (decimal.TryParse(txtDiscount.Text, out value))
+            {
+                txtDiscount.Text = value.ToString("F2");
+            }
+            else
+            {
+                // إذا كان الحقل فارغاً أو خطأ، اجعله صفر
+                txtDiscount.Text = "0.00";
+            }
         }
         #endregion
 
