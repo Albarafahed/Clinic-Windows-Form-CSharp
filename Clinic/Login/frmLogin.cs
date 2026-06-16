@@ -50,7 +50,7 @@ namespace Clinic.Login
             // 4. الدخول الناجح
             clsGlobal.CurrentUser = user;
             this.Hide();
-            using (frmMain frm = new frmMain(this))
+            using (frm frm = new frm())
             {
                 frm.ShowDialog();
                 this.Show(); // إظهار شاشة الدخول مجدداً عند إغلاق الشاشة الرئيسية

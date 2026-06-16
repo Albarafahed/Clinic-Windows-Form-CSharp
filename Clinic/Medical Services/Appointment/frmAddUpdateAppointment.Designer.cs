@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tpAppointmentInfo = new System.Windows.Forms.TabPage();
             this.paAppointmentInfo = new System.Windows.Forms.Panel();
+            this.lblAppoinmentDuration = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.lblTotalAppointmentFees = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -75,8 +77,6 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label9 = new System.Windows.Forms.Label();
-            this.lblAppoinmentDuration = new System.Windows.Forms.Label();
             this.tpAppointmentInfo.SuspendLayout();
             this.paAppointmentInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
@@ -149,6 +149,30 @@
             this.paAppointmentInfo.Name = "paAppointmentInfo";
             this.paAppointmentInfo.Size = new System.Drawing.Size(918, 645);
             this.paAppointmentInfo.TabIndex = 0;
+            // 
+            // lblAppoinmentDuration
+            // 
+            this.lblAppoinmentDuration.AutoSize = true;
+            this.lblAppoinmentDuration.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblAppoinmentDuration.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblAppoinmentDuration.Location = new System.Drawing.Point(636, 246);
+            this.lblAppoinmentDuration.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAppoinmentDuration.Name = "lblAppoinmentDuration";
+            this.lblAppoinmentDuration.Size = new System.Drawing.Size(53, 28);
+            this.lblAppoinmentDuration.TabIndex = 217;
+            this.lblAppoinmentDuration.Text = "[???]";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label9.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label9.Location = new System.Drawing.Point(404, 246);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(224, 28);
+            this.label9.TabIndex = 216;
+            this.label9.Text = "Appoinment Duration:";
             // 
             // pictureBox11
             // 
@@ -664,35 +688,11 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label9.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label9.Location = new System.Drawing.Point(404, 246);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(224, 28);
-            this.label9.TabIndex = 216;
-            this.label9.Text = "Appoinment Duration:";
-            // 
-            // lblAppoinmentDuration
-            // 
-            this.lblAppoinmentDuration.AutoSize = true;
-            this.lblAppoinmentDuration.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblAppoinmentDuration.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblAppoinmentDuration.Location = new System.Drawing.Point(636, 246);
-            this.lblAppoinmentDuration.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblAppoinmentDuration.Name = "lblAppoinmentDuration";
-            this.lblAppoinmentDuration.Size = new System.Drawing.Size(53, 28);
-            this.lblAppoinmentDuration.TabIndex = 217;
-            this.lblAppoinmentDuration.Text = "[???]";
-            // 
             // frmAddUpdateAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.ClientSize = new System.Drawing.Size(955, 838);
             this.Controls.Add(this.lblTitle);
@@ -703,7 +703,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.Name = "frmAddUpdateAppointment";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAddUpdateAppointment";
             this.Activated += new System.EventHandler(this.frmAddUpdateAppointment_Activated);
             this.Load += new System.EventHandler(this.frmAddUpdateAppointment_Load);

@@ -47,6 +47,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlsMain\ucAdminStation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsMain\ucAdminStation.Designer.cs">
+      <DependentUpon>ucAdminStation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsMain\ucCasherStation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsMain\ucCasherStation.Designer.cs">
+      <DependentUpon>ucCasherStation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsMain\ucDoctorStation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsMain\ucDoctorStation.Designer.cs">
+      <DependentUpon>ucDoctorStation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsMain\ucNurseStation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsMain\ucNurseStation.Designer.cs">
+      <DependentUpon>ucNurseStation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsMain\ucPharmacistStation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsMain\ucPharmacistStation.Designer.cs">
+      <DependentUpon>ucPharmacistStation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsMain\ucReceptionistStation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsMain\ucReceptionistStation.Designer.cs">
+      <DependentUpon>ucReceptionistStation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm.Designer.cs">
+      <DependentUpon>frm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Medical Services\Appointment\AppointmentsType\frmAdddUpdateAppointmentType.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -289,6 +331,27 @@
     <Compile Include="User\frmUserInfo.Designer.cs">
       <DependentUpon>frmUserInfo.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ControlsMain\ucAdminStation.resx">
+      <DependentUpon>ucAdminStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsMain\ucCasherStation.resx">
+      <DependentUpon>ucCasherStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsMain\ucDoctorStation.resx">
+      <DependentUpon>ucDoctorStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsMain\ucNurseStation.resx">
+      <DependentUpon>ucNurseStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsMain\ucPharmacistStation.resx">
+      <DependentUpon>ucPharmacistStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsMain\ucReceptionistStation.resx">
+      <DependentUpon>ucReceptionistStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm.resx">
+      <DependentUpon>frm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Appointment\AppointmentsType\frmAdddUpdateAppointmentType.resx">
       <DependentUpon>frmAdddUpdateAppointmentType.cs</DependentUpon>
     </EmbeddedResource>

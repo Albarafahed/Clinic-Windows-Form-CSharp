@@ -118,10 +118,33 @@ Clinic_System/
 
 ---
 
+---
+### 🔑  محطة الدكتور (ِDoctor Station)
+إدارة كاملة للحجوزات  مع حماية ضد التكرار وتحقق من صحة البيانات.
+
+| الشاشة | اللقطة |
+| :--- | :--- |
+| **قائمة الحجوزات** | ![List Appoinment](Image/Medical%20Services/Visit/Doctor%20Station/frmListVisit.png) |
+| **إضافةحجز** | ![Add visit](Image/Medical%20Services/Visit/Doctor%20Station/frmAddVisit.png) |
+| **تعديل حجز** | ![Update visit](Image/Medical%20Services/Visit/Doctor%20Station/frmUpdateVisit.png) |
+| **عرض حجز** | ![show visit](Image/Medical%20Services/Visit/Doctor%20Station/frmshowVisit.png) |
+
+---
+
+---
+### 🔑  محطة الممرض (ِDoctor Station)
+
+| الشاشة | اللقطة |
+| :--- | :--- |
+| **تشخيص مريض** | ![Vitals](Image/Medical%20Services/Visit/Nurse%20Station/frmnurse.png) |
+
+
+---
+
 ## 🖥️ الواجهة الرئيسية (Dashboard)
 المركز العصبي للنظام الذي يربط كافة الأقسام.
 
-![Main Dashboard](Image/frmMain.png)
+![Main Dashboard](Image/frmMain1.png)
 
 ---
 

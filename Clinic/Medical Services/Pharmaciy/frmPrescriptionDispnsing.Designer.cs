@@ -1,4 +1,7 @@
-﻿namespace Clinic.Medical_Services.Pharmaciy
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace Clinic.Medical_Services.Pharmaciy
 {
     partial class frmPrescriptionDispnsing
     {
@@ -28,14 +31,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panTitle = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.btnExit = new System.Windows.Forms.Button();
             this.lbCurrentUser = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.lbDate = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -43,12 +47,14 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.lblPlaceholderSer = new System.Windows.Forms.Label();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.panel11 = new System.Windows.Forms.Panel();
+            this.lbPatientName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.lbOrderID = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -63,6 +69,24 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.dgPrescriptionDetails = new System.Windows.Forms.DataGridView();
+            this.panel16 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.btnCancelOrder = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.btnDispense = new System.Windows.Forms.Button();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.lbX = new System.Windows.Forms.Label();
@@ -74,26 +98,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.btnNextExpected = new System.Windows.Forms.Button();
             this.btnReprtShortage = new System.Windows.Forms.Button();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.panel14 = new System.Windows.Forms.Panel();
-            this.panel15 = new System.Windows.Forms.Panel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.panel12 = new System.Windows.Forms.Panel();
-            this.dgPrescriptionDetails = new System.Windows.Forms.DataGridView();
-            this.panel16 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.btnDispense = new System.Windows.Forms.Button();
-            this.btnCancelOrder = new System.Windows.Forms.Button();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.lbPatientName = new System.Windows.Forms.Label();
-            this.lbOrderID = new System.Windows.Forms.Label();
             this.dgvPrescriptions = new System.Windows.Forms.DataGridView();
             this.panTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -106,23 +110,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel8.SuspendLayout();
-            this.panel10.SuspendLayout();
-            this.panel13.SuspendLayout();
-            this.panel15.SuspendLayout();
             this.panel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgPrescriptionDetails)).BeginInit();
             this.panel16.SuspendLayout();
+            this.panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            this.panel15.SuspendLayout();
+            this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrescriptions)).BeginInit();
             this.SuspendLayout();
             // 
             // panTitle
             // 
-            this.panTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.panTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(98)))), ((int)(((byte)(149)))));
+            this.panTitle.Controls.Add(this.label5);
             this.panTitle.Controls.Add(this.pictureBox4);
             this.panTitle.Controls.Add(this.btnExit);
             this.panTitle.Controls.Add(this.lbCurrentUser);
-            this.panTitle.Controls.Add(this.label5);
             this.panTitle.Controls.Add(this.lbDate);
             this.panTitle.Controls.Add(this.label24);
             this.panTitle.Controls.Add(this.lblTitle);
@@ -130,16 +134,28 @@
             this.panTitle.Location = new System.Drawing.Point(10, 10);
             this.panTitle.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
             this.panTitle.Name = "panTitle";
-            this.panTitle.Size = new System.Drawing.Size(1534, 107);
+            this.panTitle.Size = new System.Drawing.Size(1534, 69);
             this.panTitle.TabIndex = 238;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label5.Location = new System.Drawing.Point(1202, 9);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(156, 31);
+            this.label5.TabIndex = 240;
+            this.label5.Text = "Current User:";
             // 
             // pictureBox4
             // 
-            this.pictureBox4.BackColor = System.Drawing.Color.Gainsboro;
+            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox4.Image = global::Clinic.Properties.Resources.Person_32;
-            this.pictureBox4.Location = new System.Drawing.Point(318, 34);
+            this.pictureBox4.Location = new System.Drawing.Point(318, 19);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(41, 34);
+            this.pictureBox4.Size = new System.Drawing.Size(41, 31);
             this.pictureBox4.TabIndex = 255;
             this.pictureBox4.TabStop = false;
             // 
@@ -151,7 +167,7 @@
             this.btnExit.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.btnExit.Image = global::Clinic.Properties.Resources.sign_out_32__2;
-            this.btnExit.Location = new System.Drawing.Point(1411, 53);
+            this.btnExit.Location = new System.Drawing.Point(1365, 18);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(97, 42);
             this.btnExit.TabIndex = 254;
@@ -162,69 +178,57 @@
             // lbCurrentUser
             // 
             this.lbCurrentUser.AutoSize = true;
-            this.lbCurrentUser.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.lbCurrentUser.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCurrentUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.lbCurrentUser.Location = new System.Drawing.Point(1190, 54);
+            this.lbCurrentUser.Location = new System.Drawing.Point(1228, 32);
             this.lbCurrentUser.Name = "lbCurrentUser";
-            this.lbCurrentUser.Size = new System.Drawing.Size(79, 41);
+            this.lbCurrentUser.Size = new System.Drawing.Size(60, 31);
             this.lbCurrentUser.TabIndex = 241;
             this.lbCurrentUser.Text = "[???]";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label5.Location = new System.Drawing.Point(1210, 9);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(199, 41);
-            this.label5.TabIndex = 240;
-            this.label5.Text = "Current User:";
             // 
             // lbDate
             // 
             this.lbDate.AutoSize = true;
-            this.lbDate.Font = new System.Drawing.Font("Segoe UI", 25.8F, System.Drawing.FontStyle.Bold);
+            this.lbDate.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.lbDate.Location = new System.Drawing.Point(7, 9);
             this.lbDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbDate.Name = "lbDate";
-            this.lbDate.Size = new System.Drawing.Size(231, 59);
+            this.lbDate.Size = new System.Drawing.Size(178, 45);
             this.lbDate.TabIndex = 239;
             this.lbDate.Text = "Date Time";
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label24.Location = new System.Drawing.Point(712, 34);
+            this.label24.Location = new System.Drawing.Point(616, 20);
             this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(421, 50);
+            this.label24.Size = new System.Drawing.Size(342, 41);
             this.label24.TabIndex = 238;
             this.label24.Text = "Prescription Dispensing";
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.lblTitle.Location = new System.Drawing.Point(366, 34);
+            this.lblTitle.Location = new System.Drawing.Point(350, 16);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(359, 50);
+            this.lblTitle.Size = new System.Drawing.Size(321, 45);
             this.lblTitle.TabIndex = 236;
             this.lblTitle.Text = "Pharmacist Station:";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(210)))), ((int)(((byte)(222)))));
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(10, 117);
+            this.panel1.Location = new System.Drawing.Point(10, 79);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1534, 23);
+            this.panel1.Size = new System.Drawing.Size(1534, 10);
             this.panel1.TabIndex = 239;
             // 
             // panel2
@@ -233,22 +237,23 @@
             this.panel2.Controls.Add(this.panel6);
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(10, 140);
+            this.panel2.Location = new System.Drawing.Point(10, 89);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1534, 383);
             this.panel2.TabIndex = 240;
             // 
             // panel7
             // 
-            this.panel7.Controls.Add(this.dgvPrescriptions);
-            this.panel7.Controls.Add(this.lblPlaceholderSer);
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(237)))), ((int)(((byte)(239)))));
             this.panel7.Controls.Add(this.btnSearch);
+            this.panel7.Controls.Add(this.lblPlaceholderSer);
             this.panel7.Controls.Add(this.txtSearch);
+            this.panel7.Controls.Add(this.dgvPrescriptions);
             this.panel7.Controls.Add(this.panel11);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(0, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1197, 383);
+            this.panel7.Size = new System.Drawing.Size(1209, 383);
             this.panel7.TabIndex = 2;
             // 
             // lblPlaceholderSer
@@ -256,14 +261,26 @@
             this.lblPlaceholderSer.AutoSize = true;
             this.lblPlaceholderSer.BackColor = System.Drawing.Color.White;
             this.lblPlaceholderSer.ForeColor = System.Drawing.Color.Gray;
-            this.lblPlaceholderSer.Location = new System.Drawing.Point(29, 342);
+            this.lblPlaceholderSer.Location = new System.Drawing.Point(27, 342);
             this.lblPlaceholderSer.Name = "lblPlaceholderSer";
             this.lblPlaceholderSer.Size = new System.Drawing.Size(291, 28);
             this.lblPlaceholderSer.TabIndex = 245;
             this.lblPlaceholderSer.Text = "Search by Patient Name..................";
             // 
+            // txtSearch
+            // 
+            this.txtSearch.BackColor = System.Drawing.Color.White;
+            this.txtSearch.Location = new System.Drawing.Point(3, 342);
+            this.txtSearch.Multiline = true;
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(626, 41);
+            this.txtSearch.TabIndex = 243;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
             // btnSearch
             // 
+            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(227)))), ((int)(((byte)(225)))));
+            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Location = new System.Drawing.Point(683, 336);
             this.btnSearch.Name = "btnSearch";
@@ -271,53 +288,59 @@
             this.btnSearch.TabIndex = 244;
             this.btnSearch.Text = "Search by Patient Name: Prescricopting";
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.UseVisualStyleBackColor = true;
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.Location = new System.Drawing.Point(17, 336);
-            this.txtSearch.Multiline = true;
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(626, 41);
-            this.txtSearch.TabIndex = 243;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // panel11
             // 
-            this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(100)))));
+            this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(121)))), ((int)(((byte)(162)))));
             this.panel11.Controls.Add(this.lbPatientName);
             this.panel11.Controls.Add(this.label1);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel11.Location = new System.Drawing.Point(0, 0);
             this.panel11.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(1197, 80);
+            this.panel11.Size = new System.Drawing.Size(1209, 70);
             this.panel11.TabIndex = 241;
+            // 
+            // lbPatientName
+            // 
+            this.lbPatientName.AutoSize = true;
+            this.lbPatientName.BackColor = System.Drawing.Color.Transparent;
+            this.lbPatientName.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold);
+            this.lbPatientName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.lbPatientName.Location = new System.Drawing.Point(506, 9);
+            this.lbPatientName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbPatientName.Name = "lbPatientName";
+            this.lbPatientName.Size = new System.Drawing.Size(134, 45);
+            this.lbPatientName.TabIndex = 243;
+            this.lbPatientName.Text = " [???]   )";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label1.Location = new System.Drawing.Point(65, 15);
+            this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(882, 50);
+            this.label1.Size = new System.Drawing.Size(785, 45);
             this.label1.TabIndex = 240;
             this.label1.Text = "Tab 1: Pending Prescriptions ( Patient:                    ";
             // 
             // panel6
             // 
-            this.panel6.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(237)))), ((int)(((byte)(239)))));
             this.panel6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel6.Location = new System.Drawing.Point(1197, 0);
+            this.panel6.Location = new System.Drawing.Point(1209, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(20, 383);
+            this.panel6.Size = new System.Drawing.Size(14, 383);
             this.panel6.TabIndex = 1;
             // 
             // panel5
             // 
+            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(234)))), ((int)(((byte)(236)))));
             this.panel5.Controls.Add(this.lbOrderID);
             this.panel5.Controls.Add(this.pictureBox3);
             this.panel5.Controls.Add(this.label10);
@@ -331,14 +354,31 @@
             this.panel5.Controls.Add(this.btnPrintShotageSlip);
             this.panel5.Controls.Add(this.btnSendToAccounting);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel5.Location = new System.Drawing.Point(1217, 0);
+            this.panel5.Location = new System.Drawing.Point(1223, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(317, 383);
+            this.panel5.Size = new System.Drawing.Size(311, 383);
             this.panel5.TabIndex = 0;
+            // 
+            // lbOrderID
+            // 
+            this.lbOrderID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbOrderID.AutoSize = true;
+            this.lbOrderID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(98)))), ((int)(((byte)(149)))));
+            this.lbOrderID.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbOrderID.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbOrderID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.lbOrderID.Location = new System.Drawing.Point(173, 146);
+            this.lbOrderID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbOrderID.Name = "lbOrderID";
+            this.lbOrderID.Size = new System.Drawing.Size(52, 23);
+            this.lbOrderID.TabIndex = 255;
+            this.lbOrderID.Text = "[???])";
             // 
             // pictureBox3
             // 
-            this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(120)))), ((int)(((byte)(0)))));
+            this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(135)))), ((int)(((byte)(39)))));
+            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Image = global::Clinic.Properties.Resources.Prescription_64;
             this.pictureBox3.Location = new System.Drawing.Point(193, 254);
             this.pictureBox3.Name = "pictureBox3";
@@ -350,13 +390,14 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(120)))), ((int)(((byte)(0)))));
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(135)))), ((int)(((byte)(39)))));
+            this.label10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold);
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.label10.Location = new System.Drawing.Point(63, 316);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(72, 41);
+            this.label10.Size = new System.Drawing.Size(66, 38);
             this.label10.TabIndex = 253;
             this.label10.Text = "Slip";
             this.label10.Click += new System.EventHandler(this.btnPrintShotageSlip_Click);
@@ -364,13 +405,14 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(120)))), ((int)(((byte)(0)))));
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(135)))), ((int)(((byte)(39)))));
+            this.label9.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold);
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.label9.Location = new System.Drawing.Point(29, 275);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(147, 41);
+            this.label9.Size = new System.Drawing.Size(137, 38);
             this.label9.TabIndex = 252;
             this.label9.Text = "Shortage";
             this.label9.Click += new System.EventHandler(this.btnPrintShotageSlip_Click);
@@ -378,13 +420,14 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(120)))), ((int)(((byte)(0)))));
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(135)))), ((int)(((byte)(39)))));
+            this.label8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold);
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.label8.Location = new System.Drawing.Point(63, 234);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(87, 41);
+            this.label8.Size = new System.Drawing.Size(81, 38);
             this.label8.TabIndex = 251;
             this.label8.Text = "Print";
             this.label8.Click += new System.EventHandler(this.btnPrintShotageSlip_Click);
@@ -392,7 +435,8 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(100)))));
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(98)))), ((int)(((byte)(149)))));
+            this.label7.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.label7.Location = new System.Drawing.Point(24, 146);
@@ -406,20 +450,22 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(100)))));
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(98)))), ((int)(((byte)(149)))));
+            this.label6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.label6.Location = new System.Drawing.Point(21, 105);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(179, 41);
+            this.label6.Size = new System.Drawing.Size(167, 38);
             this.label6.TabIndex = 249;
             this.label6.Text = "Accounting";
             this.label6.Click += new System.EventHandler(this.btnSendToAccounting_Click);
             // 
             // pictureBox2
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(100)))));
+            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(98)))), ((int)(((byte)(149)))));
+            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox2.Image = global::Clinic.Properties.Resources.Payment_64;
             this.pictureBox2.Location = new System.Drawing.Point(194, 72);
             this.pictureBox2.Name = "pictureBox2";
@@ -430,7 +476,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(100)))));
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(98)))), ((int)(((byte)(149)))));
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = global::Clinic.Properties.Resources.Medicine_32;
             this.pictureBox1.Location = new System.Drawing.Point(139, 15);
             this.pictureBox1.Name = "pictureBox1";
@@ -442,20 +489,21 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(100)))));
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(98)))), ((int)(((byte)(149)))));
+            this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.label3.Location = new System.Drawing.Point(47, 64);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(129, 41);
+            this.label3.Size = new System.Drawing.Size(120, 38);
             this.label3.TabIndex = 242;
             this.label3.Text = "Send To";
             this.label3.Click += new System.EventHandler(this.btnSendToAccounting_Click);
             // 
             // btnPrintShotageSlip
             // 
-            this.btnPrintShotageSlip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(120)))), ((int)(((byte)(0)))));
+            this.btnPrintShotageSlip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(135)))), ((int)(((byte)(39)))));
             this.btnPrintShotageSlip.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPrintShotageSlip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPrintShotageSlip.Location = new System.Drawing.Point(19, 206);
@@ -468,7 +516,7 @@
             // 
             // btnSendToAccounting
             // 
-            this.btnSendToAccounting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(100)))));
+            this.btnSendToAccounting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(98)))), ((int)(((byte)(149)))));
             this.btnSendToAccounting.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSendToAccounting.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSendToAccounting.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold);
@@ -483,11 +531,11 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(210)))), ((int)(((byte)(222)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(10, 523);
+            this.panel3.Location = new System.Drawing.Point(10, 472);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1534, 23);
+            this.panel3.Size = new System.Drawing.Size(1534, 10);
             this.panel3.TabIndex = 241;
             // 
             // panel4
@@ -496,7 +544,7 @@
             this.panel4.Controls.Add(this.panel9);
             this.panel4.Controls.Add(this.panel10);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(10, 546);
+            this.panel4.Location = new System.Drawing.Point(10, 482);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1534, 318);
             this.panel4.TabIndex = 242;
@@ -511,9 +559,285 @@
             this.panel8.Size = new System.Drawing.Size(1197, 318);
             this.panel8.TabIndex = 5;
             // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.dgPrescriptionDetails);
+            this.panel12.Controls.Add(this.panel16);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel12.Location = new System.Drawing.Point(0, 0);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(859, 318);
+            this.panel12.TabIndex = 0;
+            // 
+            // dgPrescriptionDetails
+            // 
+            this.dgPrescriptionDetails.AllowUserToAddRows = false;
+            this.dgPrescriptionDetails.AllowUserToDeleteRows = false;
+            this.dgPrescriptionDetails.AllowUserToResizeRows = false;
+            this.dgPrescriptionDetails.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgPrescriptionDetails.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(210)))), ((int)(((byte)(222)))));
+            this.dgPrescriptionDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgPrescriptionDetails.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgPrescriptionDetails.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle37.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle37.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle37.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle37.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle37.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle37.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgPrescriptionDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle37;
+            this.dgPrescriptionDetails.ColumnHeadersHeight = 40;
+            this.dgPrescriptionDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgPrescriptionDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgPrescriptionDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgPrescriptionDetails.EnableHeadersVisualStyles = false;
+            this.dgPrescriptionDetails.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.dgPrescriptionDetails.Location = new System.Drawing.Point(0, 72);
+            this.dgPrescriptionDetails.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dgPrescriptionDetails.MultiSelect = false;
+            this.dgPrescriptionDetails.Name = "dgPrescriptionDetails";
+            this.dgPrescriptionDetails.ReadOnly = true;
+            dataGridViewCellStyle38.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle38.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle38.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle38.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(193)))), ((int)(((byte)(218)))));
+            dataGridViewCellStyle38.SelectionForeColor = System.Drawing.Color.White;
+            this.dgPrescriptionDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle38;
+            this.dgPrescriptionDetails.RowHeadersWidth = 30;
+            this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(245)))), ((int)(((byte)(248)))));
+            this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(98)))), ((int)(((byte)(149)))));
+            this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
+            this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgPrescriptionDetails.RowTemplate.Height = 50;
+            this.dgPrescriptionDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgPrescriptionDetails.Size = new System.Drawing.Size(859, 246);
+            this.dgPrescriptionDetails.TabIndex = 247;
+            this.dgPrescriptionDetails.TabStop = false;
+            // 
+            // panel16
+            // 
+            this.panel16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(121)))), ((int)(((byte)(162)))));
+            this.panel16.Controls.Add(this.label4);
+            this.panel16.Controls.Add(this.label2);
+            this.panel16.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel16.Location = new System.Drawing.Point(0, 0);
+            this.panel16.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(859, 72);
+            this.panel16.TabIndex = 244;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label4.Location = new System.Drawing.Point(376, 12);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(231, 41);
+            this.label4.TabIndex = 236;
+            this.label4.Text = "[Patient Name]";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label2.Location = new System.Drawing.Point(24, 9);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(430, 45);
+            this.label2.TabIndex = 239;
+            this.label2.Text = "Tab 2: Prescription Details:";
+            // 
+            // panel14
+            // 
+            this.panel14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(234)))), ((int)(((byte)(236)))));
+            this.panel14.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel14.Location = new System.Drawing.Point(859, 0);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(20, 318);
+            this.panel14.TabIndex = 245;
+            // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.label20);
+            this.panel13.Controls.Add(this.label19);
+            this.panel13.Controls.Add(this.label16);
+            this.panel13.Controls.Add(this.btnCancelOrder);
+            this.panel13.Controls.Add(this.label17);
+            this.panel13.Controls.Add(this.pictureBox6);
+            this.panel13.Controls.Add(this.label18);
+            this.panel13.Controls.Add(this.btnDispense);
+            this.panel13.Controls.Add(this.panel15);
+            this.panel13.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel13.Location = new System.Drawing.Point(879, 0);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(318, 318);
+            this.panel13.TabIndex = 244;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.BackColor = System.Drawing.Color.LimeGreen;
+            this.label20.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label20.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label20.Location = new System.Drawing.Point(252, 163);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(41, 41);
+            this.label20.TabIndex = 259;
+            this.label20.Text = "✓";
+            this.label20.Click += new System.EventHandler(this.btnDispense_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.Color.Brown;
+            this.label19.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label19.Location = new System.Drawing.Point(242, 252);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(39, 41);
+            this.label19.TabIndex = 258;
+            this.label19.Text = "×";
+            this.label19.Click += new System.EventHandler(this.btnCancelOrder_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Brown;
+            this.label16.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label16.Location = new System.Drawing.Point(43, 255);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(191, 31);
+            this.label16.TabIndex = 257;
+            this.label16.Text = "**Cancel Order**";
+            this.label16.Click += new System.EventHandler(this.btnCancelOrder_Click);
+            // 
+            // btnCancelOrder
+            // 
+            this.btnCancelOrder.BackColor = System.Drawing.Color.Brown;
+            this.btnCancelOrder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelOrder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCancelOrder.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold);
+            this.btnCancelOrder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.btnCancelOrder.Location = new System.Drawing.Point(20, 241);
+            this.btnCancelOrder.Name = "btnCancelOrder";
+            this.btnCancelOrder.Size = new System.Drawing.Size(276, 67);
+            this.btnCancelOrder.TabIndex = 256;
+            this.btnCancelOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancelOrder.UseVisualStyleBackColor = false;
+            this.btnCancelOrder.Click += new System.EventHandler(this.btnCancelOrder_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.LimeGreen;
+            this.label17.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label17.Location = new System.Drawing.Point(48, 166);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(206, 41);
+            this.label17.TabIndex = 255;
+            this.label17.Text = "Medication**";
+            this.label17.Click += new System.EventHandler(this.btnDispense_Click);
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.BackColor = System.Drawing.Color.LimeGreen;
+            this.pictureBox6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox6.Image = global::Clinic.Properties.Resources.Medicine_32;
+            this.pictureBox6.Location = new System.Drawing.Point(31, 129);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(37, 34);
+            this.pictureBox6.TabIndex = 253;
+            this.pictureBox6.TabStop = false;
+            this.pictureBox6.Click += new System.EventHandler(this.btnDispense_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.Color.LimeGreen;
+            this.label18.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label18.Location = new System.Drawing.Point(96, 122);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(172, 41);
+            this.label18.TabIndex = 251;
+            this.label18.Text = "**Dispense";
+            this.label18.Click += new System.EventHandler(this.btnDispense_Click);
+            // 
+            // btnDispense
+            // 
+            this.btnDispense.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnDispense.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDispense.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnDispense.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold);
+            this.btnDispense.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.btnDispense.Location = new System.Drawing.Point(21, 74);
+            this.btnDispense.Name = "btnDispense";
+            this.btnDispense.Size = new System.Drawing.Size(276, 160);
+            this.btnDispense.TabIndex = 252;
+            this.btnDispense.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDispense.UseVisualStyleBackColor = false;
+            this.btnDispense.Click += new System.EventHandler(this.btnDispense_Click);
+            // 
+            // panel15
+            // 
+            this.panel15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(121)))), ((int)(((byte)(162)))));
+            this.panel15.Controls.Add(this.label12);
+            this.panel15.Controls.Add(this.label15);
+            this.panel15.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel15.Location = new System.Drawing.Point(0, 0);
+            this.panel15.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(318, 61);
+            this.panel15.TabIndex = 241;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label12.Location = new System.Drawing.Point(494, 18);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(231, 41);
+            this.label12.TabIndex = 236;
+            this.label12.Text = "[Patient Name]";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.label15.Location = new System.Drawing.Point(24, 9);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(186, 41);
+            this.label15.TabIndex = 239;
+            this.label15.Text = "Final Action";
+            // 
             // panel9
             // 
-            this.panel9.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(234)))), ((int)(((byte)(236)))));
             this.panel9.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel9.Location = new System.Drawing.Point(1197, 0);
             this.panel9.Name = "panel9";
@@ -522,6 +846,7 @@
             // 
             // panel10
             // 
+            this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(234)))), ((int)(((byte)(236)))));
             this.panel10.Controls.Add(this.lbX);
             this.panel10.Controls.Add(this.lbNotReady);
             this.panel10.Controls.Add(this.lbWaitingforPayment);
@@ -649,343 +974,61 @@
             this.btnReprtShortage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReprtShortage.UseVisualStyleBackColor = false;
             // 
-            // panel13
-            // 
-            this.panel13.Controls.Add(this.label20);
-            this.panel13.Controls.Add(this.label19);
-            this.panel13.Controls.Add(this.label16);
-            this.panel13.Controls.Add(this.btnCancelOrder);
-            this.panel13.Controls.Add(this.label17);
-            this.panel13.Controls.Add(this.pictureBox6);
-            this.panel13.Controls.Add(this.label18);
-            this.panel13.Controls.Add(this.btnDispense);
-            this.panel13.Controls.Add(this.panel15);
-            this.panel13.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel13.Location = new System.Drawing.Point(879, 0);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(318, 318);
-            this.panel13.TabIndex = 244;
-            // 
-            // panel14
-            // 
-            this.panel14.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel14.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel14.Location = new System.Drawing.Point(859, 0);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(20, 318);
-            this.panel14.TabIndex = 245;
-            // 
-            // panel15
-            // 
-            this.panel15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(100)))));
-            this.panel15.Controls.Add(this.label12);
-            this.panel15.Controls.Add(this.label15);
-            this.panel15.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel15.Location = new System.Drawing.Point(0, 0);
-            this.panel15.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
-            this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(318, 61);
-            this.panel15.TabIndex = 241;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label12.Location = new System.Drawing.Point(494, 18);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(231, 41);
-            this.label12.TabIndex = 236;
-            this.label12.Text = "[Patient Name]";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.Transparent;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label15.Location = new System.Drawing.Point(24, 9);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(186, 41);
-            this.label15.TabIndex = 239;
-            this.label15.Text = "Final Action";
-            // 
-            // panel12
-            // 
-            this.panel12.Controls.Add(this.dgPrescriptionDetails);
-            this.panel12.Controls.Add(this.panel16);
-            this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel12.Location = new System.Drawing.Point(0, 0);
-            this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(859, 318);
-            this.panel12.TabIndex = 0;
-            // 
-            // dgPrescriptionDetails
-            // 
-            this.dgPrescriptionDetails.AllowUserToAddRows = false;
-            this.dgPrescriptionDetails.AllowUserToDeleteRows = false;
-            this.dgPrescriptionDetails.AllowUserToResizeRows = false;
-            this.dgPrescriptionDetails.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.dgPrescriptionDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgPrescriptionDetails.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgPrescriptionDetails.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgPrescriptionDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgPrescriptionDetails.ColumnHeadersHeight = 40;
-            this.dgPrescriptionDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgPrescriptionDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgPrescriptionDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgPrescriptionDetails.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.dgPrescriptionDetails.Location = new System.Drawing.Point(0, 82);
-            this.dgPrescriptionDetails.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.dgPrescriptionDetails.MultiSelect = false;
-            this.dgPrescriptionDetails.Name = "dgPrescriptionDetails";
-            this.dgPrescriptionDetails.ReadOnly = true;
-            this.dgPrescriptionDetails.RowHeadersVisible = false;
-            this.dgPrescriptionDetails.RowHeadersWidth = 51;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgPrescriptionDetails.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgPrescriptionDetails.RowTemplate.Height = 38;
-            this.dgPrescriptionDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgPrescriptionDetails.Size = new System.Drawing.Size(859, 236);
-            this.dgPrescriptionDetails.TabIndex = 245;
-            this.dgPrescriptionDetails.TabStop = false;
-            // 
-            // panel16
-            // 
-            this.panel16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(100)))));
-            this.panel16.Controls.Add(this.label4);
-            this.panel16.Controls.Add(this.label2);
-            this.panel16.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel16.Location = new System.Drawing.Point(0, 0);
-            this.panel16.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
-            this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(859, 82);
-            this.panel16.TabIndex = 244;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label4.Location = new System.Drawing.Point(508, 15);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(231, 41);
-            this.label4.TabIndex = 236;
-            this.label4.Text = "[Patient Name]";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold);
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label2.Location = new System.Drawing.Point(24, 9);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(485, 50);
-            this.label2.TabIndex = 239;
-            this.label2.Text = "Tab 2: Prescription Details:";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.Color.LimeGreen;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label17.Location = new System.Drawing.Point(48, 166);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(206, 41);
-            this.label17.TabIndex = 255;
-            this.label17.Text = "Medication**";
-            this.label17.Click += new System.EventHandler(this.btnDispense_Click);
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.BackColor = System.Drawing.Color.LimeGreen;
-            this.pictureBox6.Image = global::Clinic.Properties.Resources.Medicine_32;
-            this.pictureBox6.Location = new System.Drawing.Point(31, 129);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(37, 34);
-            this.pictureBox6.TabIndex = 253;
-            this.pictureBox6.TabStop = false;
-            this.pictureBox6.Click += new System.EventHandler(this.btnDispense_Click);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.BackColor = System.Drawing.Color.LimeGreen;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label18.Location = new System.Drawing.Point(96, 122);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(172, 41);
-            this.label18.TabIndex = 251;
-            this.label18.Text = "**Dispense";
-            this.label18.Click += new System.EventHandler(this.btnDispense_Click);
-            // 
-            // btnDispense
-            // 
-            this.btnDispense.BackColor = System.Drawing.Color.LimeGreen;
-            this.btnDispense.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDispense.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnDispense.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold);
-            this.btnDispense.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.btnDispense.Location = new System.Drawing.Point(21, 74);
-            this.btnDispense.Name = "btnDispense";
-            this.btnDispense.Size = new System.Drawing.Size(276, 160);
-            this.btnDispense.TabIndex = 252;
-            this.btnDispense.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDispense.UseVisualStyleBackColor = false;
-            this.btnDispense.Click += new System.EventHandler(this.btnDispense_Click);
-            // 
-            // btnCancelOrder
-            // 
-            this.btnCancelOrder.BackColor = System.Drawing.Color.Brown;
-            this.btnCancelOrder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelOrder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCancelOrder.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold);
-            this.btnCancelOrder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.btnCancelOrder.Location = new System.Drawing.Point(20, 241);
-            this.btnCancelOrder.Name = "btnCancelOrder";
-            this.btnCancelOrder.Size = new System.Drawing.Size(276, 67);
-            this.btnCancelOrder.TabIndex = 256;
-            this.btnCancelOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelOrder.UseVisualStyleBackColor = false;
-            this.btnCancelOrder.Click += new System.EventHandler(this.btnCancelOrder_Click);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Brown;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label16.Location = new System.Drawing.Point(43, 255);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(191, 31);
-            this.label16.TabIndex = 257;
-            this.label16.Text = "**Cancel Order**";
-            this.label16.Click += new System.EventHandler(this.btnCancelOrder_Click);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.BackColor = System.Drawing.Color.Brown;
-            this.label19.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label19.Location = new System.Drawing.Point(242, 252);
-            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(39, 41);
-            this.label19.TabIndex = 258;
-            this.label19.Text = "×";
-            this.label19.Click += new System.EventHandler(this.btnCancelOrder_Click);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.BackColor = System.Drawing.Color.LimeGreen;
-            this.label20.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label20.Location = new System.Drawing.Point(252, 163);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(41, 41);
-            this.label20.TabIndex = 259;
-            this.label20.Text = "✓";
-            this.label20.Click += new System.EventHandler(this.btnDispense_Click);
-            // 
-            // lbPatientName
-            // 
-            this.lbPatientName.AutoSize = true;
-            this.lbPatientName.BackColor = System.Drawing.Color.Transparent;
-            this.lbPatientName.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold);
-            this.lbPatientName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.lbPatientName.Location = new System.Drawing.Point(747, 15);
-            this.lbPatientName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbPatientName.Name = "lbPatientName";
-            this.lbPatientName.Size = new System.Drawing.Size(152, 50);
-            this.lbPatientName.TabIndex = 243;
-            this.lbPatientName.Text = " [???]   )";
-            // 
-            // lbOrderID
-            // 
-            this.lbOrderID.AutoSize = true;
-            this.lbOrderID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(100)))));
-            this.lbOrderID.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbOrderID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.lbOrderID.Location = new System.Drawing.Point(206, 146);
-            this.lbOrderID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbOrderID.Name = "lbOrderID";
-            this.lbOrderID.Size = new System.Drawing.Size(52, 23);
-            this.lbOrderID.TabIndex = 255;
-            this.lbOrderID.Text = "[???])";
-            // 
             // dgvPrescriptions
             // 
             this.dgvPrescriptions.AllowUserToAddRows = false;
             this.dgvPrescriptions.AllowUserToDeleteRows = false;
             this.dgvPrescriptions.AllowUserToResizeRows = false;
             this.dgvPrescriptions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvPrescriptions.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.dgvPrescriptions.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(210)))), ((int)(((byte)(222)))));
             this.dgvPrescriptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvPrescriptions.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPrescriptions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvPrescriptions.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvPrescriptions.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle39.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle39.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle39.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle39.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle39.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPrescriptions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle39;
             this.dgvPrescriptions.ColumnHeadersHeight = 40;
             this.dgvPrescriptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvPrescriptions.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvPrescriptions.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvPrescriptions.EnableHeadersVisualStyles = false;
-            this.dgvPrescriptions.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.dgvPrescriptions.Location = new System.Drawing.Point(0, 80);
+            this.dgvPrescriptions.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.dgvPrescriptions.Location = new System.Drawing.Point(0, 70);
             this.dgvPrescriptions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvPrescriptions.MultiSelect = false;
             this.dgvPrescriptions.Name = "dgvPrescriptions";
             this.dgvPrescriptions.ReadOnly = true;
+            dataGridViewCellStyle40.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle40.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle40.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle40.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(193)))), ((int)(((byte)(218)))));
+            dataGridViewCellStyle40.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvPrescriptions.RowHeadersDefaultCellStyle = dataGridViewCellStyle40;
             this.dgvPrescriptions.RowHeadersWidth = 30;
             this.dgvPrescriptions.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dgvPrescriptions.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
-            this.dgvPrescriptions.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.dgvPrescriptions.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.dgvPrescriptions.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
-            this.dgvPrescriptions.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
+            this.dgvPrescriptions.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(245)))), ((int)(((byte)(248)))));
+            this.dgvPrescriptions.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.dgvPrescriptions.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.dgvPrescriptions.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(98)))), ((int)(((byte)(149)))));
+            this.dgvPrescriptions.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
             this.dgvPrescriptions.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPrescriptions.RowTemplate.Height = 38;
+            this.dgvPrescriptions.RowTemplate.Height = 50;
             this.dgvPrescriptions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPrescriptions.Size = new System.Drawing.Size(1197, 238);
-            this.dgvPrescriptions.TabIndex = 246;
+            this.dgvPrescriptions.Size = new System.Drawing.Size(1209, 308);
+            this.dgvPrescriptions.TabIndex = 248;
             this.dgvPrescriptions.TabStop = false;
             // 
             // frmPrescriptionDispnsing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1554, 869);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(237)))), ((int)(((byte)(239)))));
+            this.ClientSize = new System.Drawing.Size(1554, 827);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -1013,17 +1056,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
-            this.panel13.ResumeLayout(false);
-            this.panel13.PerformLayout();
-            this.panel15.ResumeLayout(false);
-            this.panel15.PerformLayout();
             this.panel12.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgPrescriptionDetails)).EndInit();
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrescriptions)).EndInit();
             this.ResumeLayout(false);
 
@@ -1080,7 +1123,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Panel panel12;
-        private System.Windows.Forms.DataGridView dgPrescriptionDetails;
         private System.Windows.Forms.Panel panel16;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
@@ -1094,6 +1136,7 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label lbPatientName;
         private System.Windows.Forms.Label lbOrderID;
-        private System.Windows.Forms.DataGridView dgvPrescriptions;
+        private DataGridView dgPrescriptionDetails;
+        private DataGridView dgvPrescriptions;
     }
 }

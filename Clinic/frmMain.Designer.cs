@@ -140,21 +140,21 @@ namespace Clinic
             // 
             this.doctorToolStripMenuItem2.Image = global::Clinic.Properties.Resources.doctor1_32;
             this.doctorToolStripMenuItem2.Name = "doctorToolStripMenuItem2";
-            this.doctorToolStripMenuItem2.Size = new System.Drawing.Size(224, 30);
+            this.doctorToolStripMenuItem2.Size = new System.Drawing.Size(180, 30);
             this.doctorToolStripMenuItem2.Text = "Doctor";
             this.doctorToolStripMenuItem2.Click += new System.EventHandler(this.doctorToolStripMenuItem2_Click);
             // 
             // nurseToolStripMenuItem1
             // 
             this.nurseToolStripMenuItem1.Name = "nurseToolStripMenuItem1";
-            this.nurseToolStripMenuItem1.Size = new System.Drawing.Size(224, 30);
+            this.nurseToolStripMenuItem1.Size = new System.Drawing.Size(180, 30);
             this.nurseToolStripMenuItem1.Text = "Nurse";
             this.nurseToolStripMenuItem1.Click += new System.EventHandler(this.nurseToolStripMenuItem1_Click);
             // 
             // listVisitToolStripMenuItem
             // 
             this.listVisitToolStripMenuItem.Name = "listVisitToolStripMenuItem";
-            this.listVisitToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.listVisitToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
             this.listVisitToolStripMenuItem.Text = "List Visit";
             this.listVisitToolStripMenuItem.Click += new System.EventHandler(this.listVisitToolStripMenuItem_Click);
             // 
@@ -266,7 +266,7 @@ namespace Clinic
             this.MangementStripMenuItem.Image = global::Clinic.Properties.Resources.mange_32;
             this.MangementStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MangementStripMenuItem.Name = "MangementStripMenuItem";
-            this.MangementStripMenuItem.Size = new System.Drawing.Size(219, 38);
+            this.MangementStripMenuItem.Size = new System.Drawing.Size(236, 38);
             this.MangementStripMenuItem.Text = "gi";
             // 
             // manageServicesToolStripMenuItem
@@ -295,7 +295,7 @@ namespace Clinic
             this.UserOptiontoolStripMenuItem.Image = global::Clinic.Properties.Resources.User_Options_32;
             this.UserOptiontoolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.UserOptiontoolStripMenuItem.Name = "UserOptiontoolStripMenuItem";
-            this.UserOptiontoolStripMenuItem.Size = new System.Drawing.Size(219, 38);
+            this.UserOptiontoolStripMenuItem.Size = new System.Drawing.Size(236, 38);
             this.UserOptiontoolStripMenuItem.Text = "UserOption";
             // 
             // currentUserInfoToolStripMenuItem1
@@ -319,14 +319,14 @@ namespace Clinic
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(216, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(233, 6);
             // 
             // signOutToolStripMenuItem
             // 
             this.signOutToolStripMenuItem.Image = global::Clinic.Properties.Resources.sign_out_32__2;
             this.signOutToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(219, 38);
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(236, 38);
             this.signOutToolStripMenuItem.Text = "Sign &Out";
             this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
             // 

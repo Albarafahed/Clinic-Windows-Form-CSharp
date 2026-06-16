@@ -38,6 +38,11 @@ namespace Clinic.Medical_Services.Appointment
         }
         private void frmListAppointmets_Load(object sender, EventArgs e)
         {
+            if (clsGlobal.CurrentUser.RoleID ==(int) clsGlobal.UserRole.Cashier)
+                dgvAppointments.ContextMenuStrip = cmsAppointmentCasher;
+            else
+                dgvAppointments.ContextMenuStrip = cmsAppointmentRecption;
+
             dgvAppointments.DataSource = _dtAppointmets;
            
             cbFilterBy.SelectedIndex = 0;
@@ -158,13 +163,7 @@ namespace Clinic.Medical_Services.Appointment
 
         private void button1_Click(object sender, EventArgs e)
         {
-            List<DoctorInfo> allDoctors = clsDoctor.GetAllDoctorsForQueue();
-
-            if (allDoctors.Count > 0)
-            {
-                frmQueueDisplay frm = new frmQueueDisplay(allDoctors);
-                frm.Show();
-            }
+            
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
@@ -340,5 +339,9 @@ namespace Clinic.Medical_Services.Appointment
         private void CancelToolStripMenuItem_Click(object sender, EventArgs e)
                     => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Cancelled, "cancel this appointment");
 
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

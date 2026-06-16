@@ -37,11 +37,12 @@
             this.cbFilterBy = new System.Windows.Forms.ComboBox();
             this.txtFilterValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmsAppointment = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsAppointmentRecption = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.showPatientDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showDoctorDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VisitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rescheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,15 +50,15 @@
             this.cbStatus = new System.Windows.Forms.ComboBox();
             this.dgvAppointments = new System.Windows.Forms.DataGridView();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.btnAddAppointment = new System.Windows.Forms.Button();
             this.pbPersonImage = new System.Windows.Forms.PictureBox();
-            this.CancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsAppointmentCasher = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.checkINToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsAppointment.SuspendLayout();
+            this.cmsAppointmentRecption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).BeginInit();
+            this.cmsAppointmentCasher.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbAppointmentType
@@ -137,10 +138,10 @@
             this.label1.TabIndex = 105;
             this.label1.Text = "Filter By:";
             // 
-            // cmsAppointment
+            // cmsAppointmentRecption
             // 
-            this.cmsAppointment.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmsAppointment.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmsAppointmentRecption.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsAppointmentRecption.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
             this.toolStripSeparator2,
             this.VisitToolStripMenuItem,
@@ -148,8 +149,8 @@
             this.toolStripMenuItem1,
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
-            this.cmsAppointment.Name = "contextMenuStrip1";
-            this.cmsAppointment.Size = new System.Drawing.Size(249, 238);
+            this.cmsAppointmentRecption.Name = "contextMenuStrip1";
+            this.cmsAppointmentRecption.Size = new System.Drawing.Size(249, 238);
             // 
             // toolStripMenuItem2
             // 
@@ -183,13 +184,21 @@
             // VisitToolStripMenuItem
             // 
             this.VisitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.checkINToolStripMenuItem,
             this.CancelToolStripMenuItem});
             this.VisitToolStripMenuItem.Image = global::Clinic.Properties.Resources.start_visit_32;
             this.VisitToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.VisitToolStripMenuItem.Name = "VisitToolStripMenuItem";
             this.VisitToolStripMenuItem.Size = new System.Drawing.Size(248, 38);
             this.VisitToolStripMenuItem.Text = "&Visit";
+            // 
+            // CancelToolStripMenuItem
+            // 
+            this.CancelToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit2_32;
+            this.CancelToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.CancelToolStripMenuItem.Name = "CancelToolStripMenuItem";
+            this.CancelToolStripMenuItem.Size = new System.Drawing.Size(148, 38);
+            this.CancelToolStripMenuItem.Text = "Cancel";
+            this.CancelToolStripMenuItem.Click += new System.EventHandler(this.CancelToolStripMenuItem_Click);
             // 
             // rescheduleToolStripMenuItem
             // 
@@ -260,7 +269,7 @@
             this.dgvAppointments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvAppointments.ColumnHeadersHeight = 40;
             this.dgvAppointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvAppointments.ContextMenuStrip = this.cmsAppointment;
+            this.dgvAppointments.ContextMenuStrip = this.cmsAppointmentRecption;
             this.dgvAppointments.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvAppointments.EnableHeadersVisualStyles = false;
             this.dgvAppointments.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
@@ -295,19 +304,6 @@
             this.lblTitle.Text = "Manage Appointments";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(1084, 108);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 64);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "الطابور";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // btnClose
             // 
             this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -319,24 +315,13 @@
             this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(952, 727);
+            this.btnClose.Location = new System.Drawing.Point(1058, 725);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(135, 38);
             this.btnClose.TabIndex = 118;
             this.btnClose.Text = "  Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            // 
-            // btnAddAppointment
-            // 
-            this.btnAddAppointment.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnAddAppointment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddAppointment.Image = global::Clinic.Properties.Resources.Add_Appointment_64;
-            this.btnAddAppointment.Location = new System.Drawing.Point(1116, 217);
-            this.btnAddAppointment.Name = "btnAddAppointment";
-            this.btnAddAppointment.Size = new System.Drawing.Size(72, 76);
-            this.btnAddAppointment.TabIndex = 112;
-            this.btnAddAppointment.UseVisualStyleBackColor = true;
-            this.btnAddAppointment.Click += new System.EventHandler(this.btnAddAppointment_Click);
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // pbPersonImage
             // 
@@ -351,21 +336,26 @@
             this.pbPersonImage.TabIndex = 110;
             this.pbPersonImage.TabStop = false;
             // 
-            // CancelToolStripMenuItem
+            // cmsAppointmentCasher
             // 
-            this.CancelToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit2_32;
-            this.CancelToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.CancelToolStripMenuItem.Name = "CancelToolStripMenuItem";
-            this.CancelToolStripMenuItem.Size = new System.Drawing.Size(236, 38);
-            this.CancelToolStripMenuItem.Text = "Cancel";
-            this.CancelToolStripMenuItem.Click += new System.EventHandler(this.CancelToolStripMenuItem_Click);
+            this.cmsAppointmentCasher.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsAppointmentCasher.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSeparator1,
+            this.checkINToolStripMenuItem});
+            this.cmsAppointmentCasher.Name = "contextMenuStrip1";
+            this.cmsAppointmentCasher.Size = new System.Drawing.Size(152, 48);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(148, 6);
             // 
             // checkINToolStripMenuItem
             // 
             this.checkINToolStripMenuItem.Image = global::Clinic.Properties.Resources.start_32;
             this.checkINToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.checkINToolStripMenuItem.Name = "checkINToolStripMenuItem";
-            this.checkINToolStripMenuItem.Size = new System.Drawing.Size(236, 38);
+            this.checkINToolStripMenuItem.Size = new System.Drawing.Size(151, 38);
             this.checkINToolStripMenuItem.Text = "Check_In";
             this.checkINToolStripMenuItem.Click += new System.EventHandler(this.checkINToolStripMenuItem_Click);
             // 
@@ -376,13 +366,11 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(1233, 775);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.dgvAppointments);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.cbStatus);
             this.Controls.Add(this.cbAppointmentType);
-            this.Controls.Add(this.btnAddAppointment);
             this.Controls.Add(this.pbPersonImage);
             this.Controls.Add(this.lblRecordsCount);
             this.Controls.Add(this.label2);
@@ -393,12 +381,13 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.Name = "frmListAppointmets";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmListAppointment";
             this.Load += new System.EventHandler(this.frmListAppointmets_Load);
-            this.cmsAppointment.ResumeLayout(false);
+            this.cmsAppointmentRecption.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
+            this.cmsAppointmentCasher.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -409,7 +398,6 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ComboBox cbAppointmentType;
-        private System.Windows.Forms.Button btnAddAppointment;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.PictureBox pbPersonImage;
@@ -418,7 +406,7 @@
         private System.Windows.Forms.ComboBox cbFilterBy;
         private System.Windows.Forms.TextBox txtFilterValue;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ContextMenuStrip cmsAppointment;
+        private System.Windows.Forms.ContextMenuStrip cmsAppointmentRecption;
         private System.Windows.Forms.ToolStripMenuItem VisitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rescheduleToolStripMenuItem;
         private System.Windows.Forms.ComboBox cbStatus;
@@ -428,8 +416,9 @@
         private System.Windows.Forms.DataGridView dgvAppointments;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ToolStripMenuItem checkINToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CancelToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip cmsAppointmentCasher;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem checkINToolStripMenuItem;
     }
 }
