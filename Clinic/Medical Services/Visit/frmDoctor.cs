@@ -309,12 +309,6 @@ namespace Clinic.Medical_Services.Visit
 
         private void btnSaveVisitServices_Click(object sender, EventArgs e)
         {
-            //if (_dtAllServices.Rows.Count == 0)
-            //{
-            //    ShowWarning("The service list is empty. Please add services first.");
-            //    return;
-            //}
-
             if (clsVisitServices.SaveVisitServices(_VisitID, _dtAllServices))
             {
                 ShowSuccess("Services saved successfully.");
@@ -330,6 +324,7 @@ namespace Clinic.Medical_Services.Visit
             _Prescription.VisitID = _VisitID;
             _Prescription.PrescriptionNotes = txtPrescriptionNotes.Text;
             _Prescription.dtMedicines = _dtAllMedicines;
+            _Prescription.Prescriptiontype = (byte)clsPrescription.enPrescriptionType.DoctorPrescription;
 
             if (_Prescription.Save())
             {

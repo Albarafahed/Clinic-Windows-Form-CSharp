@@ -26,8 +26,8 @@ namespace Clinic_DataAccess
                         decimal taxAmount = amountAfterDiscount - (amountAfterDiscount / (1 + (decimal)taxRate));
 
                         // 2. إنشاء الفاتورة (مع إدراج الخصم والضريبة)
-                        string queryBill = @"INSERT INTO Bills (AppointmentID, TotalCost, DiscountAmount, TaxAmount, PaymentStatus, CreatedByUserID, BillDate) 
-                                     VALUES (@AppointmentID, @TotalCost, @DiscountAmount, @TaxAmount, 2, @UserID, GETDATE()); 
+                        string queryBill = @"INSERT INTO Bills (AppointmentID, TotalCost, DiscountAmount, TaxAmount, PaymentStatus, CreatedByUserID, BillDate,IsVoid) 
+                                     VALUES (@AppointmentID, @TotalCost, @DiscountAmount, @TaxAmount, 2, @UserID, GETDATE(),1); 
                                      SELECT SCOPE_IDENTITY();";
 
                         SqlCommand cmdBill = new SqlCommand(queryBill, connection, transaction);
@@ -77,5 +77,7 @@ namespace Clinic_DataAccess
                 }
             }
         }
+
+        public static bool SendToAccount()
     }
 }

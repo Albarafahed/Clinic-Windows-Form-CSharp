@@ -11,7 +11,7 @@ namespace Clinic_DataAccess
 {
     public class clsPrescriptionData
     {
-        public static int SavePrescription(int VisitID, string Notes, DateTime Date, DataTable dtMedicines, byte PrescriptionStatus)
+        public static int SavePrescription(int ?VisitID, string Notes, DateTime Date, DataTable dtMedicines, byte PrescriptionStatus, byte Prescriptiontype)
         {
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -21,26 +21,24 @@ namespace Clinic_DataAccess
                     try
                     {
                         // 1. حفظ رأس الوصفة واسترجاع الـ ID
-                        string queryMaster = @"INSERT INTO Prescriptions (VisitID, PrescriptionDate, PrescriptionNotes,PrescriptionStatus) 
-                                      VALUES (@VisitID, @Date, @Notes,PrescriptionStatus);
+                        string queryMaster = @"INSERT INTO Prescriptions (VisitID, PrescriptionDate, PrescriptionNotes,PrescriptionStatus,Prescriptiontype) 
+                                      VALUES (@VisitID, @Date, @Notes,@PrescriptionStatus,@Prescriptiontype);
                                       SELECT SCOPE_IDENTITY();";
 
                         int prescriptionID = -1;
                         using (SqlCommand cmdMaster = new SqlCommand(queryMaster, connection, transaction))
                         {
-                            cmdMaster.Parameters.AddWithValue("@VisitID", VisitID);
+                            cmdMaster.Parameters.AddWithValue("@VisitID",(object)VisitID??DBNull.Value);
                             cmdMaster.Parameters.AddWithValue("@Date", Date);
                             cmdMaster.Parameters.AddWithValue("@Notes", Notes.ToDBValue());
                             cmdMaster.Parameters.AddWithValue("@PrescriptionStatus", PrescriptionStatus);
+                            cmdMaster.Parameters.AddWithValue("@Prescriptiontype", Prescriptiontype);
 
                             prescriptionID = Convert.ToInt32(cmdMaster.ExecuteScalar());
                         }
 
-                        // 2. إضافة الأعمدة المطلوبة كـ Expression (سريع جداً وبدون foreach)
-                        // الـ Expression يقوم بتوزيع القيمة على كل الصفوف داخلياً
                         dtMedicines.Columns.Add("PrescriptionID", typeof(int), prescriptionID.ToString());
 
-                        // 3. الحفظ السريع للأدوية
                         using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
                         {
                             bulkCopy.DestinationTableName = "PrescriptionDetails";
@@ -57,7 +55,8 @@ namespace Clinic_DataAccess
                             bulkCopy.ColumnMappings.Add("DiscountAmount", "DiscountAmount");
                             bulkCopy.WriteToServer(dtMedicines);
                         }
-                        clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
+                        if(VisitID.HasValue)
+                        clsVisitData.UpdateVisitTotalAmount(VisitID.Value, transaction);
                         transaction.Commit();
                         return prescriptionID;
                     }
@@ -71,7 +70,7 @@ namespace Clinic_DataAccess
             }
         }
 
-        public static bool UpdatePrescription(int PrescriptionID, int VisitID, string Notes, DateTime Date, byte PrescriptionStatus,DataTable dtMedicines)
+        public static bool UpdatePrescription(int PrescriptionID, int VisitID, string Notes, DateTime Date, byte PrescriptionStatus, DataTable dtMedicines)
         {
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -80,7 +79,6 @@ namespace Clinic_DataAccess
                 {
                     try
                     {
-                        // 1. تحديث بيانات رأس الوصفة (Master)
                         string queryMaster = @"UPDATE Prescriptions 
                                        SET PrescriptionDate = @Date, 
                                            PrescriptionNotes = @Notes ,
@@ -105,7 +103,7 @@ namespace Clinic_DataAccess
                             cmdDelete.ExecuteNonQuery();
                         }
 
-                        
+
                         if (!dtMedicines.Columns.Contains("PrescriptionID"))
                             dtMedicines.Columns.Add("PrescriptionID", typeof(int), PrescriptionID.ToString());
 
@@ -158,7 +156,7 @@ namespace Clinic_DataAccess
                                 INNER JOIN PrescriptionDetails PPD ON 
                                     PP.PrescriptionID = PPD.PrescriptionID
                                 WHERE PP.VisitID = @VisitID;";
-                   
+
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -179,7 +177,163 @@ namespace Clinic_DataAccess
             return dt;
         }
 
-        public static bool Find(int VisitID, ref int PrescriptionID,ref string PrescriptionNotes, ref DateTime PrescriptionDate,ref byte PrescriptionStatus)
+        public static DataTable GetAllActivePrescriptions()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @" SELECT 
+                                        P.PrescriptionID,
+                                        PP.FullName AS PatientName,
+                                        PD.FullName AS DoctorName,
+                                        P.PrescriptionDate,
+                                        CASE P.PrescriptionStatus
+                                        WHEN 1 THEN 'Pending'
+                                        WHEN 2 THEN 'Waiting For Payment'
+                                        WHEN 3 THEN 'Ready For Dispensing'
+                                        WHEN 4 THEN 'Dispensed'
+                                        WHEN 5 THEN 'Partially Dispensed'
+                                        WHEN 6 THEN 'Cancelled'
+                                        ELSE 'Unknown'
+                                    END AS Status,
+                                        P.VisitID,
+                                         V.AppointmentID
+                                    FROM Prescriptions AS P
+                                    INNER JOIN Visits AS V ON P.VisitID = V.VisitID
+                                    INNER JOIN Patients AS Pat ON V.PatientID = Pat.PatientID
+                                    INNER JOIN Persons AS PP ON Pat.PersonID = PP.PersonID
+                                    INNER JOIN Doctors AS D ON V.DoctorID = D.DoctorID
+                                    INNER JOIN Persons AS PD ON D.PersonID = PD.PersonID
+                                    WHERE P.PrescriptionStatus NOT IN (4, 6) 
+                                      AND P.Prescriptiontype = 1;";
+
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows) dt.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+            }
+
+            return dt;
+        }
+
+        public static DataTable GetAllPrescriptionDetails()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT 
+                                        PD.PrescriptionID,
+                                        PD.SavedMedicineName AS MedicineName,
+                                        PD.Dosage,
+                                        PD.Frequency,
+                                        PD.Quantity AS RequiredQuantity, -- الكمية المطلوبة في الوصفة
+                                        PD.Instructions,
+                                        PD.DiscountAmount,
+                                        CASE 
+                                            WHEN M.StockQuantity IS NULL OR M.StockQuantity <= 0 THEN 0           -- غير متوفر
+                                            WHEN M.StockQuantity >= PD.Quantity THEN 1                            -- متوفر بالكامل
+                                            ELSE M.StockQuantity                                                 -- متوفر لكن الكمية أقل من المطلوب (يرد الكمية المتاحة)
+                                        END AS AvailableStatus
+                                    FROM PrescriptionDetails PD
+                                    LEFT JOIN Medicines M ON PD.SavedMedicineName = M.MedicineName; -- الربط هنا يتم باسم الدواء";
+
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows) dt.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+            }
+
+            return dt;
+        }
+        public static DataTable GetAllPrescriptionRecords()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT * FROM View_PrescriptionDetails;";
+
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows) dt.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+            }
+
+            return dt;
+        }
+
+        public static DataTable GetPrescriptionItemsRaw()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT 
+                                        PrescriptionID,
+                                        SavedMedicineName AS MedicineName,
+                                        Dosage,
+                                        Frequency,
+                                        Quantity,
+                                        Instructions,
+                                        DiscountAmount
+                                    FROM PrescriptionDetails;";
+
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows) dt.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+            }
+
+            return dt;
+        }
+
+        public static bool Find(int VisitID, ref int PrescriptionID, ref string PrescriptionNotes, ref DateTime PrescriptionDate, ref byte PrescriptionStatus)
         {
             try
             {
@@ -191,18 +345,18 @@ namespace Clinic_DataAccess
                                             PrescriptionStatus
                                       FROM  Prescriptions
                                       WHERE VisitID=@VisitID;";
-                    using(SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@VisitID", VisitID);
                         connection.Open();
-                        using(SqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 PrescriptionID = (int)reader["PrescriptionID"];
                                 PrescriptionDate = (DateTime)reader["PrescriptionDate"];
                                 PrescriptionNotes = reader["PrescriptionNotes"].ToStringOrEmpty();
-                                PrescriptionStatus =(byte) reader["PrescriptionStatus"];
+                                PrescriptionStatus = (byte)reader["PrescriptionStatus"];
 
                                 return true;
 
@@ -211,7 +365,7 @@ namespace Clinic_DataAccess
                                 return false;
                         }
                     }
-                                    
+
                 }
             }
             catch (SqlException ex)
@@ -219,6 +373,82 @@ namespace Clinic_DataAccess
                 clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
                 return false;
             }
+        }
+
+
+        public static bool UpdatePrescriptionStatus(int prescriptionId, int newStatus, SqlTransaction transaction)
+        {
+            string query = @"UPDATE Prescriptions 
+                     SET PrescriptionStatus = @Status 
+                     WHERE PrescriptionID = @PrescriptionID";
+
+            using (SqlCommand command = new SqlCommand(query, transaction.Connection, transaction))
+            {
+                command.Parameters.AddWithValue("@PrescriptionID", prescriptionId);
+                command.Parameters.AddWithValue("@Status", newStatus);
+                return command.ExecuteNonQuery() > 0;
+            }
+        }
+
+        public static bool UpdatePrescriptionStatus(int prescriptionId, int newStatus)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    conn.Open();
+                    string query = @"UPDATE Prescriptions 
+                         SET PrescriptionStatus = @Status 
+                         WHERE PrescriptionID = @PrescriptionID";
+
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@PrescriptionID", prescriptionId);
+                        command.Parameters.AddWithValue("@Status", newStatus);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                return false;
+            }
+        }
+
+        public static decimal GetPrescriptionTotalForCashier(int prescriptionId)
+        {
+            decimal total = 0;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    string query = @"SELECT SUM((Quantity * SavedMedicinePrice) - DiscountAmount) 
+                         FROM PrescriptionDetails 
+                         WHERE PrescriptionID = @PrescriptionID";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@PrescriptionID", prescriptionId);
+
+
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+
+                        if (result != null && result != DBNull.Value)
+                        {
+                            total = Convert.ToDecimal(result);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                return -1;
+            }
+
+            return total;
         }
     }
 }
