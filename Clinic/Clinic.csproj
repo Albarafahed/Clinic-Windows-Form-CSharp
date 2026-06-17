@@ -137,11 +137,29 @@
     <Compile Include="Medical Services\Appointment\frmReschedule.Designer.cs">
       <DependentUpon>frmReschedule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Medical Services\Pharmaciy\frmPrescriptionDispnsing.cs">
+    <Compile Include="Medical Services\Pharmaciy\frmAllPrescriptions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Medical Services\Pharmaciy\frmPrescriptionDispnsing.Designer.cs">
-      <DependentUpon>frmPrescriptionDispnsing.cs</DependentUpon>
+    <Compile Include="Medical Services\Pharmaciy\frmAllPrescriptions.Designer.cs">
+      <DependentUpon>frmAllPrescriptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Medical Services\Pharmaciy\frmDirictSales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Pharmaciy\frmDirictSales.Designer.cs">
+      <DependentUpon>frmDirictSales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Medical Services\Pharmaciy\frmDoctorPrescriptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Pharmaciy\frmDoctorPrescriptions.Designer.cs">
+      <DependentUpon>frmDoctorPrescriptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Medical Services\Pharmaciy\frmManageDrugs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Pharmaciy\frmManageDrugs.Designer.cs">
+      <DependentUpon>frmManageDrugs.cs</DependentUpon>
     </Compile>
     <Compile Include="Medical Services\Visit\frmDoctor.cs">
       <SubType>Form</SubType>
@@ -394,8 +412,17 @@
     <EmbeddedResource Include="Medical Services\Appointment\frmReschedule.resx">
       <DependentUpon>frmReschedule.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Medical Services\Pharmaciy\frmPrescriptionDispnsing.resx">
-      <DependentUpon>frmPrescriptionDispnsing.cs</DependentUpon>
+    <EmbeddedResource Include="Medical Services\Pharmaciy\frmAllPrescriptions.resx">
+      <DependentUpon>frmAllPrescriptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Pharmaciy\frmDirictSales.resx">
+      <DependentUpon>frmDirictSales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Pharmaciy\frmDoctorPrescriptions.resx">
+      <DependentUpon>frmDoctorPrescriptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Pharmaciy\frmManageDrugs.resx">
+      <DependentUpon>frmManageDrugs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Visit\frmAddUpdateMedicineToPrescription.resx">
       <DependentUpon>frmAddUpdateMedicineToPrescription.cs</DependentUpon>

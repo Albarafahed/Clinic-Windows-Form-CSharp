@@ -50,6 +50,7 @@
     <Compile Include="clsDataAccessSettings.cs" />
     <Compile Include="clsDoctorData.cs" />
     <Compile Include="clsGlobleData.cs" />
+    <Compile Include="clsMedicineData.cs" />
     <Compile Include="clsPatientData.cs" />
     <Compile Include="clsPersonData.cs" />
     <Compile Include="clsPrescriptionData.cs" />

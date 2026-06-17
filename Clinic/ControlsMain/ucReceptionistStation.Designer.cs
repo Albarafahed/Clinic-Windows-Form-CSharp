@@ -54,7 +54,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(522, 58);
+            this.panel1.Size = new System.Drawing.Size(518, 58);
             this.panel1.TabIndex = 0;
             // 
             // label3
@@ -66,9 +66,9 @@
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(8, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(402, 45);
+            this.label3.Size = new System.Drawing.Size(455, 45);
             this.label3.TabIndex = 6;
-            this.label3.Text = "Recption Role Dashboard";
+            this.label3.Text = "Receptionist Role Dashboard";
             // 
             // btnAddVisit
             // 
@@ -212,7 +212,7 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.btnVisitsDashboard_Click);
             // 
-            // ucRecptionStaion
+            // ucReceptionistStation
             // 
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.pictureBox4);
@@ -228,8 +228,8 @@
             this.Controls.Add(this.btnAddVisit);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "ucRecptionStaion";
-            this.Size = new System.Drawing.Size(522, 315);
+            this.Name = "ucReceptionistStation";
+            this.Size = new System.Drawing.Size(518, 315);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();

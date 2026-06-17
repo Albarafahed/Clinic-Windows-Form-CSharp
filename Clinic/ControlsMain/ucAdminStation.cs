@@ -25,10 +25,10 @@ namespace Clinic.ControlsMain
             this.panel1.Visible = false;
 
             // تحميل مباشر وسريع (الـ 214ms التي رأيتها هي سرعة جيدة جداً)
-            var doc = new ucDoctorStation { Location = new Point(320, 6) };
-            var pha = new ucPharmacistStation { Location = new Point(933, 6) };
-            var cas = new ucCasherStation { Location = new Point(320, 321) };
-            var rec = new ucReceptionistStation { Location = new Point(926, 321) };
+            var doc = new ucDoctorStation { Location = new Point(300, 6) };
+            var pha = new ucCasherStation { Location = new Point(920, 6) };
+            var cas = new ucPharmacistStation { Location = new Point(310, 321) };
+            var rec = new ucReceptionistStation { Location = new Point(980, 321) };
             var nur = new ucNurseStation { Location = new Point(16, 512) };
 
             this.panel1.Controls.AddRange(new Control[] { doc, pha, cas, rec, nur });
@@ -98,6 +98,9 @@ namespace Clinic.ControlsMain
             }
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
     }
 }

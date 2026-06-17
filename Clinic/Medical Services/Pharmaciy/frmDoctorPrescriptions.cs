@@ -38,15 +38,11 @@ namespace Clinic.Medical_Services.Pharmaciy
 
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
+        private void btnExit_Click(object sender, EventArgs e) => this.Close();
         private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            lblPlaceholderSer.Visible=string.IsNullOrEmpty(txtSearch.Text);
-        }
+            => lblPlaceholderSer.Visible=string.IsNullOrEmpty(txtSearch.Text);
+         
+          
 
         private void frmPrescriptionDispnsing_Load(object sender, EventArgs e)
         {

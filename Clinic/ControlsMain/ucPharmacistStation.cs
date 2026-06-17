@@ -31,15 +31,28 @@ namespace Clinic.ControlsMain
            
         }
 
-        private void btnFindPatient_Click(object sender, EventArgs e)
+        private void btnInClinicDoctor_Click(object sender, EventArgs e)
         {
             frmPrescriptionDispnsing frm = new frmPrescriptionDispnsing();
-            frm.Show();
+            frm.ShowDialog();
         }
 
-        private void btnDiagonsisNotes_Click(object sender, EventArgs e)
+        private void btnAllPrescription_Click(object sender, EventArgs e)
         {
+            frmAllPrescriptions frm = new frmAllPrescriptions();
+            frm.ShowDialog();
+        }
 
+        private void btnAddNewDrug_Click(object sender, EventArgs e)
+        {
+            frmManageDrugs frm = new frmManageDrugs();
+            frm.ShowDialog();
+        }
+
+        private void btnDirectMedicine_Click(object sender, EventArgs e)
+        {
+            frmDirictSales frm = new frmDirictSales();
+            frm.ShowDialog();
         }
     }
 }

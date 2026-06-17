@@ -385,9 +385,12 @@ namespace Clinic.Medical_Services.Visit
 
         private void btnAddMedicen_Click(object sender, EventArgs e)
         {
-            frmAddUpdateMedicineToPrescription frm = new frmAddUpdateMedicineToPrescription(ref _dtAllMedicines);
-            frm.DataBack += (sendform) => dgvMedicines.DataSource = _dtAllMedicines;
-            frm.Show();
+            using (frmAddUpdateMedicineToPrescription frm = new frmAddUpdateMedicineToPrescription(ref _dtAllMedicines))
+            {
+                frm.DataBack += (sendform) => dgvMedicines.DataSource = _dtAllMedicines;
+                frm.ShowDialog();
+            }
+              
         }
 
         private void btnSave_Click(object sender, EventArgs e)

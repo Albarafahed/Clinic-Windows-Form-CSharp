@@ -39,7 +39,6 @@ namespace Clinic_DataAccess
                         // 2. إضافة الأعمدة المطلوبة كـ Expression (سريع جداً وبدون foreach)
                         // الـ Expression يقوم بتوزيع القيمة على كل الصفوف داخلياً
                         dtMedicines.Columns.Add("PrescriptionID", typeof(int), prescriptionID.ToString());
-                        dtMedicines.Columns.Add("VisitID", typeof(int), VisitID.ToString());
 
                         // 3. الحفظ السريع للأدوية
                         using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
@@ -48,7 +47,6 @@ namespace Clinic_DataAccess
 
                             // ربط الأعمدة (يجب أن تتطابق مع أسماء الأعمدة في DataTable و SQL)
                             bulkCopy.ColumnMappings.Add("PrescriptionID", "PrescriptionID");
-                            bulkCopy.ColumnMappings.Add("VisitID", "VisitID");
                             bulkCopy.ColumnMappings.Add("MedicineID", "MedicineID");
                             bulkCopy.ColumnMappings.Add("Quantity", "Quantity");
                             bulkCopy.ColumnMappings.Add("Dosage", "Dosage");
@@ -107,20 +105,15 @@ namespace Clinic_DataAccess
                             cmdDelete.ExecuteNonQuery();
                         }
 
-                        // 3. إعادة إدخال التفاصيل الجديدة (BulkCopy)
-                        // تأكد من إضافة الأعمدة كـ Expression لتناسب الحفظ الجماعي
+                        
                         if (!dtMedicines.Columns.Contains("PrescriptionID"))
                             dtMedicines.Columns.Add("PrescriptionID", typeof(int), PrescriptionID.ToString());
-
-                        if (!dtMedicines.Columns.Contains("VisitID"))
-                            dtMedicines.Columns.Add("VisitID", typeof(int), VisitID.ToString());
 
                         using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
                         {
                             bulkCopy.DestinationTableName = "PrescriptionDetails";
 
                             bulkCopy.ColumnMappings.Add("PrescriptionID", "PrescriptionID");
-                            bulkCopy.ColumnMappings.Add("VisitID", "VisitID");
                             bulkCopy.ColumnMappings.Add("MedicineID", "MedicineID");
                             bulkCopy.ColumnMappings.Add("Quantity", "Quantity");
                             bulkCopy.ColumnMappings.Add("Dosage", "Dosage");
@@ -186,35 +179,6 @@ namespace Clinic_DataAccess
             return dt;
         }
 
-        public static DataTable GetAllMedicines()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-                {
-                    string query = @"SELECT MedicineID,MedicineName,MedicinePrice
-                                       FROM Medicines;";
-                                   
-
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.HasRows) dt.Load(reader);
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
-            }
-
-            return dt;
-        }
         public static bool Find(int VisitID, ref int PrescriptionID,ref string PrescriptionNotes, ref DateTime PrescriptionDate,ref byte PrescriptionStatus)
         {
             try

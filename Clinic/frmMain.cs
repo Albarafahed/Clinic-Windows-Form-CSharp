@@ -151,8 +151,7 @@ namespace Clinic
 
         private void prescriptionDispensingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPrescriptionDispnsing frm=new frmPrescriptionDispnsing();
-            frm.ShowDialog();
+           
         }
     }
 }

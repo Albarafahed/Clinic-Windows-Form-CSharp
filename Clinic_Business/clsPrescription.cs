@@ -111,10 +111,6 @@ namespace Clinic_Business
             return clsPrescriptionData.GetVisitMedicines(this.VisitID);
         }
 
-        public static DataTable GetAllMedicines()
-        {
-
-            return clsPrescriptionData.GetAllMedicines();
-        }
+        
     }
 }

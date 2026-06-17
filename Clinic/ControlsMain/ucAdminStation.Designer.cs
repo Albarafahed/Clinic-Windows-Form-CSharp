@@ -90,6 +90,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1477, 764);
             this.panel1.TabIndex = 34;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // treeSystemManagement
             // 
@@ -126,7 +127,7 @@
             this.treeSystemManagement.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode5});
             this.treeSystemManagement.SelectedImageIndex = 0;
-            this.treeSystemManagement.Size = new System.Drawing.Size(298, 176);
+            this.treeSystemManagement.Size = new System.Drawing.Size(284, 176);
             this.treeSystemManagement.TabIndex = 37;
             this.treeSystemManagement.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeSystemManagement_NodeMouseClick);
             // 
@@ -150,7 +151,7 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Location = new System.Drawing.Point(14, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(298, 68);
+            this.panel2.Size = new System.Drawing.Size(284, 68);
             this.panel2.TabIndex = 32;
             // 
             // label3
@@ -200,7 +201,7 @@
             this.btnRoleMangement.Location = new System.Drawing.Point(9, 264);
             this.btnRoleMangement.Margin = new System.Windows.Forms.Padding(5);
             this.btnRoleMangement.Name = "btnRoleMangement";
-            this.btnRoleMangement.Size = new System.Drawing.Size(303, 87);
+            this.btnRoleMangement.Size = new System.Drawing.Size(289, 87);
             this.btnRoleMangement.TabIndex = 34;
             this.btnRoleMangement.UseVisualStyleBackColor = false;
             // 
@@ -248,7 +249,7 @@
             this.treeAccountSettings.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode13});
             this.treeAccountSettings.SelectedImageIndex = 0;
-            this.treeAccountSettings.Size = new System.Drawing.Size(298, 133);
+            this.treeAccountSettings.Size = new System.Drawing.Size(284, 133);
             this.treeAccountSettings.TabIndex = 33;
             this.treeAccountSettings.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeAccountSettings_NodeMouseClick);
             // 

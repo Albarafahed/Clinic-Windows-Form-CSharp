@@ -22,7 +22,7 @@ namespace Clinic.Medical_Services.Visit
         public frmAddUpdateMedicineToPrescription(ref DataTable dtMedicines)
         {
             InitializeComponent();
-            _dtMedicines = dtMedicines; 
+            _dtMedicines = dtMedicines;
             _Mode = enMode.AddNew;
         }
 
@@ -36,7 +36,7 @@ namespace Clinic.Medical_Services.Visit
 
         private void _FillMedicensInCheckBox()
         {
-            DataTable dtMedicen = clsPrescription.GetAllMedicines();
+            DataTable dtMedicen = clsMedicine.GetAllMedicines();
             if (dtMedicen != null)
             {
                 cbMedicines.DataSource = dtMedicen;
@@ -54,9 +54,9 @@ namespace Clinic.Medical_Services.Visit
             txtInstructions.Text = "";
             if (_Mode == enMode.AddNew)
             {
-              
+
                 lblTitle.Text = "Add New Medicine";
-              
+
 
             }
             else if (_Mode == enMode.Update)
@@ -77,7 +77,7 @@ namespace Clinic.Medical_Services.Visit
 
             }
             cbMedicines.SelectedValue = _Row["MedicineID"];
-            NUDQuantity.Value =(int) _Row["Quantity"];
+            NUDQuantity.Value = (int)_Row["Quantity"];
             nudFrequency.Value = (int)_Row["Frequency"];
             txtDosage.Text = _Row["Dosage"].ToString();
             txtDiscount.Text = _Row["DiscountAmount"].ToString();
@@ -94,15 +94,15 @@ namespace Clinic.Medical_Services.Visit
 
         private void txtDosage_Validating(object sender, CancelEventArgs e)
         {
-            if(string.IsNullOrEmpty(txtDosage.Text))
+            if (string.IsNullOrEmpty(txtDosage.Text))
             {
                 e.Cancel = true;
                 errorProvider1.SetError(txtDosage, "This Falid Is Required");
 
             }
             else
-            
-            errorProvider1.SetError(txtDosage, null);
+
+                errorProvider1.SetError(txtDosage, null);
         }
 
         private void cbMedicines_SelectedIndexChanged(object sender, EventArgs e)
@@ -125,65 +125,99 @@ namespace Clinic.Medical_Services.Visit
             }
         }
 
+
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // 1. التحقق من الحقول الإجبارية بالشاشة
             if (!this.ValidateChildren())
             {
                 MessageBox.Show("Please fill all required fields correctly.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // 2. التأكد من اختيار الدواء وتجنب القيمة الفارغة مبكراً
+            if (cbMedicines.SelectedValue == null)
+            {
+                MessageBox.Show("Please select a medicine first.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
-            if (cbMedicines.SelectedValue == null) return;
+            int selectedMedicineID = (int)cbMedicines.SelectedValue;
+            int requestedQuantity = (int)NUDQuantity.Value;
 
+            // 3. حساب وتدقيق نسبة الخصم
             decimal discount = 0;
             decimal.TryParse(txtDiscount.Text, out discount);
 
-            // التحقق من الصلاحية: (استخدم ! لعكس النتيجة)
             if (!clsDiscount.ValidateDiscount(clsGlobal.CurrentUser.RoleID, clsDiscount.enTargetType.Medicine, discount))
             {
                 MessageBox.Show("Discount exceeds your allowed limit or is invalid for this role.", "Unauthorized", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; // يجب الخروج وعدم إكمال الحفظ
+                return;
             }
 
+            // 4. التحقق من توفر الكمية في المخزن (للصيدلاني)
+            if (clsGlobal.CurrentUser.RoleID == (int)clsGlobal.UserRole.Pharmacist)
+            {
+                if (!clsMedicine.IsMedicineAvailable(selectedMedicineID, requestedQuantity))
+                {
+                    MessageBox.Show("This medicine is not available in the required quantity or is out of stock.",
+                                    "⚠️ Insufficient Stock",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
+            // 5. مرحلة الحفظ أو التعديل
             if (_Mode == enMode.AddNew)
             {
-                // التحقق من التكرار
-                if (_dtMedicines.Select($"MedicineID = {(int)cbMedicines.SelectedValue}").Length > 0)
+                // التحقق من تكرار الدواء في القائمة
+                if (_dtMedicines.Select($"MedicineID = {selectedMedicineID}").Length > 0)
                 {
                     MessageBox.Show("This Medicine has already been added.", "⚠️ Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                // إنشاء صف جديد في الجدول الممرر
+
+                // إنشاء صف جديد
                 DataRow newRow = _dtMedicines.NewRow();
-                newRow["MedicineID"] = cbMedicines.SelectedValue;
+                newRow["MedicineID"] = selectedMedicineID;
                 newRow["SavedMedicineName"] = cbMedicines.Text;
-                newRow["Quantity"] = NUDQuantity.Value;
+                newRow["Quantity"] = requestedQuantity;
                 newRow["Frequency"] = nudFrequency.Value;
-                newRow["SavedMedicinePrice"] = lblMedicinePrice.Text;
-                newRow["Dosage"]=txtDosage.Text;
+                newRow["SavedMedicinePrice"] = Convert.ToDecimal(lblMedicinePrice.Text); // تحويل آمن عشري
+                newRow["Dosage"] = txtDosage.Text;
                 newRow["Instructions"] = txtInstructions.Text;
                 newRow["DiscountAmount"] = discount;
 
                 _dtMedicines.Rows.Add(newRow);
-                DataBack?.Invoke(this);
             }
             else if (_Mode == enMode.Update)
             {
+                // الثغرة: التحقق من التكرار عند التعديل (تأكد أنه لم يختر دواءً موجوداً مسبقاً في صف آخر)
+                DataRow[] duplicateRows = _dtMedicines.Select($"MedicineID = {selectedMedicineID}");
+                if (duplicateRows.Length > 0 && duplicateRows[0] != _Row)
+                {
+                    MessageBox.Show("This Medicine is already in the list. Cannot update to a duplicate medicine.", "⚠️ Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // تحديث الصف الحالي
-                _Row["MedicineID"] = cbMedicines.SelectedValue;
+                _Row["MedicineID"] = selectedMedicineID;
                 _Row["SavedMedicineName"] = cbMedicines.Text;
-                _Row["Quantity"] = NUDQuantity.Value;
-                _Row["SavedMedicinePrice"] = lblMedicinePrice.Text;
+                _Row["Quantity"] = requestedQuantity;
+                _Row["Frequency"] = nudFrequency.Value; // أضفتها هنا لأنك نسيتها في كود التحديث الأصلي!
+                _Row["SavedMedicinePrice"] = Convert.ToDecimal(lblMedicinePrice.Text); // تحويل آمن عشري
                 _Row["Dosage"] = txtDosage.Text;
                 _Row["Instructions"] = txtInstructions.Text;
                 _Row["DiscountAmount"] = discount;
-                DataBack?.Invoke(this);
-                this.Close();
             }
 
-           
+            // 6. إرجاع البيانات وإغلاق الشاشة نجاح العملية
+            DataBack?.Invoke(this);
+            this.Close();
         }
+
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {

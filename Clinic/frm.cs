@@ -86,6 +86,8 @@ namespace Clinic
                     return new ucNurseStation();
                 case clsGlobal.UserRole.Cashier:
                     return new ucCasherStation();
+                case clsGlobal.UserRole.Pharmacist:
+                    return new ucPharmacistStation();
                 default:
                     return null;
             }
