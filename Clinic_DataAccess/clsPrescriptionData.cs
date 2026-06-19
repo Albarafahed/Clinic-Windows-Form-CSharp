@@ -11,7 +11,7 @@ namespace Clinic_DataAccess
 {
     public class clsPrescriptionData
     {
-        public static int SavePrescription(int ?VisitID, string Notes, DateTime Date, DataTable dtMedicines, byte PrescriptionStatus, byte Prescriptiontype)
+        public static int SavePrescription(int? VisitID, string Notes, DateTime Date, DataTable dtMedicines, byte PrescriptionStatus, byte Prescriptiontype)
         {
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -28,7 +28,7 @@ namespace Clinic_DataAccess
                         int prescriptionID = -1;
                         using (SqlCommand cmdMaster = new SqlCommand(queryMaster, connection, transaction))
                         {
-                            cmdMaster.Parameters.AddWithValue("@VisitID",(object)VisitID??DBNull.Value);
+                            cmdMaster.Parameters.AddWithValue("@VisitID", (object)VisitID ?? DBNull.Value);
                             cmdMaster.Parameters.AddWithValue("@Date", Date);
                             cmdMaster.Parameters.AddWithValue("@Notes", Notes.ToDBValue());
                             cmdMaster.Parameters.AddWithValue("@PrescriptionStatus", PrescriptionStatus);
@@ -55,8 +55,8 @@ namespace Clinic_DataAccess
                             bulkCopy.ColumnMappings.Add("DiscountAmount", "DiscountAmount");
                             bulkCopy.WriteToServer(dtMedicines);
                         }
-                        if(VisitID.HasValue)
-                        clsVisitData.UpdateVisitTotalAmount(VisitID.Value, transaction);
+                        if (VisitID.HasValue)
+                            clsVisitData.UpdateVisitTotalAmount(VisitID.Value, transaction);
                         transaction.Commit();
                         return prescriptionID;
                     }
@@ -186,6 +186,8 @@ namespace Clinic_DataAccess
                 {
                     string query = @" SELECT 
                                         P.PrescriptionID,
+                                         P.VisitID,
+                                         V.AppointmentID,   
                                         PP.FullName AS PatientName,
                                         PD.FullName AS DoctorName,
                                         P.PrescriptionDate,
@@ -236,20 +238,80 @@ namespace Clinic_DataAccess
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
                     string query = @"SELECT 
-                                        PD.PrescriptionID,
-                                        PD.SavedMedicineName AS MedicineName,
-                                        PD.Dosage,
-                                        PD.Frequency,
-                                        PD.Quantity AS RequiredQuantity, -- الكمية المطلوبة في الوصفة
-                                        PD.Instructions,
-                                        PD.DiscountAmount,
-                                        CASE 
-                                            WHEN M.StockQuantity IS NULL OR M.StockQuantity <= 0 THEN 0           -- غير متوفر
-                                            WHEN M.StockQuantity >= PD.Quantity THEN 1                            -- متوفر بالكامل
-                                            ELSE M.StockQuantity                                                 -- متوفر لكن الكمية أقل من المطلوب (يرد الكمية المتاحة)
-                                        END AS AvailableStatus
-                                    FROM PrescriptionDetails PD
-                                    LEFT JOIN Medicines M ON PD.SavedMedicineName = M.MedicineName; -- الربط هنا يتم باسم الدواء";
+                                            P.PrescriptionStatus,
+                                            PD.PrescriptionID,
+                                            PD.PrescriptionDetailsID,
+                                            PD.SavedMedicineName AS MedicineName,
+                                            PD.Dosage,
+                                            M.TaxRate,
+                                            PD.SavedMedicinePrice,
+                                            PD.Frequency,
+                                            PD.Quantity AS RequiredQuantity,
+                                            PD.Instructions,
+                                            PD.DiscountAmount,
+
+                                            -- منطق ذكي للكمية المصروفة
+                                            CASE 
+                                                WHEN P.PrescriptionStatus = 1 THEN 
+                                                    (CASE 
+                                                        WHEN M.CurrentStock IS NULL OR M.CurrentStock <= 0 THEN 0
+                                                        WHEN M.CurrentStock >= PD.Quantity THEN PD.Quantity
+                                                        ELSE M.CurrentStock 
+                                                    END)
+                                                ELSE PD.DispensedQuantity 
+                                            END AS DispensedQuantity,
+
+                                            -- منطق ذكي للـ CheckBox
+                                            CASE 
+                                                WHEN P.PrescriptionStatus = 1 THEN 
+                                                    (CASE 
+                                                        WHEN M.CurrentStock IS NULL OR M.CurrentStock <= 0 THEN 0
+                                                        ELSE 1 
+                                                    END)
+                                                ELSE PD.IsDispensed 
+                                            END AS IsDispensed,
+
+                                            -- منطق ذكي لحالة التوفر
+                                            CASE 
+                                                WHEN P.PrescriptionStatus = 1 THEN
+                                                    (CASE 
+                                                        WHEN M.CurrentStock IS NULL OR M.CurrentStock <= 0 THEN 'Out of Stock'
+                                                        WHEN M.CurrentStock >= PD.Quantity THEN 'Fully Available'
+                                                        ELSE 'Partially Available (' + CAST(M.CurrentStock AS VARCHAR) + ')'
+                                                    END)
+                                                ELSE 'Finalized'
+                                            END AS AvailableStatus
+
+                                        FROM PrescriptionDetails PD
+                                        LEFT JOIN Prescriptions P ON PD.PrescriptionID = P.PrescriptionID
+                                        LEFT JOIN Medicines M ON PD.SavedMedicineName = M.MedicineName;";
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+    
+                                     
+                                     
+                                     
+                                     
+
+                                     
+                                     
+                                     
+                                     
+                                   
 
 
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -269,6 +331,7 @@ namespace Clinic_DataAccess
 
             return dt;
         }
+
         public static DataTable GetAllPrescriptionRecords()
         {
             DataTable dt = new DataTable();
@@ -449,6 +512,84 @@ namespace Clinic_DataAccess
             }
 
             return total;
+        }
+
+        public static bool SendToCashier(int prescriptionId, DataTable dtDispensedItems,int ? VisitID, int ? AppointmentID, decimal TotalMedicinesAmount,decimal TaxRate, int userId)
+        {
+            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+
+                try
+                {
+                    // 1. إنشاء الجدول المؤقت
+                    conn.ExecuteNonQuery("CREATE TABLE #TempDispensed (DetailsID INT, DispensedQty INT, IsDispensed BIT)", transaction);
+
+                    // 2. نقل البيانات عبر SqlBulkCopy
+                    using (SqlBulkCopy bulkCopy = new SqlBulkCopy(conn, SqlBulkCopyOptions.Default, transaction))
+                    {
+                        bulkCopy.DestinationTableName = "#TempDispensed";
+                        bulkCopy.ColumnMappings.Add("PrescriptionDetailsID", "DetailsID");
+                        bulkCopy.ColumnMappings.Add("DispensedQuantity", "DispensedQty");
+                        bulkCopy.ColumnMappings.Add("IsDispensed", "IsDispensed");
+                        bulkCopy.WriteToServer(dtDispensedItems);
+                    }
+
+                    // 3. تحديث الجدول الأصلي
+                    string updateQuery = @"UPDATE PD 
+                                   SET PD.DispensedQuantity = T.DispensedQty, 
+                                       PD.IsDispensed = T.IsDispensed
+                                   FROM PrescriptionDetails PD
+                                   INNER JOIN #TempDispensed T ON PD.PrescriptionDetailsID = T.DetailsID";
+                    conn.ExecuteNonQuery(updateQuery, transaction);
+
+                    // 4. استدعاء دالتك الجاهزة لتحديث الحالة (مع تمرير الـ Transaction لضمان الأمان)
+                    // ملاحظة: تأكد أن دالتك الموجودة مسبقاً تقبل (SqlConnection, SqlTransaction)
+                    if (!UpdatePrescriptionStatus(prescriptionId, 2, transaction))
+                    {
+                        throw new Exception("Failed to update prescription status.");
+                    }
+                  
+                    // 2. حساب التكلفة الإجمالية بناءً على القيمة النقدية
+                    decimal TotalCost = TotalMedicinesAmount + TaxRate;
+
+                    // 5. إدراج الفاتورة
+                    string insertBill = @"INSERT INTO Bills (PrescriptionID, TotalMedicinesAmount,TaxAmount,TotalCost, PaymentStatus, BillDate, CreatedByUserID,VisitID,AppointmentID, IsVoid) 
+                                  VALUES (@PID, @TotalMedicinesAmount,@TaxAmount,@TotalCost, 0, GETDATE(), @UID,@VisitID,@AppointmentID, 0);
+                                         SELECT SCOPE_IDENTITY();";
+                    using (SqlCommand cmdBill = new SqlCommand(insertBill, conn, transaction))
+                    {
+                        cmdBill.Parameters.AddWithValue("@PID", prescriptionId);
+                        cmdBill.Parameters.AddWithValue("@TotalMedicinesAmount", TotalMedicinesAmount);
+                        cmdBill.Parameters.AddWithValue("@UID", userId);
+                        cmdBill.Parameters.AddWithValue("@VisitID", VisitID);
+                        cmdBill.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                        cmdBill.Parameters.AddWithValue("@TaxAmount", TaxRate);
+                        cmdBill.Parameters.AddWithValue("@TotalCost", TotalCost);
+
+                        int BillID = Convert.ToInt32(cmdBill.ExecuteScalar());
+
+                        // 3. توليد رقم الفاتورة
+
+                      clsBillingServiceData.UpdateBillNumber(BillID, transaction);
+
+                    }
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+                finally
+                {
+                    try { conn.ExecuteNonQuery("IF OBJECT_ID('tempdb..#TempDispensed') IS NOT NULL DROP TABLE #TempDispensed", transaction); }
+                    catch { }
+                }
+            }
         }
     }
 }

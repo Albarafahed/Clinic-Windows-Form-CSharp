@@ -67,6 +67,7 @@
     <Compile Include="SaveExeption\clsGlobalLogger.cs" />
     <Compile Include="SaveExeption\clsLogger.cs" />
     <Compile Include="SaveExeption\clsLogin.cs" />
+    <Compile Include="SqlExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

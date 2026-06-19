@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,7 @@ namespace Clinic_DataAccess
                         // حساب الضريبة: (المبلغ بعد الخصم) - (المبلغ بعد الخصم / 1 + النسبة)
                         decimal taxAmount = amountAfterDiscount - (amountAfterDiscount / (1 + (decimal)taxRate));
 
+                        decimal TotalCost = amountAfterDiscount + taxAmount;
                         // 2. إنشاء الفاتورة (مع إدراج الخصم والضريبة)
                         string queryBill = @"INSERT INTO Bills (AppointmentID, TotalCost, DiscountAmount, TaxAmount, PaymentStatus, CreatedByUserID, BillDate,IsVoid) 
                                      VALUES (@AppointmentID, @TotalCost, @DiscountAmount, @TaxAmount, 2, @UserID, GETDATE(),1); 
@@ -32,7 +34,7 @@ namespace Clinic_DataAccess
 
                         SqlCommand cmdBill = new SqlCommand(queryBill, connection, transaction);
                         cmdBill.Parameters.AddWithValue("@AppointmentID", AppointmentID);
-                        cmdBill.Parameters.AddWithValue("@TotalCost", Fees); // الإجمالي قبل الخصم
+                        cmdBill.Parameters.AddWithValue("@TotalCost", TotalCost); 
                         cmdBill.Parameters.AddWithValue("@DiscountAmount", Discount);
                         cmdBill.Parameters.AddWithValue("@TaxAmount", taxAmount);
                         cmdBill.Parameters.AddWithValue("@UserID", UserID);
@@ -40,11 +42,8 @@ namespace Clinic_DataAccess
                         int BillID = Convert.ToInt32(cmdBill.ExecuteScalar());
 
                         // 3. توليد رقم الفاتورة
-                        string queryUpdateBillNumber = @"UPDATE Bills SET BillNumber = 'INV-' + CAST(YEAR(GETDATE()) AS VARCHAR) + '-' + RIGHT('0000' + CAST(@BillID AS VARCHAR), 4) 
-                                                 WHERE BillID = @BillID";
-                        SqlCommand cmdUpdate = new SqlCommand(queryUpdateBillNumber, connection, transaction);
-                        cmdUpdate.Parameters.AddWithValue("@BillID", BillID);
-                        cmdUpdate.ExecuteNonQuery();
+
+                        UpdateBillNumber(BillID, transaction);
 
                         // 4. تسجيل الدفعة (المبلغ الفعلي المدفوع = الإجمالي - الخصم)
                         decimal finalPaymentAmount = amountAfterDiscount;
@@ -78,6 +77,13 @@ namespace Clinic_DataAccess
             }
         }
 
-        public static bool SendToAccount()
+       public static bool UpdateBillNumber(int  BillID,SqlTransaction transaction)
+        {
+            string queryUpdateBillNumber = @"UPDATE Bills SET BillNumber = 'INV-' + CAST(YEAR(GETDATE()) AS VARCHAR) + '-' + RIGHT('0000' + CAST(@BillID AS VARCHAR), 4) 
+                                                 WHERE BillID = @BillID";
+            SqlCommand cmdUpdate = new SqlCommand(queryUpdateBillNumber, transaction.Connection,transaction);
+            cmdUpdate.Parameters.AddWithValue("@BillID", BillID);
+          return  cmdUpdate.ExecuteNonQuery()>0;
+        }
     }
 }
