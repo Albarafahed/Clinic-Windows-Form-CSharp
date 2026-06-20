@@ -112,9 +112,9 @@ namespace Clinic_Business
             return clsPrescriptionData.GetPrescriptionItemsRaw();
         }
 
-        public static bool UpdatePrescriptionStatus(int prescriptionId, int newStatus)
+        public static bool UpdatePrescriptionStatus(int prescriptionId, enPrescriptionStatus newStatus)
         {
-            return clsPrescriptionData.UpdatePrescriptionStatus(prescriptionId, newStatus);
+            return clsPrescriptionData.UpdatePrescriptionStatus(prescriptionId,(byte) newStatus);
         }
         public bool Save()
         {

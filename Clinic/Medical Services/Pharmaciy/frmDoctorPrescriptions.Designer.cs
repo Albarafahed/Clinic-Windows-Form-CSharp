@@ -31,10 +31,10 @@ namespace Clinic.Medical_Services.Pharmaciy
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panTitle = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
@@ -94,10 +94,10 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.lbStatus = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.lbContainer = new System.Windows.Forms.Label();
-            this.lbOrderNumber = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lbTotalMedicen = new System.Windows.Forms.Label();
             this.btnNextExpected = new System.Windows.Forms.Button();
             this.btnReprtShortage = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.panTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.panel2.SuspendLayout();
@@ -290,6 +290,7 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.label19.Size = new System.Drawing.Size(39, 41);
             this.label19.TabIndex = 261;
             this.label19.Text = "×";
+            this.label19.Click += new System.EventHandler(this.btnCancelOrder_Click);
             // 
             // label16
             // 
@@ -304,6 +305,7 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.label16.Size = new System.Drawing.Size(191, 31);
             this.label16.TabIndex = 260;
             this.label16.Text = "**Cancel Order**";
+            this.label16.Click += new System.EventHandler(this.btnCancelOrder_Click);
             // 
             // btnCancelOrder
             // 
@@ -318,6 +320,7 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.btnCancelOrder.TabIndex = 259;
             this.btnCancelOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCancelOrder.UseVisualStyleBackColor = false;
+            this.btnCancelOrder.Click += new System.EventHandler(this.btnCancelOrder_Click);
             // 
             // panbtnSendToAccounting
             // 
@@ -443,6 +446,7 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.lblPlaceholderSer.Size = new System.Drawing.Size(291, 28);
             this.lblPlaceholderSer.TabIndex = 245;
             this.lblPlaceholderSer.Text = "Search by Patient Name..................";
+            this.lblPlaceholderSer.Click += new System.EventHandler(this.lblPlaceholderSer_Click);
             // 
             // txtSearch
             // 
@@ -463,14 +467,14 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.dgvPrescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvPrescription.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvPrescription.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPrescription.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPrescription.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.dgvPrescription.ColumnHeadersHeight = 40;
             this.dgvPrescription.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvPrescription.Dock = System.Windows.Forms.DockStyle.Left;
@@ -482,12 +486,12 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.dgvPrescription.MultiSelect = false;
             this.dgvPrescription.Name = "dgvPrescription";
             this.dgvPrescription.ReadOnly = true;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(193)))), ((int)(((byte)(218)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvPrescription.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(193)))), ((int)(((byte)(218)))));
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvPrescription.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dgvPrescription.RowHeadersWidth = 30;
             this.dgvPrescription.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.dgvPrescription.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(245)))), ((int)(((byte)(248)))));
@@ -615,6 +619,7 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.pictureBox6.Size = new System.Drawing.Size(37, 34);
             this.pictureBox6.TabIndex = 267;
             this.pictureBox6.TabStop = false;
+            this.pictureBox6.Click += new System.EventHandler(this.pictureBox6_Click);
             // 
             // label18
             // 
@@ -758,14 +763,14 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.dgPrescriptionDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgPrescriptionDetails.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgPrescriptionDetails.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgPrescriptionDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgPrescriptionDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dgPrescriptionDetails.ColumnHeadersHeight = 40;
             this.dgPrescriptionDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgPrescriptionDetails.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -777,12 +782,12 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.dgPrescriptionDetails.MultiSelect = false;
             this.dgPrescriptionDetails.Name = "dgPrescriptionDetails";
             this.dgPrescriptionDetails.ReadOnly = true;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(193)))), ((int)(((byte)(218)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            this.dgPrescriptionDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(219)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(193)))), ((int)(((byte)(218)))));
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.White;
+            this.dgPrescriptionDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dgPrescriptionDetails.RowHeadersWidth = 30;
             this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(245)))), ((int)(((byte)(248)))));
@@ -855,13 +860,13 @@ namespace Clinic.Medical_Services.Pharmaciy
             // panel10
             // 
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(234)))), ((int)(((byte)(236)))));
+            this.panel10.Controls.Add(this.label4);
             this.panel10.Controls.Add(this.lbX);
             this.panel10.Controls.Add(this.lbNotReady);
             this.panel10.Controls.Add(this.lbStatus);
             this.panel10.Controls.Add(this.label14);
             this.panel10.Controls.Add(this.lbContainer);
-            this.panel10.Controls.Add(this.lbOrderNumber);
-            this.panel10.Controls.Add(this.label11);
+            this.panel10.Controls.Add(this.lbTotalMedicen);
             this.panel10.Controls.Add(this.btnNextExpected);
             this.panel10.Controls.Add(this.btnReprtShortage);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Right;
@@ -928,29 +933,18 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.lbContainer.Size = new System.Drawing.Size(274, 94);
             this.lbContainer.TabIndex = 249;
             // 
-            // lbOrderNumber
+            // lbTotalMedicen
             // 
-            this.lbOrderNumber.AutoSize = true;
-            this.lbOrderNumber.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbOrderNumber.ForeColor = System.Drawing.Color.Black;
-            this.lbOrderNumber.Location = new System.Drawing.Point(21, 163);
-            this.lbOrderNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbOrderNumber.Name = "lbOrderNumber";
-            this.lbOrderNumber.Size = new System.Drawing.Size(192, 41);
-            this.lbOrderNumber.TabIndex = 248;
-            this.lbOrderNumber.Text = "(Order [???] )";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(10, 122);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(188, 41);
-            this.label11.TabIndex = 242;
-            this.label11.Text = "Biling Status";
+            this.lbTotalMedicen.AutoSize = true;
+            this.lbTotalMedicen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.lbTotalMedicen.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalMedicen.ForeColor = System.Drawing.Color.White;
+            this.lbTotalMedicen.Location = new System.Drawing.Point(110, 170);
+            this.lbTotalMedicen.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbTotalMedicen.Name = "lbTotalMedicen";
+            this.lbTotalMedicen.Size = new System.Drawing.Size(35, 41);
+            this.lbTotalMedicen.TabIndex = 242;
+            this.lbTotalMedicen.Text = "0";
             // 
             // btnNextExpected
             // 
@@ -981,6 +975,19 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.btnReprtShortage.Text = "Report Shortage";
             this.btnReprtShortage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReprtShortage.UseVisualStyleBackColor = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(35, 122);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(211, 41);
+            this.label4.TabIndex = 254;
+            this.label4.Text = "Total Medicen";
             // 
             // frmPrescriptionDispnsing
             // 
@@ -1064,8 +1071,7 @@ namespace Clinic.Medical_Services.Pharmaciy
         private System.Windows.Forms.Button btnNextExpected;
         private System.Windows.Forms.Button btnReprtShortage;
         private System.Windows.Forms.Label lbContainer;
-        private System.Windows.Forms.Label lbOrderNumber;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lbTotalMedicen;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label lbStatus;
         private System.Windows.Forms.Label lbX;
@@ -1099,5 +1105,6 @@ namespace Clinic.Medical_Services.Pharmaciy
         private Label label19;
         private Label label16;
         private Button btnCancelOrder;
+        private Label label4;
     }
 }

@@ -453,7 +453,7 @@ namespace Clinic_DataAccess
             }
         }
 
-        public static bool UpdatePrescriptionStatus(int prescriptionId, int newStatus)
+        public static bool UpdatePrescriptionStatus(int prescriptionId, byte newStatus)
         {
             try
             {

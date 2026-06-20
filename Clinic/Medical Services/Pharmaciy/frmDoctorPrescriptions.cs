@@ -13,7 +13,8 @@ namespace Clinic.Medical_Services.Pharmaciy
 {
     public partial class frmPrescriptionDispnsing : Form
     {
-        DataTable dtAllDetails = new DataTable();
+        DataTable dtAllDetails = clsPrescription.GetAllPrescriptionDetails();
+        DataTable dtAllActivePrescriptions = clsPrescription.GetAllActivePrescriptions();
         private bool _isUpdating = false; // هذا هو مفتاح الحماية
         private int _currentPrescriptionId = -1;
         private int _AppointmentID = -1;
@@ -114,7 +115,7 @@ namespace Clinic.Medical_Services.Pharmaciy
             dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PrescriptionDate", HeaderText = "Date", DataPropertyName = "PrescriptionDate", ReadOnly = true, FillWeight = 20 });
             dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "Status", HeaderText = "Status", DataPropertyName = "Status", ReadOnly = true, FillWeight = 15 });
 
-            dgvPrescription.DataSource = clsPrescription.GetAllActivePrescriptions();
+            dgvPrescription.DataSource = dtAllActivePrescriptions;
         }
         private void _SetupPrescriptionDetailsGrid()
         {
@@ -204,6 +205,14 @@ namespace Clinic.Medical_Services.Pharmaciy
            
         }
 
+        private void _RefrashData()
+        {
+            //dtAllDetails = clsPrescription.GetAllPrescriptionDetails();
+            //dgPrescriptionDetails.DataSource = dtAllDetails;
+
+            dtAllActivePrescriptions = clsPrescription.GetAllActivePrescriptions();
+            dgvPrescription.DataSource = dtAllActivePrescriptions;
+        }
         private void frmPrescriptionDispnsing_Load(object sender, EventArgs e)
         {
             dtAllDetails = clsPrescription.GetAllPrescriptionDetails();
@@ -245,6 +254,26 @@ namespace Clinic.Medical_Services.Pharmaciy
             // نستخدم الـ DataView المفلتر حالياً
             DataView dv = (DataView)dgPrescriptionDetails.DataSource;
 
+            bool hasDispensedItems = false;
+            bool isDispensed=false;
+            foreach (DataRowView row in dv)
+            {
+
+                isDispensed = (row["IsDispensed"] != DBNull.Value) && Convert.ToBoolean(row["IsDispensed"]);
+                if (isDispensed)
+                {
+                    hasDispensedItems = true;
+                    break; // وجدنا دواء واحداً، لا داعي لإكمال البحث
+                }
+            }
+
+            if (!hasDispensedItems)
+            {
+                MessageBox.Show("لا يمكن الإرسال: يجب تحديد دواء واحد على الأقل للصرف (IsDispensed).",
+                                "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             decimal TotalMedicinesAmount, TaxRate;
             _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
 
@@ -259,7 +288,12 @@ namespace Clinic.Medical_Services.Pharmaciy
             {
                 dtAllDetails.AcceptChanges(); // تحديث الذاكرة بعد النجاح
                 MessageBox.Show("Prescription successfully sent!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                _RefrashData();
+            }
+            else
+            {
+                MessageBox.Show("Prescription Faild sent!", "Faild", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
         private void dgvPrescription_SelectionChanged(object sender, EventArgs e)
@@ -270,7 +304,6 @@ namespace Clinic.Medical_Services.Pharmaciy
                 lbPatientNameDetalis.Text = $"[{lbPatientName.Text}]";
                 _currentPrescriptionId = Convert.ToInt32(dgvPrescription.SelectedRows[0].Cells["PrescriptionID"].Value);
                 lbOrderID.Text= $"(Order [{_currentPrescriptionId.ToString()}] )";
-                lbOrderNumber.Text = lbOrderID.Text;
                 _AppointmentID = Convert.ToInt32(dgvPrescription.SelectedRows[0].Cells["AppointmentID"].Value);
                 _VisitID = Convert.ToInt32(dgvPrescription.SelectedRows[0].Cells["VisitID"].Value);
                 string Status = dgvPrescription.SelectedRows[0].Cells["Status"].Value.ToString();
@@ -285,7 +318,7 @@ namespace Clinic.Medical_Services.Pharmaciy
                 decimal TotalMedicinesAmount, TaxRate;
                 _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
 
-                label11.Text = (TotalMedicinesAmount + TaxRate).ToString();
+                lbTotalMedicen.Text = (TotalMedicinesAmount + TaxRate).ToString();
 
             }
         }
@@ -351,7 +384,7 @@ namespace Clinic.Medical_Services.Pharmaciy
                 decimal TotalMedicinesAmount, TaxRate;
                 _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
 
-                label11.Text = (TotalMedicinesAmount + TaxRate).ToString("N2");
+                lbTotalMedicen.Text = (TotalMedicinesAmount + TaxRate).ToString("N2");
 
             }
             catch (Exception ex)
@@ -381,11 +414,48 @@ namespace Clinic.Medical_Services.Pharmaciy
         private void btnExit_Click(object sender, EventArgs e) => this.Close();
    
         private void txtSearch_TextChanged(object sender, EventArgs e)
-            => lblPlaceholderSer.Visible=string.IsNullOrEmpty(txtSearch.Text);
+        {
+            lblPlaceholderSer.Visible = string.IsNullOrEmpty(txtSearch.Text);
+            if(lblPlaceholderSer.Visible )
+            {
+                dtAllActivePrescriptions.DefaultView.RowFilter = "";
+            }
+            else
+                dtAllActivePrescriptions.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", "PatientName", txtSearch.Text.Trim());
+
+        }
 
         private void btnPrintShotageSlip_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCancelOrder_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are You Sure ...", "Confirm", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                if(clsPrescription.UpdatePrescriptionStatus(_currentPrescriptionId,clsPrescription.enPrescriptionStatus.Cancelled))
+                {
+                    MessageBox.Show("Succes FullY ...");
+                    _RefrashData();
+                }
+                else
+                {
+                    MessageBox.Show("Succes FullY ...");
+
+
+                }
+            }
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPlaceholderSer_Click(object sender, EventArgs e)
+        {
+            txtSearch.Focus();
         }
     }
 }
