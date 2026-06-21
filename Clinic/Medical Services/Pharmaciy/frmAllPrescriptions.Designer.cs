@@ -209,7 +209,7 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.dgPrescriptionDetails.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(43)))), ((int)(((byte)(50)))));
             this.dgPrescriptionDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgPrescriptionDetails.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(90)))));
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
@@ -236,7 +236,7 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.dgPrescriptionDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dgPrescriptionDetails.RowHeadersVisible = false;
             this.dgPrescriptionDetails.RowHeadersWidth = 30;
-            this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(43)))), ((int)(((byte)(50)))));
             this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 14F);
             this.dgPrescriptionDetails.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White;

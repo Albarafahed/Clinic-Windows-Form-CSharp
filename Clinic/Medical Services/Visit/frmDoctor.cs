@@ -1,4 +1,5 @@
 ﻿using Clinic.Controls;
+using Clinic.ControlsMain;
 using Clinic.Doctor;
 using Clinic.Patient;
 using Clinic_Business;
@@ -186,8 +187,13 @@ namespace Clinic.Medical_Services.Visit
                 {
                     if (!_dtAllMedicines.Columns.Contains("Total"))
                     {
-                        _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)-DiscountAmount");
+                        _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)+TaxRate - DiscountAmount");
 
+
+                    }
+                    if(!_Prescription.IsPrescriptionPending())
+                    {
+                        pnlPrescriptionInfo.Enabled= false;
                     }
                 }
                 else
@@ -320,6 +326,16 @@ namespace Clinic.Medical_Services.Visit
 
         private void btnSavePrescription_Click(object sender, EventArgs e)
         {
+            if (_Mode == enMode.Update)
+            {
+                if (!_Prescription.IsPrescriptionPending())
+                {
+                    MessageBox.Show("This prescription is already processed and cannot be modified.",
+                                    "Restricted Action", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+            }
+
             _Prescription.PrescriptionDate = dtpPrescriptionDate.Value;
             _Prescription.VisitID = _VisitID;
             _Prescription.PrescriptionNotes = txtPrescriptionNotes.Text;
@@ -460,6 +476,8 @@ namespace Clinic.Medical_Services.Visit
                 return;
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "MedicineID", DataPropertyName = "MedicineID", Visible = false });
 
+            dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "TaxRate", HeaderText = "TaxRate", DataPropertyName = "TaxRate", Visible = false });
+
             // الأعمدة المرئية (نستخدم الأسماء الجديدة لتطابق الجدول)
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "SavedMedicineName", HeaderText = "M.Name", DataPropertyName = "SavedMedicineName", ReadOnly = true });
             dgvMedicines.Columns.Add(new DataGridViewTextBoxColumn { Name = "Dosage", HeaderText = "Dosage", DataPropertyName = "Dosage", ReadOnly = true });
@@ -513,9 +531,9 @@ namespace Clinic.Medical_Services.Visit
             _dtAllMedicines.Columns.Add("DiscountAmount", typeof(decimal));
             _dtAllMedicines.Columns.Add("SavedMedicineName", typeof(string));
             _dtAllMedicines.Columns.Add("SavedMedicinePrice", typeof(decimal)).DefaultValue = 0m;
+            _dtAllMedicines.Columns.Add("TaxRate", typeof(decimal));
 
-
-            _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)-DiscountAmount");
+            _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)+TaxRate - DiscountAmount");
         }
 
         private void InitializeServicesTable()

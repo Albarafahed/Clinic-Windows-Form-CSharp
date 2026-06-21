@@ -19,6 +19,7 @@ namespace Clinic.Medical_Services.Visit
         private enMode _Mode = enMode.AddNew;
         private DataRow _Row;
         private DataTable _dtMedicines;
+        private decimal _TaxRate = 0.0m;
         public frmAddUpdateMedicineToPrescription(ref DataTable dtMedicines)
         {
             InitializeComponent();
@@ -120,7 +121,9 @@ namespace Clinic.Medical_Services.Visit
                 if (foundRows.Length > 0)
                 {
                     decimal price = Convert.ToDecimal(foundRows[0]["MedicinePrice"]);
-                    lblMedicinePrice.Text = price.ToString("F2"); // تنسيق الرقم ليظهر بمنزلتين عشريتين
+                     _TaxRate = Convert.ToDecimal(foundRows[0]["TaxRate"]);
+
+                    lblMedicinePrice.Text = (price+_TaxRate).ToString("F2"); // تنسيق الرقم ليظهر بمنزلتين عشريتين
                 }
             }
         }
@@ -188,6 +191,8 @@ namespace Clinic.Medical_Services.Visit
                 newRow["Dosage"] = txtDosage.Text;
                 newRow["Instructions"] = txtInstructions.Text;
                 newRow["DiscountAmount"] = discount;
+                newRow["TaxRate"] = _TaxRate;
+
 
                 _dtMedicines.Rows.Add(newRow);
             }
@@ -210,14 +215,14 @@ namespace Clinic.Medical_Services.Visit
                 _Row["Dosage"] = txtDosage.Text;
                 _Row["Instructions"] = txtInstructions.Text;
                 _Row["DiscountAmount"] = discount;
+                _Row["TaxRate"] = _TaxRate;
+
             }
 
             // 6. إرجاع البيانات وإغلاق الشاشة نجاح العملية
             DataBack?.Invoke(this);
             this.Close();
         }
-
-
 
         private void btnClose_Click(object sender, EventArgs e)
         {

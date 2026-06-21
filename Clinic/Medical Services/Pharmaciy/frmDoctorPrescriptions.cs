@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Clinic_Business.clsPrescription;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Clinic.Medical_Services.Pharmaciy
 {
@@ -105,15 +108,16 @@ namespace Clinic.Medical_Services.Pharmaciy
             dgvPrescription.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvPrescription.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPrescription.MultiSelect = false;
-
             dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "VisitID", DataPropertyName = "VisitID", Visible = false });
             dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "AppointmentID", DataPropertyName = "AppointmentID", Visible = false });
 
             dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PrescriptionID", DataPropertyName = "PrescriptionID", FillWeight = 15 });
-            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PatientName", HeaderText = "Patient", DataPropertyName = "PatientName", ReadOnly = true, FillWeight = 30 });
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PatientName", HeaderText = "Patient", DataPropertyName = "PatientName", ReadOnly = true, FillWeight = 20 });
             dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "DoctorName", HeaderText = "Doctor", DataPropertyName = "DoctorName", ReadOnly = true, FillWeight = 20 });
-            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PrescriptionDate", HeaderText = "Date", DataPropertyName = "PrescriptionDate", ReadOnly = true, FillWeight = 20 });
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PrescriptionTime", HeaderText = "Time", DataPropertyName = "PrescriptionTime", ReadOnly = true, FillWeight = 10 });
             dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "Status", HeaderText = "Status", DataPropertyName = "Status", ReadOnly = true, FillWeight = 15 });
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "Status", HeaderText = "Status", DataPropertyName = "Status", ReadOnly = true, FillWeight = 15 });
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PrescriptionType", HeaderText = "PrescriptionType", DataPropertyName = "PrescriptionType", ReadOnly = true, FillWeight = 15 });
 
             dgvPrescription.DataSource = dtAllActivePrescriptions;
         }
@@ -226,7 +230,6 @@ namespace Clinic.Medical_Services.Pharmaciy
             dgPrescriptionDetails.DataBindingComplete += DgPrescriptionDetails_DataBindingComplete;
         }
 
-        // 1. تحسين التحقق في CellBeginEdit
         private void dgPrescriptionDetails_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             string columnName = dgPrescriptionDetails.Columns[e.ColumnIndex].Name;
@@ -245,7 +248,6 @@ namespace Clinic.Medical_Services.Pharmaciy
             }
         }
 
-        // 2. تحسين دالة الإرسال للكاشير (استخدام GetChanges لتقليل البيانات المنقولة)
         private void btnSendToAccounting_Click(object sender, EventArgs e)
         {
             dgPrescriptionDetails.EndEdit();
@@ -318,7 +320,7 @@ namespace Clinic.Medical_Services.Pharmaciy
                 decimal TotalMedicinesAmount, TaxRate;
                 _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
 
-                lbTotalMedicen.Text = (TotalMedicinesAmount + TaxRate).ToString();
+                lbTotalMedicen.Text ="$ "+(TotalMedicinesAmount + TaxRate).ToString("N2");
 
             }
         }
@@ -384,7 +386,7 @@ namespace Clinic.Medical_Services.Pharmaciy
                 decimal TotalMedicinesAmount, TaxRate;
                 _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
 
-                lbTotalMedicen.Text = (TotalMedicinesAmount + TaxRate).ToString("N2");
+                lbTotalMedicen.Text ="$ "+ (TotalMedicinesAmount + TaxRate).ToString("N2");
 
             }
             catch (Exception ex)

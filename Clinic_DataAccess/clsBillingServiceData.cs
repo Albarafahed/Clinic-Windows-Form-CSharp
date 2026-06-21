@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinic_DataAccess.SaveSqlException;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -67,12 +68,14 @@ namespace Clinic_DataAccess
                         transaction.Commit();
                         return true;
                     }
-                    catch (Exception ex)
+                    catch (SqlException ex)
                     {
                         transaction.Rollback();
-                        // يفضل تسجيل الخطأ في ملف Log
+                        clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
                         return false;
+
                     }
+
                 }
             }
         }

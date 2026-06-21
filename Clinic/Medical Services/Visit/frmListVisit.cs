@@ -160,7 +160,12 @@ namespace Clinic.Medical_Services.Visit
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int VisitID = (int)dgvVisit.CurrentRow.Cells["VisitID"].Value;
-
+            if(clsVisit.IsVisitClosed(VisitID))
+            {
+                MessageBox.Show("This visit is already closed and cannot be modified.",
+                     "Operation Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             frmDoctor frm = new frmDoctor(VisitID,frmDoctor.enMode.Update);
             frm.ShowDialog();
             frmListVisits_Load(null, null);
@@ -170,6 +175,12 @@ namespace Clinic.Medical_Services.Visit
         {
             int VisitID = (int)dgvVisit.CurrentRow.Cells["VisitID"].Value;
             int AppointmentID = (int)dgvVisit.CurrentRow.Cells["AppointmentID"].Value;
+            if (clsVisit.IsVisitClosed(VisitID))
+            {
+                MessageBox.Show("This visit is already closed and cannot be deleted.",
+                     "Operation Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (MessageBox.Show("Are you sure you want delete this Visit!", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (clsVisit.DeleteVisit(VisitID, AppointmentID))

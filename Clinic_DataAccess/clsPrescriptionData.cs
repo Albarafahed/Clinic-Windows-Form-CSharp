@@ -60,17 +60,19 @@ namespace Clinic_DataAccess
                         transaction.Commit();
                         return prescriptionID;
                     }
-                    catch (Exception ex)
+                    catch (SqlException ex)
                     {
                         transaction.Rollback();
-                        // يُفضل تسجيل الخطأ هنا باستخدام Logger الخاص بك
+
+                        clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
                         return -1;
+
                     }
                 }
             }
         }
 
-        public static bool UpdatePrescription(int PrescriptionID, int VisitID, string Notes, DateTime Date, byte PrescriptionStatus, DataTable dtMedicines)
+        public static bool UpdatePrescription(int PrescriptionID, int? VisitID, string Notes, DateTime Date, byte PrescriptionStatus, DataTable dtMedicines)
         {
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -127,23 +129,25 @@ namespace Clinic_DataAccess
                         transaction.Commit();
                         return true;
                     }
-                    catch (Exception)
+                    catch (SqlException ex)
                     {
                         transaction.Rollback();
+
+                        clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
                         return false;
-                    }
+
+                }
                 }
             }
         }
-        public static DataTable GetVisitMedicines(int VisitID)
+        public static DataTable GetVisitMedicines(int ?VisitID)
         {
             DataTable dt = new DataTable();
             try
             {
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    string query = @"
-                                      SELECT
+                    string query = @"SELECT
                                     PPD.MedicineID, 
                                     PPD.SavedMedicineName, 
                                     PPD.Dosage, 
@@ -151,10 +155,12 @@ namespace Clinic_DataAccess
                                     PPD.SavedMedicinePrice, 
                                     PPD.Quantity,
                                     PPD.Frequency,
-                                    PPD.DiscountAmount
+                                    PPD.DiscountAmount,
+                                    M.TaxRate
                                 FROM PrescriptionS PP
                                 INNER JOIN PrescriptionDetails PPD ON 
-                                    PP.PrescriptionID = PPD.PrescriptionID
+                                 PP.PrescriptionID = PPD.PrescriptionID
+                                  INNER JOIN Medicines M ON PPD.SavedMedicineName=M.MedicineName
                                 WHERE PP.VisitID = @VisitID;";
 
 
@@ -184,32 +190,32 @@ namespace Clinic_DataAccess
             {
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    string query = @" SELECT 
+                    string query = @"SELECT 
                                         P.PrescriptionID,
-                                         P.VisitID,
-                                         V.AppointmentID,   
-                                        PP.FullName AS PatientName,
-                                        PD.FullName AS DoctorName,
-                                        P.PrescriptionDate,
+                                        ISNULL(P.VisitID, -1) AS VisitID,
+                                        ISNULL(V.AppointmentID, -1) AS AppointmentID, 
+                                        ISNULL(PP.FullName, 'Not Found') AS PatientName,
+                                        ISNULL(PD.FullName, 'Pharmacy') AS DoctorName,
+                                       FORMAT(P.PrescriptionDate, 'HH:mm') AS PrescriptionTime,
                                         CASE P.PrescriptionStatus
-                                        WHEN 1 THEN 'Pending'
-                                        WHEN 2 THEN 'Waiting For Payment'
-                                        WHEN 3 THEN 'Ready For Dispensing'
-                                        WHEN 4 THEN 'Dispensed'
-                                        WHEN 5 THEN 'Partially Dispensed'
-                                        WHEN 6 THEN 'Cancelled'
-                                        ELSE 'Unknown'
-                                    END AS Status,
-                                        P.VisitID,
-                                         V.AppointmentID
+                                            WHEN 1 THEN 'Pending'
+                                            WHEN 2 THEN 'Waiting For Payment'
+                                            WHEN 3 THEN 'Ready For Dispensing'
+                                            WHEN 5 THEN 'Partially Dispensed'
+                                            ELSE 'Unknown'
+                                        END AS Status,
+                                        CASE P.PrescriptionType
+                                            WHEN 1 THEN 'Doctor Prescription'
+                                            WHEN 2 THEN 'Pharmacy Direct'
+                                            ELSE 'Unknown'
+                                        END AS PrescriptionType
                                     FROM Prescriptions AS P
-                                    INNER JOIN Visits AS V ON P.VisitID = V.VisitID
-                                    INNER JOIN Patients AS Pat ON V.PatientID = Pat.PatientID
-                                    INNER JOIN Persons AS PP ON Pat.PersonID = PP.PersonID
-                                    INNER JOIN Doctors AS D ON V.DoctorID = D.DoctorID
-                                    INNER JOIN Persons AS PD ON D.PersonID = PD.PersonID
-                                    WHERE P.PrescriptionStatus NOT IN (4, 6) 
-                                      AND P.Prescriptiontype = 1;";
+                                    LEFT JOIN Visits AS V ON P.VisitID = V.VisitID
+                                    LEFT JOIN Patients AS Pat ON V.PatientID = Pat.PatientID
+                                    LEFT JOIN Persons AS PP ON Pat.PersonID = PP.PersonID
+                                    LEFT JOIN Doctors AS D ON V.DoctorID = D.DoctorID
+                                    LEFT JOIN Persons AS PD ON D.PersonID = PD.PersonID
+                                    WHERE P.PrescriptionStatus NOT IN (4, 6);";
 
 
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -547,17 +553,13 @@ namespace Clinic_DataAccess
                                    INNER JOIN #TempDispensed T ON PD.PrescriptionDetailsID = T.DetailsID";
                     conn.ExecuteNonQuery(updateQuery, transaction);
 
-                    // 4. استدعاء دالتك الجاهزة لتحديث الحالة (مع تمرير الـ Transaction لضمان الأمان)
-                    // ملاحظة: تأكد أن دالتك الموجودة مسبقاً تقبل (SqlConnection, SqlTransaction)
                     if (!UpdatePrescriptionStatus(prescriptionId, 2, transaction))
                     {
                         throw new Exception("Failed to update prescription status.");
                     }
                   
-                    // 2. حساب التكلفة الإجمالية بناءً على القيمة النقدية
                     decimal TotalCost = TotalMedicinesAmount + TaxRate;
 
-                    // 5. إدراج الفاتورة
                     string insertBill = @"INSERT INTO Bills (PrescriptionID, TotalMedicinesAmount,TaxAmount,TotalCost, PaymentStatus, BillDate, CreatedByUserID,VisitID,AppointmentID, IsVoid) 
                                   VALUES (@PID, @TotalMedicinesAmount,@TaxAmount,@TotalCost, 0, GETDATE(), @UID,@VisitID,@AppointmentID, 0);
                                          SELECT SCOPE_IDENTITY();";
@@ -566,8 +568,8 @@ namespace Clinic_DataAccess
                         cmdBill.Parameters.AddWithValue("@PID", prescriptionId);
                         cmdBill.Parameters.AddWithValue("@TotalMedicinesAmount", TotalMedicinesAmount);
                         cmdBill.Parameters.AddWithValue("@UID", userId);
-                        cmdBill.Parameters.AddWithValue("@VisitID", VisitID);
-                        cmdBill.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                        cmdBill.Parameters.AddWithValue("@VisitID", VisitID==-1?DBNull.Value:(object)VisitID);
+                        cmdBill.Parameters.AddWithValue("@AppointmentID", AppointmentID == -1 ? DBNull.Value : (object)AppointmentID);
                         cmdBill.Parameters.AddWithValue("@TaxAmount", TaxRate);
                         cmdBill.Parameters.AddWithValue("@TotalCost", TotalCost);
 
@@ -582,8 +584,9 @@ namespace Clinic_DataAccess
                     transaction.Commit();
                     return true;
                 }
-                catch (Exception)
+                catch (SqlException ex)
                 {
+                    clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
                     transaction.Rollback();
                     return false;
                 }
@@ -591,6 +594,34 @@ namespace Clinic_DataAccess
                 {
                     try { conn.ExecuteNonQuery("IF OBJECT_ID('tempdb..#TempDispensed') IS NOT NULL DROP TABLE #TempDispensed", transaction); }
                     catch { }
+                }
+            }
+        }
+
+        public static bool IsPrescriptionPending(int prescriptionID)
+        {
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                // تحقق ما إذا كانت الوصفة موجودة وحالتها "Pending" (1)
+                string query = @"SELECT TOP 1 1 
+                         FROM Prescriptions 
+                         WHERE PrescriptionID = @PrescriptionID AND PrescriptionStatus = 1";
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@PrescriptionID", prescriptionID);
+
+                    try
+                    {
+                        connection.Open();
+                        object result = cmd.ExecuteScalar();
+                        return (result != null); // ستعيد true إذا كانت الحالة 1
+                    }
+                    catch (SqlException ex)
+                    {
+                        clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                        return false;
+                    }
                 }
             }
         }

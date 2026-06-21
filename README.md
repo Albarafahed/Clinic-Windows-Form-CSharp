@@ -141,6 +141,18 @@ Clinic_System/
 
 ---
 
+### 🔑  محطة الصيدلي (Pharmicy Station)
+إدارة كاملة للوصفات  مع حماية ضد التكرار وتحقق من صحة البيانات.
+
+| الشاشة | اللقطة |
+| :--- | :--- |
+| **قائمة الوصفات** | ![List Presctiptons](Image/Medical%20Services/Pharmycy/frmAllPrescriptions.png) |
+| **قائمة الوصفات المعلقة** | ![List Presctiptons Active](Image/Medical%20Services/Pharmycy/frmPrescriptionsActive.png) |
+| **إضافة دواء* | ![Add Update Medicine](Image/Medical%20Services/Pharmycy/frmAddUpdateDrug.png) |
+| **بيع مباشر** | ![Sales Direct](Image/Medical%20Services/Pharmycy/frmDirectSales.png) |
+
+---
+
 ## 🖥️ الواجهة الرئيسية (Dashboard)
 المركز العصبي للنظام الذي يربط كافة الأقسام.
 

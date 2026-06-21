@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ namespace Clinic.Medical_Services.Pharmaciy
     public partial class frmDirictSales : Form
     {
         private DataTable _dtAllMedicines = new DataTable();
+        private clsPrescription _Prescription = new clsPrescription();
         public frmDirictSales()
         {
             InitializeComponent();
@@ -33,38 +35,33 @@ namespace Clinic.Medical_Services.Pharmaciy
             _dtAllMedicines.Columns.Add("DiscountAmount", typeof(decimal));
             _dtAllMedicines.Columns.Add("SavedMedicineName", typeof(string));
             _dtAllMedicines.Columns.Add("SavedMedicinePrice", typeof(decimal)).DefaultValue = 0m;
+            _dtAllMedicines.Columns.Add("TaxRate", typeof(decimal)).DefaultValue = 0m;
 
 
-            _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)-DiscountAmount");
+            _dtAllMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)+TaxRate - DiscountAmount");
         }
 
         private void _SetupMedicinesGrid()
         {
-            // 1. منع التوليد التلقائي للأعمدة لضمان التحكم بالتنسيق يدوياً
             dgPrescriptionDetails.AutoGenerateColumns = false;
 
-            // منع تكرار بناء الأعمدة إذا تم استدعاء الدالة أكثر من مرة
             if (dgPrescriptionDetails.Columns.Count > 0)
                 return;
 
-            // 2. إضافة الأعمدة المخفية (التي يحتاجها النظام في الخلفية)
             dgPrescriptionDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "MedicineID", DataPropertyName = "MedicineID", Visible = false });
             dgPrescriptionDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "Instructions", HeaderText = "Instructions", DataPropertyName = "Instructions", Visible = false });
+            dgPrescriptionDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "TaxRate", HeaderText = "TaxRate", DataPropertyName = "TaxRate", Visible = false });
 
-            // 3. إضافة وتنسيق عمود اسم العلاج (حجم ثابت وموزون مع منع القص)
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn
             {
                 Name = "SavedMedicineName",
                 HeaderText = "Medicine Name",
                 DataPropertyName = "SavedMedicineName",
                 ReadOnly = true,
-                Width = 220 // حجم متناسق يعطي مساحة لباقي الأعمدة ويمنع السيطرة على الشاشة
+                Width = 220 
             };
-            // تفعيل ميزة نزول النص لسطر جديد تلقائياً إذا كان اسم الدواء طويل جداً
-            //nameColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgPrescriptionDetails.Columns.Add(nameColumn);
 
-            // 4. إضافة باقي أعمدة البيانات بأسلوب الأحجام التلقائية المرنة (AllCells) لضمان عدم قص الأرقام
             dgPrescriptionDetails.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Dosage",
@@ -119,7 +116,6 @@ namespace Clinic.Medical_Services.Pharmaciy
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
 
-            // 5. دمج أزرار التحكم (تعديل وحذف) في عمود روابط نصية واحد واحترافي
             DataGridViewLinkColumn actionColumn = new DataGridViewLinkColumn
             {
                 Name = "Actions",
@@ -135,23 +131,11 @@ namespace Clinic.Medical_Services.Pharmaciy
             actionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgPrescriptionDetails.Columns.Add(actionColumn);
 
-            // 6. تهيئة مصفوفة البيانات وجدول الـ DataTable
             InitializePrescriptionsTable();
 
-            // 7. اللمسات النهائية لضبط مظهر الجدول بالكامل
-            dgPrescriptionDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None; // الاعتماد على مقاساتنا المحددة فوق
-            //dgPrescriptionDetails.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells; // ليتسع الارتفاع إذا نزل اسم العلاج لسطر جديد
-            dgPrescriptionDetails.RowTemplate.Height = 50; // يمكنك تغيير 40 إلى الطول المناسب لك
-            // ربط الجدول بمصدر البيانات المعتمد
+            dgPrescriptionDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None; 
+            dgPrescriptionDetails.RowTemplate.Height = 50; 
             dgPrescriptionDetails.DataSource = _dtAllMedicines;
-
-        }
-        private void btnSendToAccounting_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btnDispense_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -167,8 +151,7 @@ namespace Clinic.Medical_Services.Pharmaciy
                 frm.DataBack += _DataBack;
                 frm.ShowDialog();
                
-            }
-            //this.Show();
+            } 
 
         }
 
@@ -180,11 +163,9 @@ namespace Clinic.Medical_Services.Pharmaciy
         private void CalculateTotalFastestWay()
         {
 
-            // أسرع سطر برميجي في الأداء: يجمع عمود الـ Total من قاعدة البيانات/الذاكرة مباشرة
             decimal totalSum = _dtAllMedicines.Rows.Count > 0 ? Convert.ToDecimal(_dtAllMedicines.Compute("Sum(Total)", "")) : 0;
 
-            // عرض الناتج
-            lblTotalAmount.Text = "YER " + totalSum.ToString();
+            lblTotalAmount.Text = "$ " + totalSum.ToString();
         }
         private void _DataBack(object sender)
         {
@@ -195,20 +176,14 @@ namespace Clinic.Medical_Services.Pharmaciy
 
         private void dgPrescriptionDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // 1. التأكد من أن النقر تم على سطر حقيقي وليس على رأس الجدول (Header)
             if (e.RowIndex < 0) return;
 
-            // 2. التأكد من أن العمود المضغوط هو عمود العمليات "Actions"
             if (dgPrescriptionDetails.Columns[e.ColumnIndex].Name == "Actions")
             {
-                // جلب معرف الدواء (MedicineID) للسطر الحالي المختار
                 int medicineID = Convert.ToInt32(dgPrescriptionDetails.Rows[e.RowIndex].Cells["MedicineID"].Value);
 
-                // جلب السطر بالكامل من الـ DataTable لاستخدامه في التعديل أو الحذف
                 DataRow selectedRow = _dtAllMedicines.Rows[e.RowIndex];
 
-                // 3. تحديد مكان النقرة لمعرفة الكلمة المضغوطة (Edit أم Delete)
-                // نأخذ إحداثيات نقرة الماوس داخل الخلية الحالية
                 var cellMousePos = dgPrescriptionDetails.PointToClient(Cursor.Position);
                 var cellRect = dgPrescriptionDetails.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                 int clickXInsideCell = cellMousePos.X - cellRect.X; // المسافة الأفقية للنقرة من بداية الخلية
@@ -250,5 +225,29 @@ namespace Clinic.Medical_Services.Pharmaciy
             }
         }
 
+        private void btnSavePrescription_Click(object sender, EventArgs e)
+        {
+            if (_dtAllMedicines.Rows.Count == 0)
+            {
+                MessageBox.Show("Cannot proceed: You must select at least one medicine to dispense.",
+                                "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            _Prescription.PrescriptionDate = DateTime.Now;
+            _Prescription.VisitID = null;
+            _Prescription.PrescriptionNotes = "";
+            _Prescription.dtMedicines = _dtAllMedicines;
+            _Prescription.Prescriptiontype = (byte)clsPrescription.enPrescriptionType.PharmacyDirect;
+
+            if (_Prescription.Save())
+            {
+                lbPrescriptionID.Text = _Prescription.PrescriptionID.ToString();
+                MessageBox.Show("Prescription saved successfully.", "✅ Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else
+                MessageBox.Show("Failed to save Prescription.", "❌ Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

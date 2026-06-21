@@ -107,7 +107,7 @@ namespace Clinic_Business
 
          public static bool IsVisitClosed(int VisitID)
         {
-            return clsVisit.IsVisitClosed(VisitID);
+            return clsVisitData.IsVisitClosed(VisitID);
         }
 
         public static DataTable GetPatientsWaitingForDoctors(int DoctorID)

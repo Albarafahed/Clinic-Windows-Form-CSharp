@@ -20,7 +20,7 @@ namespace Clinic_Business
 
         public int PrescriptionID { get; set; }
         public DateTime PrescriptionDate { get; set; }
-        public int VisitID { get; set; }
+        public int? VisitID { get; set; }
         public string PrescriptionNotes { get; set; }
 
         public byte PrescriptionStatus { get; set; }
@@ -153,6 +153,11 @@ namespace Clinic_Business
             return clsPrescriptionData.SendToCashier(PrescriptionID, dtDispensedItems,VisitID,AppointmentID, TotalMedicinesAmount,TaxRate, userId);
         }
 
+        public  bool IsPrescriptionPending()
+        {
+           return clsPrescriptionData.IsPrescriptionPending(this.PrescriptionID);
+        }
 
     }
 }
+;

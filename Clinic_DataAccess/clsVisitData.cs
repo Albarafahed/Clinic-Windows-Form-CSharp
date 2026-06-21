@@ -158,7 +158,7 @@ namespace Clinic_DataAccess
 
         }
 
-        public static bool UpdateVisitTotalAmount(int VisitID, SqlTransaction transaction)
+        public static bool UpdateVisitTotalAmount(int ?VisitID, SqlTransaction transaction)
         {
            
             string query = @"
@@ -189,12 +189,13 @@ namespace Clinic_DataAccess
             {
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    string query = "SELECT COUNT(*) FROM Visits WHERE VisitID = @VisitID AND VisitStatus = 3";
+                    string query = "SELECT 1 FROM Visits WHERE VisitID = @VisitID AND VisitStatus = 3";
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@VisitID", VisitID);
                         connection.Open();
-                        return (int)cmd.ExecuteScalar() > 0;
+                        object result = cmd.ExecuteScalar();
+                        return result != null; 
                     }
                 }
             }
