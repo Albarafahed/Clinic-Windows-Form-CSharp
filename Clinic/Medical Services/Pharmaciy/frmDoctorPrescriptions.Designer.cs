@@ -619,7 +619,6 @@ namespace Clinic.Medical_Services.Pharmaciy
             this.pictureBox6.Size = new System.Drawing.Size(37, 34);
             this.pictureBox6.TabIndex = 267;
             this.pictureBox6.TabStop = false;
-            this.pictureBox6.Click += new System.EventHandler(this.pictureBox6_Click);
             // 
             // label18
             // 

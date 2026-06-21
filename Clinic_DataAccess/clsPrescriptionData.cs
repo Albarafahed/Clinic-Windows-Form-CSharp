@@ -360,7 +360,7 @@ namespace Clinic_DataAccess
             return dt;
         }
 
-        public static DataTable GetPrescriptionItemsRaw()
+        public static DataTable GetPrescriptionItemsRaw(int PrescriptionID)
         {
             DataTable dt = new DataTable();
             try
@@ -368,18 +368,21 @@ namespace Clinic_DataAccess
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
                     string query = @"SELECT 
-                                        PrescriptionID,
+                                      --  PrescriptionID,
                                         SavedMedicineName AS MedicineName,
                                         Dosage,
                                         Frequency,
                                         Quantity,
                                         Instructions,
+                                        SavedMedicinePrice As Price,
                                         DiscountAmount
-                                    FROM PrescriptionDetails;";
+                                    FROM PrescriptionDetails
+                                        Where PrescriptionID=@PrescriptionID";
 
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@PrescriptionID", PrescriptionID);
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {

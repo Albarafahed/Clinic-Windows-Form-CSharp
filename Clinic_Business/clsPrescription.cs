@@ -107,9 +107,9 @@ namespace Clinic_Business
             return clsPrescriptionData.GetAllPrescriptionRecords();
         }
 
-        public static DataTable GetPrescriptionItemsRaw()
+        public static DataTable GetPrescriptionItemsRaw(int PrescriptID)
         {
-            return clsPrescriptionData.GetPrescriptionItemsRaw();
+            return clsPrescriptionData.GetPrescriptionItemsRaw(PrescriptID);
         }
 
         public static bool UpdatePrescriptionStatus(int prescriptionId, enPrescriptionStatus newStatus)

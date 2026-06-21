@@ -77,6 +77,18 @@
     <Compile Include="ControlsMain\ucPharmacistStation.Designer.cs">
       <DependentUpon>ucPharmacistStation.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlsMain\ucPrescriptionDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsMain\ucPrescriptionDetails.Designer.cs">
+      <DependentUpon>ucPrescriptionDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsMain\ucPrescriptionItems.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsMain\ucPrescriptionItems.Designer.cs">
+      <DependentUpon>ucPrescriptionItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlsMain\ucReceptionistStation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -363,6 +375,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsMain\ucPharmacistStation.resx">
       <DependentUpon>ucPharmacistStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsMain\ucPrescriptionDetails.resx">
+      <DependentUpon>ucPrescriptionDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsMain\ucPrescriptionItems.resx">
+      <DependentUpon>ucPrescriptionItems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsMain\ucReceptionistStation.resx">
       <DependentUpon>ucReceptionistStation.cs</DependentUpon>

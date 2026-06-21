@@ -416,12 +416,8 @@ namespace Clinic.Medical_Services.Pharmaciy
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             lblPlaceholderSer.Visible = string.IsNullOrEmpty(txtSearch.Text);
-            if(lblPlaceholderSer.Visible )
-            {
-                dtAllActivePrescriptions.DefaultView.RowFilter = "";
-            }
-            else
-                dtAllActivePrescriptions.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", "PatientName", txtSearch.Text.Trim());
+            string filter = string.IsNullOrEmpty(txtSearch.Text) ? "" : $"PatientName LIKE '%{txtSearch.Text}%'";
+            dtAllActivePrescriptions.DefaultView.RowFilter = filter;
 
         }
 
@@ -448,10 +444,7 @@ namespace Clinic.Medical_Services.Pharmaciy
             }
         }
 
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void lblPlaceholderSer_Click(object sender, EventArgs e)
         {
