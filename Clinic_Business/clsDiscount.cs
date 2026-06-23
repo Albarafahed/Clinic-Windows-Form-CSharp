@@ -11,7 +11,7 @@ namespace Clinic_Business
     {
         public enum enTargetType : byte
         {
-           Visitu= 1,
+            Visit= 1,
             MedicalService = 2,
             Laboratory = 3,
             Medicine = 4

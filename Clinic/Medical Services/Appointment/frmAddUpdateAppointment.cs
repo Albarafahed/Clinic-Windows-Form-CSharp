@@ -163,12 +163,12 @@ namespace Clinic.Medical_Services.Appointment
                 return;
             }
 
-            string error = clsAppointment.BookingValidator(_DoctorID, _PatientID, dtpAppointmentDate.Value, (clsAppointmentType.enAppointmentType)cbAppointmentType.SelectedValue);
-            if (!string.IsNullOrEmpty(error))
-            {
-                ShowWarning(error, "Booking Conflict");
-                return;
-            }
+            //string error = clsAppointment.BookingValidator(_DoctorID, _PatientID, dtpAppointmentDate.Value, (clsAppointmentType.enAppointmentType)cbAppointmentType.SelectedValue);
+            //if (!string.IsNullOrEmpty(error))
+            //{
+            //    ShowWarning(error, "Booking Conflict");
+            //    return;
+            //}
 
             _MapFormToAppointmentObject();
 
@@ -179,6 +179,8 @@ namespace Clinic.Medical_Services.Appointment
                _Mode = enMode.Update;
                 lblTitle.Text = "Update Appointment";
                 this.Text = lblTitle.Text;
+                lblAppointmentID.Text = _Appointment.AppointmentID.ToString();
+                _AppointmentID = _Appointment.AppointmentID;
             }
             else
             {

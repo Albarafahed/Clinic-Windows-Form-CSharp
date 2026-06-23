@@ -50,8 +50,9 @@ namespace Clinic_Business
             this.PrescriptionNotes = string.Empty;
             this.PrescriptionDate = DateTime.Now;
             this.VisitID = -1;
-            this.dtMedicines = new DataTable();
+            dtMedicines = new DataTable();
             this.PrescriptionStatus = (byte)enPrescriptionStatus.Pending;
+           
             _Mode = enMode.AddNew;
 
         }
@@ -64,9 +65,37 @@ namespace Clinic_Business
             this.PrescriptionDate = PrescriptionDate;
             this.PrescriptionStatus = PrescriptionStatus;
             this.dtMedicines = GetVisitMedicines();
-            _Mode = enMode.Update;
+            if (dtMedicines.Rows.Count > 0)
+            {
+                if (!dtMedicines.Columns.Contains("Total"))
+                {
+                    dtMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)+TaxRate - DiscountAmount");
+
+                }
+            }
+            else
+                InitializePrescriptionsTable();
+
+                _Mode = enMode.Update;
         }
 
+        public void InitializePrescriptionsTable()
+        {
+            dtMedicines = new DataTable();
+            dtMedicines.Columns.Clear(); // تنظيف الجدول أولاً
+
+            dtMedicines.Columns.Add("MedicineID", typeof(int));
+            dtMedicines.Columns.Add("Quantity", typeof(int)).DefaultValue = 1;
+            dtMedicines.Columns.Add("Dosage", typeof(string));
+            dtMedicines.Columns.Add("Frequency", typeof(int));
+            dtMedicines.Columns.Add("Instructions", typeof(string));
+            dtMedicines.Columns.Add("DiscountAmount", typeof(decimal));
+            dtMedicines.Columns.Add("SavedMedicineName", typeof(string));
+            dtMedicines.Columns.Add("SavedMedicinePrice", typeof(decimal)).DefaultValue = 0m;
+            dtMedicines.Columns.Add("TaxRate", typeof(decimal));
+
+            dtMedicines.Columns.Add("Total", typeof(decimal), "(SavedMedicinePrice * Quantity)+TaxRate - DiscountAmount");
+        }
         private bool _AddNewPrescription()
         {
             this.PrescriptionID = clsPrescriptionData.SavePrescription(VisitID, PrescriptionNotes, PrescriptionDate, dtMedicines, (byte)enPrescriptionStatus.Pending,this.Prescriptiontype);

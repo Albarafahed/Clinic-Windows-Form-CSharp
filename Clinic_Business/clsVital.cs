@@ -11,7 +11,7 @@ namespace Clinic_Business
 
         public int VitalID { get; set; }
         public int AppointmentID { get; set; }
-        public int? VisitID { get; set; }
+        public int VisitID { get; set; }
         public string BloodPressure { get; set; }
         public decimal Temperature { get; set; }
         public decimal Weight { get; set; }
@@ -24,7 +24,7 @@ namespace Clinic_Business
         {
             this.VitalID = -1;
             this.AppointmentID = -1;
-            this.VisitID = null;
+            this.VisitID = -1;
             this.BloodPressure = "";
             this.Temperature = 0;
             this.Weight = 0;
@@ -34,7 +34,7 @@ namespace Clinic_Business
         }
 
         // Constructor للـ Update (Private)
-        private clsVital(int VitalID, int AppointmentID, int? VisitID, string BloodPressure,
+        private clsVital(int VitalID, int AppointmentID, int VisitID, string BloodPressure,
                          decimal Temperature, decimal Weight, short Pulse, DateTime RecordedDate,int CreatedByUserID)
         {
             this.VitalID = VitalID;
@@ -51,7 +51,7 @@ namespace Clinic_Business
 
         private bool _AddNewVitals()
         {
-            this.VitalID = clsVitalsData.AddNewVitals(AppointmentID, BloodPressure, Temperature, Weight, Pulse,this.CreatedByUserID);
+            this.VitalID = clsVitalsData.AddNewVitals(VisitID,AppointmentID, BloodPressure, Temperature, Weight, Pulse,this.CreatedByUserID);
             return (this.VitalID != -1);
         }
 
@@ -80,7 +80,7 @@ namespace Clinic_Business
         public static clsVital FindByAppointmentID(int AppointmentID)
         {
             int VitalID = -1;
-            int? VisitID = null;
+            int VisitID = -1;
             string BloodPressure = "";
             decimal Temperature = 0;
             decimal Weight = 0;
@@ -115,10 +115,7 @@ namespace Clinic_Business
             return null;
         }
 
-        public static bool UpdateVisitID(int VitalID, int VisitID)
-        {
-            return clsVitalsData.UpdateVitalsVisitID(VitalID, VisitID);
-        }
+      
 
         public static DataTable GetPatientsWaitingForVitals()
         {

@@ -327,7 +327,8 @@ namespace Clinic.Medical_Services.Appointment
                 string method = frm.SelectedPaymentMethod;
                 int userID = clsGlobal.CurrentUser.UserID;
                 decimal discount = frm.Descount;
-                if (clsBillingService.CheckInPatient(AppointmentID, AppointmentFees, discount, userID, method))
+                clsAppointment Appointment = clsAppointment.Find(AppointmentID);
+                if (clsBillingService.CheckInPatient(Appointment, discount, userID, method))
                 {
                     clsAppointment.RefreshQueueForDoctor(clsAppointment.Find(AppointmentID).DoctorID);
                     MessageBox.Show($"✅ Patient checked was completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

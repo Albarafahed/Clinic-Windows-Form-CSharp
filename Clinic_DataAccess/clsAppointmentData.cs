@@ -242,30 +242,29 @@ namespace Clinic_DataAccess
             return IsFound;
         }
 
-        public static bool UpdateAppointmentStatus(int AppointmentID, short NewStatus)
+        public static bool UpdateAppointmentStatus(int AppointmentID, short NewStatus,int UserID, SqlTransaction transaction)
         {
-            int rowsAffected = 0;
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-                {
-                    string query = "UPDATE Appointments SET AppointmentStatus = @NewStatus WHERE AppointmentID = @AppointmentID";
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@AppointmentID", AppointmentID);
-                        command.Parameters.AddWithValue("@NewStatus", NewStatus);
+            string query = @"UPDATE Appointments 
+                                    SET AppointmentStatus = @NewStatus, 
+                                        LastModifiedDate = GETDATE(),
+                                        CheckInTime = CASE 
+                                            WHEN @NewStatus = 2 AND CheckInTime IS NULL THEN GETDATE() 
+                                            ELSE CheckInTime 
+                                        END,
+                                        LastModifiedByUserID = @UserID
+                                    WHERE AppointmentID = @AppointmentID;";
 
-                        connection.Open();
-                        rowsAffected = command.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (SqlException ex)
+            using (SqlCommand command = new SqlCommand(query, transaction.Connection, transaction))
             {
-                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
-            }
+                command.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                command.Parameters.AddWithValue("@NewStatus", NewStatus);
+                command.Parameters.AddWithValue("@UserID", UserID);
 
-            return (rowsAffected > 0);
+                // تنفيذ الأمر
+                int rowsAffected = command.ExecuteNonQuery();
+
+                return (rowsAffected > 0);
+            }
         }
 
         public static bool IsDoctorBusy(int DoctorID, DateTime AppointmentDate)
@@ -433,9 +432,12 @@ namespace Clinic_DataAccess
                 using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
                     string query = @"
-                                UPDATE Appointments 
-                                SET AppointmentStatus = @StatusID, 
-                                    CheckInTime = CASE WHEN @StatusID = 2 THEN GETDATE() ELSE CheckInTime END,
+                               UPDATE Appointments 
+                                SET AppointmentStatus = @StatusID,
+                                    ExaminationStartTime = CASE 
+                                        WHEN @StatusID = 3 AND ExaminationStartTime IS NULL THEN GETDATE() 
+                                        ELSE ExaminationStartTime 
+                                    END,
                                     LastModifiedDate = GETDATE(),
                                     LastModifiedByUserID = @UserID
                                 WHERE AppointmentID = @AppointmentID";

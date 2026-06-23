@@ -167,6 +167,7 @@
             this.btnWaiting_For_Vitals.TabIndex = 10;
             this.btnWaiting_For_Vitals.Text = "Waiting_For_Vitals";
             this.btnWaiting_For_Vitals.UseVisualStyleBackColor = false;
+            this.btnWaiting_For_Vitals.Click += new System.EventHandler(this.btnWaiting_For_Vitals_Click);
             // 
             // btnClose
             // 
@@ -185,6 +186,7 @@
             this.btnClose.TabIndex = 5;
             this.btnClose.Text = "   Close";
             this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnNextPatient
             // 
@@ -198,6 +200,7 @@
             this.btnNextPatient.TabIndex = 8;
             this.btnNextPatient.Text = "Next Patient";
             this.btnNextPatient.UseVisualStyleBackColor = false;
+            this.btnNextPatient.Click += new System.EventHandler(this.btnNextPatient_Click);
             // 
             // lblRecordsCount
             // 

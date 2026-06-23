@@ -41,7 +41,7 @@ namespace Clinic.Medical_Services.Appointment
             decimal.TryParse(txtDiscount.Text, out _Descount);
 
             // التحقق من الصلاحية: (استخدم ! لعكس النتيجة)
-            if (!clsDiscount.ValidateDiscount(clsGlobal.CurrentUser.RoleID, clsDiscount.enTargetType.Medicine, _Descount))
+            if (!clsDiscount.ValidateDiscount(clsGlobal.CurrentUser.RoleID, clsDiscount.enTargetType.Visit, _Descount))
             {
                 MessageBox.Show("Discount exceeds your allowed limit or is invalid for this role.", "Unauthorized", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.DialogResult = DialogResult.None;
@@ -85,14 +85,12 @@ namespace Clinic.Medical_Services.Appointment
         private void txtDiscount_Leave(object sender, EventArgs e)
         {
             decimal value;
-            // محاولة التحويل (F3 لثلاث خانات)
             if (decimal.TryParse(txtDiscount.Text, out value))
             {
                 txtDiscount.Text = value.ToString("F2");
             }
             else
             {
-                // إذا كان الحقل فارغاً أو خطأ، اجعله صفر
                 txtDiscount.Text = "0.00";
             }
         }

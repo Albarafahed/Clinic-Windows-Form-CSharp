@@ -64,27 +64,69 @@ namespace Clinic_DataAccess
 
                         // الإدراج الجماعي
                         using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
-                    {
-                        bulkCopy.DestinationTableName = "VisitServices";
-                        bulkCopy.ColumnMappings.Add("ServiceID", "ServiceID");
-                        bulkCopy.ColumnMappings.Add("VisitID", "VisitID");
-                        bulkCopy.ColumnMappings.Add("Quantity", "Quantity");
-                        bulkCopy.ColumnMappings.Add("SavedServicePrice", "SavedServicePrice");
-                        bulkCopy.ColumnMappings.Add("Discount", "Discount");
+                        {
+                            bulkCopy.DestinationTableName = "VisitServices";
+                            bulkCopy.ColumnMappings.Add("ServiceID", "ServiceID");
+                            bulkCopy.ColumnMappings.Add("VisitID", "VisitID");
+                            bulkCopy.ColumnMappings.Add("Quantity", "Quantity");
+                            bulkCopy.ColumnMappings.Add("SavedServicePrice", "SavedServicePrice");
+                            bulkCopy.ColumnMappings.Add("Discount", "Discount");
 
-                        bulkCopy.WriteToServer(dtServices);
+                            bulkCopy.WriteToServer(dtServices);
+                        }
+                        clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
+                        transaction.Commit();
+                        return true;
                     }
-                        clsVisitData.UpdateVisitTotalAmount(VisitID,transaction);
-                    transaction.Commit();
-                    return true;
-                }
                     catch (Exception)
                     {
-                    transaction.Rollback();
-                    return false;
+                        transaction.Rollback();
+                        return false;
+                    }
                 }
             }
         }
+
+        public static bool SaveVisitServices(int VisitID, DataTable dtServices, SqlTransaction transaction)
+        {
+
+            //DeleteVisitServices(VisitID, transaction);
+            if(!dtServices.Columns.Contains("VisitID"))
+            dtServices.Columns.Add("VisitID", typeof(int), VisitID.ToString());
+
+            // الإدراج الجماعي
+            using (SqlBulkCopy bulkCopy = new SqlBulkCopy(transaction.Connection, SqlBulkCopyOptions.Default, transaction))
+            {
+                bulkCopy.DestinationTableName = "VisitServices";
+                bulkCopy.ColumnMappings.Add("ServiceID", "ServiceID");
+                bulkCopy.ColumnMappings.Add("VisitID", "VisitID");
+                bulkCopy.ColumnMappings.Add("Quantity", "Quantity");
+                bulkCopy.ColumnMappings.Add("SavedServicePrice", "SavedServicePrice");
+                bulkCopy.ColumnMappings.Add("Discount", "Discount");
+
+                bulkCopy.WriteToServer(dtServices);
+            }
+            clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
+            return true;
+
+
+        }
+
+        public static bool DeleteVisitServices(int VisitID, SqlTransaction transaction)
+        {
+            using (SqlCommand cmdDelete = new SqlCommand("DELETE FROM VisitServices WHERE VisitID = @VisitID", transaction.Connection, transaction))
+            {
+                cmdDelete.Parameters.AddWithValue("@VisitID", VisitID);
+                cmdDelete.ExecuteNonQuery();
+            }
+
+
+            return true;
+
+
+
+
+        }
+
     }
-}
 }

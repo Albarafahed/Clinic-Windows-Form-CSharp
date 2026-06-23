@@ -10,9 +10,9 @@ namespace Clinic_DataAccess
 {
     public class clsSystemSettingsData
     {
-        public static float GetTaxRateFromSettings()
+        public static decimal GetTaxRateFromSettings()
         {
-            float taxRate = 0;
+            decimal taxRate = 0;
             try
             {
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
@@ -28,7 +28,7 @@ namespace Clinic_DataAccess
                         if (result != null && result != DBNull.Value)
                         {
                             // تحويل النسبة المئوية (مثلاً 15) إلى كسر عشري (0.15)
-                            taxRate = Convert.ToSingle(result) / 100;
+                            taxRate = Convert.ToDecimal(result) / 100;
                         }
                     }
                 }

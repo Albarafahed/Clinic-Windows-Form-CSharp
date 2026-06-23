@@ -24,7 +24,7 @@ namespace Clinic.Medical_Services.Visit
         {
             InitializeComponent();
             _dtMedicines = dtMedicines;
-            _Mode = enMode.AddNew;
+                _Mode = enMode.AddNew;
         }
 
         public frmAddUpdateMedicineToPrescription(ref DataTable dtMedicines, DataRow Row)

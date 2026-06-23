@@ -945,6 +945,8 @@
   <ItemGroup>
     <None Include="Resources\refresh-48 1.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Medical Services\Casher\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

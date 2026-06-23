@@ -7,43 +7,60 @@ namespace Clinic_DataAccess
 {
     public class clsVitalsData
     {
-        public static int AddNewVitals(int AppointmentID, string BloodPressure, decimal Temperature, decimal Weight, short Pulse,int CreatedByUserID)
+        public static int AddNewVitals(int VisitID, int AppointmentID, string BloodPressure, decimal Temperature, decimal Weight, short Pulse, int CreatedByUserID)
         {
             int VitalID = -1;
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-                {
-                    string query = @"INSERT INTO Vitals (AppointmentID, BloodPressure, Temperature, Weight, Pulse, RecordedDate,CreatedByUserID)
-                                     VALUES (@AppointmentID, @BloodPressure, @Temperature, @Weight, @Pulse, GETDATE(),@CreatedByUserID);
-                                     SELECT SCOPE_IDENTITY();";
 
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@AppointmentID", AppointmentID);
-                        command.Parameters.AddWithValue("@BloodPressure", BloodPressure);
-                        command.Parameters.AddWithValue("@Temperature", Temperature);
-                        command.Parameters.AddWithValue("@Weight", Weight);
-                        command.Parameters.AddWithValue("@Pulse", Pulse);
-                        command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
-                        connection.Open();
-                        object result = command.ExecuteScalar();
-                        if (result != null && int.TryParse(result.ToString(), out int newVitalID))
-                        {
-                            VitalID = newVitalID;
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
-                VitalID = -1;
+                connection.Open();
+                // نبدأ الـ Transaction هنا
+                using (SqlTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        string query = @"INSERT INTO Vitals (VisitID, AppointmentID, BloodPressure, Temperature, Weight, Pulse, RecordedDate, CreatedByUserID)
+                                 VALUES (@VisitID, @AppointmentID, @BloodPressure, @Temperature, @Weight, @Pulse, GETDATE(), @CreatedByUserID);
+                                 SELECT SCOPE_IDENTITY();";
+
+                        using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@VisitID", VisitID);
+                            command.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                            command.Parameters.AddWithValue("@BloodPressure", BloodPressure);
+                            command.Parameters.AddWithValue("@Temperature", Temperature);
+                            command.Parameters.AddWithValue("@Weight", Weight);
+                            command.Parameters.AddWithValue("@Pulse", Pulse);
+                            command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
+
+                            object result = command.ExecuteScalar();
+
+                            // استدعاء تحديث حالة الموعد باستخدام نفس الـ transaction
+                            clsAppointmentData.UpdateAppointmentStatus(AppointmentID, 9, CreatedByUserID, transaction);
+
+                            if (result != null && int.TryParse(result.ToString(), out int newVitalID))
+                            {
+                                VitalID = newVitalID;
+                            }
+                        }
+
+                        // تنفيذ الحفظ (Commit) هنا داخل الـ using
+                        transaction.Commit();
+                    }
+                    catch (SqlException ex)
+                    {
+                        // التراجع (Rollback) هنا داخل الـ using
+                        transaction.Rollback();
+                        clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                        VitalID = -1;
+                    }
+                } // هنا ينتهي الـ using للـ transaction ويتم إغلاقه بأمان
             }
+
             return VitalID;
         }
 
-        public static bool GetVitalsByAppointmentID(int AppointmentID, ref int VitalID, ref int? VisitID, ref string BloodPressure,
+        public static bool GetVitalsByAppointmentID(int AppointmentID, ref int VitalID, ref int VisitID, ref string BloodPressure,
                                                     ref decimal Temperature, ref decimal Weight, ref short Pulse, ref DateTime RecordedDate,ref int CreatedByUserID)
         {
             bool IsFound = false;
@@ -51,6 +68,7 @@ namespace Clinic_DataAccess
             {
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
+
                     string query = @"SELECT * FROM Vitals WHERE AppointmentID = @AppointmentID";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -61,7 +79,7 @@ namespace Clinic_DataAccess
                             if (reader.Read())
                             {
                                 VitalID = (int)reader["VitalID"];
-                                VisitID = (reader["VisitID"] == DBNull.Value) ? (int?)null : (int)reader["VisitID"];
+                                VisitID = (int)reader["VisitID"];
                                 BloodPressure = reader["BloodPressure"].ToString();
                                 Temperature = (decimal)reader["Temperature"];
                                 Weight = (decimal)reader["Weight"];
@@ -119,30 +137,6 @@ namespace Clinic_DataAccess
                 IsFound = false;
             }
             return IsFound;
-        }
-        public static bool UpdateVitalsVisitID(int VitalID, int VisitID)
-        {
-            bool IsUpdated = false;
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-                {
-                    string query = @"UPDATE Vitals SET VisitID = @VisitID WHERE VitalID = @VitalID";
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@VitalID", VitalID);
-                        command.Parameters.AddWithValue("@VisitID", VisitID);
-                        connection.Open();
-                        IsUpdated = command.ExecuteNonQuery() > 0;
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
-                IsUpdated = false;
-            }
-            return IsUpdated;
         }
 
         public static bool UpdateVitals(int VitalID, string BloodPressure, decimal Temperature, decimal Weight, short Pulse,int CreatedByUserID)

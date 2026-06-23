@@ -1,6 +1,7 @@
 ﻿using Clinic_DataAccess.SaveSqlException;
 using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Text;
 
@@ -8,6 +9,102 @@ namespace Clinic_DataAccess
 {
     public class clsVisitData
     {
+        public static int AddNewVisitData(int VisitID, int AppointmentID, string Diagnosis, string VisitNotes, int CreatedByUserID, decimal TotalAmount, int DoctorID, DataTable services, DataTable dtMedicines, string PrescriptionNotes, DateTime PrescriptionDate)
+        {
+            int PrescriptionID = 0;
+            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                conn.Open();
+                using (SqlTransaction tran = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. تحديث بيانات الزيارة والموعد
+                        UpdateVisitDetails(VisitID, AppointmentID, Diagnosis, VisitNotes, CreatedByUserID, TotalAmount, DoctorID, tran);
+
+                        // 2. حفظ الخدمات الجديدة
+                        if (services != null && services.Rows.Count > 0)
+                            clsVisitServicesData.SaveVisitServices(VisitID, services, tran);
+
+                        // 3. حفظ الوصفة الجديدة
+                        if (dtMedicines != null && dtMedicines.Rows.Count > 0)
+                          PrescriptionID=  clsPrescriptionData.SavePrescription(VisitID, PrescriptionNotes, PrescriptionDate, dtMedicines, 1, tran);
+
+                        tran.Commit();
+                        return PrescriptionID;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        clsGlobalLogger.LogSqlException(ex as SqlException, clsGlobalLogger.LogLevel.Error);
+                        return -1;
+                    }
+                }
+            }
+        }
+
+        public static bool UpdateExistingVisitData(int VisitID, int AppointmentID, string Diagnosis, string VisitNotes, int CreatedByUserID, decimal TotalAmount, int DoctorID, DataTable services, DataTable dtMedicines,ref int PrescriptionID, string PrescriptionNotes, DateTime PrescriptionDate)
+        {
+            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                conn.Open();
+                using (SqlTransaction tran = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. تحديث البيانات الأساسية
+                        UpdateVisitDetails(VisitID, AppointmentID, Diagnosis, VisitNotes, CreatedByUserID, TotalAmount, DoctorID, tran);
+
+                        // 2. تحديث الخدمات (حذف ثم إعادة إدراج)
+                        clsVisitServicesData.DeleteVisitServices(VisitID, tran);
+                        if (services != null && services.Rows.Count > 0)
+                            clsVisitServicesData.SaveVisitServices(VisitID, services, tran);
+
+                        // 3. تحديث الوصفة
+                        if (dtMedicines == null || dtMedicines.Rows.Count == 0)
+                            clsPrescriptionData.DeletePrescription(PrescriptionID, tran);
+                        else
+                            if (PrescriptionID > 0)
+                                clsPrescriptionData.UpdatePrescription(PrescriptionID, VisitID, PrescriptionNotes, PrescriptionDate, dtMedicines, tran);
+                            else
+                                PrescriptionID = clsPrescriptionData.SavePrescription(VisitID, PrescriptionNotes, PrescriptionDate, dtMedicines, 1, tran);
+                        tran.Commit();
+                        return true;
+                    }
+                    catch (SqlException ex)
+                    {
+                        tran.Rollback();
+                        clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                        return false;
+                    }
+                }
+            }
+        }
+        private static bool UpdateVisitDetails(int VisitID, int AppointmentID, string Diagnosis, string VisitNotes, int UserID, decimal TotalAmount, int DoctorID, SqlTransaction transaction)
+        {
+            // 1. تحديث حالة الموعد
+            string queryAppt = @"UPDATE Appointments SET AppointmentStatus = 9, LastModifiedDate = GETDATE(), ExaminationEndTime = GETDATE(), LastModifiedByUserID = @UserID WHERE AppointmentID = @AppointmentID";
+            using (SqlCommand cmdAppt = new SqlCommand(queryAppt, transaction.Connection, transaction))
+            {
+                cmdAppt.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                cmdAppt.Parameters.AddWithValue("@UserID", UserID);
+                cmdAppt.ExecuteNonQuery();
+            }
+
+            // 2. تحديث الزيارة
+            string queryVisit = @"UPDATE Visits SET Diagnosis = @Diagnosis, VisitDate = GETDATE(), VisitNotes = @VisitNotes, DoctorID = @DoctorID, VisitStatus = 2, TotalAmount = @TotalAmount WHERE VisitID = @VisitID";
+            using (SqlCommand cmdVisit = new SqlCommand(queryVisit, transaction.Connection, transaction))
+            {
+                cmdVisit.Parameters.AddWithValue("@VisitID", VisitID);
+                cmdVisit.Parameters.AddWithValue("@Diagnosis", Diagnosis);
+                cmdVisit.Parameters.AddWithValue("@VisitNotes", VisitNotes.ToDBValue());
+                cmdVisit.Parameters.AddWithValue("@DoctorID", DoctorID);
+                cmdVisit.Parameters.AddWithValue("@TotalAmount", TotalAmount);
+                cmdVisit.ExecuteNonQuery();
+            }
+            return true;
+        }
+
         public static int SaveVisitAndLinkVitals(int AppointmentID, int PatientID, string Diagnosis,
                                                  string VisitNotes, int DoctorID, DateTime VisitDate,
                                                  int CreatedByUserID, decimal TotalAmount)
@@ -129,10 +226,10 @@ namespace Clinic_DataAccess
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
                     string query = @"UPDATE Visits SET Diagnosis = @Diagnosis,
-                  VisitNotes = @VisitNotes, 
-                  VisitStatus = @VisitStatus ,
-                  CreatedByUserID=@CreatedByUserID
-                   WHERE VisitID = @VisitID";
+                                              VisitNotes = @VisitNotes, 
+                                              VisitStatus = @VisitStatus ,
+                                              CreatedByUserID=@CreatedByUserID
+                                               WHERE VisitID = @VisitID";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -215,7 +312,8 @@ namespace Clinic_DataAccess
             {
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    string query = @"SELECT AppointmentID
+                    string query = @"SELECT VisitID
+                                          ,AppointmentID
                                           ,PatientName
                                           ,CheckInTime
                                           ,StatusText

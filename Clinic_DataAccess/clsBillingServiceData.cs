@@ -11,7 +11,7 @@ namespace Clinic_DataAccess
 {
     public class clsBillingServiceData
     {
-        public static bool CheckInPatient(int AppointmentID, decimal Fees, decimal Discount, int UserID, string PaymentMethod)
+        public static bool CheckInPatient(int AppointmentID,int DoctorID, int PatientID, decimal Fees, decimal Discount, int UserID, string PaymentMethod)
         {
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -20,50 +20,52 @@ namespace Clinic_DataAccess
                 {
                     try
                     {
-                        // 1. حساب الضريبة بعد الخصم
-                        float taxRate = clsSystemSettingsData.GetTaxRateFromSettings();
+                        // 1. إنشاء سجل الزيارة (Visit)
+                        string queryVisit = @"INSERT INTO Visits (PatientID, AppointmentID, DoctorID, VisitDate, VisitStatus, CreatedByUserID)
+                                         VALUES (@PatientID, @AppointmentID, @DoctorID, GETDATE(), 1, @UserID);
+                                         SELECT SCOPE_IDENTITY();";
+
+                        SqlCommand cmdVisit = new SqlCommand(queryVisit, connection, transaction);
+                        cmdVisit.Parameters.AddWithValue("@PatientID", PatientID);
+                        cmdVisit.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                        cmdVisit.Parameters.AddWithValue("@UserID", UserID);
+                        cmdVisit.Parameters.AddWithValue("@DoctorID", DoctorID);
+
+                        int VisitID = Convert.ToInt32(cmdVisit.ExecuteScalar());
+
+                        // 2. حساب الضريبة (بافتراض أن Fees هي المبلغ قبل الضريبة)
+                        decimal taxRate = clsSystemSettingsData.GetTaxRateFromSettings(); // تأكد أن هذه الدالة تعيد decimal
                         decimal amountAfterDiscount = Fees - Discount;
+                        decimal taxAmount = amountAfterDiscount * taxRate; // أو المعادلة الضريبية المعتمدة في بلدك
+                        decimal totalCost = amountAfterDiscount + taxAmount;
 
-                        // حساب الضريبة: (المبلغ بعد الخصم) - (المبلغ بعد الخصم / 1 + النسبة)
-                        decimal taxAmount = amountAfterDiscount - (amountAfterDiscount / (1 + (decimal)taxRate));
-
-                        decimal TotalCost = amountAfterDiscount + taxAmount;
-                        // 2. إنشاء الفاتورة (مع إدراج الخصم والضريبة)
-                        string queryBill = @"INSERT INTO Bills (AppointmentID, TotalCost, DiscountAmount, TaxAmount, PaymentStatus, CreatedByUserID, BillDate,IsVoid) 
-                                     VALUES (@AppointmentID, @TotalCost, @DiscountAmount, @TaxAmount, 2, @UserID, GETDATE(),1); 
+                        string queryBill = @"INSERT INTO Bills (VisitID, TotalCost, DiscountAmount, TaxAmount, PaymentStatus, CreatedByUserID, BillDate, IsPendingPrint)
+                                     VALUES (@VisitID, @TotalCost, @DiscountAmount, @TaxAmount, 2, @UserID, GETDATE(), 0);
                                      SELECT SCOPE_IDENTITY();";
 
                         SqlCommand cmdBill = new SqlCommand(queryBill, connection, transaction);
-                        cmdBill.Parameters.AddWithValue("@AppointmentID", AppointmentID);
-                        cmdBill.Parameters.AddWithValue("@TotalCost", TotalCost); 
+                        cmdBill.Parameters.AddWithValue("@VisitID", VisitID);
+                        cmdBill.Parameters.AddWithValue("@TotalCost", totalCost);
                         cmdBill.Parameters.AddWithValue("@DiscountAmount", Discount);
                         cmdBill.Parameters.AddWithValue("@TaxAmount", taxAmount);
                         cmdBill.Parameters.AddWithValue("@UserID", UserID);
 
                         int BillID = Convert.ToInt32(cmdBill.ExecuteScalar());
+                        UpdateBillNumber(BillID, transaction); // توليد الرقم
 
-                        // 3. توليد رقم الفاتورة
-
-                        UpdateBillNumber(BillID, transaction);
-
-                        // 4. تسجيل الدفعة (المبلغ الفعلي المدفوع = الإجمالي - الخصم)
-                        decimal finalPaymentAmount = amountAfterDiscount;
-
-                        string queryPay = @"INSERT INTO Payments (BillID, PaymentAmount, PaymentDate, PaymentMethod, CreatedByUserID) 
+                        // 4. تسجيل الدفعة
+                        string queryPay = @"INSERT INTO Payments (BillID, PaymentAmount, PaymentDate, PaymentMethod, CreatedByUserID)
                                     VALUES (@BillID, @Amount, GETDATE(), @Method, @UserID)";
 
                         SqlCommand cmdPay = new SqlCommand(queryPay, connection, transaction);
                         cmdPay.Parameters.AddWithValue("@BillID", BillID);
-                        cmdPay.Parameters.AddWithValue("@Amount", finalPaymentAmount);
+                        cmdPay.Parameters.AddWithValue("@Amount", totalCost); // المبلغ المدفوع بالكامل
                         cmdPay.Parameters.AddWithValue("@Method", PaymentMethod);
                         cmdPay.Parameters.AddWithValue("@UserID", UserID);
                         cmdPay.ExecuteNonQuery();
 
                         // 5. تحديث حالة الموعد
-                        string queryUpdateApp = @"UPDATE Appointments SET AppointmentStatus = 2, CheckInTime = GETDATE() WHERE AppointmentID = @AppID";
-                        SqlCommand cmdApp = new SqlCommand(queryUpdateApp, connection, transaction);
-                        cmdApp.Parameters.AddWithValue("@AppID", AppointmentID);
-                        cmdApp.ExecuteNonQuery();
+                        clsAppointmentData.UpdateAppointmentStatus(AppointmentID, 2,UserID, transaction);
 
                         transaction.Commit();
                         return true;
@@ -73,13 +75,11 @@ namespace Clinic_DataAccess
                         transaction.Rollback();
                         clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
                         return false;
-
                     }
-
                 }
             }
         }
-
+        
        public static bool UpdateBillNumber(int  BillID,SqlTransaction transaction)
         {
             string queryUpdateBillNumber = @"UPDATE Bills SET BillNumber = 'INV-' + CAST(YEAR(GETDATE()) AS VARCHAR) + '-' + RIGHT('0000' + CAST(@BillID AS VARCHAR), 4) 

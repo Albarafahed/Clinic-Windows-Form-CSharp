@@ -40,8 +40,9 @@ namespace Clinic.Medical_Services.Vital
                 return;
 
             // الأعمدة المرئية (نستخدم الأسماء الجديدة لتطابق الجدول)
-            dgvNurseQueue.Columns.Add(new DataGridViewTextBoxColumn { Name = "AppointmentID", HeaderText = "App.ID", DataPropertyName = "AppointmentID", ReadOnly = true, Width = 100 });
-            dgvNurseQueue.Columns.Add(new DataGridViewTextBoxColumn { Name = "PatientName", HeaderText = "Patient Name", DataPropertyName = "PatientName", ReadOnly = true, Width = 280 });
+            dgvNurseQueue.Columns.Add(new DataGridViewTextBoxColumn { Name = "VisitID", HeaderText = "VisitID", DataPropertyName = "VisitID", ReadOnly = true, Width = 100 });
+            dgvNurseQueue.Columns.Add(new DataGridViewTextBoxColumn { Name = "AppointmentID", HeaderText = "App.ID", DataPropertyName = "AppointmentID", ReadOnly = true, Width = 100 });
+            dgvNurseQueue.Columns.Add(new DataGridViewTextBoxColumn { Name = "PatientName", HeaderText = "Patient Name", DataPropertyName = "PatientName", ReadOnly = true, Width = 200 });
             dgvNurseQueue.Columns.Add(new DataGridViewTextBoxColumn { Name = "CheckInTime", HeaderText = "CheckInTime", DataPropertyName = "CheckInTime", ReadOnly = true, Width = 150 });
             dgvNurseQueue.Columns.Add(new DataGridViewTextBoxColumn { Name = "StatusText", HeaderText = "StatusText", DataPropertyName = "StatusText", ReadOnly = true, Width = 150 });
 
@@ -53,6 +54,8 @@ namespace Clinic.Medical_Services.Vital
             _SetupNurseGrid();
             timer1.Start();
             timer2.Start();
+            if (dgvNurseQueue.Rows.Count > 0)
+                _CallNextPatientInQueue();
 
         }
 
@@ -121,7 +124,7 @@ namespace Clinic.Medical_Services.Vital
             _Vital.Temperature = nudTemperature.Value;
             _Vital.Weight = nudWeight.Value;
             _Vital.CreatedByUserID = clsGlobal.CurrentUser.UserID;
-
+           _Vital.VisitID= (int)dgvNurseQueue.CurrentRow.Cells["VisitID"].Value;
             if (_Vital.Save())
             {
                 clsAppointment.UpdateAppointmentStatus(currentAppID, clsAppointment.enAppointmentStatus.Ready_For_Doctor, clsGlobal.CurrentUser.UserID);
@@ -152,6 +155,7 @@ namespace Clinic.Medical_Services.Vital
 
 
                 clsAppointment.UpdatePatientCallStatus(nextAppointmentID, true, 1);
+                _RefreashData();
             }
         }
 
@@ -251,8 +255,6 @@ namespace Clinic.Medical_Services.Vital
             timer2.Dispose();
         }
 
-     
-
-     
+       
     }
 }

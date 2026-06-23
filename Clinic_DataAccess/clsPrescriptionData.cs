@@ -140,6 +140,128 @@ namespace Clinic_DataAccess
                 }
             }
         }
+
+        // 1. SavePrescription
+        public static bool SavePrescriptionSmart(ref int PrescriptionID, int VisitID, string Notes, DateTime Date, DataTable dtMedicines, byte Prescriptiontype, SqlTransaction transaction)
+        {
+            // 1. إذا كان الـ ID غير موجود، إذن هي عملية إضافة (Insert)
+            if (PrescriptionID <= 0)
+            {
+                PrescriptionID = SavePrescription(VisitID, Notes, Date, dtMedicines, Prescriptiontype, transaction);
+                return (PrescriptionID > 0);
+            }
+            else
+            {
+                // 2. إذا كان الـ ID موجوداً، إذن هي عملية تحديث (Update)
+                // ملاحظة: قمنا بإزالة Prescriptiontype لأن التحديث عادة لا يغير نوع الوصفة
+                return UpdatePrescription(PrescriptionID, VisitID, Notes, Date, dtMedicines, transaction);
+            }
+        }
+        public static int SavePrescription(int VisitID, string Notes, DateTime Date, DataTable dtMedicines, byte Prescriptiontype, SqlTransaction transaction)
+        {
+            string queryMaster = @"INSERT INTO Prescriptions (VisitID, PrescriptionDate, PrescriptionNotes, PrescriptionStatus, Prescriptiontype) 
+                           VALUES (@VisitID, @Date, @Notes, 1, @Prescriptiontype);
+                           SELECT SCOPE_IDENTITY();";
+
+            int prescriptionID = -1;
+            using (SqlCommand cmdMaster = new SqlCommand(queryMaster, transaction.Connection, transaction))
+            {
+                cmdMaster.Parameters.AddWithValue("@VisitID", VisitID);
+                cmdMaster.Parameters.AddWithValue("@Date", Date);
+                cmdMaster.Parameters.AddWithValue("@Notes", Notes.ToDBValue());
+                cmdMaster.Parameters.AddWithValue("@Prescriptiontype", Prescriptiontype);
+
+                prescriptionID = Convert.ToInt32(cmdMaster.ExecuteScalar());
+            }
+
+            dtMedicines.Columns.Add("PrescriptionID", typeof(int), prescriptionID.ToString());
+
+            using (SqlBulkCopy bulkCopy = new SqlBulkCopy(transaction.Connection, SqlBulkCopyOptions.Default, transaction))
+            {
+                bulkCopy.DestinationTableName = "PrescriptionDetails";
+                bulkCopy.ColumnMappings.Add("PrescriptionID", "PrescriptionID");
+                bulkCopy.ColumnMappings.Add("MedicineID", "MedicineID");
+                bulkCopy.ColumnMappings.Add("Quantity", "Quantity");
+                bulkCopy.ColumnMappings.Add("Dosage", "Dosage");
+                bulkCopy.ColumnMappings.Add("Instructions", "Instructions");
+                bulkCopy.ColumnMappings.Add("SavedMedicineName", "SavedMedicineName");
+                bulkCopy.ColumnMappings.Add("SavedMedicinePrice", "SavedMedicinePrice");
+                bulkCopy.ColumnMappings.Add("Frequency", "Frequency");
+                bulkCopy.ColumnMappings.Add("DiscountAmount", "DiscountAmount");
+                bulkCopy.WriteToServer(dtMedicines);
+            }
+
+            clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
+            return prescriptionID;
+        }
+
+        // 2. UpdatePrescription
+        public static bool UpdatePrescription(int PrescriptionID, int VisitID, string Notes, DateTime Date, DataTable dtMedicines, SqlTransaction transaction)
+        {
+            if (!IsPrescriptionPending(PrescriptionID))
+                return false;
+            string queryMaster = @"UPDATE Prescriptions
+                            SET PrescriptionDate = @Date,
+                            PrescriptionNotes = @Notes
+                           WHERE PrescriptionID = @PrescriptionID";
+
+            
+            using (SqlCommand cmdMaster = new SqlCommand(queryMaster, transaction.Connection, transaction))
+            {
+                cmdMaster.Parameters.AddWithValue("@PrescriptionID", PrescriptionID);
+                cmdMaster.Parameters.AddWithValue("@Date", Date);
+                cmdMaster.Parameters.AddWithValue("@Notes", Notes.ToDBValue());
+                cmdMaster.ExecuteNonQuery();
+            }
+
+            // حذف التفاصيل القديمة
+            using (SqlCommand cmdDelete = new SqlCommand("DELETE FROM PrescriptionDetails WHERE PrescriptionID = @PrescriptionID", transaction.Connection, transaction))
+            {
+                cmdDelete.Parameters.AddWithValue("@PrescriptionID", PrescriptionID);
+                cmdDelete.ExecuteNonQuery();
+            }
+
+            if (!dtMedicines.Columns.Contains("PrescriptionID"))
+                dtMedicines.Columns.Add("PrescriptionID", typeof(int), PrescriptionID.ToString());
+
+            using (SqlBulkCopy bulkCopy = new SqlBulkCopy(transaction.Connection, SqlBulkCopyOptions.Default, transaction))
+            {
+                bulkCopy.DestinationTableName = "PrescriptionDetails";
+
+                bulkCopy.ColumnMappings.Add("PrescriptionID", "PrescriptionID");
+                bulkCopy.ColumnMappings.Add("MedicineID", "MedicineID");
+                bulkCopy.ColumnMappings.Add("Quantity", "Quantity");
+                bulkCopy.ColumnMappings.Add("Dosage", "Dosage");
+                bulkCopy.ColumnMappings.Add("Instructions", "Instructions");
+                bulkCopy.ColumnMappings.Add("SavedMedicineName", "SavedMedicineName");
+                bulkCopy.ColumnMappings.Add("SavedMedicinePrice", "SavedMedicinePrice");
+                bulkCopy.ColumnMappings.Add("Frequency", "Frequency");
+                bulkCopy.ColumnMappings.Add("DiscountAmount", "DiscountAmount");
+                bulkCopy.WriteToServer(dtMedicines);
+            }
+
+            clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
+            return true;
+        }
+
+        // 3. DeletePrescription
+        public static bool DeletePrescription(int PrescriptionID, SqlTransaction transaction)
+        {
+            string queryDeleteDetails = "DELETE FROM PrescriptionDetails WHERE PrescriptionID = @PrescriptionID";
+            using (SqlCommand cmdDelete = new SqlCommand(queryDeleteDetails, transaction.Connection, transaction))
+            {
+                cmdDelete.Parameters.AddWithValue("@PrescriptionID", PrescriptionID);
+                cmdDelete.ExecuteNonQuery();
+            }
+
+            string queryDelete = "DELETE FROM Prescriptions WHERE PrescriptionID = @PrescriptionID";
+            using (SqlCommand cmdMaster = new SqlCommand(queryDelete, transaction.Connection, transaction))
+            {
+                cmdMaster.Parameters.AddWithValue("@PrescriptionID", PrescriptionID);
+                cmdMaster.ExecuteNonQuery();
+            }
+            return true;
+        }
         public static DataTable GetVisitMedicines(int ?VisitID)
         {
             DataTable dt = new DataTable();
