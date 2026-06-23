@@ -15,6 +15,7 @@ namespace Clinic
 
         public static clsUser  CurrentUser;
 
+        public static string PersonName {  get; set; }
         public static bool RememberUsernameAndPassword(string Username, string Password)
         {
             try

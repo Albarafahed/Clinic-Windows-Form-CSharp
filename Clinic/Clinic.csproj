@@ -149,6 +149,24 @@
     <Compile Include="Medical Services\Appointment\frmReschedule.Designer.cs">
       <DependentUpon>frmReschedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="Medical Services\Casher\frmIssueInvoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Casher\frmIssueInvoice.Designer.cs">
+      <DependentUpon>frmIssueInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Medical Services\Casher\frmMangeBils.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Casher\frmMangeBils.Designer.cs">
+      <DependentUpon>frmMangeBils.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Medical Services\Casher\frmProcessPayments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Medical Services\Casher\frmProcessPayments.Designer.cs">
+      <DependentUpon>frmProcessPayments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Medical Services\Pharmaciy\frmAllPrescriptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -429,6 +447,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Appointment\frmReschedule.resx">
       <DependentUpon>frmReschedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Casher\frmIssueInvoice.resx">
+      <DependentUpon>frmIssueInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Casher\frmMangeBils.resx">
+      <DependentUpon>frmMangeBils.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Casher\frmProcessPayments.resx">
+      <DependentUpon>frmProcessPayments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Pharmaciy\frmAllPrescriptions.resx">
       <DependentUpon>frmAllPrescriptions.cs</DependentUpon>
@@ -945,8 +972,6 @@
   <ItemGroup>
     <None Include="Resources\refresh-48 1.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Medical Services\Casher\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

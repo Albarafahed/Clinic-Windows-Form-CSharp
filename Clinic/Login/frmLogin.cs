@@ -49,6 +49,7 @@ namespace Clinic.Login
 
             // 4. الدخول الناجح
             clsGlobal.CurrentUser = user;
+            clsGlobal.PersonName=user.PersonInfo.Name;
             this.Hide();
             using (frm frm = new frm())
             {

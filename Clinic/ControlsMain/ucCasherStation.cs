@@ -1,5 +1,6 @@
 ﻿using Clinic.Doctor;
 using Clinic.Medical_Services.Appointment;
+using Clinic.Medical_Services.Casher;
 using Clinic.Medical_Services.Visit;
 using System;
 using System.Collections.Generic;
@@ -19,30 +20,25 @@ namespace Clinic.ControlsMain
         {
             InitializeComponent();
         }
-
-        private void btnVisitsDashboard_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnMRecords_Click(object sender, EventArgs e)
-        {
-          
-        }
-
-        private void btnFindPatient_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void btnDiagonsisNotes_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnListAppoinment_Click(object sender, EventArgs e)
         {
             frmListAppointmets frm = new frmListAppointmets();
             frm.Show();
+        }
+
+        private void btnMangeBills_Click(object sender, EventArgs e)
+        {
+            new frmMangeBils().ShowDialog();
+        }
+
+        private void btnProcessPayment_Click(object sender, EventArgs e)
+        {
+            new frmProcessPayments().ShowDialog();
+        }
+
+        private void btnIssueInvoice_Click(object sender, EventArgs e)
+        {
+            new frmIssueInvoice().ShowDialog();
         }
     }
 }

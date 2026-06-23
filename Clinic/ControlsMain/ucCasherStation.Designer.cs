@@ -31,15 +31,15 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnVisitsDashboard = new System.Windows.Forms.Button();
+            this.btnMangeBills = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnFindPatient = new System.Windows.Forms.Button();
+            this.btnProcessPayment = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.btnDiagonsisNotes = new System.Windows.Forms.Button();
+            this.btnIssueInvoice = new System.Windows.Forms.Button();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -77,16 +77,16 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Casher Role Dashboard";
             // 
-            // btnVisitsDashboard
+            // btnMangeBills
             // 
-            this.btnVisitsDashboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(100)))));
-            this.btnVisitsDashboard.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnVisitsDashboard.Location = new System.Drawing.Point(3, 81);
-            this.btnVisitsDashboard.Name = "btnVisitsDashboard";
-            this.btnVisitsDashboard.Size = new System.Drawing.Size(135, 214);
-            this.btnVisitsDashboard.TabIndex = 2;
-            this.btnVisitsDashboard.UseVisualStyleBackColor = false;
-            this.btnVisitsDashboard.Click += new System.EventHandler(this.btnVisitsDashboard_Click);
+            this.btnMangeBills.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(100)))));
+            this.btnMangeBills.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMangeBills.Location = new System.Drawing.Point(3, 81);
+            this.btnMangeBills.Name = "btnMangeBills";
+            this.btnMangeBills.Size = new System.Drawing.Size(135, 214);
+            this.btnMangeBills.TabIndex = 2;
+            this.btnMangeBills.UseVisualStyleBackColor = false;
+            this.btnMangeBills.Click += new System.EventHandler(this.btnMangeBills_Click);
             // 
             // label1
             // 
@@ -100,7 +100,7 @@
             this.label1.Size = new System.Drawing.Size(88, 31);
             this.label1.TabIndex = 4;
             this.label1.Text = "Mange";
-            this.label1.Click += new System.EventHandler(this.btnVisitsDashboard_Click);
+            this.label1.Click += new System.EventHandler(this.btnMangeBills_Click);
             // 
             // label2
             // 
@@ -114,7 +114,7 @@
             this.label2.Size = new System.Drawing.Size(60, 31);
             this.label2.TabIndex = 5;
             this.label2.Text = "Bills";
-            this.label2.Click += new System.EventHandler(this.btnVisitsDashboard_Click);
+            this.label2.Click += new System.EventHandler(this.btnMangeBills_Click);
             // 
             // label6
             // 
@@ -128,7 +128,7 @@
             this.label6.Size = new System.Drawing.Size(117, 31);
             this.label6.TabIndex = 13;
             this.label6.Text = "Payments";
-            this.label6.Click += new System.EventHandler(this.btnFindPatient_Click);
+            this.label6.Click += new System.EventHandler(this.btnProcessPayment_Click);
             // 
             // label7
             // 
@@ -142,18 +142,18 @@
             this.label7.Size = new System.Drawing.Size(94, 31);
             this.label7.TabIndex = 12;
             this.label7.Text = "Process";
-            this.label7.Click += new System.EventHandler(this.btnFindPatient_Click);
+            this.label7.Click += new System.EventHandler(this.btnProcessPayment_Click);
             // 
-            // btnFindPatient
+            // btnProcessPayment
             // 
-            this.btnFindPatient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(100)))));
-            this.btnFindPatient.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFindPatient.Location = new System.Drawing.Point(141, 81);
-            this.btnFindPatient.Name = "btnFindPatient";
-            this.btnFindPatient.Size = new System.Drawing.Size(134, 214);
-            this.btnFindPatient.TabIndex = 10;
-            this.btnFindPatient.UseVisualStyleBackColor = false;
-            this.btnFindPatient.Click += new System.EventHandler(this.btnFindPatient_Click);
+            this.btnProcessPayment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(100)))));
+            this.btnProcessPayment.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProcessPayment.Location = new System.Drawing.Point(141, 81);
+            this.btnProcessPayment.Name = "btnProcessPayment";
+            this.btnProcessPayment.Size = new System.Drawing.Size(134, 214);
+            this.btnProcessPayment.TabIndex = 10;
+            this.btnProcessPayment.UseVisualStyleBackColor = false;
+            this.btnProcessPayment.Click += new System.EventHandler(this.btnProcessPayment_Click);
             // 
             // label8
             // 
@@ -167,7 +167,7 @@
             this.label8.Size = new System.Drawing.Size(91, 31);
             this.label8.TabIndex = 17;
             this.label8.Text = "Invoice";
-            this.label8.Click += new System.EventHandler(this.btnDiagonsisNotes_Click);
+            this.label8.Click += new System.EventHandler(this.btnIssueInvoice_Click);
             // 
             // label9
             // 
@@ -181,31 +181,32 @@
             this.label9.Size = new System.Drawing.Size(73, 31);
             this.label9.TabIndex = 16;
             this.label9.Text = "Issue ";
-            this.label9.Click += new System.EventHandler(this.btnDiagonsisNotes_Click);
+            this.label9.Click += new System.EventHandler(this.btnIssueInvoice_Click);
             // 
-            // btnDiagonsisNotes
+            // btnIssueInvoice
             // 
-            this.btnDiagonsisNotes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(100)))));
-            this.btnDiagonsisNotes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDiagonsisNotes.Location = new System.Drawing.Point(279, 81);
-            this.btnDiagonsisNotes.Name = "btnDiagonsisNotes";
-            this.btnDiagonsisNotes.Size = new System.Drawing.Size(127, 214);
-            this.btnDiagonsisNotes.TabIndex = 14;
-            this.btnDiagonsisNotes.UseVisualStyleBackColor = false;
-            this.btnDiagonsisNotes.Click += new System.EventHandler(this.btnDiagonsisNotes_Click);
+            this.btnIssueInvoice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(100)))));
+            this.btnIssueInvoice.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnIssueInvoice.Location = new System.Drawing.Point(279, 81);
+            this.btnIssueInvoice.Name = "btnIssueInvoice";
+            this.btnIssueInvoice.Size = new System.Drawing.Size(127, 214);
+            this.btnIssueInvoice.TabIndex = 14;
+            this.btnIssueInvoice.UseVisualStyleBackColor = false;
+            this.btnIssueInvoice.Click += new System.EventHandler(this.btnIssueInvoice_Click);
             // 
             // pictureBox4
             // 
             this.pictureBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(100)))));
             this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox4.Image = global::Clinic.Properties.Resources.money2_32;
+            this.pictureBox4.Image = global::Clinic.Properties.Resources.bill_32;
+            this.pictureBox4.InitialImage = null;
             this.pictureBox4.Location = new System.Drawing.Point(301, 118);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(76, 72);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox4.TabIndex = 19;
             this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.btnDiagonsisNotes_Click);
+            this.pictureBox4.Click += new System.EventHandler(this.btnIssueInvoice_Click);
             // 
             // pictureBox3
             // 
@@ -218,7 +219,7 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 18;
             this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.btnFindPatient_Click);
+            this.pictureBox3.Click += new System.EventHandler(this.btnProcessPayment_Click);
             // 
             // pictureBox1
             // 
@@ -231,7 +232,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.btnVisitsDashboard_Click);
+            this.pictureBox1.Click += new System.EventHandler(this.btnMangeBills_Click);
             // 
             // pictureBox2
             // 
@@ -296,14 +297,14 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.btnDiagonsisNotes);
+            this.Controls.Add(this.btnIssueInvoice);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.btnFindPatient);
+            this.Controls.Add(this.btnProcessPayment);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.btnVisitsDashboard);
+            this.Controls.Add(this.btnMangeBills);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ucCasherStation";
@@ -324,17 +325,17 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnVisitsDashboard;
+        private System.Windows.Forms.Button btnMangeBills;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button btnFindPatient;
+        private System.Windows.Forms.Button btnProcessPayment;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button btnDiagonsisNotes;
+        private System.Windows.Forms.Button btnIssueInvoice;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox2;
