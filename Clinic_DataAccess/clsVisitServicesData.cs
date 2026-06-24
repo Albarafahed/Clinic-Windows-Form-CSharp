@@ -43,49 +43,6 @@ namespace Clinic_DataAccess
             return dt;
         }
 
-        public static bool SaveVisitServices(int VisitID, DataTable dtServices)
-        {
-
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-            {
-                connection.Open();
-                using (SqlTransaction transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        // الحذف
-                        using (SqlCommand cmdDelete = new SqlCommand("DELETE FROM VisitServices WHERE VisitID = @VisitID", connection, transaction))
-                        {
-                            cmdDelete.Parameters.AddWithValue("@VisitID", VisitID);
-                            cmdDelete.ExecuteNonQuery();
-                        }
-
-                        dtServices.Columns.Add("VisitID", typeof(int), VisitID.ToString());
-
-                        // الإدراج الجماعي
-                        using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
-                        {
-                            bulkCopy.DestinationTableName = "VisitServices";
-                            bulkCopy.ColumnMappings.Add("ServiceID", "ServiceID");
-                            bulkCopy.ColumnMappings.Add("VisitID", "VisitID");
-                            bulkCopy.ColumnMappings.Add("Quantity", "Quantity");
-                            bulkCopy.ColumnMappings.Add("SavedServicePrice", "SavedServicePrice");
-                            bulkCopy.ColumnMappings.Add("Discount", "Discount");
-
-                            bulkCopy.WriteToServer(dtServices);
-                        }
-                        clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
-                        transaction.Commit();
-                        return true;
-                    }
-                    catch (Exception)
-                    {
-                        transaction.Rollback();
-                        return false;
-                    }
-                }
-            }
-        }
 
         public static bool SaveVisitServices(int VisitID, DataTable dtServices, SqlTransaction transaction)
         {
@@ -106,7 +63,7 @@ namespace Clinic_DataAccess
 
                 bulkCopy.WriteToServer(dtServices);
             }
-            clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
+            clsBillingServiceData.UpdatePaymentStatus(VisitID,1, transaction);
             return true;
 
 

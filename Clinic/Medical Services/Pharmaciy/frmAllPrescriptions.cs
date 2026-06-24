@@ -1,5 +1,5 @@
 ﻿
-using Clinic.ControlsMain; 
+using Clinic.ControlsMain;
 using Clinic_Business;
 using System;
 using System.Data;
@@ -12,7 +12,7 @@ namespace Clinic.Medical_Services.Pharmaciy
     {
         private ucPrescriptionItems _detailsPanel = new ucPrescriptionItems();
         private int _expandedRowIndex = -1;
-        DataTable dtMaster=null;
+        DataTable dtMaster = null;
         public frmAllPrescriptions()
         {
             InitializeComponent();
@@ -20,7 +20,7 @@ namespace Clinic.Medical_Services.Pharmaciy
             {
                 if (_detailsPanel.Visible) UpdatePanelPosition();
             };
-                dgPrescriptionDetails.CellFormatting += dgPrescriptionDetails_CellFormatting;
+            dgPrescriptionDetails.CellFormatting += dgPrescriptionDetails_CellFormatting;
             dgPrescriptionDetails.CellContentClick += dgPrescriptionDetails_CellContentClick;
             _detailsPanel.Visible = false;
             _detailsPanel.BorderStyle = BorderStyle.FixedSingle; // لتراه بوضوح أثناء الاختبار
@@ -85,7 +85,7 @@ namespace Clinic.Medical_Services.Pharmaciy
 
         private void LoadMasterData()
         {
-          dtMaster = clsPrescription.GetAllPrescriptionRecords();
+            dtMaster = clsPrescription.GetAllPrescriptionRecords();
 
             if (dtMaster == null || dtMaster.Rows.Count == 0) return;
 
@@ -241,4 +241,4 @@ namespace Clinic.Medical_Services.Pharmaciy
 
         }
     }
-    }
+}

@@ -9,7 +9,7 @@ namespace Clinic_DataAccess
 {
     public class clsVisitData
     {
-        public static int AddNewVisitData(int VisitID, int AppointmentID, string Diagnosis, string VisitNotes, int CreatedByUserID, decimal TotalAmount, int DoctorID, DataTable services, DataTable dtMedicines, string PrescriptionNotes, DateTime PrescriptionDate)
+        public static int AddNewVisitData(int VisitID, int AppointmentID, string Diagnosis, string VisitNotes, int CreatedByUserID,int DoctorID, DataTable services, DataTable dtMedicines, string PrescriptionNotes, DateTime PrescriptionDate)
         {
             int PrescriptionID = 0;
             using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
@@ -19,8 +19,7 @@ namespace Clinic_DataAccess
                 {
                     try
                     {
-                        // 1. تحديث بيانات الزيارة والموعد
-                        UpdateVisitDetails(VisitID, AppointmentID, Diagnosis, VisitNotes, CreatedByUserID, TotalAmount, DoctorID, tran);
+                        UpdateVisitDetails(VisitID, AppointmentID, Diagnosis, VisitNotes, CreatedByUserID, DoctorID, tran);
 
                         // 2. حفظ الخدمات الجديدة
                         if (services != null && services.Rows.Count > 0)
@@ -43,7 +42,7 @@ namespace Clinic_DataAccess
             }
         }
 
-        public static bool UpdateExistingVisitData(int VisitID, int AppointmentID, string Diagnosis, string VisitNotes, int CreatedByUserID, decimal TotalAmount, int DoctorID, DataTable services, DataTable dtMedicines,ref int PrescriptionID, string PrescriptionNotes, DateTime PrescriptionDate)
+        public static bool UpdateExistingVisitData(int VisitID, int AppointmentID, string Diagnosis, string VisitNotes, int CreatedByUserID, int DoctorID, DataTable services, DataTable dtMedicines,ref int PrescriptionID, string PrescriptionNotes, DateTime PrescriptionDate)
         {
             using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -53,7 +52,7 @@ namespace Clinic_DataAccess
                     try
                     {
                         // 1. تحديث البيانات الأساسية
-                        UpdateVisitDetails(VisitID, AppointmentID, Diagnosis, VisitNotes, CreatedByUserID, TotalAmount, DoctorID, tran);
+                        UpdateVisitDetails(VisitID, AppointmentID, Diagnosis, VisitNotes, CreatedByUserID, DoctorID, tran);
 
                         // 2. تحديث الخدمات (حذف ثم إعادة إدراج)
                         clsVisitServicesData.DeleteVisitServices(VisitID, tran);
@@ -80,10 +79,15 @@ namespace Clinic_DataAccess
                 }
             }
         }
-        private static bool UpdateVisitDetails(int VisitID, int AppointmentID, string Diagnosis, string VisitNotes, int UserID, decimal TotalAmount, int DoctorID, SqlTransaction transaction)
+        private static bool UpdateVisitDetails(int VisitID, int AppointmentID, string Diagnosis, string VisitNotes, int UserID, int DoctorID, SqlTransaction transaction)
         {
             // 1. تحديث حالة الموعد
-            string queryAppt = @"UPDATE Appointments SET AppointmentStatus = 9, LastModifiedDate = GETDATE(), ExaminationEndTime = GETDATE(), LastModifiedByUserID = @UserID WHERE AppointmentID = @AppointmentID";
+            string queryAppt = @"UPDATE Appointments 
+                    SET AppointmentStatus = 5,
+                    LastModifiedDate = GETDATE(), 
+                    ExaminationEndTime = GETDATE(), 
+                    LastModifiedByUserID = @UserID 
+                    WHERE AppointmentID = @AppointmentID";
             using (SqlCommand cmdAppt = new SqlCommand(queryAppt, transaction.Connection, transaction))
             {
                 cmdAppt.Parameters.AddWithValue("@AppointmentID", AppointmentID);
@@ -92,93 +96,29 @@ namespace Clinic_DataAccess
             }
 
             // 2. تحديث الزيارة
-            string queryVisit = @"UPDATE Visits SET Diagnosis = @Diagnosis, VisitDate = GETDATE(), VisitNotes = @VisitNotes, DoctorID = @DoctorID, VisitStatus = 2, TotalAmount = @TotalAmount WHERE VisitID = @VisitID";
+            string queryVisit = @"UPDATE Visits 
+                                SET Diagnosis = @Diagnosis, 
+                                VisitDate = GETDATE(),
+                                VisitNotes = @VisitNotes,
+                                DoctorID = @DoctorID, 
+                                VisitStatus = 2
+                                WHERE VisitID = @VisitID";
             using (SqlCommand cmdVisit = new SqlCommand(queryVisit, transaction.Connection, transaction))
             {
                 cmdVisit.Parameters.AddWithValue("@VisitID", VisitID);
                 cmdVisit.Parameters.AddWithValue("@Diagnosis", Diagnosis);
                 cmdVisit.Parameters.AddWithValue("@VisitNotes", VisitNotes.ToDBValue());
                 cmdVisit.Parameters.AddWithValue("@DoctorID", DoctorID);
-                cmdVisit.Parameters.AddWithValue("@TotalAmount", TotalAmount);
                 cmdVisit.ExecuteNonQuery();
             }
             return true;
         }
 
-        public static int SaveVisitAndLinkVitals(int AppointmentID, int PatientID, string Diagnosis,
-                                                 string VisitNotes, int DoctorID, DateTime VisitDate,
-                                                 int CreatedByUserID, decimal TotalAmount)
-        {
-            int VisitID = -1;
-
-            string query = @"INSERT INTO Visits (PatientID, Diagnosis, VisitDate, AppointmentID, VisitNotes, DoctorID, VisitStatus, TotalAmount, CreatedByUserID)
-                             VALUES (@PatientID, @Diagnosis, @VisitDate, @AppointmentID, @VisitNotes, @DoctorID, 2, @TotalAmount, @CreatedByUserID);
-                             SELECT SCOPE_IDENTITY();";
-
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    cmd.Parameters.AddWithValue("@PatientID", PatientID);
-                    cmd.Parameters.AddWithValue("@Diagnosis", Diagnosis );
-                    cmd.Parameters.AddWithValue("@VisitDate", VisitDate);
-                    cmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
-                    cmd.Parameters.AddWithValue("@VisitNotes", VisitNotes.ToDBValue());
-                    cmd.Parameters.AddWithValue("@DoctorID", DoctorID);
-                    cmd.Parameters.AddWithValue("@TotalAmount", TotalAmount);
-                    cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
-
-                    try
-                    {
-                        connection.Open();
-                        using (SqlTransaction transaction = connection.BeginTransaction())
-                        {
-                            cmd.Transaction = transaction;
-                            object result = cmd.ExecuteScalar();
-
-                            if (result != null && int.TryParse(result.ToString(), out VisitID))
-                            {
-                                string queryVitals = "UPDATE Vitals SET VisitID = @VisitID WHERE AppointmentID = @AppointmentID AND VisitID IS NULL";
-                                using (SqlCommand cmdVitals = new SqlCommand(queryVitals, connection, transaction))
-                                {
-                                    cmdVitals.Parameters.AddWithValue("@VisitID", VisitID);
-                                    cmdVitals.Parameters.AddWithValue("@AppointmentID", AppointmentID);
-                                    cmdVitals.ExecuteNonQuery();
-                                }
-
-                                string queryBils = "UPDATE Bills SET VisitID = @VisitID WHERE AppointmentID = @AppointmentID AND VisitID IS NULL";
-                                using (SqlCommand cmdVitals = new SqlCommand(queryBils, connection, transaction))
-                                {
-                                    cmdVitals.Parameters.AddWithValue("@VisitID", VisitID);
-                                    cmdVitals.Parameters.AddWithValue("@AppointmentID", AppointmentID);
-                                    cmdVitals.ExecuteNonQuery();
-                                }
-
-                                // تحديث حالة الموعد
-                                string queryAppt = "UPDATE Appointments SET AppointmentStatus = 9 WHERE AppointmentID = @AppointmentID";
-                                using (SqlCommand cmdAppt = new SqlCommand(queryAppt, connection, transaction))
-                                {
-                                    cmdAppt.Parameters.AddWithValue("@AppointmentID", AppointmentID);
-                                    cmdAppt.ExecuteNonQuery();
-                                }
-
-                                transaction.Commit();
-                            }
-                        }
-                    }
-                    catch (SqlException ex)
-                    {
-                        clsGlobalLogger.LogSqlException(ex,clsGlobalLogger.LogLevel.Error);
-                        VisitID = -1;
-                    }
-                }
-            }
-            return VisitID;
-        }
+       
 
         public static bool GetVisitByID(int VisitID, ref int PatientID, ref string Diagnosis, ref DateTime VisitDate,
                                         ref int AppointmentID, ref string VisitNotes, ref int DoctorID,
-                                        ref byte VisitStatus, ref decimal TotalAmount, ref int CreatedByUserID)
+                                        ref byte VisitStatus, ref int CreatedByUserID)
         {
             bool IsFound = false;
             string query = "SELECT * FROM Visits WHERE VisitID = @VisitID";
@@ -201,7 +141,6 @@ namespace Clinic_DataAccess
                             VisitNotes = reader["VisitNotes"].ToStringOrEmpty();
                             DoctorID = (int)reader["DoctorID"];
                             VisitStatus = (byte)reader["VisitStatus"];
-                            TotalAmount = Convert.ToDecimal(reader["TotalAmount"]);
                             CreatedByUserID = (int)reader["CreatedByUserID"];
                             IsFound = true;
                         }
@@ -216,70 +155,7 @@ namespace Clinic_DataAccess
         }
 
         
-        public static bool UpdateVisit(int VisitID, string Diagnosis, string VisitNotes, byte VisitStatus,int CreatedByUserID)
-        {
-            if (IsVisitClosed(VisitID)) return false;
-
-           try
-            {
-
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-                {
-                    string query = @"UPDATE Visits SET Diagnosis = @Diagnosis,
-                                              VisitNotes = @VisitNotes, 
-                                              VisitStatus = @VisitStatus ,
-                                              CreatedByUserID=@CreatedByUserID
-                                               WHERE VisitID = @VisitID";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@VisitID", VisitID);
-                        command.Parameters.AddWithValue("@Diagnosis", Diagnosis);
-                        command.Parameters.AddWithValue("@VisitNotes", VisitNotes.ToDBValue());
-                        command.Parameters.AddWithValue("@VisitStatus", VisitStatus);
-                        command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
-                        connection.Open();
-                        return (command.ExecuteNonQuery() > 0);
-
-                    }
-                }
-
-
-            }
-            catch (SqlException ex)
-            {
-                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
-                return false;
-            }
-
-
-        }
-
-        public static bool UpdateVisitTotalAmount(int ?VisitID, SqlTransaction transaction)
-        {
-           
-            string query = @"
-                            UPDATE Visits 
-                            SET TotalAmount = TotalAmount+
-                                (SELECT ISNULL(SUM(PPD.SavedMedicinePrice * PPD.Quantity), 0) 
-                                 FROM PrescriptionDetails PPD 
-                                 WHERE PPD.PrescriptionID = (SELECT PrescriptionID FROM Visits WHERE VisitID = @VisitID))
-                                +
-                                (SELECT ISNULL(SUM(SD.SavedServicePrice * SD.Quantity - SD.Discount), 0) 
-                                 FROM VisitServices SD 
-                                 WHERE SD.VisitID = @VisitID)
-                            WHERE VisitID = @VisitID";
-
-            // استخدم الـ transaction.Connection مباشرة
-            using (SqlCommand cmd = new SqlCommand(query, transaction.Connection, transaction))
-            {
-                cmd.Parameters.AddWithValue("@VisitID", VisitID);
-                return cmd.ExecuteNonQuery() > 0;
-            }
-        
-        
-        }
-
+       
         public static bool IsVisitClosed(int VisitID)
         {
             try

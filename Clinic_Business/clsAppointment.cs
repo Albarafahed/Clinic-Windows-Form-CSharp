@@ -17,8 +17,8 @@ namespace Clinic_Business
             Completed = 5, 
             Cancelled = 6,
             Waiting_For_Vitals= 7,
-            Ready_For_Doctor=8,
-            In_Billing = 9
+            Ready_For_Doctor=8
+            //In_Billing = 9
         }
 
         public int AppointmentID { get; set; }

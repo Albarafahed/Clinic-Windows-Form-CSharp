@@ -16,9 +16,6 @@ namespace Clinic_Business
             return clsVisitServicesData.GetVisitServices(VisitID);
         }
 
-        public static bool SaveVisitServices(int VisitID, DataTable dtServices)
-        {
-            return clsVisitServicesData.SaveVisitServices(VisitID, dtServices);
-        }
+       
     }
 }

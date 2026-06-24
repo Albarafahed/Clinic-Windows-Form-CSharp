@@ -55,8 +55,6 @@ namespace Clinic_DataAccess
                             bulkCopy.ColumnMappings.Add("DiscountAmount", "DiscountAmount");
                             bulkCopy.WriteToServer(dtMedicines);
                         }
-                        if (VisitID.HasValue)
-                            clsVisitData.UpdateVisitTotalAmount(VisitID.Value, transaction);
                         transaction.Commit();
                         return prescriptionID;
                     }
@@ -124,7 +122,7 @@ namespace Clinic_DataAccess
                             bulkCopy.ColumnMappings.Add("DiscountAmount", "DiscountAmount");
                             bulkCopy.WriteToServer(dtMedicines);
                         }
-                        clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
+
 
                         transaction.Commit();
                         return true;
@@ -136,27 +134,12 @@ namespace Clinic_DataAccess
                         clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
                         return false;
 
-                }
+                    }
                 }
             }
         }
 
         // 1. SavePrescription
-        public static bool SavePrescriptionSmart(ref int PrescriptionID, int VisitID, string Notes, DateTime Date, DataTable dtMedicines, byte Prescriptiontype, SqlTransaction transaction)
-        {
-            // 1. إذا كان الـ ID غير موجود، إذن هي عملية إضافة (Insert)
-            if (PrescriptionID <= 0)
-            {
-                PrescriptionID = SavePrescription(VisitID, Notes, Date, dtMedicines, Prescriptiontype, transaction);
-                return (PrescriptionID > 0);
-            }
-            else
-            {
-                // 2. إذا كان الـ ID موجوداً، إذن هي عملية تحديث (Update)
-                // ملاحظة: قمنا بإزالة Prescriptiontype لأن التحديث عادة لا يغير نوع الوصفة
-                return UpdatePrescription(PrescriptionID, VisitID, Notes, Date, dtMedicines, transaction);
-            }
-        }
         public static int SavePrescription(int VisitID, string Notes, DateTime Date, DataTable dtMedicines, byte Prescriptiontype, SqlTransaction transaction)
         {
             string queryMaster = @"INSERT INTO Prescriptions (VisitID, PrescriptionDate, PrescriptionNotes, PrescriptionStatus, Prescriptiontype) 
@@ -191,7 +174,6 @@ namespace Clinic_DataAccess
                 bulkCopy.WriteToServer(dtMedicines);
             }
 
-            clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
             return prescriptionID;
         }
 
@@ -205,7 +187,7 @@ namespace Clinic_DataAccess
                             PrescriptionNotes = @Notes
                            WHERE PrescriptionID = @PrescriptionID";
 
-            
+
             using (SqlCommand cmdMaster = new SqlCommand(queryMaster, transaction.Connection, transaction))
             {
                 cmdMaster.Parameters.AddWithValue("@PrescriptionID", PrescriptionID);
@@ -240,7 +222,6 @@ namespace Clinic_DataAccess
                 bulkCopy.WriteToServer(dtMedicines);
             }
 
-            clsVisitData.UpdateVisitTotalAmount(VisitID, transaction);
             return true;
         }
 
@@ -262,7 +243,7 @@ namespace Clinic_DataAccess
             }
             return true;
         }
-        public static DataTable GetVisitMedicines(int ?VisitID)
+        public static DataTable GetVisitMedicines(int? VisitID)
         {
             DataTable dt = new DataTable();
             try
@@ -413,33 +394,33 @@ namespace Clinic_DataAccess
                                         FROM PrescriptionDetails PD
                                         LEFT JOIN Prescriptions P ON PD.PrescriptionID = P.PrescriptionID
                                         LEFT JOIN Medicines M ON PD.SavedMedicineName = M.MedicineName;";
-                                     
-                                     
-                                     
-                                     
-                                     
-                                     
-                                     
-                                     
-                                     
-                                     
-                                     
-                                     
-                                     
-                                     
-                                     
-                                     
-    
-                                     
-                                     
-                                     
-                                     
 
-                                     
-                                     
-                                     
-                                     
-                                   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -645,7 +626,7 @@ namespace Clinic_DataAccess
             return total;
         }
 
-        public static bool SendToCashier(int prescriptionId, DataTable dtDispensedItems,int ? VisitID, int ? AppointmentID, decimal TotalMedicinesAmount,decimal TaxRate, int userId)
+        public static bool SendToCashier(int prescriptionId, DataTable dtDispensedItems, int? VisitID, int userId)
         {
             using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -679,28 +660,49 @@ namespace Clinic_DataAccess
                     {
                         throw new Exception("Failed to update prescription status.");
                     }
-                  
-                    decimal TotalCost = TotalMedicinesAmount + TaxRate;
 
-                    string insertBill = @"INSERT INTO Bills (PrescriptionID, TotalMedicinesAmount,TaxAmount,TotalCost, PaymentStatus, BillDate, CreatedByUserID,VisitID,AppointmentID, IsVoid) 
-                                  VALUES (@PID, @TotalMedicinesAmount,@TaxAmount,@TotalCost, 0, GETDATE(), @UID,@VisitID,@AppointmentID, 0);
-                                         SELECT SCOPE_IDENTITY();";
-                    using (SqlCommand cmdBill = new SqlCommand(insertBill, conn, transaction))
+                    int BillID = 0;
+                    if (VisitID.HasValue && VisitID.Value != -1)
                     {
-                        cmdBill.Parameters.AddWithValue("@PID", prescriptionId);
-                        cmdBill.Parameters.AddWithValue("@TotalMedicinesAmount", TotalMedicinesAmount);
-                        cmdBill.Parameters.AddWithValue("@UID", userId);
-                        cmdBill.Parameters.AddWithValue("@VisitID", VisitID==-1?DBNull.Value:(object)VisitID);
-                        cmdBill.Parameters.AddWithValue("@AppointmentID", AppointmentID == -1 ? DBNull.Value : (object)AppointmentID);
-                        cmdBill.Parameters.AddWithValue("@TaxAmount", TaxRate);
-                        cmdBill.Parameters.AddWithValue("@TotalCost", TotalCost);
+                        // ابحث هل توجد فاتورة غير ملغاة لهذه الزيارة
+                        string selectBill = "SELECT TOP 1 BillID FROM Bills WHERE VisitID = @VisitID AND PaymentStatus != 4";
+                        using (SqlCommand cmdSelect = new SqlCommand(selectBill, conn, transaction))
+                        {
+                            cmdSelect.Parameters.AddWithValue("@VisitID", VisitID);
+                            object result = cmdSelect.ExecuteScalar();
+                            if (result != null)
+                            {
+                                BillID = Convert.ToInt32(result);
+                                clsBillingServiceData.UpdatePaymentStatus(VisitID.Value, 1, transaction);
 
-                        int BillID = Convert.ToInt32(cmdBill.ExecuteScalar());
+                            }
 
-                        // 3. توليد رقم الفاتورة
 
-                      clsBillingServiceData.UpdateBillNumber(BillID, transaction);
+                        }
+                    }
 
+                    // 3. إذا لم نجد فاتورة (أو كانت حالة صيدلية)، ننشئ واحدة جديدة
+                    if (BillID == 0)
+                    {
+                        string insertBill = @"INSERT INTO Bills (VisitID, PaymentStatus, BillDate, CreatedByUserID) 
+                                      VALUES (@VisitID, 0, GETDATE(), @UID); 
+                                      SELECT SCOPE_IDENTITY();";
+
+                        using (SqlCommand cmdBill = new SqlCommand(insertBill, conn, transaction))
+                        {
+                            cmdBill.Parameters.AddWithValue("@UID", userId);
+                            cmdBill.Parameters.AddWithValue("@VisitID", (VisitID == -1 || VisitID == null) ? (object)DBNull.Value : VisitID);
+                            BillID = Convert.ToInt32(cmdBill.ExecuteScalar());
+                            clsBillingServiceData.UpdateBillNumber(BillID, transaction);
+                        }
+                    }
+
+                    string linkPresc = "UPDATE Prescriptions SET BillID = @BillID WHERE PrescriptionID = @PID";
+                    using (SqlCommand cmdLink = new SqlCommand(linkPresc, conn, transaction))
+                    {
+                        cmdLink.Parameters.AddWithValue("@BillID", BillID);
+                        cmdLink.Parameters.AddWithValue("@PID", prescriptionId);
+                        cmdLink.ExecuteNonQuery();
                     }
 
                     transaction.Commit();

@@ -177,9 +177,9 @@ namespace Clinic_Business
             return clsPrescriptionData.GetPrescriptionTotalForCashier(PrescriptionID);
         }
 
-        public static bool SendToCashier(int PrescriptionID,DataTable dtDispensedItems,int ?VisitID,int ? AppointmentID,decimal TotalMedicinesAmount, decimal TaxRate, int userId)
+        public static bool SendToCashier(int PrescriptionID,DataTable dtDispensedItems,int ?VisitID, int userId)
         {
-            return clsPrescriptionData.SendToCashier(PrescriptionID, dtDispensedItems,VisitID,AppointmentID, TotalMedicinesAmount,TaxRate, userId);
+            return clsPrescriptionData.SendToCashier(PrescriptionID, dtDispensedItems,VisitID, userId);
         }
 
         public  bool IsPrescriptionPending()

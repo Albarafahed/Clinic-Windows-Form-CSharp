@@ -32,7 +32,7 @@ namespace Clinic.Medical_Services.Visit
         {
             _dtAllVisits = clsVisit.GetAllVisits();
             if(_dtAllVisits.Rows.Count>0)
-            _dtVists = _dtAllVisits.DefaultView.ToTable(false, "VisitID", "PatientID", "DoctorID", "AppointmentID", "PatientName", "DoctorName", "VisitDate", "Diagnosis","CreatedByUserID");
+            _dtVists = _dtAllVisits.DefaultView.ToTable(false, "VisitID", "PatientID", "DoctorID", "AppointmentID", "PatientName", "DoctorName", "VisitDate", "Diagnosis", "StatusText", "CreatedByUserID");
 
             dgvVisit.DataSource = _dtVists;
             lblRecordsCount.Text = dgvVisit.Rows.Count.ToString();
@@ -60,16 +60,19 @@ namespace Clinic.Medical_Services.Visit
                 dgvVisit.Columns["AppointmentID"].Width = 90;
 
                 dgvVisit.Columns["PatientName"].HeaderText = "Patient Name";
-                dgvVisit.Columns["PatientName"].Width = 260;
+                dgvVisit.Columns["PatientName"].Width = 200;
 
                 dgvVisit.Columns["DoctorName"].HeaderText = "Doctor Name";
-                dgvVisit.Columns["DoctorName"].Width = 260;
+                dgvVisit.Columns["DoctorName"].Width = 200;
 
                 dgvVisit.Columns["VisitDate"].HeaderText = "Visit Date";
                 dgvVisit.Columns["VisitDate"].Width = 200;
 
                 dgvVisit.Columns["Diagnosis"].HeaderText = "Diagnosis";
-                dgvVisit.Columns["Diagnosis"].Width = 260;
+                dgvVisit.Columns["Diagnosis"].Width = 250;
+
+                dgvVisit.Columns["StatusText"].HeaderText = "Status";
+                dgvVisit.Columns["StatusText"].Width = 100;
 
                 dgvVisit.Columns["CreatedByUserID"].HeaderText = "C.UserID";
                 dgvVisit.Columns["CreatedByUserID"].Width = 90;

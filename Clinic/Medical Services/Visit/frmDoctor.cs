@@ -20,7 +20,6 @@ namespace Clinic.Medical_Services.Visit
         private int _AppointmentID = -1;
         private clsVisit _Visit = new clsVisit();
         private int _DoctorPersonID = clsGlobal.CurrentUser.PersonID;
-        private decimal TotalAmount = 0.0m;
         #endregion
 
         public enum enMode { AddNew = 1, Update = 2, ShowVisit = 3 }
@@ -226,7 +225,6 @@ namespace Clinic.Medical_Services.Visit
             lblAppointmentID.Text = _Visit.AppointmentID.ToString();
             lblDoctorID.Text = _Visit.DoctorID.ToString();
             lblPatientID.Text = _Visit.PatientID.ToString();
-            TotalAmount = _Visit.TotalAmount;
             if (_Visit.VisitID > 0)
             {
                 llDoctorInfo.Enabled = true;
@@ -345,7 +343,6 @@ namespace Clinic.Medical_Services.Visit
             _Visit.AppointmentID = int.Parse(lblAppointmentID.Text);
             _Visit.DoctorID = int.Parse(lblDoctorID.Text);
             _Visit.CreatedByUserID = clsGlobal.CurrentUser.UserID;
-            _Visit.TotalAmount = TotalAmount;
 
             _Visit.PrescriptionInfo.PrescriptionDate = dtpPrescriptionDate.Value;
             _Visit.PrescriptionInfo.VisitID = _VisitID;
@@ -490,7 +487,6 @@ namespace Clinic.Medical_Services.Visit
             // 1. إعادة ضبط المتغيرات الأساسية
             _Mode = enMode.AddNew;
             _VisitID = -1;
-            TotalAmount = 0.0m;
 
             // 2. تحديث الحالة البصرية أولاً
             SetFormControlsState(false);

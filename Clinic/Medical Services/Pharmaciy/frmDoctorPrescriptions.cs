@@ -22,6 +22,8 @@ namespace Clinic.Medical_Services.Pharmaciy
         private int _currentPrescriptionId = -1;
         private int _AppointmentID = -1;
         private int _VisitID = -1;
+        decimal TotalMedicinesAmount=0.0m, TaxRate=0.0m;
+
         public frmPrescriptionDispnsing()
         {
             InitializeComponent();
@@ -276,8 +278,7 @@ namespace Clinic.Medical_Services.Pharmaciy
                 return;
             }
 
-            decimal TotalMedicinesAmount, TaxRate;
-            _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
+            //_CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
 
             if (TotalMedicinesAmount <= 0)
             {
@@ -286,7 +287,7 @@ namespace Clinic.Medical_Services.Pharmaciy
             }
 
             // إرسال الجدول المفلتر والمحدث
-            if (clsPrescription.SendToCashier(_currentPrescriptionId, dv.ToTable(), _VisitID, _AppointmentID, TotalMedicinesAmount, TaxRate, clsGlobal.CurrentUser.UserID))
+            if (clsPrescription.SendToCashier(_currentPrescriptionId, dv.ToTable(), _VisitID, clsGlobal.CurrentUser.UserID))
             {
                 dtAllDetails.AcceptChanges(); // تحديث الذاكرة بعد النجاح
                 MessageBox.Show("Prescription successfully sent!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -317,7 +318,6 @@ namespace Clinic.Medical_Services.Pharmaciy
 
                 DataView dv = (DataView)dgPrescriptionDetails.DataSource;
 
-                decimal TotalMedicinesAmount, TaxRate;
                 _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
 
                 lbTotalMedicen.Text ="$ "+(TotalMedicinesAmount + TaxRate).ToString("N2");
@@ -383,7 +383,6 @@ namespace Clinic.Medical_Services.Pharmaciy
                 DataView dv = (DataView)dgPrescriptionDetails.DataSource;
                 //DataTable dtDispensed = dv.ToTable();
 
-                decimal TotalMedicinesAmount, TaxRate;
                 _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
 
                 lbTotalMedicen.Text ="$ "+ (TotalMedicinesAmount + TaxRate).ToString("N2");
