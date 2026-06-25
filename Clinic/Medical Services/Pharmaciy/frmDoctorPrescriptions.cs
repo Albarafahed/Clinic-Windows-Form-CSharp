@@ -285,7 +285,7 @@ namespace Clinic.Medical_Services.Pharmaciy
                 MessageBox.Show("Please dispense at least one item.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
+            
             // إرسال الجدول المفلتر والمحدث
             if (clsPrescription.SendToCashier(_currentPrescriptionId, dv.ToTable(), _VisitID, clsGlobal.CurrentUser.UserID))
             {

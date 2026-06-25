@@ -88,7 +88,8 @@ namespace Clinic_Business
             dtServices.Columns.Add("Quantity", typeof(int));
             dtServices.Columns.Add("SavedServicePrice", typeof(decimal));
             dtServices.Columns.Add("Discount", typeof(decimal));
-            dtServices.Columns.Add("Total", typeof(decimal), "(SavedServicePrice * Quantity) - Discount");
+
+            dtServices.Columns.Add("Total", typeof(decimal), "(SavedServicePrice * Quantity) -(Discount * Quantity)");
 
 
         }

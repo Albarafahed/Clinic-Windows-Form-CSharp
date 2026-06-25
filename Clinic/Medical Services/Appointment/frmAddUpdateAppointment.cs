@@ -147,9 +147,32 @@ namespace Clinic.Medical_Services.Appointment
 
         private void _TotalAppointment()
         {
-            float docFees = (lblDoctorConsaltantFees.Text == "[???]") ? 0 : Convert.ToSingle(lblDoctorConsaltantFees.Text);
-            float typeFees = Convert.ToSingle(lblAppointmentTypeFees.Text);
-            lblTotalAppointmentFees.Text = (typeFees + docFees).ToString("0.00");
+            decimal docFees = 0;
+            decimal.TryParse(lblDoctorConsaltantFees.Text, out docFees);
+
+            decimal typeFees = 0;
+            decimal.TryParse(lblAppointmentTypeFees.Text, out typeFees);
+
+            // المنطق الاحترافي:
+            // إذا كان نوع الموعد "طوارئ" (مثلاً ID = 2)، نعتبر الـ typeFees هي السعر الأساسي.
+            // إذا كان موعداً عادياً، نعتمد سعر الطبيب.
+
+            decimal total = 0;
+
+           
+
+            if ((int)cbAppointmentType.SelectedValue == 2) // إذا كان طوارئ
+            {
+                // الطوارئ: سعر الموعد (ثابت) + أي رسوم إضافية للطبيب إن وجدت
+                total = typeFees + (docFees * 0.5m); // مثال: الطبيب يأخذ نسبة 50% إضافية في الطوارئ
+            }
+            else
+            {
+                // الكشف العادي: سعر الطبيب هو الأساس
+                total = docFees > 0 ? docFees : typeFees;
+            }
+
+            lblTotalAppointmentFees.Text = total.ToString("N2");
         }
 
         private void ShowError(string msg, string title) => MessageBox.Show(msg, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
