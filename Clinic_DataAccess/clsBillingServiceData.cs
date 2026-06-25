@@ -96,6 +96,33 @@ namespace Clinic_DataAccess
             return cmdUpdate.ExecuteNonQuery() > 0;
         }
 
+        public static bool UpdatePaymentStatus(int BillID, byte PaymentStatus)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+
+                {
+                    string queryUpdateBillNumber = @"UPDATE Bills SET PaymentStatus=@PaymentStatus 
+                                                 WHERE BillID = @BillID";
+                    using (SqlCommand cmdUpdate = new SqlCommand(queryUpdateBillNumber, connection ))
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@BillID", BillID);
+                        cmdUpdate.Parameters.AddWithValue("@PaymentStatus", PaymentStatus);
+                        connection.Open();
+                        return cmdUpdate.ExecuteNonQuery() > 0;
+                    }
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                return false;
+            }
+
+        }
+
         public static DataTable GetAllBills()
         {
             DataTable dt = new DataTable();
@@ -126,45 +153,36 @@ namespace Clinic_DataAccess
             return dt;
         }
 
-        public static bool AddPaymentAndSetStatus(int billID, decimal paymentAmount, string paymentMethod, int userID, byte newStatus)
+        public static DataRow GetBillByID(int BillID)
         {
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            DataTable dt = new DataTable();
+            try
             {
-                connection.Open();
-                SqlTransaction transaction = connection.BeginTransaction();
-
-                try
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    // 1. إضافة الدفعة
-                    string insertPayment = @"
-                                        INSERT INTO Payments (BillID, PaymentAmount, PaymentDate, PaymentMethod, CreatedByUserID)
-                                        VALUES (@BillID, @PaymentAmount, GETDATE(), @PaymentMethod, @UserID)";
+                    string query = "SELECT * FROM View_Bills WHERE BillID = @BillID;";
 
-                    SqlCommand cmdInsert = new SqlCommand(insertPayment, connection, transaction);
-                    cmdInsert.Parameters.AddWithValue("@BillID", billID);
-                    cmdInsert.Parameters.AddWithValue("@PaymentAmount", paymentAmount);
-                    cmdInsert.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
-                    cmdInsert.Parameters.AddWithValue("@UserID", userID);
-                    cmdInsert.ExecuteNonQuery();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@BillID", BillID);
 
-                    // 2. تحديث الحالة التي أرسلتها أنت من الشاشة
-                    string updateBill = "UPDATE Bills SET Status = @Status WHERE BillID = @BillID";
-                    SqlCommand cmdUpdate = new SqlCommand(updateBill, connection, transaction);
-                    cmdUpdate.Parameters.AddWithValue("@Status", newStatus);
-                    cmdUpdate.Parameters.AddWithValue("@BillID", billID);
-                    cmdUpdate.ExecuteNonQuery();
-
-                    transaction.Commit();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    // سجل الخطأ
-                    return false;
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows) dt.Load(reader);
+                        }
+                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+            }
+
+            return (dt.Rows.Count > 0) ? dt.Rows[0] : null;
         }
+
+
         public static bool GetBillSummariesToProcessPayment(int BillID, DataTable dt,
                   ref decimal appointmentFees, ref decimal totalMedicines,
                   ref decimal totalServices, ref decimal totalDiscount,
@@ -221,155 +239,13 @@ namespace Clinic_DataAccess
             return false;
         }
 
-        public static bool GetBillSummariesToIssueInvoice(int BillID, ref decimal FinalTotal, ref decimal Subtotal,
-                                                                        ref decimal PaymentAmount, ref decimal TotalDiscount)
-        {
-            try
-            {
-
-                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-                {
-                    // استدعاء الـ View بالكامل
-                    string query = @"  SELECT (Subtotal+TotalDiscount) AS Subtotal,PaymentAmount ,TotalDiscount,Subtotal
-                                                FROM ClinicDB.dbo.View_BillSummaries
-                                                 Where BillID=@BillID;";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@BillID", BillID);
-                        connection.Open();
-
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                // 1. تعبئة المتغيرات المالية (للعمليات الحسابية في الـ C#)
-                                TotalDiscount = Convert.ToDecimal(reader["TotalDiscount"]);
-                                FinalTotal = Convert.ToDecimal(reader["FinalTotal"]);
-                                Subtotal = Convert.ToDecimal(reader["Subtotal"]);
-                                PaymentAmount = Convert.ToDecimal(reader["PaymentAmount"]);
+       
 
 
-                            }
-                            return true;
-                        }
-                    }
-                }
+        #region EDitPending Prescription ITems
+        //public static bool GetPrescriptionsDetails
 
-            }
-
-            catch (SqlException ex)
-            {
-                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
-            }
-            return false;
-        }
-        public static DataTable GetBillItems(int BillID)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-                {
-                    string query = @"SELECT * FROM View_BillItems
-                                         WHERE BillID=@BillID";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@BillID", BillID);
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.HasRows) dt.Load(reader);
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
-            }
-            return dt;
-        }
-        public static DataRow GetBillByID(int BillID)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-                {
-                    string query = "SELECT * FROM View_Bills WHERE BillID = @BillID;";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@BillID", BillID);
-
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.HasRows) dt.Load(reader);
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
-            }
-
-            return (dt.Rows.Count > 0) ? dt.Rows[0] : null;
-        }
-
-        public static bool ProcessPartialPayment(DataTable dtDispensedItems, int billID, decimal paymentAmount, string paymentMethod, int userID, string status)
-        {
-            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
-            {
-                connection.Open();
-                SqlTransaction transaction = connection.BeginTransaction();
-
-                try
-                {
-                    // --- الجزء الأول: تحديث صرف الأدوية (كودك) ---
-                    using (SqlCommand cmdCreate = new SqlCommand("CREATE TABLE #TempDispensed (DetailsID INT, DispensedQty INT, IsDispensed BIT)", connection, transaction))
-                    {
-                        cmdCreate.ExecuteNonQuery();
-                    }
-
-                    using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
-                    {
-                        bulkCopy.DestinationTableName = "#TempDispensed";
-                        bulkCopy.ColumnMappings.Add("PrescriptionDetailsID", "DetailsID");
-                        bulkCopy.ColumnMappings.Add("DispensedQuantity", "DispensedQty");
-                        bulkCopy.ColumnMappings.Add("IsDispensed", "IsDispensed");
-                        bulkCopy.WriteToServer(dtDispensedItems);
-                    }
-
-                    string updateQuery = @"UPDATE PD 
-                                   SET PD.DispensedQuantity = T.DispensedQty, 
-                                       PD.IsDispensed = T.IsDispensed 
-                                   FROM PrescriptionDetails PD 
-                                   INNER JOIN #TempDispensed T ON PD.PrescriptionDetailsID = T.DetailsID";
-
-                    using (SqlCommand cmdUpdate = new SqlCommand(updateQuery, connection, transaction))
-                    {
-                        cmdUpdate.ExecuteNonQuery();
-
-                    }
-
-                    transaction.Commit();
-                    return true;
-                }
-                catch (SqlException ex)
-                {
-                    // التراجع في حال حدوث خطأ
-                    transaction.Rollback();
-                    clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
-                    return false;
-                }
-            }
-        }
-
-
+        #endregion
 
 
     }

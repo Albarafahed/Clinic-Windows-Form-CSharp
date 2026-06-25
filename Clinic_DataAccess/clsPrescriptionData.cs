@@ -508,6 +508,8 @@ namespace Clinic_DataAccess
             return dt;
         }
 
+
+        //public static DataTable 
         public static bool Find(int VisitID, ref int PrescriptionID, ref string PrescriptionNotes, ref DateTime PrescriptionDate, ref byte PrescriptionStatus)
         {
             try
@@ -565,6 +567,19 @@ namespace Clinic_DataAccess
             }
         }
 
+        public static bool UpdatePrescriptionStatusByBill(int billId, int newStatus, SqlTransaction transaction)
+        {
+            string query = @"UPDATE Prescriptions 
+                     SET PrescriptionStatus = @Status 
+                     WHERE BillID = @BillID";
+
+            using (SqlCommand command = new SqlCommand(query, transaction.Connection, transaction))
+            {
+                command.Parameters.AddWithValue("@BillID", billId);
+                command.Parameters.AddWithValue("@Status", newStatus);
+                return command.ExecuteNonQuery() > 0;
+            }
+        }
         public static bool UpdatePrescriptionStatus(int prescriptionId, byte newStatus)
         {
             try

@@ -13,5 +13,19 @@ namespace Clinic_Business
         {
             return clsBillingServiceData.CheckInPatient(Appointment.AppointmentID, Appointment.DoctorID, Appointment.PatientID, Appointment.AppointmentFees, UserID, PaymentMethod);
         }
+
+        public enum enPaymetnStatus:byte
+        {
+            Pending = 0, 
+            Partial = 1, 
+            Paid = 2,
+            Refunded = 3,
+            Cancelled = 4
+        }
+
+        public static bool UpdatePaymentStatus(int BillID,enPaymetnStatus Status)
+        {
+            return clsBillingServiceData.UpdatePaymentStatus(BillID, (byte)Status);
+        }
     }
 }

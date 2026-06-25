@@ -38,7 +38,7 @@ namespace Clinic.ControlsMain
 
         private void btnIssueInvoice_Click(object sender, EventArgs e)
         {
-            new frmIssueInvoice().ShowDialog();
+            new frmIssueInvoice(-1).ShowDialog();
         }
     }
 }
