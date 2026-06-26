@@ -28,17 +28,17 @@ namespace Clinic.ControlsMain
 
         private void btnMangeBills_Click(object sender, EventArgs e)
         {
-            new frmManageBills().ShowDialog();
+            clsFormHelper.ShowForm<frmManageBills>();
         }
 
         private void btnProcessPayment_Click(object sender, EventArgs e)
         {
-            new frmProcessPayments(-1).ShowDialog();
+            clsFormHelper.ShowForm<frmProcessPayments>();
         }
 
         private void btnIssueInvoice_Click(object sender, EventArgs e)
         {
-            new frmIssueInvoice(-1).ShowDialog();
+            clsFormHelper.ShowForm<frmIssueInvoice>();
         }
     }
 }

@@ -183,21 +183,23 @@ namespace Clinic_DataAccess
         }
 
 
-        public static bool GetBillSummariesToProcessPayment(int BillID, DataTable dt,
-                  ref decimal appointmentFees, ref decimal totalMedicines,
-                  ref decimal totalServices, ref decimal totalDiscount,
-                             ref decimal totalTax,
-                  ref decimal paymentAmount, ref decimal balanceDue)
+        public static bool GetBillSummaryData(int BillID,
+         ref string billNumber, ref string patientName,
+         ref decimal appointmentFees, ref decimal totalMedicines, ref decimal totalServices,
+         ref decimal totalDiscount, ref decimal totalTax, ref decimal paymentAmount, ref decimal balanceDue,
+         ref decimal totalBeforeDiscountAndTax, ref decimal finalTotalIncludingAll, DataTable dtBillDetails)
         {
-
-            dt.Clear();
-
             try
             {
                 using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    // استدعاء الـ View بالكامل
-                    string query = @"SELECT * FROM View_BillSummaries WHERE BillID = @BillID";
+                    string query = @"SELECT 
+                                    BillNumber, PatientName, AppointmentFees, MedicinesTotal, 
+                                    ServicesTotal, TotalDiscount, TotalTax, PaymentAmount, BalanceDue,
+                                    (AppointmentFees + MedicinesTotal + ServicesTotal) AS TotalBeforeDiscountAndTax,
+                                    ((AppointmentFees + MedicinesTotal + ServicesTotal - TotalDiscount) + TotalTax) AS FinalTotalIncludingAll
+                                 FROM View_BillSummaries 
+                                 WHERE BillID = @BillID";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -208,23 +210,35 @@ namespace Clinic_DataAccess
                         {
                             if (reader.Read())
                             {
-                                // 1. تعبئة المتغيرات المالية (للعمليات الحسابية في الـ C#)
-                                appointmentFees = Convert.ToDecimal(reader["AppointmentFees"]);
-                                totalMedicines = Convert.ToDecimal(reader["MedicinesTotal"]);
-                                totalServices = Convert.ToDecimal(reader["ServicesTotal"]);
-                                totalDiscount = Convert.ToDecimal(reader["TotalDiscount"]);
-                                totalTax = Convert.ToDecimal(reader["TotalTax"]);
-                                paymentAmount = Convert.ToDecimal(reader["PaymentAmount"]);
-                                balanceDue = Convert.ToDecimal(reader["BalanceDue"]);
+                                billNumber = reader["BillNumber"].ToString();
+                                patientName = reader["PatientName"].ToString();
+                                appointmentFees = reader["AppointmentFees"] is DBNull ? 0 : Convert.ToDecimal(reader["AppointmentFees"]);
+                                totalMedicines = reader["MedicinesTotal"] is DBNull ? 0 : Convert.ToDecimal(reader["MedicinesTotal"]);
+                                totalServices = reader["ServicesTotal"] is DBNull ? 0 : Convert.ToDecimal(reader["ServicesTotal"]);
+                                totalDiscount = reader["TotalDiscount"] is DBNull ? 0 : Convert.ToDecimal(reader["TotalDiscount"]);
+                                totalTax = reader["TotalTax"] is DBNull ? 0 : Convert.ToDecimal(reader["TotalTax"]);
+                                paymentAmount = reader["PaymentAmount"] is DBNull ? 0 : Convert.ToDecimal(reader["PaymentAmount"]);
+                                balanceDue = reader["BalanceDue"] is DBNull ? 0 : Convert.ToDecimal(reader["BalanceDue"]);
+                                totalBeforeDiscountAndTax = reader["TotalBeforeDiscountAndTax"] is DBNull ? 0 : Convert.ToDecimal(reader["TotalBeforeDiscountAndTax"]);
+                                finalTotalIncludingAll = reader["FinalTotalIncludingAll"] is DBNull ? 0 : Convert.ToDecimal(reader["FinalTotalIncludingAll"]);
 
-                                // 2. تعبئة الـ DataTable (للعرض في GridView أو التقرير)
-                                DataRow row = dt.NewRow();
-                                row["BillNumber"] = reader["BillNumber"];
-                                row["PatientName"] = reader["PatientName"];
-                                row["ItemsTotal"] = reader["ItemsTotal"];
-                                row["Subtotal"] = reader["Subtotal"];
-
-                                dt.Rows.Add(row);
+                                // تعبئة الـ DataTable الممرر
+                                dtBillDetails.Clear();
+                                if (dtBillDetails.Columns.Count == 0)
+                                {
+                                    dtBillDetails.Columns.Add("BillNumber", typeof(string));
+                                    dtBillDetails.Columns.Add("PatientName", typeof(string));
+                                    dtBillDetails.Columns.Add("TotalBeforeDiscountAndTax", typeof(decimal));
+                                    dtBillDetails.Columns.Add("FinalTotalIncludingAll", typeof(decimal));
+                                    dtBillDetails.Columns.Add("BalanceDue", typeof(decimal));
+                                }
+                                DataRow row = dtBillDetails.NewRow();
+                                row["BillNumber"] = billNumber;
+                                row["PatientName"] = patientName;
+                                row["TotalBeforeDiscountAndTax"] = totalBeforeDiscountAndTax;
+                                row["FinalTotalIncludingAll"] = finalTotalIncludingAll;
+                                row["BalanceDue"] = balanceDue;
+                                dtBillDetails.Rows.Add(row);
 
                                 return true;
                             }
@@ -239,7 +253,6 @@ namespace Clinic_DataAccess
             return false;
         }
 
-       
 
 
         #region EDitPending Prescription ITems

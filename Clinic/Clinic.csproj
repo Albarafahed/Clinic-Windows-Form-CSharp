@@ -101,6 +101,7 @@
     <Compile Include="frm.Designer.cs">
       <DependentUpon>frm.cs</DependentUpon>
     </Compile>
+    <Compile Include="global classes\clsFormHelper.cs" />
     <Compile Include="Medical Services\Appointment\AppointmentsType\frmAdddUpdateAppointmentType.cs">
       <SubType>Form</SubType>
     </Compile>

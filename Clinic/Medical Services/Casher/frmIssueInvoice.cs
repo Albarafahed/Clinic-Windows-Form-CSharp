@@ -25,6 +25,12 @@ namespace Clinic.Medical_Services.Casher
             _BillID = BillID;
             _FillForm();
         }
+        public frmIssueInvoice()
+        {
+            InitializeComponent();
+            lbCurrentUser.Text = clsGlobal.PersonName;
+           
+        }
 
         private void _ResetForm()
         {
@@ -273,33 +279,16 @@ namespace Clinic.Medical_Services.Casher
         {
             if (_Invoice == null) return;
 
-            try
-            {
-                if (_RemainingAmount > 0)
-                {
-                    // 🚨 حالة الدفع جزئي: نغلق الفاتورة ضد تعديل الأدوية، لكن حالتها تظل "Partial" في الحسابات
-                    if (clsBillingService.UpdatePaymentStatus(_BillID, clsBillingService.enPaymetnStatus.Partial))
-                    {
-                        MessageBox.Show($"Invoice finalized with a remaining balance of {_RemainingAmount.ToString("N2")} USD. It is now locked for editing.",
-                                   "Partial Payment Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-                else
-                {
-                    if (clsBillingService.UpdatePaymentStatus(_BillID, clsBillingService.enPaymetnStatus.Paid))
-                        MessageBox.Show("Invoice finalized and paid in full!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                // استدعاء دالة الطباعة كـ PDF الافتراضية للتجربة والاعتماد
                 _PrintInvoiceDirectly();
+            this.DialogResult = DialogResult.OK;
 
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            catch (Exception ex)
+            if (MessageBox.Show("Do you want to go the Mange Bills Screen?", "Print Receipt",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clsFormHelper.ShowForm<frmManageBills>();
+                this.Close(); 
             }
+           
         }
         private void btnPreviewInvoice_Click(object sender, EventArgs e)
         {

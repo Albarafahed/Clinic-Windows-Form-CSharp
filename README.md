@@ -153,6 +153,22 @@ Clinic_System/
 
 ---
 
+---
+
+### 🔑  محطة الكاشير (Casher Station)
+إدارة كاملة للوصفات  مع حماية ضد التكرار وتحقق من صحة البيانات.
+
+| الشاشة | اللقطة |
+| :--- | :--- |
+| **قائمة الفواتير** | ![List Bills](Image/Medical%20Services/Casher/frmMangeBills.png) |
+| **تسجيل دفعة** | ![Process Payment](Image/Medical%20Services/Casher/frmProcessPayments.png) |
+| **اصدار فاتورة* | ![Issue Invoice](Image/Medical%20Services/Casher/frmIssueInvoice.png) |
+| **مرتجع** | ![Refoud]() |
+| **تعديل مشتريات** | ![Edit Sales]() |
+
+
+---
+
 ## 🖥️ الواجهة الرئيسية (Dashboard)
 المركز العصبي للنظام الذي يربط كافة الأقسام.
 

@@ -281,8 +281,8 @@ namespace Clinic.Medical_Services.Casher
                 // 🖨️ إذا كانت مدفوعة أو مرتجعة نفتح شاشة الفاتورة للطباعة والمراجعة فقط
                 if (currentStatus == "Paid" || currentStatus == "Refunded")
                 {
-                    frmIssueInvoice frmIssue = new frmIssueInvoice(billID);
-                    frmIssue.ShowDialog();
+                    clsFormHelper.ShowForm(() => new frmIssueInvoice(billID));
+
                     return;
                 }
 
@@ -294,9 +294,8 @@ namespace Clinic.Medical_Services.Casher
                 }
 
                 // 💳 إذا كانت الفاتورة Pending أو Partial يفتح شاشة معالجة الدفع
-                frmProcessPayments frm = new frmProcessPayments(billID);
-                frm.ShowDialog();
-                _RefreshBillsList();
+                clsFormHelper.ShowForm( ()=>new frmProcessPayments(billID), _RefreshBillsList);
+               
             }
 
             // 📝 [ب] الضغط على زر التعديل والدفع الجزئي أو الارتجاع

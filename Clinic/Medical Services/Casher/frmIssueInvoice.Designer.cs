@@ -558,7 +558,7 @@
             // 
             // panTitle
             // 
-            this.panTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.panTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(30)))), ((int)(((byte)(36)))));
             this.panTitle.Controls.Add(this.pictureBox3);
             this.panTitle.Controls.Add(this.label5);
             this.panTitle.Controls.Add(this.btnExit);
@@ -618,7 +618,7 @@
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "frmIssueInvoice";
             this.Padding = new System.Windows.Forms.Padding(20);
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAllPrescriptions";
             ((System.ComponentModel.ISupportInitialize)(this.dgBill)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
