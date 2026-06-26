@@ -23,14 +23,27 @@ namespace Clinic.Medical_Services.Pharmaciy
         private int _AppointmentID = -1;
         private int _VisitID = -1;
         decimal TotalMedicinesAmount=0.0m, TaxRate=0.0m;
-
+        private NumericUpDown _qtyNumericUpDown = new NumericUpDown();
         public frmPrescriptionDispnsing()
         {
             InitializeComponent();
             dgPrescriptionDetails.DataError += dgPrescriptionDetails_DataError;
             dgPrescriptionDetails.CellValueChanged += dgPrescriptionDetails_CellValueChanged;
-           
+           dgPrescriptionDetails.CellClick += dgPrescriptionDetails_CellClick;
             dgPrescriptionDetails.CellBeginEdit+= dgPrescriptionDetails_CellBeginEdit;
+
+            _qtyNumericUpDown.Minimum = 0;
+            _qtyNumericUpDown.Visible = false; // مخفي في البداية
+
+            // ربط الأحداث الخاصة بالكشاف لتحديث الخلايا عند التغيير وعند الخروج منها
+            _qtyNumericUpDown.ValueChanged += QtyNumericUpDown_ValueChanged;
+            _qtyNumericUpDown.Leave += QtyNumericUpDown_Leave;
+
+            // إضافة الكشاف إلى عناصر جدول الروشتة
+            dgPrescriptionDetails.Controls.Add(_qtyNumericUpDown);
+
+            // ربط حدث الـ Scroll للجدول لإخفاء الكشاف إذا قام المستخدم بالتحريك
+            dgPrescriptionDetails.Scroll += (s, ev) => { _qtyNumericUpDown.Visible = false; };
         }
 
         private void _AddColumn(string header, string dataProp, bool visible, int fillWeight = 10)
@@ -229,7 +242,6 @@ namespace Clinic.Medical_Services.Pharmaciy
             _SetupPrescriptionGrid();
             _SetupPrescriptionDetailsGrid();
            
-            dgPrescriptionDetails.DataBindingComplete += DgPrescriptionDetails_DataBindingComplete;
         }
 
         private void dgPrescriptionDetails_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -397,11 +409,54 @@ namespace Clinic.Medical_Services.Pharmaciy
                 _isUpdating = false; // إيقاف الحماية دائماً
             }
         }
-        private void DgPrescriptionDetails_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+     
+        private void dgPrescriptionDetails_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
+            // 🎯 التحقق من الضغط على عمود كمية الصرف تحديداً
+            if (dgPrescriptionDetails.Columns[e.ColumnIndex].Name == "DispensedQuantity")
+            {
+                DataGridViewRow row = dgPrescriptionDetails.Rows[e.RowIndex];
+
+                // جلب الحد الأقصى المتاح لهذا الدواء باستخدام دالتك الحالية _GetMaxAvailable
+                int maxAvailable = _GetMaxAvailable(row);
+
+                // إذا كان الصنف خارج المخزن تماماً لا تظهر الكشاف
+                if (maxAvailable <= 0)
+                {
+                    _qtyNumericUpDown.Visible = false;
+                    return;
+                }
+
+                // ضبط الحد الأقصى للكشاف ليتطابق مع متاح المخزن
+                _qtyNumericUpDown.Maximum = maxAvailable;
+
+                // جلب مقاسات وموقع الخلية لتغطيتها تماماً
+                Rectangle rect = dgPrescriptionDetails.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
+                _qtyNumericUpDown.Location = rect.Location;
+                _qtyNumericUpDown.Size = rect.Size;
+
+                // جلب القيمة الحالية من الخلية ووضعها في الكشاف
+                if (row.Cells[e.ColumnIndex].Value != DBNull.Value && row.Cells[e.ColumnIndex].Value != null)
+                {
+                    _qtyNumericUpDown.Value = Convert.ToDecimal(row.Cells[e.ColumnIndex].Value);
+                }
+                else
+                {
+                    _qtyNumericUpDown.Value = 0;
+                }
+
+                // إظهار الكشاف وتركيز الماوس عليه
+                _qtyNumericUpDown.Visible = true;
+                _qtyNumericUpDown.Focus();
+            }
+            else
+            {
+                // إذا ضغط على أي عمود آخر (مثل شيك بوكس الصرف) نخفي الكشاف
+                _qtyNumericUpDown.Visible = false;
+            }
         }
-      
         private void dgPrescriptionDetails_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             // إلغاء ظهور رسالة الخطأ الافتراضية للنظام
@@ -411,7 +466,21 @@ namespace Clinic.Medical_Services.Pharmaciy
             // MessageBox.Show("حدث خطأ في البيانات: " + e.Exception.Message);
         }
 
+        // عند تغيير قيمة العداد برمجياً أو بالأسهم
+        private void QtyNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (dgPrescriptionDetails.CurrentCell != null && dgPrescriptionDetails.CurrentCell.OwningColumn.Name == "DispensedQuantity")
+            {
+                // نقل القيمة للجدول فوراً (وهذا بدوره سيطلق دالتك الأصلية CellValueChanged تلقائياً)
+                dgPrescriptionDetails.CurrentCell.Value = (int)_qtyNumericUpDown.Value;
+            }
+        }
 
+        // عند انتقال التركيز أو خروج الكاشير من الخلية
+        private void QtyNumericUpDown_Leave(object sender, EventArgs e)
+        {
+            _qtyNumericUpDown.Visible = false;
+        }
         private void btnExit_Click(object sender, EventArgs e) => this.Close();
    
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -444,8 +513,6 @@ namespace Clinic.Medical_Services.Pharmaciy
                 }
             }
         }
-
-       
 
         private void lblPlaceholderSer_Click(object sender, EventArgs e)
         {

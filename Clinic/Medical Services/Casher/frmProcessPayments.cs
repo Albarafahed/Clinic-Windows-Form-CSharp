@@ -11,7 +11,7 @@ namespace Clinic.Medical_Services.Casher
 {
     public partial class frmProcessPayments : Form
     {
-        public frmProcessPayments()
+        public frmProcessPayments(int BillID)
         {
             InitializeComponent();
             lbCurrentUser.Text = clsGlobal.PersonName;

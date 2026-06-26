@@ -28,12 +28,12 @@ namespace Clinic.ControlsMain
 
         private void btnMangeBills_Click(object sender, EventArgs e)
         {
-            new frmMangeBils().ShowDialog();
+            new frmManageBills().ShowDialog();
         }
 
         private void btnProcessPayment_Click(object sender, EventArgs e)
         {
-            new frmProcessPayments().ShowDialog();
+            new frmProcessPayments(-1).ShowDialog();
         }
 
         private void btnIssueInvoice_Click(object sender, EventArgs e)
