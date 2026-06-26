@@ -311,14 +311,14 @@ namespace Clinic.Medical_Services.Casher
                 // الحالة الحرجة: الفاتورة معلقة والمريض ليس معه مال كافٍ
                 if (currentStatus == "Pending")
                 {
-                    frmEditPendingBill frm = new frmEditPendingBill(billID);
+                    frmEditPendingPrescription frm = new frmEditPendingPrescription(billID);
                     frm.ShowDialog();
                     _RefreshBillsList();
                 }
                 // إذا كانت الفاتورة مدفوعة مسبقاً (Paid أو Partial)، يفتح شاشة الارتجاع
                 else if (currentStatus == "Paid" || currentStatus == "Partial")
                 {
-                    frmRefundInvoice frm = new frmRefundInvoice(billID);
+                    frmMedicineSalesReturn frm = new frmMedicineSalesReturn(billID);
                     frm.ShowDialog();
                     _RefreshBillsList();
                 }

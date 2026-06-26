@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace Clinic.Medical_Services.Casher
 {
-    public partial class frmRefundInvoice : Form
+    public partial class frmEditPendingPrescription : Form
     {
-        public frmRefundInvoice(int BillID)
+        public frmEditPendingPrescription(int BillID)
         {
             InitializeComponent();
+        }
+
+        private void frmEditPendingBill_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

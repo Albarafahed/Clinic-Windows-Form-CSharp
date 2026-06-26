@@ -150,11 +150,11 @@
     <Compile Include="Medical Services\Appointment\frmReschedule.Designer.cs">
       <DependentUpon>frmReschedule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Medical Services\Casher\frmEditPendingBill.cs">
+    <Compile Include="Medical Services\Casher\frmEditPendingPrescription.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Medical Services\Casher\frmEditPendingBill.Designer.cs">
-      <DependentUpon>frmEditPendingBill.cs</DependentUpon>
+    <Compile Include="Medical Services\Casher\frmEditPendingPrescription.Designer.cs">
+      <DependentUpon>frmEditPendingPrescription.cs</DependentUpon>
     </Compile>
     <Compile Include="Medical Services\Casher\frmIssueInvoice.cs">
       <SubType>Form</SubType>
@@ -174,11 +174,11 @@
     <Compile Include="Medical Services\Casher\frmProcessPayments.Designer.cs">
       <DependentUpon>frmProcessPayments.cs</DependentUpon>
     </Compile>
-    <Compile Include="Medical Services\Casher\frmRefundInvoice.cs">
+    <Compile Include="Medical Services\Casher\frmMedicineSalesReturn.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Medical Services\Casher\frmRefundInvoice.Designer.cs">
-      <DependentUpon>frmRefundInvoice.cs</DependentUpon>
+    <Compile Include="Medical Services\Casher\frmMedicineSalesReturn.Designer.cs">
+      <DependentUpon>frmMedicineSalesReturn.cs</DependentUpon>
     </Compile>
     <Compile Include="Medical Services\Pharmaciy\frmAllPrescriptions.cs">
       <SubType>Form</SubType>
@@ -461,14 +461,17 @@
     <EmbeddedResource Include="Medical Services\Appointment\frmReschedule.resx">
       <DependentUpon>frmReschedule.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Medical Services\Casher\frmEditPendingBill.resx">
-      <DependentUpon>frmEditPendingBill.cs</DependentUpon>
+    <EmbeddedResource Include="Medical Services\Casher\frmEditPendingPrescription.resx">
+      <DependentUpon>frmEditPendingPrescription.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Casher\frmIssueInvoice.resx">
       <DependentUpon>frmIssueInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Casher\frmManageBills.resx">
       <DependentUpon>frmManageBills.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Casher\frmMedicineSalesReturn.resx">
+      <DependentUpon>frmMedicineSalesReturn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Casher\frmProcessPayments.resx">
       <DependentUpon>frmProcessPayments.cs</DependentUpon>
