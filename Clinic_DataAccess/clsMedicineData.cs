@@ -1,4 +1,4 @@
-﻿using Clinic_DataAccess; // تأكد من وجود المراجع الصحيحة
+﻿ // تأكد من وجود المراجع الصحيحة
 using Clinic_DataAccess.SaveSqlException;
 using System;
 using System.Data;

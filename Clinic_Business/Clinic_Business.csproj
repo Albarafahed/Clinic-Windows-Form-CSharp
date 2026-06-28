@@ -56,6 +56,7 @@
     <Compile Include="clsPerson.cs" />
     <Compile Include="clsPrescription.cs" />
     <Compile Include="clsRole.cs" />
+    <Compile Include="clsSalesReturn.cs" />
     <Compile Include="clsServicesType.cs" />
     <Compile Include="clsSpecialization.cs" />
     <Compile Include="clsUser.cs" />

@@ -720,6 +720,39 @@ namespace Clinic_DataAccess
                         cmdLink.ExecuteNonQuery();
                     }
 
+                    string updateStockQuery = @"
+                                UPDATE M
+                                SET M.CurrentStock = M.CurrentStock - T.DispensedQty
+                                FROM Medicines M
+                                INNER JOIN PrescriptionDetails PD ON M.MedicineID = PD.MedicineID
+                                INNER JOIN #TempDispensed T ON PD.PrescriptionDetailsID = T.DetailsID
+                                WHERE T.IsDispensed = 1 AND T.DispensedQty > 0;";
+
+                    using (SqlCommand cmdUpdateStock = new SqlCommand(updateStockQuery, conn, transaction))
+                    {
+                        cmdUpdateStock.ExecuteNonQuery();
+                    }
+
+                    // ب. تسجيل حركة الصرف بالسالب في جدول InventoryTransactions للرقابة والتدقيق
+                    string insertTransactionQuery = @"
+                                    INSERT INTO InventoryTransactions (MedicineID, QuantityChange, ReferenceID, TransactionDate, UserID)
+                                    SELECT 
+                                        PD.MedicineID,
+                                        -T.DispensedQty,  -- الإشارة بالسالب لأنها حركة صرف (نقص في المخزن)
+                                        @BillID,          -- المرجع هنا هو رقم الفاتورة التي تم ربطها
+                                        GETDATE(),
+                                        @UserID
+                                    FROM #TempDispensed T
+                                    INNER JOIN PrescriptionDetails PD ON T.DetailsID = PD.PrescriptionDetailsID
+                                    WHERE T.IsDispensed = 1 AND T.DispensedQty > 0;";
+
+                    using (SqlCommand cmdInsertTrans = new SqlCommand(insertTransactionQuery, conn, transaction))
+                    {
+                        cmdInsertTrans.Parameters.AddWithValue("@BillID", BillID);
+                        cmdInsertTrans.Parameters.AddWithValue("@UserID", userId);
+                        cmdInsertTrans.ExecuteNonQuery();
+                    }
+
                     transaction.Commit();
                     return true;
                 }

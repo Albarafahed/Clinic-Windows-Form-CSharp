@@ -482,9 +482,6 @@
     <EmbeddedResource Include="Medical Services\Pharmaciy\frmDirictSales.resx">
       <DependentUpon>frmDirictSales.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Medical Services\Pharmaciy\frmDoctorPrescriptions.resx">
-      <DependentUpon>frmDoctorPrescriptions.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Pharmaciy\frmManageDrugs.resx">
       <DependentUpon>frmManageDrugs.cs</DependentUpon>
     </EmbeddedResource>

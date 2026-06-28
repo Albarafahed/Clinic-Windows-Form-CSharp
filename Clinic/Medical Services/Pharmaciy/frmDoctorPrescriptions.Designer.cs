@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-
-namespace Clinic.Medical_Services.Pharmaciy
+﻿namespace Clinic.Medical_Services.Pharmaciy
 {
     partial class frmPrescriptionDispnsing
     {
@@ -1083,27 +1080,27 @@ namespace Clinic.Medical_Services.Pharmaciy
         private System.Windows.Forms.Label lbPatientNameDetalis;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbPatientName;
-        private DataGridView dgvPrescription;
-        private Panel panel13;
-        private DataGridView dgPrescriptionDetails;
-        private Panel panbtnSendToAccounting;
-        private Label lbOrderID;
-        private Label label7;
-        private Label label6;
-        private Label label3;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox1;
-        private Button btnSendToAccounting;
-        private Panel panbtnDispense;
-        private Label label20;
-        private Label label17;
-        private PictureBox pictureBox6;
-        private Label label18;
-        private Button btnDispense;
-        private Panel panbtnCancelOrder;
-        private Label label19;
-        private Label label16;
-        private Button btnCancelOrder;
-        private Label label4;
+        private System.Windows.Forms.DataGridView dgvPrescription;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.DataGridView dgPrescriptionDetails;
+        private System.Windows.Forms.Panel panbtnSendToAccounting;
+        private System.Windows.Forms.Label lbOrderID;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnSendToAccounting;
+        private System.Windows.Forms.Panel panbtnDispense;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button btnDispense;
+        private System.Windows.Forms.Panel panbtnCancelOrder;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button btnCancelOrder;
+        private System.Windows.Forms.Label label4;
     }
 }
