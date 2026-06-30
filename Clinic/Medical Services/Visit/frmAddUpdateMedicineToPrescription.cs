@@ -20,6 +20,7 @@ namespace Clinic.Medical_Services.Visit
         private DataRow _Row;
         private DataTable _dtMedicines;
         private decimal _TaxRate = 0.0m;
+        private decimal _price = 0.0m;
         public frmAddUpdateMedicineToPrescription(ref DataTable dtMedicines)
         {
             InitializeComponent();
@@ -120,10 +121,11 @@ namespace Clinic.Medical_Services.Visit
 
                 if (foundRows.Length > 0)
                 {
-                    decimal price = Convert.ToDecimal(foundRows[0]["MedicinePrice"]);
+                    _price = Convert.ToDecimal(foundRows[0]["MedicinePrice"]);
                      _TaxRate = Convert.ToDecimal(foundRows[0]["TaxRate"]);
 
-                    lblMedicinePrice.Text = (price+_TaxRate).ToString("F2"); // تنسيق الرقم ليظهر بمنزلتين عشريتين
+                    decimal totalPrice = _price + (_price * (_TaxRate / 100m));
+                    lblMedicinePrice.Text = totalPrice.ToString("F2");
                 }
             }
         }
@@ -187,7 +189,7 @@ namespace Clinic.Medical_Services.Visit
                 newRow["SavedMedicineName"] = cbMedicines.Text;
                 newRow["Quantity"] = requestedQuantity;
                 newRow["Frequency"] = nudFrequency.Value;
-                newRow["SavedMedicinePrice"] = Convert.ToDecimal(lblMedicinePrice.Text); // تحويل آمن عشري
+                newRow["SavedMedicinePrice"] = _price;
                 newRow["Dosage"] = txtDosage.Text;
                 newRow["Instructions"] = txtInstructions.Text;
                 newRow["DiscountAmount"] = discount;
@@ -210,8 +212,8 @@ namespace Clinic.Medical_Services.Visit
                 _Row["MedicineID"] = selectedMedicineID;
                 _Row["SavedMedicineName"] = cbMedicines.Text;
                 _Row["Quantity"] = requestedQuantity;
-                _Row["Frequency"] = nudFrequency.Value; // أضفتها هنا لأنك نسيتها في كود التحديث الأصلي!
-                _Row["SavedMedicinePrice"] = Convert.ToDecimal(lblMedicinePrice.Text); // تحويل آمن عشري
+                _Row["Frequency"] = nudFrequency.Value; 
+                _Row["SavedMedicinePrice"] = _price; 
                 _Row["Dosage"] = txtDosage.Text;
                 _Row["Instructions"] = txtInstructions.Text;
                 _Row["DiscountAmount"] = discount;

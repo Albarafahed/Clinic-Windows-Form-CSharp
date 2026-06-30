@@ -94,7 +94,9 @@ namespace Clinic_Business
             dtMedicines.Columns.Add("SavedMedicinePrice", typeof(decimal)).DefaultValue = 0m;
             dtMedicines.Columns.Add("TaxRate", typeof(decimal));
 
-            string expression = "((SavedMedicinePrice * Quantity) * (1 + (TaxRate / 100))) - (DiscountAmount * Quantity)";
+            string expression =
+                          "((SavedMedicinePrice * Quantity) - (DiscountAmount * Quantity)) + " +
+                          "((SavedMedicinePrice * Quantity) * (TaxRate / 100))";
             dtMedicines.Columns.Add("Total", typeof(decimal), expression);
         }
         private bool _AddNewPrescription()

@@ -38,7 +38,9 @@ namespace Clinic.Medical_Services.Pharmaciy
             _dtAllMedicines.Columns.Add("TaxRate", typeof(decimal)).DefaultValue = 0m;
 
 
-            string expression = "((SavedMedicinePrice * Quantity) * (1 + (TaxRate / 100))) - (DiscountAmount * Quantity)";
+            string expression =
+                       "((SavedMedicinePrice * Quantity) - (DiscountAmount * Quantity)) + " +
+                       "((SavedMedicinePrice * Quantity) * (TaxRate / 100))";
 
             _dtAllMedicines.Columns.Add("Total", typeof(decimal), expression);
         }

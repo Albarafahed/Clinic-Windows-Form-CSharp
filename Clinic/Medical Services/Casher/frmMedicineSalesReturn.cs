@@ -26,7 +26,7 @@ namespace Clinic.Medical_Services.Casher
             _qtyNumericUpDown.Minimum = 0;
             _qtyNumericUpDown.Visible = false;
             _qtyNumericUpDown.BorderStyle = BorderStyle.None;
-           
+
             // ربط أحداث العداد للمزامنة الفورية
             _qtyNumericUpDown.ValueChanged += QtyNumericUpDown_ValueChanged;
             _qtyNumericUpDown.Leave += QtyNumericUpDown_Leave;
@@ -63,12 +63,12 @@ namespace Clinic.Medical_Services.Casher
 
         private void _LoadBillData(int billID)
         {
-            if (!clsSalesReturn.CheckBillEligibilityForReturn(billID))
+            if (!clsSalesReturn.IsBillPaidOrPartiallyPaid(billID))
             {
                 MessageBox.Show("Cannot process return. This bill is either unpaid, cancelled, or does not exist.",
                                 "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 _ResetForm();
-                return; 
+                return;
             }
             _qtyNumericUpDown.Visible = false;
             clsSalesReturn.clsBillMasterInfo billMaster;
@@ -203,7 +203,7 @@ namespace Clinic.Medical_Services.Casher
                 _qtyNumericUpDown.Visible = false;
             }
 
-          
+
         }
 
         private void dgvReturnItems_SelectionChanged(object sender, EventArgs e)
@@ -241,9 +241,17 @@ namespace Clinic.Medical_Services.Casher
             {
                 if (row.IsNewRow) continue;
 
-                int qtyReturnedNow = Convert.ToInt32(row.Cells["QtyReturned"].Value ?? 0);
-                decimal unitPrice = Convert.ToDecimal(row.Cells["UnitPrice"].Value ?? 0);
-                decimal taxRate = Convert.ToDecimal(row.Cells["TaxRate"].Value ?? 0);
+                int qtyReturnedNow = row.Cells["QtyReturned"].Value == DBNull.Value
+       ? 0
+       : Convert.ToInt32(row.Cells["QtyReturned"].Value);
+
+                decimal unitPrice = row.Cells["UnitPrice"].Value == DBNull.Value
+                    ? 0
+                    : Convert.ToDecimal(row.Cells["UnitPrice"].Value);
+
+                decimal taxRate = row.Cells["TaxRate"].Value == DBNull.Value
+                    ? 0
+                    : Convert.ToDecimal(row.Cells["TaxRate"].Value);
 
                 if (qtyReturnedNow > 0)
                 {

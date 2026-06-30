@@ -98,7 +98,7 @@ namespace Clinic_Business
             }
         }
 
-        public static bool CheckBillEligibilityForReturn(int billID)
+        public static bool IsBillPaidOrPartiallyPaid(int billID)
         {
             return clsSalesReturnDataAccess.IsBillPaidOrPartiallyPaid(billID);
         }

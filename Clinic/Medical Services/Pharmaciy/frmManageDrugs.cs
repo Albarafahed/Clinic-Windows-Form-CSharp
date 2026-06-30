@@ -15,7 +15,6 @@ namespace Clinic.Medical_Services.Pharmaciy
     public partial class frmManageDrugs : Form
     {
         private clsMedicine _Medicine;
-        private int __MedicineID = -1;
         private DataTable _MedicineTable = clsMedicine.GetAllMedicines();
         public enum enMode { AddNew = 0, Update = 1 }
         public enMode Mode = enMode.AddNew;

@@ -182,7 +182,132 @@ namespace Clinic_DataAccess
             return (dt.Rows.Count > 0) ? dt.Rows[0] : null;
         }
 
+        public static bool CancelBillAndRestoreStock(int billID, int userID)
+        {
+            bool isCancelled = false;
 
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    connection.Open();
+                    SqlTransaction transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        // 1. إرجاع المخزون
+                        string query1 = @"
+                    UPDATE M
+                    SET M.CurrentStock = M.CurrentStock + PD.DispensedQuantity
+                    FROM Medicines M
+                    INNER JOIN PrescriptionDetails PD ON M.MedicineID = PD.MedicineID
+                    INNER JOIN Prescriptions P ON P.PrescriptionID = PD.PrescriptionID
+                    WHERE P.BillID = @BillID
+                    AND PD.DispensedQuantity > 0;
+                ";
+
+                        using (SqlCommand cmd1 = new SqlCommand(query1, connection, transaction))
+                        {
+                            cmd1.Parameters.AddWithValue("@BillID", billID);
+                            cmd1.ExecuteNonQuery();
+                        }
+
+                        // 2. تسجيل حركة الإرجاع في InventoryTransactions
+                        string query2 = @"
+                    INSERT INTO InventoryTransactions
+                    (
+                        MedicineID,
+                        QuantityChange,
+                        ReferenceID,
+                        TransactionDate,
+                        UserID
+                    )
+                    SELECT
+                        PD.MedicineID,
+                        PD.DispensedQuantity,
+                        @BillID,
+                        GETDATE(),
+                        @UserID
+                    FROM PrescriptionDetails PD
+                    INNER JOIN Prescriptions P ON P.PrescriptionID = PD.PrescriptionID
+                    WHERE P.BillID = @BillID
+                    AND PD.DispensedQuantity > 0;
+                ";
+
+                        using (SqlCommand cmd2 = new SqlCommand(query2, connection, transaction))
+                        {
+                            cmd2.Parameters.AddWithValue("@BillID", billID);
+                            cmd2.Parameters.AddWithValue("@UserID", userID);
+                            cmd2.ExecuteNonQuery();
+                        }
+
+                        // 3. تصفير الصرف
+                        string query3 = @"
+                    UPDATE PrescriptionDetails
+                    SET DispensedQuantity = 0,
+                        IsDispensed = 0
+                    WHERE PrescriptionID IN
+                    (SELECT PrescriptionID FROM Prescriptions WHERE BillID = @BillID);
+                ";
+
+                        using (SqlCommand cmd3 = new SqlCommand(query3, connection, transaction))
+                        {
+                            cmd3.Parameters.AddWithValue("@BillID", billID);
+                            cmd3.ExecuteNonQuery();
+                        }
+
+                        // 4. إلغاء الوصفات
+                        string query4 = @"
+                    UPDATE Prescriptions
+                    SET PrescriptionStatus = 6
+                    WHERE BillID = @BillID;
+                ";
+
+                        using (SqlCommand cmd4 = new SqlCommand(query4, connection, transaction))
+                        {
+                            cmd4.Parameters.AddWithValue("@BillID", billID);
+                            cmd4.ExecuteNonQuery();
+                        }
+
+                        // 5. إلغاء الفاتورة (آخر خطوة للتحقق)
+                        string query5 = @"
+                    UPDATE Bills
+                    SET PaymentStatus = 4
+                    WHERE BillID = @BillID
+                    AND PaymentStatus = 0;
+                ";
+
+                        using (SqlCommand cmd5 = new SqlCommand(query5, connection, transaction))
+                        {
+                            cmd5.Parameters.AddWithValue("@BillID", billID);
+
+                            int affected = cmd5.ExecuteNonQuery();
+
+                            if (affected == 0)
+                            {
+                                transaction.Rollback();
+                                return false;
+                            }
+                        }
+
+                        transaction.Commit();
+                        isCancelled = true;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, billID);
+                isCancelled = false;
+            }
+
+            return isCancelled;
+        }
         public static bool GetBillSummaryData(int BillID,
          ref string billNumber, ref string patientName,
          ref decimal appointmentFees, ref decimal totalMedicines, ref decimal totalServices,
@@ -256,7 +381,144 @@ namespace Clinic_DataAccess
 
 
         #region EDitPending Prescription ITems
-        //public static bool GetPrescriptionsDetails
+        public static DataTable GetPrescriptionsDetails(int BillID, ref int PrescriptionID, ref DateTime PrescriptionDate, ref bool isFound)
+        {
+            DataTable dtDetails = new DataTable();
+            isFound = false;
+
+            string query = @"
+        -- الاستعلام الأول: جلب معلومات الفاتورة والمريض العامة
+          Select PrescriptionID,Format(PrescriptionDate,'yyyy/MM/dd')As PrescriptionDate
+                 From Prescriptions
+                Where BillID=@BillID
+
+        -- الاستعلام الثاني: جلب تفاصيل الأدوية والضرائب والكميات المرتجعة سابقاً
+         Select PrescriptionDetailsID,SavedMedicineName,SavedMedicinePrice,DispensedQuantity
+                  From PrescriptionDetails PD
+                  INNER JOIN Prescriptions P ON PD.PrescriptionID=P.PrescriptionID
+                  Where P.BillID=@BillID";
+
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@BillID", BillID);
+
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            // 1. قراءة النتيجة الأولى (المعلومات العامة للفاتورة)
+                            if (reader.Read())
+                            {
+                                PrescriptionID = (int)reader["PrescriptionID"];
+                                PrescriptionDate = Convert.ToDateTime(reader["PrescriptionDate"]); // تم تصحيح الكاستنج هنا
+                                isFound = true;
+                            }
+
+                            // 2. الانتقال إلى النتيجة الثانية (جدول تفاصيل الأدوية)
+                            if (reader.NextResult())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    dtDetails.Load(reader);
+                                }
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                        isFound = false;
+                    }
+                }
+            }
+            return dtDetails;
+        }
+
+        public static bool UpdateAfterEditPendingPrescription(DataTable dtDetails,int BillID,int CreatedByUserID)
+        {
+            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+
+                try
+                {
+                    // 1. إنشاء الجدول المؤقت
+                    conn.ExecuteNonQuery("CREATE TABLE #TempDispensed (DetailsID INT, DispensedQty INT)", transaction);
+
+                    // 2. نقل البيانات عبر SqlBulkCopy
+                    using (SqlBulkCopy bulkCopy = new SqlBulkCopy(conn, SqlBulkCopyOptions.Default, transaction))
+                    {
+                        bulkCopy.DestinationTableName = "#TempDispensed";
+                        bulkCopy.ColumnMappings.Add("PrescriptionDetailsID", "DetailsID");
+                        bulkCopy.ColumnMappings.Add("QtyReturned", "DispensedQty");
+                        bulkCopy.WriteToServer(dtDetails);
+                    }
+
+                    // 3. تحديث الجدول الأصلي
+                    string updateQuery = @"UPDATE PD 
+                                   SET PD.DispensedQuantity =PD.DispensedQuantity - T.DispensedQty, 
+                                       PD.IsDispensed = CASE WHEN (PD.DispensedQuantity - T.DispensedQty) > 0 THEN 1 ELSE 0 END
+                                   FROM PrescriptionDetails PD
+                                   INNER JOIN #TempDispensed T ON PD.PrescriptionDetailsID = T.DetailsID";
+                    conn.ExecuteNonQuery(updateQuery, transaction);
+
+                  
+                    
+
+                    string updateStockQuery = @"
+                                UPDATE M
+                                SET M.CurrentStock = M.CurrentStock + T.DispensedQty
+                                FROM Medicines M
+                                INNER JOIN PrescriptionDetails PD ON M.MedicineID = PD.MedicineID
+                                INNER JOIN #TempDispensed T ON PD.PrescriptionDetailsID = T.DetailsID
+                                WHERE T.DispensedQty > 0;";
+
+                    using (SqlCommand cmdUpdateStock = new SqlCommand(updateStockQuery, conn, transaction))
+                    {
+                        cmdUpdateStock.ExecuteNonQuery();
+                    }
+
+                    // ب. تسجيل حركة الصرف بالسالب في جدول InventoryTransactions للرقابة والتدقيق
+                    string insertTransactionQuery = @"
+                                    INSERT INTO InventoryTransactions (MedicineID, QuantityChange, ReferenceID, TransactionDate, UserID)
+                                    SELECT 
+                                        PD.MedicineID,
+                                        +T.DispensedQty,  
+                                        @BillID,          -- المرجع هنا هو رقم الفاتورة التي تم ربطها
+                                        GETDATE(),
+                                        @UserID
+                                    FROM #TempDispensed T
+                                    INNER JOIN PrescriptionDetails PD ON T.DetailsID = PD.PrescriptionDetailsID
+                                    WHERE T.DispensedQty > 0;";
+
+                    using (SqlCommand cmdInsertTrans = new SqlCommand(insertTransactionQuery, conn, transaction))
+                    {
+                        cmdInsertTrans.Parameters.AddWithValue("@BillID", BillID);
+                        cmdInsertTrans.Parameters.AddWithValue("@UserID", CreatedByUserID);
+                        cmdInsertTrans.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch (SqlException ex)
+                {
+                    clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+                    transaction.Rollback();
+                    return false;
+                }
+                finally
+                {
+                    try { conn.ExecuteNonQuery("IF OBJECT_ID('tempdb..#TempDispensed') IS NOT NULL DROP TABLE #TempDispensed", transaction); }
+                    catch { }
+                }
+            }
+
+        }
 
         #endregion
 

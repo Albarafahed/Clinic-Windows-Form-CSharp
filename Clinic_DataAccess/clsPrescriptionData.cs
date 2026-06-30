@@ -139,7 +139,6 @@ namespace Clinic_DataAccess
             }
         }
 
-        // 1. SavePrescription
         public static int SavePrescription(int VisitID, string Notes, DateTime Date, DataTable dtMedicines, byte Prescriptiontype, SqlTransaction transaction)
         {
             string queryMaster = @"INSERT INTO Prescriptions (VisitID, PrescriptionDate, PrescriptionNotes, PrescriptionStatus, Prescriptiontype) 
@@ -177,7 +176,6 @@ namespace Clinic_DataAccess
             return prescriptionID;
         }
 
-        // 2. UpdatePrescription
         public static bool UpdatePrescription(int PrescriptionID, int VisitID, string Notes, DateTime Date, DataTable dtMedicines, SqlTransaction transaction)
         {
             if (!IsPrescriptionPending(PrescriptionID))
@@ -225,7 +223,6 @@ namespace Clinic_DataAccess
             return true;
         }
 
-        // 3. DeletePrescription
         public static bool DeletePrescription(int PrescriptionID, SqlTransaction transaction)
         {
             string queryDeleteDetails = "DELETE FROM PrescriptionDetails WHERE PrescriptionID = @PrescriptionID";
@@ -509,7 +506,6 @@ namespace Clinic_DataAccess
         }
 
 
-        //public static DataTable 
         public static bool Find(int VisitID, ref int PrescriptionID, ref string PrescriptionNotes, ref DateTime PrescriptionDate, ref byte PrescriptionStatus)
         {
             try

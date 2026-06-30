@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Clinic_Business.clsSalesReturn;
 
 namespace Clinic_Business
 {
@@ -49,6 +50,33 @@ namespace Clinic_Business
             _LoadBillSummaryData();
         }
 
+        public static DataTable GetBillCompleteDetails(int billID, out clsBillMasterInfo billMaster)
+        {
+            billMaster = new clsBillMasterInfo();
+            string billNumber = "";
+            DateTime billDate = DateTime.Now;
+            string patientName = "";
+            bool isFound = false;
+
+            // استدعاء الدالة المدمجة الذكية من طبقة الـ DAL
+            DataTable dtDetails = clsSalesReturnDataAccess.GetBillCompleteInfo(
+                billID, ref billNumber, ref billDate, ref patientName, ref isFound
+            );
+
+            if (isFound)
+            {
+                billMaster.BillNumber = billNumber;
+                billMaster.BillDate = billDate;
+                billMaster.PatientName = patientName;
+                billMaster.IsFound = true;
+            }
+            else
+            {
+                billMaster.IsFound = false;
+            }
+
+            return dtDetails;
+        }
         private void _LoadBillSummaryData()
         {
             string bNumber = ""; string pName = "";
@@ -93,6 +121,11 @@ namespace Clinic_Business
         public static DataTable GetAllBills()
         {
             return clsBillingServiceData.GetAllBills();
+        }
+
+        public static bool CancelBill(int billID,int userID)
+        {
+            return clsBillingServiceData.CancelBillAndRestoreStock(billID,userID);
         }
     }
 }

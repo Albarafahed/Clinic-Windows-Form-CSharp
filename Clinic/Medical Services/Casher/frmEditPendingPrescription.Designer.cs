@@ -24,8 +24,8 @@
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlTopHeader = new System.Windows.Forms.Panel();
             this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -37,10 +37,6 @@
             this.pnlOrderDetailsHeader = new System.Windows.Forms.Panel();
             this.lblOrderDetailsTitle = new System.Windows.Forms.Label();
             this.dgvPrescriptionItems = new System.Windows.Forms.DataGridView();
-            this.colMedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colQtyRequested = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colUnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAction = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.btnSaveChanges = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -193,28 +189,23 @@
             this.dgvPrescriptionItems.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(50)))), ((int)(((byte)(51)))));
             this.dgvPrescriptionItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvPrescriptionItems.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(68)))), ((int)(((byte)(70)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(68)))), ((int)(((byte)(70)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPrescriptionItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(68)))), ((int)(((byte)(70)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(68)))), ((int)(((byte)(70)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPrescriptionItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvPrescriptionItems.ColumnHeadersHeight = 45;
-            this.dgvPrescriptionItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colMedName,
-            this.colQtyRequested,
-            this.colUnitPrice,
-            this.colAction});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(76)))), ((int)(((byte)(78)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(110)))), ((int)(((byte)(112)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPrescriptionItems.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(76)))), ((int)(((byte)(78)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 11F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(110)))), ((int)(((byte)(112)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPrescriptionItems.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvPrescriptionItems.EnableHeadersVisualStyles = false;
             this.dgvPrescriptionItems.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.dgvPrescriptionItems.Location = new System.Drawing.Point(14, 203);
@@ -226,39 +217,6 @@
             this.dgvPrescriptionItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPrescriptionItems.Size = new System.Drawing.Size(1182, 468);
             this.dgvPrescriptionItems.TabIndex = 3;
-            // 
-            // colMedName
-            // 
-            this.colMedName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colMedName.HeaderText = "Medication Name";
-            this.colMedName.MinimumWidth = 6;
-            this.colMedName.Name = "colMedName";
-            this.colMedName.ReadOnly = true;
-            // 
-            // colQtyRequested
-            // 
-            this.colQtyRequested.HeaderText = "Qty Requested";
-            this.colQtyRequested.MinimumWidth = 6;
-            this.colQtyRequested.Name = "colQtyRequested";
-            this.colQtyRequested.Width = 160;
-            // 
-            // colUnitPrice
-            // 
-            this.colUnitPrice.HeaderText = "Unit Price";
-            this.colUnitPrice.MinimumWidth = 6;
-            this.colUnitPrice.Name = "colUnitPrice";
-            this.colUnitPrice.ReadOnly = true;
-            this.colUnitPrice.Width = 160;
-            // 
-            // colAction
-            // 
-            this.colAction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.colAction.HeaderText = "Action";
-            this.colAction.MinimumWidth = 6;
-            this.colAction.Name = "colAction";
-            this.colAction.Text = "Delete 🗑";
-            this.colAction.UseColumnTextForButtonValue = true;
-            this.colAction.Width = 140;
             // 
             // pnlFooter
             // 
@@ -289,6 +247,7 @@
             this.btnSaveChanges.TabIndex = 0;
             this.btnSaveChanges.Text = "Save Changes  ✔";
             this.btnSaveChanges.UseVisualStyleBackColor = false;
+            this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
             // 
             // btnCancel
             // 
@@ -306,13 +265,14 @@
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // frmEditPendingPrescription
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(41)))), ((int)(((byte)(42)))));
-            this.ClientSize = new System.Drawing.Size(1195, 766);
+            this.ClientSize = new System.Drawing.Size(1210, 803);
             this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.dgvPrescriptionItems);
             this.Controls.Add(this.pnlOrderDetailsHeader);
@@ -346,10 +306,6 @@
         private System.Windows.Forms.Panel pnlOrderDetailsHeader;
         private System.Windows.Forms.Label lblOrderDetailsTitle;
         private System.Windows.Forms.DataGridView dgvPrescriptionItems;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colMedName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colQtyRequested;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colUnitPrice;
-        private System.Windows.Forms.DataGridViewButtonColumn colAction;
         private System.Windows.Forms.Panel pnlFooter;
         private System.Windows.Forms.Button btnSaveChanges;
         private System.Windows.Forms.Button btnCancel;

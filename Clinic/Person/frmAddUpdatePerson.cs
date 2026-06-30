@@ -142,8 +142,6 @@ namespace Clinic.Person
 
         }
 
-
-
         private void ValidateTextBox(object sender, CancelEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -185,8 +183,6 @@ namespace Clinic.Person
 
         }
 
-
-
         private void CheckedImageGender(object sender, EventArgs e)
         {
             if (pbPersonImage.ImageLocation == null)
@@ -218,11 +214,6 @@ namespace Clinic.Person
         {
             pbPersonImage.ImageLocation = null;
             CheckedImageGender(null, null);
-        }
-
-        private void lblTitle_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnClose_Click(object sender, EventArgs e)

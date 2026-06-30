@@ -1,9 +1,10 @@
 ﻿using Clinic_Business;
 using System;
 using System.Data;
-using System.Data.SqlClient; // أو اسم الكلاس الخاص بطبقة البيانات لديك (Business Layer)
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+
 
 namespace Clinic.Medical_Services.Casher
 {
@@ -40,7 +41,7 @@ namespace Clinic.Medical_Services.Casher
 
         private void _RefreshBillsList()
         {
-             _dtBills = clsBillingService.GetAllBills();
+            _dtBills = clsBillingService.GetAllBills();
             _dvBills = _dtBills.DefaultView;
             dgMasterBillList.DataSource = _dvBills;
 
@@ -50,6 +51,42 @@ namespace Clinic.Medical_Services.Casher
             _AddActionButtonsOnce();
         }
 
+
+        private int GetPrescriptionCount(string itemsTotal)
+        {
+            if (string.IsNullOrWhiteSpace(itemsTotal))
+                return 0;
+
+            Match match = Regex.Match(itemsTotal, @"(\d+)\s+Presc");
+            return match.Success ? int.Parse(match.Groups[1].Value) : 0;
+        }
+
+        private int GetPharmacySaleCount(string itemsTotal)
+        {
+            if (string.IsNullOrWhiteSpace(itemsTotal))
+                return 0;
+
+            Match match = Regex.Match(itemsTotal, @"(\d+)\s+Pharmacy Sale");
+            return match.Success ? int.Parse(match.Groups[1].Value) : 0;
+        }
+
+        private int GetServiceCount(string itemsTotal)
+        {
+            if (string.IsNullOrWhiteSpace(itemsTotal))
+                return 0;
+
+            Match match = Regex.Match(itemsTotal, @"(\d+)\s+Serv");
+            return match.Success ? int.Parse(match.Groups[1].Value) : 0;
+        }
+
+        private bool IsEmptyBill(string itemsTotal)
+        {
+            int serv = GetServiceCount(itemsTotal);
+            int presc = GetPrescriptionCount(itemsTotal);
+            int pharm = GetPharmacySaleCount(itemsTotal);
+
+            return serv == 0 && presc == 0 && pharm == 0;
+        }
 
         private void _UpdateKPICards(DataTable dt)
         {
@@ -149,7 +186,7 @@ namespace Clinic.Medical_Services.Casher
 
         private void _AddActionButtonsOnce()
         {
-            if (dgMasterBillList.Columns.Contains("BillID")) dgMasterBillList.Columns["BillID"].Visible=false;
+            if (dgMasterBillList.Columns.Contains("BillID")) dgMasterBillList.Columns["BillID"].Visible = false;
 
             if (dgMasterBillList.Columns.Contains("btnPayAction")) return;
 
@@ -161,7 +198,7 @@ namespace Clinic.Medical_Services.Casher
             payColumn.UseColumnTextForButtonValue = true;
             payColumn.FlatStyle = FlatStyle.Flat;
             dgMasterBillList.Columns.Add(payColumn);
-            
+
             // الزر الثاني: زر ديناميكي (تعديل ودفع جزئي في حالة المعلق / أو ارتجاع في حالة المدفوع)
             DataGridViewButtonColumn editColumn = new DataGridViewButtonColumn();
             editColumn.Name = "btnEditAction";
@@ -188,53 +225,96 @@ namespace Clinic.Medical_Services.Casher
 
         private void dgMasterBillList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex < 0 || e.RowIndex >= dgMasterBillList.Rows.Count) return;
+            if (e.RowIndex < 0 || e.RowIndex >= dgMasterBillList.Rows.Count)
+                return;
 
             string status = dgMasterBillList.Rows[e.RowIndex].Cells["Status"].Value?.ToString();
-            if (string.IsNullOrEmpty(status)) return;
+            string itemsTotal = dgMasterBillList.Rows[e.RowIndex].Cells["ItemsTotal"].Value?.ToString();
 
-            // 🎨 [تلوين حقل الحالة بجميع الحالات الـ 5 المتاحة]
+            if (string.IsNullOrWhiteSpace(status))
+                return;
+
+            int prescriptionCount = GetPrescriptionCount(itemsTotal);
+            int pharmacySaleCount = GetPharmacySaleCount(itemsTotal);
+            bool hasServices = GetServiceCount(itemsTotal) > 0;
+
+            // ===== STATUS =====
             if (dgMasterBillList.Columns[e.ColumnIndex].Name == "Status")
             {
-                if (status == "Paid") { e.CellStyle.ForeColor = Color.SpringGreen; e.CellStyle.Font = new Font(dgMasterBillList.Font, FontStyle.Bold); }
-                else if (status == "Partial") { e.CellStyle.ForeColor = Color.Orange; e.CellStyle.Font = new Font(dgMasterBillList.Font, FontStyle.Bold); }
-                else if (status == "Pending") { e.CellStyle.ForeColor = Color.Tomato; e.CellStyle.Font = new Font(dgMasterBillList.Font, FontStyle.Bold); }
-                else if (status == "Cancelled") { e.CellStyle.ForeColor = Color.Crimson; e.CellStyle.Font = new Font(dgMasterBillList.Font, FontStyle.Bold); } // أحمر صريح للملغية
-                else if (status == "Refunded") { e.CellStyle.ForeColor = Color.DodgerBlue; e.CellStyle.Font = new Font(dgMasterBillList.Font, FontStyle.Bold); } // أزرق هادئ للمرتجعة
+                switch (status)
+                {
+                    case "Paid":
+                        e.CellStyle.ForeColor = Color.SpringGreen;
+                        break;
+
+                    case "Partial":
+                        e.CellStyle.ForeColor = Color.Orange;
+                        break;
+
+                    case "Pending":
+                        e.CellStyle.ForeColor = Color.Tomato;
+                        break;
+
+                    case "Cancelled":
+                        e.CellStyle.ForeColor = Color.Crimson;
+                        break;
+
+                    case "Refunded":
+                        e.CellStyle.ForeColor = Color.DodgerBlue;
+                        break;
+                }
+
+                e.CellStyle.Font = new Font(dgMasterBillList.Font, FontStyle.Bold);
             }
 
-            // [تنسيق الزر الأول: الدفع الكامل / الطباعة]
+            // ===== PAY BUTTON =====
             if (dgMasterBillList.Columns[e.ColumnIndex].Name == "btnPayAction")
             {
-                if (status == "Pending" || status == "Partial")
+                if (IsEmptyBill(itemsTotal))
                 {
-                    e.Value = status == "Pending" ? "💳 Pay All" : "🔸 Complete";
+                    e.Value = "🗑 Delete";
+                    e.CellStyle.BackColor = Color.FromArgb(120, 40, 40);
+                    e.CellStyle.ForeColor = Color.White;
+                    return;
+                }
+
+                if (status == "Pending")
+                {
+                    e.Value = "💳 Pay";
                     e.CellStyle.BackColor = Color.FromArgb(14, 114, 95);
                     e.CellStyle.ForeColor = Color.White;
                 }
-                // إذا كانت الفاتورة مدفوعة أو مرتجعة، يتحول الزر إلى طباعة فوراً
-                else if (status == "Paid" || status == "Refunded")
+                else if (status == "Partial")
                 {
-                    e.Value = "🖨️ Print";
+                    e.Value = "🔸 Complete";
+                    e.CellStyle.BackColor = Color.FromArgb(14, 114, 95);
+                    e.CellStyle.ForeColor = Color.White;
+                }
+                else
+                {
+                    e.Value = "🖨 Print";
                     e.CellStyle.BackColor = Color.FromArgb(28, 58, 68);
                     e.CellStyle.ForeColor = Color.FromArgb(0, 210, 190);
                 }
-                else // في حالة Cancelled
-                {
-                    e.Value = "🔒 Locked";
-                    e.CellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(43)))), ((int)(((byte)(50)))));
-                    e.CellStyle.ForeColor = Color.DarkGray;
-                }
             }
 
-            // [تنسيق الزر الثاني: زر التعديل والدفع الجزئي / الارتجاع]
+            // ===== EDIT BUTTON =====
             if (dgMasterBillList.Columns[e.ColumnIndex].Name == "btnEditAction")
             {
                 if (status == "Pending")
                 {
-                    e.Value = "📝 Edit";
-                    e.CellStyle.BackColor = Color.FromArgb(0, 80, 90);
-                    e.CellStyle.ForeColor = Color.White;
+                    if (prescriptionCount > 0 || pharmacySaleCount > 0)
+                    {
+                        e.Value = "📝 Edit";
+                        e.CellStyle.BackColor = Color.FromArgb(0, 80, 90);
+                        e.CellStyle.ForeColor = Color.White;
+                    }
+                    else
+                    {
+                        e.Value = "🚫 No Medicines";
+                        e.CellStyle.BackColor = Color.FromArgb(20, 43, 50);
+                        e.CellStyle.ForeColor = Color.DarkGray;
+                    }
                 }
                 else if (status == "Paid" || status == "Partial")
                 {
@@ -242,18 +322,18 @@ namespace Clinic.Medical_Services.Casher
                     e.CellStyle.BackColor = Color.FromArgb(28, 58, 68);
                     e.CellStyle.ForeColor = Color.FromArgb(0, 210, 190);
                 }
-                else // في حالة Cancelled أو Refunded بالكامل
+                else
                 {
-                    e.Value = "👁️ View";
+                    e.Value = "👁 View";
                     e.CellStyle.BackColor = Color.FromArgb(30, 30, 30);
                     e.CellStyle.ForeColor = Color.DarkGray;
                 }
             }
 
-            // [تنسيق الزر الثالث: زر الإلغاء الفوري]
+            // ===== CANCEL BUTTON =====
             if (dgMasterBillList.Columns[e.ColumnIndex].Name == "btnCancelAction")
             {
-                if (status == "Pending")
+                if (status == "Pending" && !hasServices)
                 {
                     e.Value = "❌ Cancel";
                     e.CellStyle.BackColor = Color.FromArgb(120, 40, 40);
@@ -261,8 +341,8 @@ namespace Clinic.Medical_Services.Casher
                 }
                 else
                 {
-                    e.Value = "🔒 Disabled";
-                    e.CellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(43)))), ((int)(((byte)(50)))));
+                    e.Value = "🔒 Locked";
+                    e.CellStyle.BackColor = Color.FromArgb(20, 43, 50);
                     e.CellStyle.ForeColor = Color.DarkGray;
                 }
             }
@@ -270,76 +350,150 @@ namespace Clinic.Medical_Services.Casher
 
         private void dgMasterBillList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0)
+                return;
 
             int billID = Convert.ToInt32(dgMasterBillList.Rows[e.RowIndex].Cells["BillID"].Value);
-            string currentStatus = dgMasterBillList.Rows[e.RowIndex].Cells["Status"].Value.ToString();
 
-            // [أ] الضغط على زر الدفع الكامل أو الطباعة (Full Pay / Print)
+            string currentStatus = dgMasterBillList.Rows[e.RowIndex].Cells["Status"].Value?.ToString();
+            string itemsTotal = dgMasterBillList.Rows[e.RowIndex].Cells["ItemsTotal"].Value?.ToString();
+
+            int prescriptionCount = GetPrescriptionCount(itemsTotal);
+            int pharmacySaleCount = GetPharmacySaleCount(itemsTotal);
+            bool hasServices = GetServiceCount(itemsTotal) > 0;
+
+            // ===== PAY / DELETE =====
             if (dgMasterBillList.Columns[e.ColumnIndex].Name == "btnPayAction")
             {
-                // 🖨️ إذا كانت مدفوعة أو مرتجعة نفتح شاشة الفاتورة للطباعة والمراجعة فقط
+                if (IsEmptyBill(itemsTotal))
+                {
+                    if (MessageBox.Show(
+                        "This bill is empty. Do you want to delete it?",
+                        "Confirm Delete",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        //_DeleteBill(billID);
+                        _RefreshBillsList();
+                    }
+
+                    return;
+                }
+
                 if (currentStatus == "Paid" || currentStatus == "Refunded")
                 {
                     clsFormHelper.ShowForm(() => new frmIssueInvoice(billID));
-
                     return;
                 }
 
-                // 🔒 حظر العمليات في حال كانت الفاتورة ملغية تماماً
                 if (currentStatus == "Cancelled")
                 {
-                    MessageBox.Show("لا يمكن إجراء أي عملية دفع على فاتورة ملغية.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("This bill is cancelled.",
+                        "Warning",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
                     return;
                 }
 
-                // 💳 إذا كانت الفاتورة Pending أو Partial يفتح شاشة معالجة الدفع
-                clsFormHelper.ShowForm( ()=>new frmProcessPayments(billID), _RefreshBillsList);
-               
+                clsFormHelper.ShowForm(() => new frmProcessPayments(billID), _RefreshBillsList);
+                return;
             }
 
-            // 📝 [ب] الضغط على زر التعديل والدفع الجزئي أو الارتجاع
+            // ===== EDIT =====
             if (dgMasterBillList.Columns[e.ColumnIndex].Name == "btnEditAction")
             {
-                // حظر التعديل أو الارتجاع للفواتير الملغية أو التي تم ارتجاعها بالكامل سابقاً
                 if (currentStatus == "Cancelled" || currentStatus == "Refunded")
                 {
-                    MessageBox.Show($"هذه الفاتورة مقفلة تماماً لأنها: {currentStatus}", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("This bill is locked.",
+                        "Info",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                     return;
                 }
 
-                // الحالة الحرجة: الفاتورة معلقة والمريض ليس معه مال كافٍ
                 if (currentStatus == "Pending")
                 {
-                    frmEditPendingPrescription frm = new frmEditPendingPrescription(billID);
-                    frm.ShowDialog();
-                    _RefreshBillsList();
-                }
-                // إذا كانت الفاتورة مدفوعة مسبقاً (Paid أو Partial)، يفتح شاشة الارتجاع
-                else if (currentStatus == "Paid" || currentStatus == "Partial")
-                {
-                    frmMedicineSalesReturn frm = new frmMedicineSalesReturn(billID);
-                    frm.ShowDialog();
-                    _RefreshBillsList();
-                }
-            }
+                    if (prescriptionCount == 0 && pharmacySaleCount == 0)
+                    {
+                        MessageBox.Show("No items to edit.",
+                            "Info",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                        return;
+                    }
 
-            // ❌ [ج] الضغط على زر الإلغاء الفوري للفاتورة المعلقة
-            if (dgMasterBillList.Columns[e.ColumnIndex].Name == "btnCancelAction")
-            {
-                // حماية: منع الإلغاء لأي حالة أخرى غير Pending
-                if (currentStatus != "Pending")
-                {
-                    MessageBox.Show("لا يمكن إلغاء الفواتير المدفوعة أو المرتجعة أو الملغية مسبقاً من هنا.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    using (frmEditPendingPrescription frm = new frmEditPendingPrescription(billID))
+                    {
+                        frm.ShowDialog();
+                    }
+
+                    _RefreshBillsList();
                     return;
                 }
 
-                if (MessageBox.Show($"هل أنت متأكد من إلغاء الفاتورة رقم {billID} نهائياً؟", "تأكيد الإلغاء",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (currentStatus == "Paid" || currentStatus == "Partial")
                 {
-                    //_CancelPendingBillInDatabase(billID);
+                    using (frmMedicineSalesReturn frm = new frmMedicineSalesReturn(billID))
+                    {
+                        frm.ShowDialog();
+                    }
+
                     _RefreshBillsList();
                 }
+
+                return;
+            }
+
+            // ===== CANCEL =====
+            if (dgMasterBillList.Columns[e.ColumnIndex].Name == "btnCancelAction")
+            {
+                if (currentStatus != "Pending")
+                {
+                    MessageBox.Show("Only pending bills can be cancelled.",
+                        "Warning",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (hasServices)
+                {
+                    MessageBox.Show("Bills containing services cannot be cancelled.",
+                        "Warning",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (MessageBox.Show($"Cancel bill {billID}?",
+                    "Confirm",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+
+                    bool isCancelled = clsBillingService.CancelBill(billID,clsGlobal.CurrentUser.UserID);
+
+                    if (isCancelled)
+                    {
+                        MessageBox.Show(
+                            "The bill has been cancelled successfully.",
+                            "Success",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+                        _RefreshBillsList();
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            "Failed to cancel the bill. Please try again or contact support.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    }
+                }
+
+                return;
             }
         }
         private void btnExit_Click(object sender, EventArgs e)
@@ -347,7 +501,7 @@ namespace Clinic.Medical_Services.Casher
             this.Close();
         }
 
-        private void checkedBox_CheckedChanged(object sender, EventArgs e)=>_ApplyAdvancedFilter();
+        private void checkedBox_CheckedChanged(object sender, EventArgs e) => _ApplyAdvancedFilter();
 
         private void chkAllDates_CheckedChanged(object sender, EventArgs e) => _ApplyAdvancedFilter();
 
