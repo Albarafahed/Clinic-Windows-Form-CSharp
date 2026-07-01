@@ -485,11 +485,10 @@
             this.dgvPrescription.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvPrescription.ColumnHeadersHeight = 60;
             this.dgvPrescription.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvPrescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPrescription.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvPrescription.EnableHeadersVisualStyles = false;
             this.dgvPrescription.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(220)))), ((int)(((byte)(218)))));
-            this.dgvPrescription.Location = new System.Drawing.Point(0, 70);
+            this.dgvPrescription.Location = new System.Drawing.Point(4, 81);
             this.dgvPrescription.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvPrescription.MultiSelect = false;
             this.dgvPrescription.Name = "dgvPrescription";
@@ -510,7 +509,7 @@
             this.dgvPrescription.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvPrescription.RowTemplate.Height = 50;
             this.dgvPrescription.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPrescription.Size = new System.Drawing.Size(1209, 313);
+            this.dgvPrescription.Size = new System.Drawing.Size(887, 302);
             this.dgvPrescription.TabIndex = 248;
             this.dgvPrescription.TabStop = false;
             this.dgvPrescription.SelectionChanged += new System.EventHandler(this.dgvPrescription_SelectionChanged);

@@ -1,5 +1,4 @@
-﻿
-using Clinic_Business;
+﻿using Clinic_Business;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,505 +10,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace Clinic.Medical_Services.Pharmaciy
 {
     public partial class frmPrescriptionDispnsing : Form
     {
-        DataTable dtAllDetails = clsPrescription.GetAllPrescriptionDetails();
-        DataTable dtAllActivePrescriptions = clsPrescription.GetAllActivePrescriptions();
-        private bool _isUpdating = false; // هذا هو مفتاح الحماية
-        private int _currentPrescriptionId = -1;
+        private DataTable dtAllDetails = clsPrescription.GetAllPrescriptionDetails();
+        private DataTable dtAllActivePrescriptions = clsPrescription.GetAllActivePrescriptions();
+        private bool _isUpdating = false; // Guard flag to prevent re-entry loops
+        private int _currentPrescriptionId = -1;
         private int _AppointmentID = -1;
         private int _VisitID = -1;
-        decimal TotalMedicinesAmount = 0.0m, TaxRate = 0.0m;
+        private decimal TotalMedicinesAmount = 0.0m, TaxRate = 0.0m;
         private NumericUpDown _qtyNumericUpDown = new NumericUpDown();
+
         public frmPrescriptionDispnsing()
         {
             InitializeComponent();
+
+            // Wire up event handlers
             dgPrescriptionDetails.DataError += dgPrescriptionDetails_DataError;
             dgPrescriptionDetails.CellValueChanged += dgPrescriptionDetails_CellValueChanged;
             dgPrescriptionDetails.CellClick += dgPrescriptionDetails_CellClick;
             dgPrescriptionDetails.CellBeginEdit += dgPrescriptionDetails_CellBeginEdit;
-
+            // Configure custom embedded numeric up-down
             _qtyNumericUpDown.Minimum = 0;
-            _qtyNumericUpDown.Visible = false; // مخفي في البداية
-
-            // ربط الأحداث الخاصة بالكشاف لتحديث الخلايا عند التغيير وعند الخروج منها
-            _qtyNumericUpDown.ValueChanged += QtyNumericUpDown_ValueChanged;
+            _qtyNumericUpDown.Visible = false;
+            _qtyNumericUpDown.ValueChanged += QtyNumericUpDown_ValueChanged;
             _qtyNumericUpDown.Leave += QtyNumericUpDown_Leave;
 
-            // إضافة الكشاف إلى عناصر جدول الروشتة
-            dgPrescriptionDetails.Controls.Add(_qtyNumericUpDown);
+            dgPrescriptionDetails.Controls.Add(_qtyNumericUpDown);
 
-            // ربط حدث الـ Scroll للجدول لإخفاء الكشاف إذا قام المستخدم بالتحريك
-            dgPrescriptionDetails.Scroll += (s, ev) => { _qtyNumericUpDown.Visible = false; };
-        }
-
-        private void _AddColumn(string header, string dataProp, bool visible, int fillWeight = 10)
-        {
-            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
-            col.HeaderText = header;
-            col.DataPropertyName = dataProp;
-            col.Name = dataProp; // تأكد أن الاسم يطابق الـ DataPropertyName
-            col.Visible = visible;
-            col.FillWeight = fillWeight;
-            col.ReadOnly = true; // كل الأعمدة للقراءة فقط إلا إذا استثنيناها
-            dgPrescriptionDetails.Columns.Add(col);
-        }
-
-        private void _ResetFormat(string Status)
-        {
-            lbNotReady.Text = "(Not Ready for Dispensing)";
-            lbX.Text = "✕";
-            lbStatus.Text = Status;
-            panbtnDispense.Enabled = false;
-            panbtnSendToAccounting.Enabled = false;
-            panbtnCancelOrder.Enabled = false;
-            dgPrescriptionDetails.EditMode = DataGridViewEditMode.EditProgrammatically;
-
-            if (Status == "Pending")
-            {
-                lbStatus.ForeColor = Color.Teal;
-                lbNotReady.ForeColor = Color.Teal;
-                lbX.ForeColor = Color.Teal;
-                lbContainer.BackColor = Color.Teal;
-
-                panbtnSendToAccounting.Enabled = true;
-                panbtnCancelOrder.Enabled = true;
-
-                dgPrescriptionDetails.ReadOnly = false;
-                dgPrescriptionDetails.EditMode = DataGridViewEditMode.EditOnEnter;
-
-
-
-            }
-            else if (Status == "Waiting For Payment")
-            {
-                lbStatus.ForeColor = Color.Brown;
-                lbNotReady.ForeColor = Color.Brown;
-                lbX.ForeColor = Color.Brown;
-                lbContainer.BackColor = Color.Brown;
-                panbtnSendToAccounting.Enabled = false;
-
-            }
-            else if (Status == "Ready For Dispensing")
-            {
-                lbStatus.ForeColor = Color.Green;
-                lbNotReady.ForeColor = Color.Green;
-                lbX.ForeColor = Color.Green;
-                lbContainer.BackColor = Color.Green;
-                lbNotReady.Text = "(Ready for Dispensing)";
-                lbX.Text = "✓";
-                panbtnDispense.Enabled = true;
-
-            }
-
-            else if (Status == "PartiallyDispensed")
-            {
-                lbStatus.ForeColor = Color.GreenYellow;
-                lbNotReady.ForeColor = Color.GreenYellow;
-                lbX.ForeColor = Color.GreenYellow;
-                lbContainer.ForeColor = Color.GreenYellow;
-                btnDispense.Enabled = true;
-                panbtnSendToAccounting.Enabled = true;
-            }
-
-        }
-        private void _SetupPrescriptionGrid()
-        {
-            dgvPrescription.AutoGenerateColumns = false;
-            dgvPrescription.Columns.Clear();
-            dgvPrescription.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvPrescription.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPrescription.MultiSelect = false;
-            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "VisitID", DataPropertyName = "VisitID", Visible = false });
-            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "AppointmentID", DataPropertyName = "AppointmentID", Visible = false });
-
-            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PrescriptionID", DataPropertyName = "PrescriptionID", FillWeight = 15 });
-            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PatientName", HeaderText = "Patient", DataPropertyName = "PatientName", ReadOnly = true, FillWeight = 20 });
-            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "DoctorName", HeaderText = "Doctor", DataPropertyName = "DoctorName", ReadOnly = true, FillWeight = 20 });
-            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PrescriptionTime", HeaderText = "Time", DataPropertyName = "PrescriptionTime", ReadOnly = true, FillWeight = 10 });
-            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "Status", HeaderText = "Status", DataPropertyName = "Status", ReadOnly = true, FillWeight = 15 });
-            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "Status", HeaderText = "Status", DataPropertyName = "Status", ReadOnly = true, FillWeight = 15 });
-            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PrescriptionType", HeaderText = "PrescriptionType", DataPropertyName = "PrescriptionType", ReadOnly = true, FillWeight = 15 });
-
-            dgvPrescription.DataSource = dtAllActivePrescriptions;
-        }
-        private void _SetupPrescriptionDetailsGrid()
-        {
-            dgPrescriptionDetails.AutoGenerateColumns = false;
-            dgPrescriptionDetails.Columns.Clear();
-            dgPrescriptionDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            //dgPrescriptionDetails.RowTemplate.Height = 30;
-
-            // تأكد أن الجدول نفسه يسمح بالتعديل
-            dgPrescriptionDetails.ReadOnly = false;
-
-            _AddColumn("Status", "AvailableStatus", true, 30);
-            _AddColumn("ID", "PrescriptionDetailsID", false);
-            _AddColumn("PID", "PrescriptionID", false);
-            _AddColumn("Medicine", "MedicineName", true, 20);
-            _AddColumn("Price", "SavedMedicinePrice", true, 20);
-            _AddColumn("Discount", "DiscountAmount", true, 10);
-            _AddColumn("Dosage", "Dosage", true, 15);
-            _AddColumn("Freq", "Frequency", true, 10);
-            _AddColumn("Req Qty", "RequiredQuantity", true, 10);
-
-            // هذا العمود يجب أن يكون ReadOnly = false
-            DataGridViewTextBoxColumn colQty = new DataGridViewTextBoxColumn();
-            colQty.HeaderText = "Disp Qty";
-            colQty.DataPropertyName = "DispensedQuantity";
-            colQty.Name = "DispensedQuantity"; // هام جداً للوصول للخلية
-            colQty.ReadOnly = false; // هنا نفتح التعديل
-            colQty.FillWeight = 10;
-            dgPrescriptionDetails.Columns.Add(colQty);
-
-            // إضافة أعمدة خاصة (Check Box) - تأكد أنها أيضاً غير مغلقة
-            DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn
-            {
-                Name = "IsDispensed",
-                HeaderText = "Dispensed",
-                DataPropertyName = "IsDispensed",
-                ReadOnly = false, // تأكد من هذه
-                FillWeight = 10
-            };
-            dgPrescriptionDetails.Columns.Add(chk);
-
-            _AddColumn("Instr.", "Instructions", false, 15);
-        }
-
-        private int _GetMaxAvailable(DataGridViewRow row)
-        {
-            string status = row.Cells["AvailableStatus"].Value.ToString();
-            if (status == "Fully Available")
-                return Convert.ToInt32(row.Cells["RequiredQuantity"].Value);
-
-            if (status.StartsWith("Partially Available"))
-            {
-                string numStr = status.Substring(status.IndexOf("(") + 1, status.IndexOf(")") - status.IndexOf("(") - 1);
-                return int.Parse(numStr);
-            }
-            return 0;
-        }
-
-        private void _CalculatePrescriptionTotals(DataView dv, out decimal totalNet, out decimal totalTax)
-        {
-            totalNet = 0;
-            totalTax = 0;
-
-            foreach (DataRowView rowView in dv)
-            {
-                DataRow row = rowView.Row;
-                if (row.RowState == DataRowState.Deleted) continue; // حماية
-
-                if (Convert.ToBoolean(row["IsDispensed"] ?? false))
-                {
-                    decimal price = Convert.ToDecimal(row["SavedMedicinePrice"] ?? 0);
-                    int qty = Convert.ToInt32(row["DispensedQuantity"] ?? 0);
-                    decimal discount = Convert.ToDecimal(row["DiscountAmount"] ?? 0);
-                    decimal taxRate = Convert.ToDecimal(row["TaxRate"] ?? 0) / 100;
-
-                    decimal itemNet = (price * qty) - discount;
-
-                    // 2. حساب الضريبة على المبلغ الصافي
-                    decimal itemTax = itemNet * taxRate;
-
-                    totalNet += itemNet;
-                    totalTax += itemTax;
-
-                }
-            }
-
-
-        }
-
-        private void _RefrashData()
-        {
-            dtAllDetails = clsPrescription.GetAllPrescriptionDetails();
-            dgPrescriptionDetails.DataSource = dtAllDetails;
-
-            dtAllActivePrescriptions = clsPrescription.GetAllActivePrescriptions();
-            dgvPrescription.DataSource = dtAllActivePrescriptions;
-        }
-        private void frmPrescriptionDispnsing_Load(object sender, EventArgs e)
-        {
-            dtAllDetails = clsPrescription.GetAllPrescriptionDetails();
-            dtAllDetails.DefaultView.AllowEdit = true;
-            dtAllDetails.Columns["DispensedQuantity"].ReadOnly = false;
-            dtAllDetails.Columns["IsDispensed"].ReadOnly = false;
-            lbCurrentUser.Text = clsGlobal.CurrentUser.PersonInfo.Name;
-            _SetupPrescriptionGrid();
-            _SetupPrescriptionDetailsGrid();
-
-        }
-
-        private void dgPrescriptionDetails_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            string columnName = dgPrescriptionDetails.Columns[e.ColumnIndex].Name;
-
-            // الشروط تنطبق على الكمية أو الـ CheckBox
-            if (columnName == "DispensedQuantity" || columnName == "IsDispensed")
-            {
-                string status = dgPrescriptionDetails.Rows[e.RowIndex].Cells["AvailableStatus"].Value.ToString();
-
-                // 1. إذا كان الدواء غير متوفر (Out of Stock)، امنع التعديل تماماً
-                if (status == "Out of Stock")
-                {
-                    e.Cancel = true;
-                    return;
-                }
-            }
-        }
-
-        private void btnSendToAccounting_Click(object sender, EventArgs e)
-        {
-            dgPrescriptionDetails.EndEdit();
-            this.BindingContext[dgPrescriptionDetails.DataSource].EndCurrentEdit();
-
-            // نستخدم الـ DataView المفلتر حالياً
-            DataView dv = (DataView)dgPrescriptionDetails.DataSource;
-
-            bool hasDispensedItems = false;
-            bool isDispensed = false;
-            foreach (DataRowView row in dv)
-            {
-
-                isDispensed = (row["IsDispensed"] != DBNull.Value) && Convert.ToBoolean(row["IsDispensed"]);
-                if (isDispensed)
-                {
-                    hasDispensedItems = true;
-                    break; // وجدنا دواء واحداً، لا داعي لإكمال البحث
-                }
-            }
-
-            if (!hasDispensedItems)
-            {
-                MessageBox.Show("لا يمكن الإرسال: يجب تحديد دواء واحد على الأقل للصرف (IsDispensed).",
-                        "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            //_CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
-
-            if (TotalMedicinesAmount <= 0)
-            {
-                MessageBox.Show("Please dispense at least one item.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // إرسال الجدول المفلتر والمحدث
-            if (clsPrescription.SendToCashier(_currentPrescriptionId, dv.ToTable(), _VisitID, clsGlobal.CurrentUser.UserID))
-            {
-                //dtAllDetails.AcceptChanges(); // تحديث الذاكرة بعد النجاح
-                MessageBox.Show("Prescription successfully sent!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                _RefrashData();
-            }
-            else
-            {
-                MessageBox.Show("Prescription Faild sent!", "Faild", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
-        }
-        private void dgvPrescription_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dgvPrescription.SelectedRows.Count > 0)
-            {
-                lbPatientName.Text = dgvPrescription.SelectedRows[0].Cells["PatientName"].Value.ToString() + ")";
-                lbPatientNameDetalis.Text = $"[{lbPatientName.Text}]";
-                _currentPrescriptionId = Convert.ToInt32(dgvPrescription.SelectedRows[0].Cells["PrescriptionID"].Value);
-                lbOrderID.Text = $"(Order [{_currentPrescriptionId.ToString()}] )";
-                _AppointmentID = Convert.ToInt32(dgvPrescription.SelectedRows[0].Cells["AppointmentID"].Value);
-                _VisitID = Convert.ToInt32(dgvPrescription.SelectedRows[0].Cells["VisitID"].Value);
-                string Status = dgvPrescription.SelectedRows[0].Cells["Status"].Value.ToString();
-                _ResetFormat(Status);
-                // فلترة البيانات من الذاكرة
-                dtAllDetails.DefaultView.RowFilter = $"PrescriptionID = {_currentPrescriptionId}";
-                dtAllDetails.Columns["IsDispensed"].ReadOnly = false;
-                dgPrescriptionDetails.DataSource = dtAllDetails.DefaultView;
-
-                DataView dv = (DataView)dgPrescriptionDetails.DataSource;
-
-                _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
-
-                lbTotalMedicen.Text = "$ " + (TotalMedicinesAmount + TaxRate).ToString("N2");
-
-            }
-        }
-
-
-        private void dgPrescriptionDetails_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            // 1. منع تكرار الحدث (مفتاح الحماية)
-            if (_isUpdating || e.RowIndex < 0) return;
-
-            _isUpdating = true; // تفعيل الحماية
-
-            try
-            {
-                string colName = dgPrescriptionDetails.Columns[e.ColumnIndex].Name;
-                DataGridViewRow row = dgPrescriptionDetails.Rows[e.RowIndex];
-                DataRowView rowView = (DataRowView)row.DataBoundItem;
-
-                string status = row.Cells["AvailableStatus"].Value?.ToString() ?? "";
-                int maxAvailable = _GetMaxAvailable(row);
-
-                // 2. تحديث المنطق بناءً على العمود المعدل
-                if (colName == "IsDispensed")
-                {
-                    object val = row.Cells["IsDispensed"].Value;
-                    bool isChecked = (val != null && val != DBNull.Value) && Convert.ToBoolean(val);
-
-                    if (isChecked && status == "Out of Stock")
-                    {
-                        rowView["IsDispensed"] = false;
-                    }
-                    else if (isChecked)
-                    {
-                        rowView["DispensedQuantity"] = maxAvailable;
-                    }
-                    else
-                    {
-                        rowView["DispensedQuantity"] = 0;
-                    }
-                }
-                else if (colName == "DispensedQuantity")
-                {
-                    int newQty = Convert.ToInt32(row.Cells["DispensedQuantity"].Value ?? 0);
-
-                    if (newQty > maxAvailable)
-                    {
-                        MessageBox.Show($"عذراً، المتاح للصرف لهذا الصنف هو {maxAvailable} فقط.");
-                        rowView["DispensedQuantity"] = maxAvailable;
-                    }
-                    else
-                    {
-                        rowView["IsDispensed"] = (newQty > 0);
-                    }
-                }
-
-                // 3. إنهاء التعديل للتأكد من انتقال القيمة للـ DataTable
-                rowView.EndEdit();
-
-                // 4. تحديث السعر الإجمالي
-                DataView dv = (DataView)dgPrescriptionDetails.DataSource;
-                //DataTable dtDispensed = dv.ToTable();
-
-                _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
-
-                lbTotalMedicen.Text = "$ " + (TotalMedicinesAmount + TaxRate).ToString("N2");
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("حدث خطأ أثناء تحديث البيانات: " + ex.Message);
-            }
-            finally
-            {
-                _isUpdating = false; // إيقاف الحماية دائماً
-            }
-        }
-
-        private void dgPrescriptionDetails_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-
-            // 🎯 التحقق من الضغط على عمود كمية الصرف تحديداً
-            if (dgPrescriptionDetails.Columns[e.ColumnIndex].Name == "DispensedQuantity")
-            {
-                DataGridViewRow row = dgPrescriptionDetails.Rows[e.RowIndex];
-
-                // جلب الحد الأقصى المتاح لهذا الدواء باستخدام دالتك الحالية _GetMaxAvailable
-                int maxAvailable = _GetMaxAvailable(row);
-
-                // إذا كان الصنف خارج المخزن تماماً لا تظهر الكشاف
-                if (maxAvailable <= 0)
-                {
-                    _qtyNumericUpDown.Visible = false;
-                    return;
-                }
-
-                // ضبط الحد الأقصى للكشاف ليتطابق مع متاح المخزن
-                _qtyNumericUpDown.Maximum = maxAvailable;
-
-                // جلب مقاسات وموقع الخلية لتغطيتها تماماً
-                Rectangle rect = dgPrescriptionDetails.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
-                _qtyNumericUpDown.Location = rect.Location;
-                _qtyNumericUpDown.Size = rect.Size;
-
-                // جلب القيمة الحالية من الخلية ووضعها في الكشاف
-                if (row.Cells[e.ColumnIndex].Value != DBNull.Value && row.Cells[e.ColumnIndex].Value != null)
-                {
-                    _qtyNumericUpDown.Value = Convert.ToDecimal(row.Cells[e.ColumnIndex].Value);
-                }
-                else
-                {
-                    _qtyNumericUpDown.Value = 0;
-                }
-
-                // إظهار الكشاف وتركيز الماوس عليه
-                _qtyNumericUpDown.Visible = true;
-                _qtyNumericUpDown.Focus();
-            }
-            else
-            {
-                // إذا ضغط على أي عمود آخر (مثل شيك بوكس الصرف) نخفي الكشاف
-                _qtyNumericUpDown.Visible = false;
-            }
-        }
-        private void dgPrescriptionDetails_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            // إلغاء ظهور رسالة الخطأ الافتراضية للنظام
-            e.ThrowException = false;
-
-            // اختياري: يمكنك هنا تسجيل الخطأ في Logger أو تنبيه المستخدم
-            // MessageBox.Show("حدث خطأ في البيانات: " + e.Exception.Message);
-        }
-
-        // عند تغيير قيمة العداد برمجياً أو بالأسهم
-        private void QtyNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (dgPrescriptionDetails.CurrentCell != null && dgPrescriptionDetails.CurrentCell.OwningColumn.Name == "DispensedQuantity")
-            {
-                // نقل القيمة للجدول فوراً (وهذا بدوره سيطلق دالتك الأصلية CellValueChanged تلقائياً)
-                dgPrescriptionDetails.CurrentCell.Value = (int)_qtyNumericUpDown.Value;
-            }
-        }
-
-        // عند انتقال التركيز أو خروج الكاشير من الخلية
-        private void QtyNumericUpDown_Leave(object sender, EventArgs e)
-        {
-            _qtyNumericUpDown.Visible = false;
-        }
-        private void btnExit_Click(object sender, EventArgs e) => this.Close();
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            lblPlaceholderSer.Visible = string.IsNullOrEmpty(txtSearch.Text);
-            string filter = string.IsNullOrEmpty(txtSearch.Text) ? "" : $"PatientName LIKE '%{txtSearch.Text}%'";
-            dtAllActivePrescriptions.DefaultView.RowFilter = filter;
-
-        }
-
-        private void btnPrintShotageSlip_Click(object sender, EventArgs e)
-        {
-            // 1. التحقق من وجود بيانات في الـ DataGridView
-            if (dgPrescriptionDetails.Rows.Count == 0)
-            {
-                MessageBox.Show("No data available to report shortage.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            // 2. إنشاء كائن الطباعة وربطه بحدث الرسم
-            System.Drawing.Printing.PrintDocument printDoc = new System.Drawing.Printing.PrintDocument();
-            printDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(PrintShortageReport_PrintPage);
-
-            // 3. إظهار نافذة معاينة الطباعة (Print Preview) بشكل احترافي
-            PrintPreviewDialog previewDlg = new PrintPreviewDialog();
-            previewDlg.Document = printDoc;
-            previewDlg.WindowState = FormWindowState.Maximized; // فتح المعاينة بكامل الشاشة
-            previewDlg.ShowDialog();
-        
+            // Hide numeric up-down control during scrolling to prevent visual glitches
+            dgPrescriptionDetails.Scroll += (s, ev) => { _qtyNumericUpDown.Visible = false; };
         }
 
         private void PrintShortageReport_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
@@ -616,39 +148,477 @@ namespace Clinic.Medical_Services.Pharmaciy
 
             e.HasMorePages = false; // لا توجد صفحات أخرى
         }
+
+        private void _AddColumn(string header, string dataProp, bool visible, int fillWeight = 10)
+        {
+            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
+            col.HeaderText = header;
+            col.DataPropertyName = dataProp;
+            col.Name = dataProp;
+            col.Visible = visible;
+            col.FillWeight = fillWeight;
+            col.ReadOnly = true;
+            dgPrescriptionDetails.Columns.Add(col);
+        }
+
+        private void _ResetFormat(string Status)
+        {
+            lbNotReady.Text = "(Not Ready for Dispensing)";
+            lbX.Text = "✕";
+            lbStatus.Text = Status;
+            panbtnDispense.Enabled = false;
+            panbtnSendToAccounting.Enabled = false;
+            panbtnCancelOrder.Enabled = false;
+            dgPrescriptionDetails.EditMode = DataGridViewEditMode.EditProgrammatically;
+
+            // Handle UI elements and workflow based on Prescription Status
+            if (Status == "Pending")
+            {
+                lbStatus.ForeColor = Color.Teal;
+                lbNotReady.ForeColor = Color.Teal;
+                lbX.ForeColor = Color.Teal;
+                lbContainer.BackColor = Color.Teal;
+
+                panbtnSendToAccounting.Enabled = true;
+                panbtnCancelOrder.Enabled = true;
+
+                dgPrescriptionDetails.ReadOnly = false;
+                dgPrescriptionDetails.EditMode = DataGridViewEditMode.EditOnEnter;
+            }
+            else if (Status == "Waiting For Payment")
+            {
+                lbStatus.ForeColor = Color.Brown;
+                lbNotReady.ForeColor = Color.Brown;
+                lbX.ForeColor = Color.Brown;
+                lbContainer.BackColor = Color.Brown;
+                panbtnSendToAccounting.Enabled = false;
+            }
+            else if (Status == "Ready For Dispensing")
+            {
+                lbStatus.ForeColor = Color.Green;
+                lbNotReady.ForeColor = Color.Green;
+                lbX.ForeColor = Color.Green;
+                lbContainer.BackColor = Color.Green;
+                lbNotReady.Text = "(Ready for Dispensing)";
+                lbX.Text = "✓";
+                panbtnDispense.Enabled = true;
+            }
+            else if (Status == "PartiallyDispensed")
+            {
+                lbStatus.ForeColor = Color.GreenYellow;
+                lbNotReady.ForeColor = Color.GreenYellow;
+                lbX.ForeColor = Color.GreenYellow;
+                lbContainer.ForeColor = Color.GreenYellow;
+                btnDispense.Enabled = true;
+                panbtnSendToAccounting.Enabled = true;
+            }
+        }
+
+        private void _SetupPrescriptionGrid()
+        {
+            dgvPrescription.AutoGenerateColumns = false;
+            dgvPrescription.Columns.Clear();
+            dgvPrescription.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvPrescription.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPrescription.MultiSelect = false;
+
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "VisitID", DataPropertyName = "VisitID", Visible = false });
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "AppointmentID", DataPropertyName = "AppointmentID", Visible = false });
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PrescriptionID", DataPropertyName = "PrescriptionID", FillWeight = 7 });
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PatientName", HeaderText = "Patient", DataPropertyName = "PatientName", ReadOnly = true, FillWeight = 15 });
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "DoctorName", HeaderText = "Doctor", DataPropertyName = "DoctorName", ReadOnly = true, FillWeight = 15 });
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PrescriptionTime", HeaderText = "Time", DataPropertyName = "PrescriptionTime", ReadOnly = true, FillWeight = 7 });
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "Status", HeaderText = "Status", DataPropertyName = "Status", ReadOnly = true, FillWeight = 15 });
+            dgvPrescription.Columns.Add(new DataGridViewTextBoxColumn { Name = "PrescriptionType", HeaderText = "Type", DataPropertyName = "PrescriptionType", ReadOnly = true, FillWeight = 10 });
+
+            dgvPrescription.DataSource = dtAllActivePrescriptions;
+        }
+
+        private void _SetupPrescriptionDetailsGrid()
+        {
+            dgPrescriptionDetails.AutoGenerateColumns = false;
+            dgPrescriptionDetails.Columns.Clear();
+            dgPrescriptionDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgPrescriptionDetails.ReadOnly = false;
+
+            _AddColumn("Status", "AvailableStatus", true, 30);
+            _AddColumn("ID", "PrescriptionDetailsID", false);
+            _AddColumn("PID", "PrescriptionID", false);
+            _AddColumn("Medicine", "MedicineName", true, 20);
+            _AddColumn("Price", "SavedMedicinePrice", true, 20);
+            _AddColumn("Discount", "DiscountAmount", true, 10);
+            _AddColumn("Dosage", "Dosage", true, 15);
+            _AddColumn("Freq", "Frequency", true, 10);
+            _AddColumn("Req Qty", "RequiredQuantity", true, 10);
+
+            // Add editable quantity column
+            DataGridViewTextBoxColumn colQty = new DataGridViewTextBoxColumn();
+            colQty.HeaderText = "Disp Qty";
+            colQty.DataPropertyName = "DispensedQuantity";
+            colQty.Name = "DispensedQuantity";
+            colQty.ReadOnly = false;
+            colQty.FillWeight = 10;
+            dgPrescriptionDetails.Columns.Add(colQty);
+
+            // Add editable checkbox column
+            DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn
+            {
+                Name = "IsDispensed",
+                HeaderText = "Dispensed",
+                DataPropertyName = "IsDispensed",
+                ReadOnly = false,
+                FillWeight = 10
+            };
+            dgPrescriptionDetails.Columns.Add(chk);
+
+            _AddColumn("Instr.", "Instructions", false, 15);
+        }
+
+        private int _GetMaxAvailable(DataGridViewRow row)
+        {
+            if (row.Cells["AvailableStatus"].Value == null) return 0;
+
+            string status = row.Cells["AvailableStatus"].Value.ToString();
+            if (status == "Fully Available")
+                return Convert.ToInt32(row.Cells["RequiredQuantity"].Value);
+
+            if (status.StartsWith("Partially Available"))
+            {
+                try
+                {
+                    string numStr = status.Substring(status.IndexOf("(") + 1, status.IndexOf(")") - status.IndexOf("(") - 1);
+                    return int.Parse(numStr);
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+            return 0;
+        }
+
+        private void _CalculatePrescriptionTotals(DataView dv, out decimal totalNet, out decimal totalTax)
+        {
+            totalNet = 0;
+            totalTax = 0;
+
+            foreach (DataRowView rowView in dv)
+            {
+                DataRow row = rowView.Row;
+                if (row.RowState == DataRowState.Deleted) continue;
+
+                if (Convert.ToBoolean(row["IsDispensed"] ?? false))
+                {
+                    decimal price = Convert.ToDecimal(row["SavedMedicinePrice"] ?? 0);
+                    int qty = Convert.ToInt32(row["DispensedQuantity"] ?? 0);
+                    decimal discount = Convert.ToDecimal(row["DiscountAmount"] ?? 0);
+                    decimal taxRate = Convert.ToDecimal(row["TaxRate"] ?? 0) / 100;
+
+                    decimal itemNet = (price * qty) - discount;
+                    decimal itemTax = itemNet * taxRate;
+
+                    totalNet += itemNet;
+                    totalTax += itemTax;
+                }
+            }
+        }
+
+        private void _RefrashData()
+        {
+            dtAllDetails = clsPrescription.GetAllPrescriptionDetails();
+            dgPrescriptionDetails.DataSource = dtAllDetails;
+
+            dtAllActivePrescriptions = clsPrescription.GetAllActivePrescriptions();
+            dgvPrescription.DataSource = dtAllActivePrescriptions;
+        }
+
+        private void frmPrescriptionDispnsing_Load(object sender, EventArgs e)
+        {
+            dtAllDetails = clsPrescription.GetAllPrescriptionDetails();
+            dtAllDetails.DefaultView.AllowEdit = true;
+            dtAllDetails.Columns["DispensedQuantity"].ReadOnly = false;
+            dtAllDetails.Columns["IsDispensed"].ReadOnly = false;
+
+            if (clsGlobal.CurrentUser?.PersonInfo != null)
+                lbCurrentUser.Text = clsGlobal.CurrentUser.PersonInfo.Name;
+
+            _SetupPrescriptionGrid();
+            _SetupPrescriptionDetailsGrid();
+        }
+
+        private void dgPrescriptionDetails_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            string columnName = dgPrescriptionDetails.Columns[e.ColumnIndex].Name;
+
+            if (columnName == "DispensedQuantity" || columnName == "IsDispensed")
+            {
+                if (dgPrescriptionDetails.Rows[e.RowIndex].Cells["AvailableStatus"].Value == null) return;
+
+                string status = dgPrescriptionDetails.Rows[e.RowIndex].Cells["AvailableStatus"].Value.ToString();
+
+                if (status == "Out of Stock")
+                {
+                    e.Cancel = true;
+                    MessageBox.Show("This item is completely out of stock and cannot be modified.", "Stock Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+        }
+
+        private void btnSendToAccounting_Click(object sender, EventArgs e)
+        {
+            dgPrescriptionDetails.EndEdit();
+            this.BindingContext[dgPrescriptionDetails.DataSource].EndCurrentEdit();
+
+            DataView dv = (DataView)dgPrescriptionDetails.DataSource;
+            if (dv == null) return;
+
+            bool hasDispensedItems = false;
+            foreach (DataRowView row in dv)
+            {
+                bool isDispensed = (row["IsDispensed"] != DBNull.Value) && Convert.ToBoolean(row["IsDispensed"]);
+                if (isDispensed)
+                {
+                    hasDispensedItems = true;
+                    break;
+                }
+            }
+
+            if (!hasDispensedItems)
+            {
+                MessageBox.Show("Cannot proceed: Please select at least one item to dispense by checking the 'Dispensed' box.",
+                    "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Optional: recalculate before sending if necessary
+            _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
+
+            if (TotalMedicinesAmount <= 0)
+            {
+                MessageBox.Show("Total amount must be greater than zero. Please check dispensed quantities.", "Invalid Amount", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (clsPrescription.SendToCashier(_currentPrescriptionId, dv.ToTable(), _VisitID, clsGlobal.CurrentUser.UserID))
+            {
+                MessageBox.Show("Prescription billing details have been successfully forwarded to accounting.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                _RefrashData();
+            }
+            else
+            {
+                MessageBox.Show("Failed to forward the prescription invoice to accounting. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvPrescription_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvPrescription.SelectedRows.Count > 0)
+            {
+                var selectedRow = dgvPrescription.SelectedRows[0];
+
+                lbPatientName.Text = selectedRow.Cells["PatientName"].Value?.ToString() + ")";
+                lbPatientNameDetalis.Text = $"[{lbPatientName.Text}]";
+                _currentPrescriptionId = Convert.ToInt32(selectedRow.Cells["PrescriptionID"].Value);
+                lbOrderID.Text = $"(Order [{_currentPrescriptionId.ToString()}] )";
+                _AppointmentID = Convert.ToInt32(selectedRow.Cells["AppointmentID"].Value);
+                _VisitID = Convert.ToInt32(selectedRow.Cells["VisitID"].Value);
+
+                string status = selectedRow.Cells["Status"].Value?.ToString() ?? "";
+                _ResetFormat(status);
+
+                dtAllDetails.DefaultView.RowFilter = $"PrescriptionID = {_currentPrescriptionId}";
+                dtAllDetails.Columns["IsDispensed"].ReadOnly = false;
+                dgPrescriptionDetails.DataSource = dtAllDetails.DefaultView;
+
+                DataView dv = (DataView)dgPrescriptionDetails.DataSource;
+                _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
+
+                lbTotalMedicen.Text = "$ " + (TotalMedicinesAmount + TaxRate).ToString("N2");
+            }
+        }
+
+        private void dgPrescriptionDetails_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (_isUpdating || e.RowIndex < 0) return;
+
+            _isUpdating = true;
+
+            try
+            {
+                string colName = dgPrescriptionDetails.Columns[e.ColumnIndex].Name;
+                DataGridViewRow row = dgPrescriptionDetails.Rows[e.RowIndex];
+                DataRowView rowView = (DataRowView)row.DataBoundItem;
+
+                string status = row.Cells["AvailableStatus"].Value?.ToString() ?? "";
+                int maxAvailable = _GetMaxAvailable(row);
+
+                if (colName == "IsDispensed")
+                {
+                    object val = row.Cells["IsDispensed"].Value;
+                    bool isChecked = (val != null && val != DBNull.Value) && Convert.ToBoolean(val);
+
+                    if (isChecked && status == "Out of Stock")
+                    {
+                        rowView["IsDispensed"] = false;
+                    }
+                    else if (isChecked)
+                    {
+                        rowView["DispensedQuantity"] = maxAvailable;
+                    }
+                    else
+                    {
+                        rowView["DispensedQuantity"] = 0;
+                    }
+                }
+                else if (colName == "DispensedQuantity")
+                {
+                    int newQty = Convert.ToInt32(row.Cells["DispensedQuantity"].Value ?? 0);
+
+                    if (newQty > maxAvailable)
+                    {
+                        MessageBox.Show($"Requested quantity exceeds stock limits. Maximum available for this item is {maxAvailable}.", "Stock Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        rowView["DispensedQuantity"] = maxAvailable;
+                    }
+                    else
+                    {
+                        rowView["IsDispensed"] = (newQty > 0);
+                    }
+                }
+
+                rowView.EndEdit();
+
+                DataView dv = (DataView)dgPrescriptionDetails.DataSource;
+                _CalculatePrescriptionTotals(dv, out TotalMedicinesAmount, out TaxRate);
+                lbTotalMedicen.Text = "$ " + (TotalMedicinesAmount + TaxRate).ToString("N2");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while updating row information: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                _isUpdating = false;
+            }
+        }
+
+        private void dgPrescriptionDetails_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            if (dgPrescriptionDetails.Columns[e.ColumnIndex].Name == "DispensedQuantity")
+            {
+                DataGridViewRow row = dgPrescriptionDetails.Rows[e.RowIndex];
+                int maxAvailable = _GetMaxAvailable(row);
+
+                if (maxAvailable <= 0)
+                {
+                    _qtyNumericUpDown.Visible = false;
+                    return;
+                }
+
+                _qtyNumericUpDown.Maximum = maxAvailable;
+
+                Rectangle rect = dgPrescriptionDetails.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
+                _qtyNumericUpDown.Location = rect.Location;
+                _qtyNumericUpDown.Size = rect.Size;
+
+                if (row.Cells[e.ColumnIndex].Value != DBNull.Value && row.Cells[e.ColumnIndex].Value != null)
+                {
+                    _qtyNumericUpDown.Value = Convert.ToDecimal(row.Cells[e.ColumnIndex].Value);
+                }
+                else
+                {
+                    _qtyNumericUpDown.Value = 0;
+                }
+
+                _qtyNumericUpDown.Visible = true;
+                _qtyNumericUpDown.Focus();
+            }
+            else
+            {
+                _qtyNumericUpDown.Visible = false;
+            }
+        }
+
+        private void dgPrescriptionDetails_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.ThrowException = false;
+        }
+
+        private void QtyNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (dgPrescriptionDetails.CurrentCell != null && dgPrescriptionDetails.CurrentCell.OwningColumn.Name == "DispensedQuantity")
+            {
+                dgPrescriptionDetails.CurrentCell.Value = (int)_qtyNumericUpDown.Value;
+            }
+        }
+
+        private void QtyNumericUpDown_Leave(object sender, EventArgs e)
+        {
+            _qtyNumericUpDown.Visible = false;
+        }
+
+        private void btnExit_Click(object sender, EventArgs e) => this.Close();
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            lblPlaceholderSer.Visible = string.IsNullOrEmpty(txtSearch.Text);
+            string filter = string.IsNullOrEmpty(txtSearch.Text) ? "" : $"PatientName LIKE '%{txtSearch.Text}%'";
+            dtAllActivePrescriptions.DefaultView.RowFilter = filter;
+        }
+
+        private void btnPrintShotageSlip_Click(object sender, EventArgs e)
+        {
+            if (dgPrescriptionDetails.Rows.Count == 0)
+            {
+                MessageBox.Show("No prescription detail items available to scan for shortage.", "Report Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            System.Drawing.Printing.PrintDocument printDoc = new System.Drawing.Printing.PrintDocument();
+            printDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(PrintShortageReport_PrintPage);
+
+            PrintPreviewDialog previewDlg = new PrintPreviewDialog();
+            previewDlg.Document = printDoc;
+            previewDlg.WindowState = FormWindowState.Maximized;
+            previewDlg.ShowDialog();
+        }
+
         private void btnCancelOrder_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are You Sure ...", "Confirm", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (_currentPrescriptionId == -1) return;
+
+            if (MessageBox.Show("Are you sure you want to cancel this prescription order?", "Confirm Cancellation",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (clsPrescription.UpdatePrescriptionStatus(_currentPrescriptionId, clsPrescription.enPrescriptionStatus.Cancelled))
                 {
-                    MessageBox.Show("Succes FullY ...");
+                    MessageBox.Show("The prescription order has been successfully cancelled.", "Order Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     _RefrashData();
                 }
                 else
                 {
-                    MessageBox.Show("Succes FullY ...");
-
-
+                    MessageBox.Show("Failed to cancel the prescription order. Please check system logs.", "Action Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private void btnDispense_Click(object sender, EventArgs e)
         {
+            if (_currentPrescriptionId == -1) return;
 
-            if (MessageBox.Show("Are You Sure ...", "Confirm", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show("Confirm final medicine fulfillment and closure of this order?", "Confirm Dispense",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (clsPrescription.UpdatePrescriptionStatus(_currentPrescriptionId, clsPrescription.enPrescriptionStatus.Dispensed))
                 {
-                    MessageBox.Show("Succes FullY ...");
+                    MessageBox.Show("The items have been marked as fully dispensed, and inventory levels updated.", "Order Fulfilled", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     _RefrashData();
                 }
                 else
                 {
-                    MessageBox.Show("Succes FullY ...");
-
-
+                    MessageBox.Show("Fulfillment request failed. Please verify medication stock balance values.", "Fulfillment Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
