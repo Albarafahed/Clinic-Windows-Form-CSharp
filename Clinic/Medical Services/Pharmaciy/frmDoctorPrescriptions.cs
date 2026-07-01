@@ -493,9 +493,129 @@ namespace Clinic.Medical_Services.Pharmaciy
 
         private void btnPrintShotageSlip_Click(object sender, EventArgs e)
         {
+            // 1. التحقق من وجود بيانات في الـ DataGridView
+            if (dgPrescriptionDetails.Rows.Count == 0)
+            {
+                MessageBox.Show("No data available to report shortage.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            // 2. إنشاء كائن الطباعة وربطه بحدث الرسم
+            System.Drawing.Printing.PrintDocument printDoc = new System.Drawing.Printing.PrintDocument();
+            printDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(PrintShortageReport_PrintPage);
+
+            // 3. إظهار نافذة معاينة الطباعة (Print Preview) بشكل احترافي
+            PrintPreviewDialog previewDlg = new PrintPreviewDialog();
+            previewDlg.Document = printDoc;
+            previewDlg.WindowState = FormWindowState.Maximized; // فتح المعاينة بكامل الشاشة
+            previewDlg.ShowDialog();
+        
         }
 
+        private void PrintShortageReport_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            // إعدادات الخطوط والألوان للتقرير
+            Font titleFont = new Font("Segoe UI", 18, FontStyle.Bold);
+            Font headerFont = new Font("Segoe UI", 11, FontStyle.Bold);
+            Font bodyFont = new Font("Segoe UI", 10, FontStyle.Regular);
+            Font totalFont = new Font("Segoe UI", 11, FontStyle.Bold);
+
+            Brush tealBrush = new SolidBrush(Color.FromArgb(0, 105, 92)); // لون التيل المعتمد للهيدر
+            Brush textBrush = Brushes.Black;
+            Pen linePen = new Pen(Color.DarkGray, 1);
+
+            int startX = 50;
+            int startY = 40;
+            int offsetY = 0;
+
+            // --- 1. ترويسة التتقرير (Header) ---
+            e.Graphics.DrawString("Clinic Management System", headerFont, tealBrush, startX, startY);
+            offsetY += 25;
+            e.Graphics.DrawString("Medicine Shortage Report", titleFont, textBrush, startX, startY + offsetY);
+            offsetY += 35;
+            e.Graphics.DrawString($"Date: {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}", bodyFont, textBrush, startX, startY + offsetY);
+            offsetY += 25;
+
+            // رسم خط فاصل
+            e.Graphics.DrawLine(linePen, startX, startY + offsetY, e.PageBounds.Width - 50, startY + offsetY);
+            offsetY += 15;
+
+            // --- 2. ترويسة الجدول (Table Headers) ---
+            // تحديد أماكن الأعمدة (X Positions)
+            int colMedX = startX;       // اسم العلاج
+            int colPriceX = startX + 250; // السعر
+            int colReqX = startX + 370;   // المطلوبة
+            int colDispX = startX + 470;  // المصروفة
+            int colShortX = startX + 580; // النواقص
+
+            e.Graphics.DrawString("Medicine Name", headerFont, tealBrush, colMedX, startY + offsetY);
+            e.Graphics.DrawString("Price", headerFont, tealBrush, colPriceX, startY + offsetY);
+            e.Graphics.DrawString("Req.Qty", headerFont, tealBrush, colReqX, startY + offsetY);
+            e.Graphics.DrawString("Disp.Qty", headerFont, tealBrush, colDispX, startY + offsetY);
+            e.Graphics.DrawString("Shortage", headerFont, tealBrush, colShortX, startY + offsetY);
+
+            offsetY += 25;
+            e.Graphics.DrawLine(linePen, startX, startY + offsetY, e.PageBounds.Width - 50, startY + offsetY);
+            offsetY += 10;
+
+            bool hasShortage = false;
+            decimal totalShortageValue = 0;
+
+            // --- 3. قراءة البيانات وفحص النواقص ---
+            foreach (DataGridViewRow row in dgPrescriptionDetails.Rows)
+            {
+                // تجنب السطور الفارغة إن وجدت
+                if (row.Cells["MedicineName"].Value == null) continue;
+
+                // جلب القيم بأمان مع التحويل الرقمي
+                string medicineName = row.Cells["MedicineName"].Value.ToString();
+                decimal price = Convert.ToDecimal(row.Cells["SavedMedicinePrice"].Value ?? 0);
+                int reqQty = Convert.ToInt32(row.Cells["RequiredQuantity"].Value ?? 0);
+                int dispQty = Convert.ToInt32(row.Cells["DispensedQuantity"].Value ?? 0);
+
+                // الشرط: إذا كانت الكمية المصروفة أصغر من الكمية المطلوبة
+                if (dispQty < reqQty)
+                {
+                    hasShortage = true;
+                    int shortageQty = reqQty - dispQty; // حساب كمية النواقص
+                    decimal shortagePrice = price * shortageQty; // تكلفة النواقص لهذا العلاج
+                    totalShortageValue += shortagePrice;
+
+                    // رسم السطر الخاص بالعلاج الناقص
+                    e.Graphics.DrawString(medicineName, bodyFont, textBrush, colMedX, startY + offsetY);
+                    e.Graphics.DrawString(price.ToString("C2"), bodyFont, textBrush, colPriceX, startY + offsetY);
+                    e.Graphics.DrawString(reqQty.ToString(), bodyFont, textBrush, colReqX, startY + offsetY);
+                    e.Graphics.DrawString(dispQty.ToString(), bodyFont, textBrush, colDispX, startY + offsetY);
+
+                    // تمييز كمية النواقص بلون أحمر داكن متناسق للفت الانتباه
+                    e.Graphics.DrawString(shortageQty.ToString(), headerFont, new SolidBrush(Color.FromArgb(211, 47, 47)), colShortX, startY + offsetY);
+
+                    offsetY += 25;
+
+                    // تحقق من عدم تجاوز حدود الصفحة (أمان إضافي للطباعة)
+                    if (startY + offsetY > e.PageBounds.Height - 100)
+                    {
+                        e.HasMorePages = true;
+                        return;
+                    }
+                }
+            }
+
+            // --- 4. التذييل والمجموع (Footer) ---
+            if (!hasShortage)
+            {
+                e.Graphics.DrawString("No shortages found. All medicines are fully dispensed!", bodyFont, Brushes.Green, startX, startY + offsetY + 20);
+            }
+            else
+            {
+                offsetY += 15;
+                e.Graphics.DrawLine(linePen, startX, startY + offsetY, e.PageBounds.Width - 50, startY + offsetY);
+                offsetY += 10;
+                e.Graphics.DrawString($"Estimated Shortage Value: {totalShortageValue.ToString("C2")}", totalFont, tealBrush, colPriceX, startY + offsetY);
+            }
+
+            e.HasMorePages = false; // لا توجد صفحات أخرى
+        }
         private void btnCancelOrder_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are You Sure ...", "Confirm", MessageBoxButtons.OKCancel) == DialogResult.OK)
