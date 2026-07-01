@@ -77,12 +77,6 @@
     <Compile Include="ControlsMain\ucPharmacistStation.Designer.cs">
       <DependentUpon>ucPharmacistStation.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlsMain\ucPrescriptionDetails.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ControlsMain\ucPrescriptionDetails.Designer.cs">
-      <DependentUpon>ucPrescriptionDetails.cs</DependentUpon>
-    </Compile>
     <Compile Include="ControlsMain\ucPrescriptionItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -407,9 +401,6 @@
     <EmbeddedResource Include="ControlsMain\ucPharmacistStation.resx">
       <DependentUpon>ucPharmacistStation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ControlsMain\ucPrescriptionDetails.resx">
-      <DependentUpon>ucPrescriptionDetails.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ControlsMain\ucPrescriptionItems.resx">
       <DependentUpon>ucPrescriptionItems.cs</DependentUpon>
     </EmbeddedResource>
@@ -481,6 +472,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Pharmaciy\frmDirictSales.resx">
       <DependentUpon>frmDirictSales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Medical Services\Pharmaciy\frmDoctorPrescriptions.resx">
+      <DependentUpon>frmDoctorPrescriptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Medical Services\Pharmaciy\frmManageDrugs.resx">
       <DependentUpon>frmManageDrugs.cs</DependentUpon>
@@ -988,6 +982,8 @@
   <ItemGroup>
     <None Include="Resources\refresh-48 1.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Medical Services\Pharmaciy\Controls\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

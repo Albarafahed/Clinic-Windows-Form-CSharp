@@ -514,6 +514,25 @@ namespace Clinic.Medical_Services.Pharmaciy
             }
         }
 
+        private void btnDispense_Click(object sender, EventArgs e)
+        {
+
+            if (MessageBox.Show("Are You Sure ...", "Confirm", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                if (clsPrescription.UpdatePrescriptionStatus(_currentPrescriptionId, clsPrescription.enPrescriptionStatus.Dispensed))
+                {
+                    MessageBox.Show("Succes FullY ...");
+                    _RefrashData();
+                }
+                else
+                {
+                    MessageBox.Show("Succes FullY ...");
+
+
+                }
+            }
+        }
+
         private void lblPlaceholderSer_Click(object sender, EventArgs e)
         {
             txtSearch.Focus();

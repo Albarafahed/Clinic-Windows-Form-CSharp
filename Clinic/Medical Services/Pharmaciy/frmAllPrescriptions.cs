@@ -16,6 +16,7 @@ namespace Clinic.Medical_Services.Pharmaciy
         public frmAllPrescriptions()
         {
             InitializeComponent();
+            //ThemeManager.ApplyTheme(this);
             dgPrescriptionDetails.Paint += (s, e) =>
             {
                 if (_detailsPanel.Visible) UpdatePanelPosition();
