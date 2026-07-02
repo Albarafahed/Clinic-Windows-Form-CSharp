@@ -83,7 +83,7 @@ namespace Clinic.Medical_Services.Vital
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            lbDate.Text = DateTime.Now.ToString();
+            lbDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -156,7 +156,10 @@ namespace Clinic.Medical_Services.Vital
 
                 clsAppointment.UpdatePatientCallStatus(nextAppointmentID, true, 1);
                 _RefreashData();
+                lbPatientName.Text = dgvNurseQueue.CurrentRow.Cells["PatientName"].Value.ToString();
+
             }
+
         }
 
         private void txtBloodPressure_Validating(object sender, CancelEventArgs e)
@@ -204,7 +207,6 @@ namespace Clinic.Medical_Services.Vital
             dgvNurseQueue.ClearSelection();
             dgvNurseQueue.Rows[0].Selected = true;
             dgvNurseQueue.CurrentCell = dgvNurseQueue.Rows[0].Cells[0];
-
             dgvNurseQueue.SelectionChanged += dgvNurseQueue_SelectionChanged;
         }
 
@@ -255,6 +257,11 @@ namespace Clinic.Medical_Services.Vital
             timer2.Dispose();
         }
 
-       
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+      
     }
 }

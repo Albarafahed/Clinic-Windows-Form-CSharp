@@ -51,12 +51,14 @@
             this.txtFullName = new System.Windows.Forms.TextBox();
             this.pbPersonImage = new System.Windows.Forms.PictureBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.lblPersonID = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.panelHeaderContainer = new System.Windows.Forms.Panel();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.lblPersonID = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -67,8 +69,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.panelHeaderContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -105,9 +108,9 @@
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.groupBox1.Location = new System.Drawing.Point(19, 90);
+            this.groupBox1.Location = new System.Drawing.Point(12, 127);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(928, 380);
+            this.groupBox1.Size = new System.Drawing.Size(928, 369);
             this.groupBox1.TabIndex = 72;
             this.groupBox1.TabStop = false;
             // 
@@ -177,7 +180,7 @@
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.label5.Location = new System.Drawing.Point(19, 132);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(83, 25);
+            this.label5.Size = new System.Drawing.Size(84, 25);
             this.label5.TabIndex = 106;
             this.label5.Text = "Gender:";
             // 
@@ -290,7 +293,7 @@
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(445, 320);
+            this.btnClose.Location = new System.Drawing.Point(438, 320);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(126, 40);
             this.btnClose.TabIndex = 15;
@@ -441,49 +444,6 @@
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // lblPersonID
-            // 
-            this.lblPersonID.AutoSize = true;
-            this.lblPersonID.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblPersonID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
-            this.lblPersonID.Location = new System.Drawing.Point(197, 53);
-            this.lblPersonID.Name = "lblPersonID";
-            this.lblPersonID.Size = new System.Drawing.Size(51, 28);
-            this.lblPersonID.TabIndex = 104;
-            this.lblPersonID.Text = "N/A";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.label22.Location = new System.Drawing.Point(19, 53);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(107, 25);
-            this.label22.TabIndex = 86;
-            this.label22.Text = "Person ID :";
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.lblTitle.Location = new System.Drawing.Point(16, 15);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(928, 55);
-            this.lblTitle.TabIndex = 73;
-            this.lblTitle.Text = "Add New Person";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Image = global::Clinic.Properties.Resources.Number_32;
-            this.pictureBox10.Location = new System.Drawing.Point(147, 53);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(31, 26);
-            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox10.TabIndex = 113;
-            this.pictureBox10.TabStop = false;
-            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
@@ -491,6 +451,79 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // panelHeaderContainer
+            // 
+            this.panelHeaderContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
+            this.panelHeaderContainer.Controls.Add(this.btnExit);
+            this.panelHeaderContainer.Controls.Add(this.lblTitle);
+            this.panelHeaderContainer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelHeaderContainer.Location = new System.Drawing.Point(0, 0);
+            this.panelHeaderContainer.Name = "panelHeaderContainer";
+            this.panelHeaderContainer.Size = new System.Drawing.Size(967, 82);
+            this.panelHeaderContainer.TabIndex = 132;
+            // 
+            // btnExit
+            // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.BackColor = System.Drawing.Color.Transparent;
+            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
+            this.btnExit.ForeColor = System.Drawing.Color.White;
+            this.btnExit.Image = global::Clinic.Properties.Resources.sign_out_32__2;
+            this.btnExit.Location = new System.Drawing.Point(867, 18);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(97, 42);
+            this.btnExit.TabIndex = 255;
+            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(294, 9);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(311, 50);
+            this.lblTitle.TabIndex = 117;
+            this.lblTitle.Text = "Add New Person";
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Image = global::Clinic.Properties.Resources.Number_32;
+            this.pictureBox10.Location = new System.Drawing.Point(140, 90);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(31, 26);
+            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox10.TabIndex = 135;
+            this.pictureBox10.TabStop = false;
+            // 
+            // lblPersonID
+            // 
+            this.lblPersonID.AutoSize = true;
+            this.lblPersonID.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblPersonID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
+            this.lblPersonID.Location = new System.Drawing.Point(190, 90);
+            this.lblPersonID.Name = "lblPersonID";
+            this.lblPersonID.Size = new System.Drawing.Size(51, 28);
+            this.lblPersonID.TabIndex = 134;
+            this.lblPersonID.Text = "N/A";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.label22.Location = new System.Drawing.Point(12, 90);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(108, 25);
+            this.label22.TabIndex = 133;
+            this.label22.Text = "Person ID :";
             // 
             // frmAddUpdatePerson
             // 
@@ -500,14 +533,14 @@
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(967, 490);
+            this.ClientSize = new System.Drawing.Size(967, 508);
             this.Controls.Add(this.pictureBox10);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblPersonID);
             this.Controls.Add(this.label22);
-            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.panelHeaderContainer);
+            this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmAddUpdatePerson";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add / Edit Person Info.";
@@ -523,16 +556,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.panelHeaderContainer.ResumeLayout(false);
+            this.panelHeaderContainer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cbCountry;
         private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.Label lblPersonID;
         private System.Windows.Forms.LinkLabel llSetImage;
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.PictureBox pictureBox6;
@@ -551,7 +586,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtFullName;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.PictureBox pbPersonImage;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.RadioButton rbFemale;
@@ -559,10 +593,14 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox9;
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.LinkLabel llRemoveImage;
-        private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.PictureBox pictureBox10;
+        private System.Windows.Forms.Label lblPersonID;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Panel panelHeaderContainer;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label lblTitle;
     }
 }

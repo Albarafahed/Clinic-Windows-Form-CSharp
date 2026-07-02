@@ -1,4 +1,6 @@
-﻿namespace Clinic.ControlsMain
+﻿using System.Windows.Forms;
+
+namespace Clinic.ControlsMain
 {
     partial class ucReceptionistStation
     {
@@ -49,7 +51,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(160)))), ((int)(((byte)(50)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
             this.panel1.Controls.Add(this.label3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -60,23 +62,24 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(160)))), ((int)(((byte)(50)))));
-            this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(8, 0);
+            this.label3.Location = new System.Drawing.Point(15, 14);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(455, 45);
+            this.label3.Size = new System.Drawing.Size(368, 37);
             this.label3.TabIndex = 6;
             this.label3.Text = "Receptionist Role Dashboard";
             // 
             // btnAddVisit
             // 
-            this.btnAddVisit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnAddVisit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(70)))), ((int)(((byte)(229)))));
             this.btnAddVisit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAddVisit.Location = new System.Drawing.Point(3, 81);
+            this.btnAddVisit.FlatAppearance.BorderSize = 0;
+            this.btnAddVisit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddVisit.Location = new System.Drawing.Point(8, 75);
             this.btnAddVisit.Name = "btnAddVisit";
-            this.btnAddVisit.Size = new System.Drawing.Size(164, 214);
+            this.btnAddVisit.Size = new System.Drawing.Size(160, 225);
             this.btnAddVisit.TabIndex = 2;
             this.btnAddVisit.UseVisualStyleBackColor = false;
             this.btnAddVisit.Click += new System.EventHandler(this.btnVisitsDashboard_Click);
@@ -84,13 +87,13 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(70)))), ((int)(((byte)(229)))));
             this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(33, 205);
+            this.label1.Location = new System.Drawing.Point(42, 205);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 31);
+            this.label1.Size = new System.Drawing.Size(90, 28);
             this.label1.TabIndex = 4;
             this.label1.Text = "Register";
             this.label1.Click += new System.EventHandler(this.btnVisitsDashboard_Click);
@@ -98,13 +101,13 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(70)))), ((int)(((byte)(229)))));
             this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(10, 243);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(231)))), ((int)(((byte)(255)))));
+            this.label2.Location = new System.Drawing.Point(34, 235);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(144, 31);
+            this.label2.Size = new System.Drawing.Size(113, 25);
             this.label2.TabIndex = 5;
             this.label2.Text = "New Patient";
             this.label2.Click += new System.EventHandler(this.btnVisitsDashboard_Click);
@@ -112,38 +115,41 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(160)))), ((int)(((byte)(50)))));
+            this.label6.BackColor = System.Drawing.Color.White;
             this.label6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(179, 243);
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
+            this.label6.Location = new System.Drawing.Point(208, 235);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(149, 31);
+            this.label6.Size = new System.Drawing.Size(122, 25);
             this.label6.TabIndex = 13;
-            this.label6.Text = "Appoinment";
+            this.label6.Text = "Appointment";
             this.label6.Click += new System.EventHandler(this.btnFindPatient_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(160)))), ((int)(((byte)(50)))));
+            this.label7.BackColor = System.Drawing.Color.White;
             this.label7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(200, 205);
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.label7.Location = new System.Drawing.Point(216, 205);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(111, 31);
+            this.label7.Size = new System.Drawing.Size(97, 28);
             this.label7.TabIndex = 12;
             this.label7.Text = "Schedule";
             this.label7.Click += new System.EventHandler(this.btnFindPatient_Click);
             // 
             // btnListAppoinment
             // 
-            this.btnListAppoinment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(160)))), ((int)(((byte)(50)))));
+            this.btnListAppoinment.BackColor = System.Drawing.Color.White;
             this.btnListAppoinment.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnListAppoinment.Location = new System.Drawing.Point(173, 81);
+            this.btnListAppoinment.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(232)))), ((int)(((byte)(240)))));
+            this.btnListAppoinment.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.btnListAppoinment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnListAppoinment.Location = new System.Drawing.Point(176, 75);
             this.btnListAppoinment.Name = "btnListAppoinment";
-            this.btnListAppoinment.Size = new System.Drawing.Size(164, 214);
+            this.btnListAppoinment.Size = new System.Drawing.Size(160, 225);
             this.btnListAppoinment.TabIndex = 10;
             this.btnListAppoinment.UseVisualStyleBackColor = false;
             this.btnListAppoinment.Click += new System.EventHandler(this.btnFindPatient_Click);
@@ -151,34 +157,37 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(160)))), ((int)(((byte)(50)))));
+            this.label9.BackColor = System.Drawing.Color.White;
             this.label9.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(384, 225);
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.label9.Location = new System.Drawing.Point(396, 215);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(83, 31);
+            this.label9.Size = new System.Drawing.Size(73, 28);
             this.label9.TabIndex = 16;
             this.label9.Text = "Queue";
             this.label9.Click += new System.EventHandler(this.btnDiagonsisNotes_Click);
             // 
             // btnQueue
             // 
-            this.btnQueue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(160)))), ((int)(((byte)(50)))));
+            this.btnQueue.BackColor = System.Drawing.Color.White;
             this.btnQueue.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnQueue.Location = new System.Drawing.Point(343, 81);
+            this.btnQueue.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(232)))), ((int)(((byte)(240)))));
+            this.btnQueue.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.btnQueue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQueue.Location = new System.Drawing.Point(344, 75);
             this.btnQueue.Name = "btnQueue";
-            this.btnQueue.Size = new System.Drawing.Size(164, 214);
+            this.btnQueue.Size = new System.Drawing.Size(164, 225);
             this.btnQueue.TabIndex = 14;
             this.btnQueue.UseVisualStyleBackColor = false;
             this.btnQueue.Click += new System.EventHandler(this.btnDiagonsisNotes_Click);
             // 
             // pictureBox4
             // 
-            this.pictureBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(160)))), ((int)(((byte)(50)))));
+            this.pictureBox4.BackColor = System.Drawing.Color.White;
             this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox4.Image = global::Clinic.Properties.Resources.PassedTests_32;
-            this.pictureBox4.Location = new System.Drawing.Point(391, 118);
+            this.pictureBox4.Location = new System.Drawing.Point(388, 110);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(76, 72);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -188,10 +197,10 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(160)))), ((int)(((byte)(50)))));
+            this.pictureBox3.BackColor = System.Drawing.Color.White;
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Image = global::Clinic.Properties.Resources.appointment_64;
-            this.pictureBox3.Location = new System.Drawing.Point(218, 118);
+            this.pictureBox3.Location = new System.Drawing.Point(218, 110);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(76, 72);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -201,10 +210,10 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(70)))), ((int)(((byte)(229)))));
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = global::Clinic.Properties.Resources.AddPerson_32;
-            this.pictureBox1.Location = new System.Drawing.Point(45, 118);
+            this.pictureBox1.Location = new System.Drawing.Point(50, 110);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(76, 72);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -239,8 +248,6 @@
             this.PerformLayout();
 
         }
-
-
 
         #endregion
 

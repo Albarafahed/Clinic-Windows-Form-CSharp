@@ -534,6 +534,7 @@ namespace Clinic.Medical_Services.Visit
 
             // 7. تحديث الحالة البصرية النهائية
             errorProvider1.Clear();
+            _RefreshQueueData();
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -794,7 +795,13 @@ namespace Clinic.Medical_Services.Visit
         {
             lbDate.Text = DateTime.Now.ToString();
         }
+
+
         #endregion
 
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

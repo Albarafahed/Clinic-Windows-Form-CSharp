@@ -46,10 +46,12 @@
             this.lblPatientID = new System.Windows.Forms.Label();
             this.txtEmergencyContact = new System.Windows.Forms.TextBox();
             this.txtMedicalHistory = new System.Windows.Forms.TextBox();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.panelHeaderContainer = new System.Windows.Forms.Panel();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.tcPatient.SuspendLayout();
             this.tpPersonalInfo.SuspendLayout();
             this.tpPatientInfo.SuspendLayout();
@@ -58,6 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.panelHeaderContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcPatient
@@ -86,6 +89,7 @@
             // 
             // ctrlPersonCardWithFilter1
             // 
+            this.ctrlPersonCardWithFilter1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ctrlPersonCardWithFilter1.BackColor = System.Drawing.Color.White;
             this.ctrlPersonCardWithFilter1.btnAddNewEnabled = true;
             this.ctrlPersonCardWithFilter1.FilterEnabled = false;
@@ -98,12 +102,13 @@
             // 
             // btnPersonInfoNext
             // 
+            this.btnPersonInfoNext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(70)))), ((int)(((byte)(229)))));
             this.btnPersonInfoNext.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPersonInfoNext.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
             this.btnPersonInfoNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
             this.btnPersonInfoNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPersonInfoNext.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
-            this.btnPersonInfoNext.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnPersonInfoNext.ForeColor = System.Drawing.Color.White;
             this.btnPersonInfoNext.Image = global::Clinic.Properties.Resources.Next_32;
             this.btnPersonInfoNext.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnPersonInfoNext.Location = new System.Drawing.Point(764, 388);
@@ -112,7 +117,7 @@
             this.btnPersonInfoNext.Size = new System.Drawing.Size(126, 37);
             this.btnPersonInfoNext.TabIndex = 119;
             this.btnPersonInfoNext.Text = "Next   ";
-            this.btnPersonInfoNext.UseVisualStyleBackColor = true;
+            this.btnPersonInfoNext.UseVisualStyleBackColor = false;
             this.btnPersonInfoNext.Click += new System.EventHandler(this.btnPersonInfoNext_Click);
             // 
             // tpPatientInfo
@@ -277,30 +282,20 @@
             this.txtMedicalHistory.Size = new System.Drawing.Size(336, 84);
             this.txtMedicalHistory.TabIndex = 124;
             // 
-            // lblTitle
-            // 
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.lblTitle.Location = new System.Drawing.Point(12, 25);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(931, 45);
-            this.lblTitle.TabIndex = 118;
-            this.lblTitle.Text = "Add New Patient";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
             // btnSave
             // 
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(70)))), ((int)(((byte)(229)))));
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Enabled = false;
             this.btnSave.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
             this.btnSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI Semibold", 10F);
-            this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = global::Clinic.Properties.Resources.Save_32;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSave.Location = new System.Drawing.Point(813, 590);
@@ -309,7 +304,7 @@
             this.btnSave.Size = new System.Drawing.Size(126, 37);
             this.btnSave.TabIndex = 112;
             this.btnSave.Text = "   Save";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnClose
@@ -332,21 +327,62 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // panelHeaderContainer
+            // 
+            this.panelHeaderContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
+            this.panelHeaderContainer.Controls.Add(this.btnExit);
+            this.panelHeaderContainer.Controls.Add(this.lblTitle);
+            this.panelHeaderContainer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelHeaderContainer.Location = new System.Drawing.Point(0, 0);
+            this.panelHeaderContainer.Name = "panelHeaderContainer";
+            this.panelHeaderContainer.Size = new System.Drawing.Size(960, 82);
+            this.panelHeaderContainer.TabIndex = 131;
+            // 
+            // btnExit
+            // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.BackColor = System.Drawing.Color.Transparent;
+            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
+            this.btnExit.ForeColor = System.Drawing.Color.White;
+            this.btnExit.Image = global::Clinic.Properties.Resources.sign_out_32__2;
+            this.btnExit.Location = new System.Drawing.Point(860, 18);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(97, 42);
+            this.btnExit.TabIndex = 255;
+            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(294, 9);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(316, 50);
+            this.lblTitle.TabIndex = 117;
+            this.lblTitle.Text = "Add New Patient";
+            // 
             // frmAddUpdatePatient
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(960, 650);
-            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.panelHeaderContainer);
             this.Controls.Add(this.tcPatient);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmAddUpdatePatient";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -362,6 +398,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.panelHeaderContainer.ResumeLayout(false);
+            this.panelHeaderContainer.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -374,7 +412,6 @@
         private System.Windows.Forms.TabPage tpPatientInfo;
         private System.Windows.Forms.TextBox txtEmergencyContact;
         private System.Windows.Forms.TextBox txtMedicalHistory;
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblPatientID;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button btnPersonInfoNext;
@@ -388,5 +425,8 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.Panel panelHeaderContainer;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label lblTitle;
     }
 }

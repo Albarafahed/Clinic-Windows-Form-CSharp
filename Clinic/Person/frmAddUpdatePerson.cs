@@ -315,5 +315,10 @@ namespace Clinic.Person
 
 
         }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -28,23 +28,23 @@ namespace Clinic.Medical_Services.Appointment
 
         private void _RefreshAppointmentsList()
         {
-            _dtAppointmets=clsAppointment.GetAllAppointments();
+            _dtAppointmets = clsAppointment.GetAllAppointments();
             _dtAppointmets.PrimaryKey = new DataColumn[] { _dtAppointmets.Columns["AppointmentID"] };
             _dtAppointmets.Columns["AppointmentStatusText"].ReadOnly = false;
             lblRecordsCount.Text = _dtAppointmets.Rows.Count.ToString();
-            dgvAppointments.DataSource=_dtAppointmets;
+            dgvAppointments.DataSource = _dtAppointmets;
             _RefreshRecords();
 
         }
         private void frmListAppointmets_Load(object sender, EventArgs e)
         {
-            if (clsGlobal.CurrentUser.RoleID ==(int) clsGlobal.UserRole.Cashier)
+            if (clsGlobal.CurrentUser.RoleID == (int)clsGlobal.UserRole.Cashier)
                 dgvAppointments.ContextMenuStrip = cmsAppointmentCasher;
             else
                 dgvAppointments.ContextMenuStrip = cmsAppointmentRecption;
 
             dgvAppointments.DataSource = _dtAppointmets;
-           
+
             cbFilterBy.SelectedIndex = 0;
             if (_dtAppointmets.Rows.Count == 0)
                 return;
@@ -72,7 +72,7 @@ namespace Clinic.Medical_Services.Appointment
 
             dgvAppointments.Columns["AppointmentStatusText"].HeaderText = "Status";
             dgvAppointments.Columns["AppointmentStatusText"].Width = 100;
-            
+
             dgvAppointments.Columns["CreatedByUserID"].HeaderText = "C.UserID";
             dgvAppointments.Columns["CreatedByUserID"].Width = 90;
 
@@ -106,7 +106,7 @@ namespace Clinic.Medical_Services.Appointment
 
         private void txtFilterValue_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (cbFilterBy.Text == "AppointmentID" || cbFilterBy.Text == "CreatedByUserID")
+            if (cbFilterBy.Text == "Appointment ID" || cbFilterBy.Text == "Created By UserID")
             {
                 e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
 
@@ -121,7 +121,7 @@ namespace Clinic.Medical_Services.Appointment
             }
             else
             {
-                _dtAppointmets.DefaultView.RowFilter = $"AppointmentStatus='{cbStatus.Text}'";
+                _dtAppointmets.DefaultView.RowFilter = $"AppointmentStatusText='{cbStatus.Text}'";
             }
             lblRecordsCount.Text = _dtAppointmets.Rows.Count.ToString();
         }
@@ -156,16 +156,10 @@ namespace Clinic.Medical_Services.Appointment
                 case "Patient Name": return "PatientName";
                 case "Doctor Name": return "DoctorName";
                 case "AppointmentType": return "TypeName";
-                case "C.UserID": return "CreatedByUserID";
+                case "Created By UserID": return "CreatedByUserID";
                 default: return "None";
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int AppointmentID = (int)dgvAppointments.CurrentRow.Cells["AppointmentID"].Value;
@@ -334,12 +328,17 @@ namespace Clinic.Medical_Services.Appointment
                     _DataBackToUpdate(this, AppointmentID);
                 }
             }
-            }
+        }
 
         private void CancelToolStripMenuItem_Click(object sender, EventArgs e)
                     => _ProcessAppointmentStatus(clsAppointment.enAppointmentStatus.Cancelled, "cancel this appointment");
 
         private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }

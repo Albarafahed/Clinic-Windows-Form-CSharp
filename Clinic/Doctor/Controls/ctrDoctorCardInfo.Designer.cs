@@ -231,8 +231,9 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dgvShifts = new System.Windows.Forms.DataGridView();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -250,13 +251,14 @@
             this.labelStatus = new System.Windows.Forms.Label();
             this.lblActiveStatus = new System.Windows.Forms.Label();
             this.ctrlPersonCard1 = new Clinic.Controls.ctrlPersonCard();
+            this.dgvShifts = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvShifts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShifts)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -285,46 +287,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Doctor Information";
-            // 
-            // dgvShifts
-            // 
-            this.dgvShifts.AllowUserToAddRows = false;
-            this.dgvShifts.AllowUserToDeleteRows = false;
-            this.dgvShifts.AllowUserToResizeRows = false;
-            this.dgvShifts.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dgvShifts.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvShifts.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvShifts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvShifts.ColumnHeadersHeight = 40;
-            this.dgvShifts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvShifts.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvShifts.EnableHeadersVisualStyles = false;
-            this.dgvShifts.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.dgvShifts.Location = new System.Drawing.Point(528, 100);
-            this.dgvShifts.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.dgvShifts.MultiSelect = false;
-            this.dgvShifts.Name = "dgvShifts";
-            this.dgvShifts.ReadOnly = true;
-            this.dgvShifts.RowHeadersWidth = 30;
-            this.dgvShifts.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dgvShifts.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
-            this.dgvShifts.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.dgvShifts.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.dgvShifts.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
-            this.dgvShifts.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
-            this.dgvShifts.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvShifts.RowTemplate.Height = 38;
-            this.dgvShifts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvShifts.Size = new System.Drawing.Size(336, 137);
-            this.dgvShifts.TabIndex = 120;
-            this.dgvShifts.TabStop = false;
             // 
             // pictureBox4
             // 
@@ -507,6 +469,49 @@
             this.ctrlPersonCard1.Size = new System.Drawing.Size(899, 280);
             this.ctrlPersonCard1.TabIndex = 0;
             // 
+            // dgvShifts
+            // 
+            this.dgvShifts.AllowUserToAddRows = false;
+            this.dgvShifts.AllowUserToDeleteRows = false;
+            this.dgvShifts.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.dgvShifts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvShifts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvShifts.BackgroundColor = System.Drawing.Color.White;
+            this.dgvShifts.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvShifts.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(70)))), ((int)(((byte)(229)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(70)))), ((int)(((byte)(229)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvShifts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvShifts.ColumnHeadersHeight = 45;
+            this.dgvShifts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvShifts.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvShifts.EnableHeadersVisualStyles = false;
+            this.dgvShifts.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(232)))), ((int)(((byte)(240)))));
+            this.dgvShifts.Location = new System.Drawing.Point(526, 90);
+            this.dgvShifts.MultiSelect = false;
+            this.dgvShifts.Name = "dgvShifts";
+            this.dgvShifts.ReadOnly = true;
+            this.dgvShifts.RowHeadersVisible = false;
+            this.dgvShifts.RowHeadersWidth = 51;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(56)))), ((int)(((byte)(202)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvShifts.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvShifts.RowTemplate.Height = 40;
+            this.dgvShifts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvShifts.Size = new System.Drawing.Size(336, 137);
+            this.dgvShifts.TabIndex = 117;
+            this.dgvShifts.TabStop = false;
+            // 
             // ctrDoctorCardInfo
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
@@ -517,12 +522,12 @@
             this.Size = new System.Drawing.Size(907, 539);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvShifts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShifts)).EndInit();
             this.ResumeLayout(false);
 
         }
