@@ -270,7 +270,7 @@ namespace Clinic.Medical_Services.Casher
             // ===== PAY BUTTON =====
             if (dgMasterBillList.Columns[e.ColumnIndex].Name == "btnPayAction")
             {
-                if (IsEmptyBill(itemsTotal))
+                if (IsEmptyBill(itemsTotal) && status == "Pending")
                 {
                     e.Value = "🗑 Delete";
                     e.CellStyle.BackColor = Color.FromArgb(120, 40, 40);
@@ -365,7 +365,7 @@ namespace Clinic.Medical_Services.Casher
             // ===== PAY / DELETE =====
             if (dgMasterBillList.Columns[e.ColumnIndex].Name == "btnPayAction")
             {
-                if (IsEmptyBill(itemsTotal))
+                if (IsEmptyBill(itemsTotal) && currentStatus == "Pending")
                 {
                     if (MessageBox.Show(
                         "This bill is empty. Do you want to delete it?",

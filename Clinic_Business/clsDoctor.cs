@@ -51,7 +51,7 @@ namespace Clinic_Business
         public float ConsultationFees { get; set; }
 
         public List<int> SelectedSpecialtyIDs { get; set; }
-        public List<clsDoctorShift> DoctorShifts { get; set; }
+        public DataTable dtWorkDays { get; set; }
       
         public bool IsActive { get; set; }
 
@@ -66,7 +66,7 @@ namespace Clinic_Business
             this.DoctorID = -1;
             this.ConsultationFees = 0;
             this.SelectedSpecialtyIDs = new List<int>();
-            this.DoctorShifts = new List<clsDoctorShift>();
+            this.dtWorkDays = new DataTable();
             this.IsActive = true;
             this.LicenseNumber = string.Empty;
             this.CreatedByUserID = -1;
@@ -87,7 +87,7 @@ namespace Clinic_Business
             this.CreatedByUserID = CreatedByUserID;
             this.IsActive = IsActive;
             this.CreatedDate = CreatedDate;
-
+            this.dtWorkDays=_GetDoctorShifts(DoctorID);
 
             this.PersonID = PersonID;
             this.Name = Name;
@@ -102,32 +102,43 @@ namespace Clinic_Business
             _Mode = enMode.Update;
         }
 
+        public void InsializeDoctorShifts()
+        {
+            this.dtWorkDays = new DataTable();
+            this.dtWorkDays.Columns.Add("DayID", typeof(int));
+            this.dtWorkDays.Columns.Add("DayName", typeof(string));
+            this.dtWorkDays.Columns.Add("StartTime", typeof(TimeSpan));
+            this.dtWorkDays.Columns.Add("EndTime", typeof(TimeSpan));
+
+           
+        }
 
         private bool _AddNewDoctor()
         {
             // فك الكائنات إلى مصفوفات أولية قبل الإرسال لطبقة البيانات
-            List<int> dayIDs = this.DoctorShifts.Select(s => s.DayID).ToList();
-            List<TimeSpan> starts = this.DoctorShifts.Select(s => s.StartTime).ToList();
-            List<TimeSpan> ends = this.DoctorShifts.Select(s => s.EndTime).ToList();
-
+            //List<int> dayIDs = this.DoctorShifts.Select(s => s.DayID).ToList();
+            //List<TimeSpan> starts = this.DoctorShifts.Select(s => s.StartTime).ToList();
+            //List<TimeSpan> ends = this.DoctorShifts.Select(s => s.EndTime).ToList();
+            this.dtWorkDays.Columns.Remove("DayName"); // إزالة العمود غير الضروري قبل الإرسال لطبقة البيانات
             this.DoctorID = clsDoctorData.AddNewDoctor(
                 this.PersonID, this.ConsultationFees, this.LicenseNumber,
                 this.CreatedByUserID, this.IsActive, this.SelectedSpecialtyIDs,
-                dayIDs, starts, ends); // تمرير المصفوفات
+              this.dtWorkDays); // تمرير المصفوفات
 
             return this.DoctorID > 0;
         }
 
         private bool _UpdateDoctor()
         {
-            List<int> dayIDs = this.DoctorShifts.Select(s => s.DayID).ToList();
-            List<TimeSpan> starts = this.DoctorShifts.Select(s => s.StartTime).ToList();
-            List<TimeSpan> ends = this.DoctorShifts.Select(s => s.EndTime).ToList();
-
+            //    List<int> dayIDs = this.DoctorShifts.Select(s => s.DayID).ToList();
+            //    List<TimeSpan> starts = this.DoctorShifts.Select(s => s.StartTime).ToList();
+            //    List<TimeSpan> ends = this.DoctorShifts.Select(s => s.EndTime).ToList();
+            dtWorkDays.Columns.Remove("DayName"); // إزالة العمود غير الضروري قبل الإرسال لطبقة البيانات
             return clsDoctorData.UpdateDoctor(
                 this.DoctorID, this.PersonID, this.ConsultationFees,
                 this.LicenseNumber, this.CreatedByUserID, this.IsActive,
-                this.SelectedSpecialtyIDs, dayIDs, starts, ends);
+                this.SelectedSpecialtyIDs, dtWorkDays);
+           
         }
 
         public string GetSpecializations()
@@ -153,7 +164,7 @@ namespace Clinic_Business
         {
             return clsDoctorData.GetDoctorSpecialtyIDs(this.DoctorID);
         }
-        public static DataTable GetDoctorShifts(int DoctorID)
+        private  DataTable _GetDoctorShifts(int DoctorID)
         {
             return clsDoctorData.GetDoctorShifts(DoctorID);
         }

@@ -56,7 +56,7 @@ namespace Clinic.Medical_Services.Casher
             {
                 _prescription = new clsEDitPendingPrescriptionDetails(_billID);
 
-                if (_prescription == null)
+                if (_prescription == null || _prescription.dtDispensedItems.Rows.Count==0 )
                 {
                     MessageBox.Show(
                         "The prescription could not be loaded.",

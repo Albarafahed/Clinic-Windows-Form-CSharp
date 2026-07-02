@@ -22,11 +22,11 @@ namespace Clinic.Doctor
         public enum enMode { AddNew = 1, Update = 2 };
         private enMode _Mode = enMode.AddNew;
 
-        private BindingList<clsDoctorShift> _ShiftsList = new BindingList<clsDoctor.clsDoctorShift>();
+        //private BindingList<clsDoctorShift> _ShiftsList = new BindingList<clsDoctor.clsDoctorShift>();
         public delegate void frmAddUpdateDoctorEventHandler(object sender, int DoctorID);
 
         public event frmAddUpdateDoctorEventHandler DataBack;
-        
+
         public frmAddUpdateDoctor()
         {
             InitializeComponent();
@@ -64,7 +64,7 @@ namespace Clinic.Doctor
         private void _ResetDefaultValues()
         {
             _FillSpecializationsInCheckBox();
-            _SetupShiftsGrid();
+          
             _FiilDaysInComboBox();
 
             tpDoctorInfo.Enabled = false;
@@ -76,6 +76,8 @@ namespace Clinic.Doctor
                 ctrlPersonCardWithFilter1.FilterEnabled = true;
                 ctrlPersonCardWithFilter1.FocuseTextBox(); // تأكد أن الدالة موجودة بكارت الفلتر لديك
                 lblTitle.Text = "Add New Doctor";
+                _SetupShiftsGrid();
+
             }
             else
             {
@@ -121,8 +123,9 @@ namespace Clinic.Doctor
                     clbSpesalizations.SetSelected(lastCheckedIndex, true);
                 }
             }
-         
-            _LoadShiftsIntoGrid(clsDoctor.GetDoctorShifts(_Doctor.DoctorID));
+            _SetupShiftsGrid();
+
+            //_LoadShiftsIntoGrid(clsDoctor.GetDoctorShifts(_Doctor.DoctorID));
 
             tpDoctorInfo.Enabled = true;
             btnSave.Enabled = true;
@@ -148,25 +151,26 @@ namespace Clinic.Doctor
             dgvShifts.Columns.Add(imgDelete);
 
             dgvShifts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
+            if(_Mode==enMode.AddNew)
+            _Doctor.InsializeDoctorShifts();
             // ربط القائمة بالجدول
-            dgvShifts.DataSource = _ShiftsList;
+            dgvShifts.DataSource = _Doctor.dtWorkDays;
         }
-        private void _LoadShiftsIntoGrid(DataTable dtDoctorShifts)
-        {
-            _ShiftsList.Clear(); // تفريغ القائمة
+        //private void _LoadShiftsIntoGrid(DataTable dtDoctorShifts)
+        //{
+        //    _Doctor.dtWorkDays.Clear(); // تفريغ القائمة
 
-            foreach (DataRow row in dtDoctorShifts.Rows)
-            {
-                _ShiftsList.Add(new clsDoctorShift
-                {
-                    DayID = Convert.ToInt32(row["DayID"]),
-                    DayName = row["DayName"].ToString(),
-                    StartTime = (TimeSpan)row["StartTime"],
-                    EndTime = (TimeSpan)row["EndTime"]
-                });
-            }
-        }
+        //    foreach (DataRow row in dtDoctorShifts.Rows)
+        //    {
+        //        _ShiftsList.Add(new clsDoctorShift
+        //        {
+        //            DayID = Convert.ToInt32(row["DayID"]),
+        //            DayName = row["DayName"].ToString(),
+        //            StartTime = (TimeSpan)row["StartTime"],
+        //            EndTime = (TimeSpan)row["EndTime"]
+        //        });
+        //    }
+        //}
 
         private void frmAddUpdateDoctor_Load(object sender, EventArgs e)
         {
@@ -209,7 +213,7 @@ namespace Clinic.Doctor
 
             _Doctor.IsActive = chkIsActive.Checked;
            
-            _Doctor.DoctorShifts =_ShiftsList.ToList();
+            //_Doctor.dtWorkDays =(DataTable)dgvShifts.DataSource;
 
             _Doctor.SelectedSpecialtyIDs = clbSpesalizations.GetCheckedIDs("SpecializationID");
 
@@ -329,7 +333,7 @@ namespace Clinic.Doctor
             }
             
             // 1. التحقق من عدد النوبات (بحد أقصى 2 في اليوم)
-            int countSameDay = _ShiftsList.Count(s => s.DayID == newDayID);
+            int countSameDay = _Doctor.dtWorkDays.Rows.Cast<DataRow>().Count(r => Convert.ToInt32(r["DayID"]) == newDayID);
             if (countSameDay >= 2)
             {
                 MessageBox.Show("You cannot add more than two shifts for the same day.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -337,8 +341,8 @@ namespace Clinic.Doctor
             }
 
             // 2. التحقق من التداخل الزمني باستخدام LINQ
-            bool isOverlapping = _ShiftsList.Any(s => s.DayID == newDayID &&
-                                 !(newEnd <= s.StartTime || newStart >= s.EndTime));
+            bool isOverlapping = _Doctor.dtWorkDays.Rows.Cast<DataRow>().Any(r => Convert.ToInt32(r["DayID"]) == newDayID &&
+                                 !(newEnd <= (TimeSpan)r["StartTime"] || newStart >= (TimeSpan)r["EndTime"]));
 
             if (isOverlapping)
             {
@@ -347,13 +351,20 @@ namespace Clinic.Doctor
             }
 
             // 3. الإضافة مباشرة للقائمة (الجدول سيحدث نفسه تلقائياً)
-            _ShiftsList.Add(new clsDoctorShift
-            {
-                DayID = newDayID,
-                DayName=cmbDays.Text,
-                StartTime = newStart,
-                EndTime = newEnd
-            });
+            //_ShiftsList.Add(new clsDoctorShift
+            //{
+            //    DayID = newDayID,
+            //    DayName=cmbDays.Text,
+            //    StartTime = newStart,
+            //    EndTime = newEnd
+            //});
+            DataRow newRow = _Doctor.dtWorkDays.NewRow();
+            newRow["DayID"] = newDayID;
+            newRow["DayName"] = cmbDays.Text;
+            newRow["StartTime"] = newStart;
+            newRow["EndTime"] = newEnd;
+            _Doctor.dtWorkDays.Rows.Add(newRow);
+
         }
 
         private void dgvShifts_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)

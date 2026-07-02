@@ -22,8 +22,7 @@ namespace Clinic.ControlsMain
         }
         private void btnListAppoinment_Click(object sender, EventArgs e)
         {
-            frmListAppointmets frm = new frmListAppointmets();
-            frm.Show();
+            clsFormHelper.ShowForm<frmListAppointmets>();
         }
 
         private void btnMangeBills_Click(object sender, EventArgs e)

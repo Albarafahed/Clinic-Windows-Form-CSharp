@@ -58,11 +58,11 @@ namespace Clinic.Controls
 
         private void _LoadDoctorShiftInfo()
         {
-            DataTable dt = clsDoctor.GetDoctorShifts(_DoctorID);
-            if (dt == null)
+           
+            if (_Doctor.dtWorkDays == null)
                 return;
-            dgvShifts.DataSource = dt;
-            if (dt.Rows.Count == 0)
+            dgvShifts.DataSource = _Doctor.dtWorkDays;
+            if (_Doctor.dtWorkDays.Rows.Count == 0)
                 return;
             dgvShifts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvShifts.Columns["DayID"].Visible = false;

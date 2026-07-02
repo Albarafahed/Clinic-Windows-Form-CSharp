@@ -31,11 +31,20 @@ namespace Clinic
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Current User Info", 1, 1);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Change Password", 2, 2);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Account Settings", 0, 1, new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm));
             this.lblTitle = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlMainContainer = new System.Windows.Forms.PictureBox();
+            this.treeAccountSettings = new System.Windows.Forms.TreeView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlMainContainer)).BeginInit();
             this.SuspendLayout();
@@ -45,7 +54,7 @@ namespace Clinic
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.lblTitle.Location = new System.Drawing.Point(28, 21);
+            this.lblTitle.Location = new System.Drawing.Point(427, 18);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(233, 45);
@@ -57,7 +66,7 @@ namespace Clinic
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.label24.Location = new System.Drawing.Point(269, 25);
+            this.label24.Location = new System.Drawing.Point(668, 21);
             this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(201, 41);
@@ -83,13 +92,14 @@ namespace Clinic
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
+            this.panel1.Controls.Add(this.treeAccountSettings);
             this.panel1.Controls.Add(this.btnExit);
             this.panel1.Controls.Add(this.label24);
             this.panel1.Controls.Add(this.lblTitle);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1495, 88);
+            this.panel1.Size = new System.Drawing.Size(1495, 97);
             this.panel1.TabIndex = 10;
             // 
             // pnlMainContainer
@@ -99,12 +109,52 @@ namespace Clinic
             this.pnlMainContainer.Cursor = System.Windows.Forms.Cursors.No;
             this.pnlMainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMainContainer.Image = global::Clinic.Properties.Resources.ClinicWallpaper;
-            this.pnlMainContainer.Location = new System.Drawing.Point(0, 88);
+            this.pnlMainContainer.Location = new System.Drawing.Point(0, 97);
             this.pnlMainContainer.Name = "pnlMainContainer";
-            this.pnlMainContainer.Size = new System.Drawing.Size(1495, 764);
+            this.pnlMainContainer.Size = new System.Drawing.Size(1495, 755);
             this.pnlMainContainer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pnlMainContainer.TabIndex = 11;
             this.pnlMainContainer.TabStop = false;
+            // 
+            // treeAccountSettings
+            // 
+            this.treeAccountSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.treeAccountSettings.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeAccountSettings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.treeAccountSettings.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeAccountSettings.ForeColor = System.Drawing.Color.White;
+            this.treeAccountSettings.FullRowSelect = true;
+            this.treeAccountSettings.ImageIndex = 0;
+            this.treeAccountSettings.ImageList = this.imageList1;
+            this.treeAccountSettings.Location = new System.Drawing.Point(3, 3);
+            this.treeAccountSettings.Name = "treeAccountSettings";
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "";
+            treeNode1.SelectedImageIndex = 1;
+            treeNode1.Text = "Current User Info";
+            treeNode2.ImageIndex = 2;
+            treeNode2.Name = "";
+            treeNode2.SelectedImageIndex = 2;
+            treeNode2.Text = "Change Password";
+            treeNode3.ImageIndex = 0;
+            treeNode3.Name = "";
+            treeNode3.SelectedImageIndex = 1;
+            treeNode3.Text = "Account Settings";
+            this.treeAccountSettings.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode3});
+            this.treeAccountSettings.SelectedImageIndex = 0;
+            this.treeAccountSettings.Size = new System.Drawing.Size(274, 138);
+            this.treeAccountSettings.TabIndex = 256;
+            this.treeAccountSettings.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeAccountSettings_AfterSelect);
+            this.treeAccountSettings.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeAccountSettings_NodeMouseClick);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "Account Setttings 64.png");
+            this.imageList1.Images.SetKeyName(1, "User Options 32.png");
+            this.imageList1.Images.SetKeyName(2, "Password 32.png");
             // 
             // frm
             // 
@@ -173,5 +223,7 @@ namespace Clinic
         private Button btnExit;
         private Panel panel1;
         private PictureBox pnlMainContainer;
+        private TreeView treeAccountSettings;
+        private ImageList imageList1;
     }
 }

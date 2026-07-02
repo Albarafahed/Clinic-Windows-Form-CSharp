@@ -74,11 +74,11 @@ namespace Clinic.Medical_Services.Casher
             clsSalesReturn.clsBillMasterInfo billMaster;
 
             _dtReturnItems = clsSalesReturn.GetBillCompleteDetails(billID, out billMaster);
-            if (_dtReturnItems.Rows.Count == 0 || _dtReturnItems == null) return;
-            if (!billMaster.IsFound)
+            if (!billMaster.IsFound|| _dtReturnItems.Rows.Count == 0 || _dtReturnItems == null)
             {
                 MessageBox.Show("This bill was not found in the system, or its medicines have not been dispensed yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _ResetForm();
+                this.Close();
                 return;
             }
 

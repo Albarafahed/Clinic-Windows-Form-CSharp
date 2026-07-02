@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 namespace Clinic_DataAccess
 {
@@ -415,78 +416,80 @@ namespace Clinic_DataAccess
             return dt;
         }
 
-        public static int AddNewDoctor(int PersonID, float ConsultationFees, string LicenseNumber,
-                                int CreatedByUserID, bool IsActive,
-                                List<int> SelectedSpecialtyIDs,
-                                List<int> DayIDs, List<TimeSpan> StartTimes, List<TimeSpan> EndTimes)
+        public static int AddNewDoctor(int PersonID, float ConsultationFees, string LicenseNumber, int CreatedByUserID, bool IsActive,
+                        List<int> SelectedSpecialtyIDs, DataTable dtWorkDays)
         {
-            StringBuilder queryBuilder = new StringBuilder();
-
-            // 1. إضافة الطبيب الأساسي
-            queryBuilder.AppendLine(@"INSERT INTO Doctors (PersonID, ConsultationFees, LicenseNumber, CreatedByUserID, IsActive) 
-                             VALUES (@PersonID, @ConsultationFees, @LicenseNumber, @CreatedByUserID, @IsActive);
-                             DECLARE @NewDoctorID INT = SCOPE_IDENTITY();");
-
-            // 2. إضافة التخصصات
-            for (int i = 0; i < (SelectedSpecialtyIDs?.Count ?? 0); i++)
-                queryBuilder.AppendLine($"INSERT INTO DoctorSpecialties (DoctorID, SpecializationID) VALUES (@NewDoctorID, @SpecID{i});");
-
-            // 3. إضافة فترات العمل (باستخدام المصفوفات المنفصلة)
-            for (int i = 0; i < (DayIDs?.Count ?? 0); i++)
-                queryBuilder.AppendLine($"INSERT INTO DoctorWorkingDays (DoctorID, DayID, StartTime, EndTime) VALUES (@NewDoctorID, @DayID{i}, @Start{i}, @End{i});");
-
-            queryBuilder.AppendLine("SELECT @NewDoctorID;");
-
-            SqlTransaction transaction = null;
-            try
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                connection.Open();
+                using (SqlTransaction transaction = connection.BeginTransaction())
                 {
-                    connection.Open();
-                    using (transaction = connection.BeginTransaction())
+                    try
                     {
-                        using (SqlCommand cmd = new SqlCommand(queryBuilder.ToString(), connection, transaction))
+                        // 1. إضافة الطبيب الأساسي واسترجاع الـ ID
+                        string insertDoctor = @"INSERT INTO Doctors (PersonID, ConsultationFees, LicenseNumber, CreatedByUserID, IsActive) 
+                                        VALUES (@PersonID, @ConsultationFees, @LicenseNumber, @CreatedByUserID, @IsActive);
+                                        SELECT SCOPE_IDENTITY();";
+
+                        int doctorID;
+                        using (SqlCommand cmd = new SqlCommand(insertDoctor, connection, transaction))
                         {
-                            // إضافة البارامترات الأساسية
                             cmd.Parameters.AddWithValue("@PersonID", PersonID);
                             cmd.Parameters.AddWithValue("@ConsultationFees", ConsultationFees);
                             cmd.Parameters.AddWithValue("@LicenseNumber", LicenseNumber);
                             cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
                             cmd.Parameters.AddWithValue("@IsActive", IsActive);
-
-                            // إضافة بارامترات التخصصات
-                            for (int i = 0; i < (SelectedSpecialtyIDs?.Count ?? 0); i++)
-                                cmd.Parameters.AddWithValue($"@SpecID{i}", SelectedSpecialtyIDs[i]);
-
-                            // إضافة بارامترات فترات العمل
-                            for (int i = 0; i < (DayIDs?.Count ?? 0); i++)
-                            {
-                                cmd.Parameters.AddWithValue($"@DayID{i}", DayIDs[i]);
-                                cmd.Parameters.AddWithValue($"@Start{i}", StartTimes[i]);
-                                cmd.Parameters.AddWithValue($"@End{i}", EndTimes[i]);
-                            }
-                            object result = cmd.ExecuteScalar();
-                            transaction.Commit();
-                            return (result != null) ? Convert.ToInt32(result) : -1;
+                            doctorID = Convert.ToInt32(cmd.ExecuteScalar());
                         }
+
+                        // 2. تجهيز البيانات للتخصصات (بدون بناء SQL String)
+                        DataTable dtSpecs = new DataTable();
+                        dtSpecs.Columns.Add("DoctorID", typeof(int));
+                        dtSpecs.Columns.Add("SpecializationID", typeof(int));
+                        SelectedSpecialtyIDs.ForEach(id => dtSpecs.Rows.Add(doctorID, id));
+
+                        // 3. تجهيز البيانات لأيام العمل
+                        dtWorkDays.Columns.Add("DoctorID", typeof(int), doctorID.ToString());
+
+                        // تعبئة البيانات
+                       
+
+                        // 4. تنفيذ الـ Bulk Copy (هنا السحر الحقيقي، لا توجد حلقات SQL)
+                        using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
+                        {
+                            // حفظ التخصصات
+                            bulkCopy.DestinationTableName = "DoctorSpecialties";
+                            bulkCopy.ColumnMappings.Add("DoctorID", "DoctorID");
+                            bulkCopy.ColumnMappings.Add("SpecializationID", "SpecializationID");
+                            bulkCopy.WriteToServer(dtSpecs);
+                            bulkCopy.ColumnMappings.Clear();
+                            // حفظ أيام العمل (بدون ShiftID)
+                            bulkCopy.DestinationTableName = "DoctorWorkingDays";
+                            bulkCopy.ColumnMappings.Add("DoctorID", "DoctorID");
+                            bulkCopy.ColumnMappings.Add("DayID", "DayID");
+                            bulkCopy.ColumnMappings.Add("StartTime", "StartTime");
+                            bulkCopy.ColumnMappings.Add("EndTime", "EndTime");
+                            bulkCopy.WriteToServer(dtWorkDays);
+                        }
+
+                        transaction.Commit();
+                        return doctorID;
+                    }
+                    catch (SqlException ex)
+                    {
+                        transaction.Rollback();
+                        clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error);
+
+                        return -1;
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                if (transaction != null)
-                    transaction.Rollback();
-                clsGlobalLogger.LogSqlException(ex, clsGlobalLogger.LogLevel.Error, CreatedByUserID);
-                return -1;
-            }
-
-
         }
 
         public static bool UpdateDoctor(int DoctorID, int PersonID, float ConsultationFees,
                                 string LicenseNumber, int CreatedByUserID, bool IsActive,
                                 List<int> SelectedSpecialtyIDs,
-                                List<int> DayIDs, List<TimeSpan> StartTimes, List<TimeSpan> EndTimes)
+                                DataTable dtWorkDays)
         {
             StringBuilder queryBuilder = new StringBuilder();
 
@@ -500,14 +503,6 @@ namespace Clinic_DataAccess
             // 2. حذف البيانات القديمة لضمان عدم التكرار (Clean and Re-insert)
             queryBuilder.AppendLine("DELETE FROM DoctorSpecialties WHERE DoctorID = @DoctorID;");
             queryBuilder.AppendLine("DELETE FROM DoctorWorkingDays WHERE DoctorID = @DoctorID;");
-
-            // 3. إعادة إدراج التخصصات
-            for (int i = 0; i < (SelectedSpecialtyIDs?.Count ?? 0); i++)
-                queryBuilder.AppendLine($"INSERT INTO DoctorSpecialties (DoctorID, SpecializationID) VALUES (@DoctorID, @SpecID{i});");
-
-            // 4. إعادة إدراج الفترات (Shifts)
-            for (int i = 0; i < (DayIDs?.Count ?? 0); i++)
-                queryBuilder.AppendLine($"INSERT INTO DoctorWorkingDays (DoctorID, DayID, StartTime, EndTime) VALUES (@DoctorID, @DayID{i}, @Start{i}, @End{i});");
             SqlTransaction transaction = null;
             try
             {
@@ -524,25 +519,46 @@ namespace Clinic_DataAccess
                             cmd.Parameters.AddWithValue("@LicenseNumber", LicenseNumber);
                             cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
                             cmd.Parameters.AddWithValue("@IsActive", IsActive);
-
-                            for (int i = 0; i < (SelectedSpecialtyIDs?.Count ?? 0); i++)
-                                cmd.Parameters.AddWithValue($"@SpecID{i}", SelectedSpecialtyIDs[i]);
-
-                            for (int i = 0; i < (DayIDs?.Count ?? 0); i++)
-                            {
-                                cmd.Parameters.AddWithValue($"@DayID{i}", DayIDs[i]);
-                                cmd.Parameters.AddWithValue($"@Start{i}", StartTimes[i]);
-                                cmd.Parameters.AddWithValue($"@End{i}", EndTimes[i]);
-                            }
-
-
                             cmd.ExecuteNonQuery();
+                        }
+                        DataTable dtSpecs = new DataTable();
+                        dtSpecs.Columns.Add("DoctorID", typeof(int));
+                        dtSpecs.Columns.Add("SpecializationID", typeof(int));
+                        SelectedSpecialtyIDs.ForEach(id => dtSpecs.Rows.Add(DoctorID, id));
+
+                        // 3. تجهيز البيانات لأيام العمل
+                        dtWorkDays.Columns.Add("DoctorID", typeof(int), DoctorID.ToString());
+
+                        // تعبئة البيانات
+
+
+                        // 4. تنفيذ الـ Bulk Copy (هنا السحر الحقيقي، لا توجد حلقات SQL)
+                        using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
+                        {
+                            // حفظ التخصصات
+                            bulkCopy.DestinationTableName = "DoctorSpecialties";
+                            bulkCopy.ColumnMappings.Add("DoctorID", "DoctorID");
+                            bulkCopy.ColumnMappings.Add("SpecializationID", "SpecializationID");
+                            bulkCopy.WriteToServer(dtSpecs);
+                            bulkCopy.ColumnMappings.Clear();
+                            // حفظ أيام العمل (بدون ShiftID)
+                            bulkCopy.DestinationTableName = "DoctorWorkingDays";
+                            bulkCopy.ColumnMappings.Add("DoctorID", "DoctorID");
+                            bulkCopy.ColumnMappings.Add("DayID", "DayID");
+                            bulkCopy.ColumnMappings.Add("StartTime", "StartTime");
+                            bulkCopy.ColumnMappings.Add("EndTime", "EndTime");
+                            bulkCopy.WriteToServer(dtWorkDays);
+                        }
+
+                       
                             transaction.Commit();
                             return true;
-                        }
+
+                        
                     }
                 }
-            }
+              
+            }   
             catch (SqlException ex)
             {
                 if (transaction != null)

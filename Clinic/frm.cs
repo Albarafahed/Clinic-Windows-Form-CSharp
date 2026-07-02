@@ -1,16 +1,19 @@
-﻿using Clinic.ControlsMain;
+﻿using Clinic.Appointment.AppointmentsType;
+using Clinic.ControlsMain;
+using Clinic.Medical_Services.Appointment;
 using Clinic.Properties;
+using Clinic.Serveces.ServecesType;
+using Clinic.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using System.Runtime.InteropServices;
 
 namespace Clinic
 {
@@ -29,6 +32,10 @@ namespace Clinic
 
            
 
+        }
+        private void OpenForm(Form form)
+        {
+            form.ShowDialog();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -119,6 +126,29 @@ namespace Clinic
 
                 _isInitialized = true;
             }
+        }
+
+        private void treeAccountSettings_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            switch (e.Node.Text)
+            {
+                case "Change Password":
+                   OpenForm(new frmChangePassword(clsGlobal.CurrentUser.UserID));
+                    break;
+
+                case "Current User Info":
+                    OpenForm(new frmUserInfo(clsGlobal.CurrentUser.UserID));
+                    break;
+
+
+                default:
+                    break;
+            }
+        }
+
+        private void treeAccountSettings_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
         }
     }
 }
