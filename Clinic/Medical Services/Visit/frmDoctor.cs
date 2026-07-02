@@ -111,7 +111,6 @@ namespace Clinic.Medical_Services.Visit
             tpServices.Enabled = false;
             tpPrescriptionInfo.Enabled = false;
             dtpPrescriptionDate.Value = DateTime.Now;
-            lbVisitDate.Text = DateTime.Now.ToShortDateString();
             nudQuality.Value = 1;
             btnFullSave.Enabled = false;
             _SetupWaitingListGrid();
@@ -133,12 +132,15 @@ namespace Clinic.Medical_Services.Visit
         {
             lblTitle.Text = "Update Visit Info";
             _LoadVisitData(_VisitID);
+            tcVisitInfo.Dock = DockStyle.Fill;
+
         }
 
         private void _LoadShowMode()
         {
             lblTitle.Text = "Visit Details";
             _LoadVisitData(_VisitID);
+            tcVisitInfo.Dock = DockStyle.Fill;
 
             pnlVisitInfo.Enabled = false;
             btnSaveVisit.Visible = false;
@@ -177,7 +179,6 @@ namespace Clinic.Medical_Services.Visit
             lbVisitID.Text = _VisitID.ToString();
             txtDiagnosis.Text = _Visit.Diagnosis;
             txtNotes.Text = _Visit.VisitNotes;
-            lbVisitDate.Text = _Visit.VisitDate.ToShortDateString();
             pnlAction.Visible = false;
             _FillPatientInfo();
             _FillVitalsInfo();
@@ -517,7 +518,6 @@ namespace Clinic.Medical_Services.Visit
             txtNotes.Clear();
             txtPrescriptionNotes.Clear();
 
-            lbVisitDate.Text = DateTime.Now.ToShortDateString();
             lbVisitID.Text = "[???]";
             lblPatientID.Text = "[???]";
             lblAppointmentID.Text = "[???]";
@@ -543,6 +543,11 @@ namespace Clinic.Medical_Services.Visit
             timer2.Stop();
             timer2.Dispose();
 
+            this.Close();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
             this.Close();
         }
 
@@ -799,9 +804,6 @@ namespace Clinic.Medical_Services.Visit
 
         #endregion
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+       
     }
 }

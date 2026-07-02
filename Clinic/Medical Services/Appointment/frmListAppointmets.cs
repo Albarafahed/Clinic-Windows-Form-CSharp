@@ -269,12 +269,9 @@ namespace Clinic.Medical_Services.Appointment
 
             checkINToolStripMenuItem.Enabled = (currentStatus == "Scheduled");
 
-
-            CancelToolStripMenuItem.Enabled = (currentStatus != "Completed");
-
             rescheduleToolStripMenuItem.Enabled = (currentStatus == "Scheduled" || currentStatus == "Postponed");
 
-            deleteToolStripMenuItem.Enabled = CancelToolStripMenuItem.Enabled;
+            deleteToolStripMenuItem.Enabled = (currentStatus != "Completed");
             editToolStripMenuItem.Enabled = deleteToolStripMenuItem.Enabled && (currentStatus != "Cancelled");
         }
 
@@ -341,6 +338,12 @@ namespace Clinic.Medical_Services.Appointment
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void VisitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmListPatient frm = new frmListPatient();
+            frm.ShowDialog();
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Clinic.global_classes
                       .ToList();
         }
 
-        // داخل مشروع الـ BusinessLayer أو أي مشروع يرى الـ BusinessLayer
+      
 
 
     }

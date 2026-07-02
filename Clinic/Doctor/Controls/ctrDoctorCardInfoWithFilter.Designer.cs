@@ -127,7 +127,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.gbFilters);
             this.Controls.Add(this.ctrDoctorCardInfo1);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);

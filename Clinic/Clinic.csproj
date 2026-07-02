@@ -521,6 +521,9 @@
     <EmbeddedResource Include="Person\frmListPeople.resx">
       <DependentUpon>frmListPeople.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Person\frmShowPersonInfo.resx">
+      <DependentUpon>frmShowPersonInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Person\frmTrashPeople.resx">
       <DependentUpon>frmTrashPeople.cs</DependentUpon>
     </EmbeddedResource>

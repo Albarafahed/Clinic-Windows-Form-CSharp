@@ -183,12 +183,7 @@ namespace Clinic.Patient
             }
         }
 
-        private void btnAddPatient_Click(object sender, EventArgs e)
-        {
-            frmAddUpdatePatient frm = new frmAddUpdatePatient();
-            frm.DataBack += _DataBackToAdd;
-            frm.ShowDialog();
-        }
+      
 
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
@@ -268,6 +263,29 @@ namespace Clinic.Patient
             }
         }
 
-       
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAddUpdatePatient frm = new frmAddUpdatePatient();
+            frm.DataBack += _DataBackToAdd;
+            frm.ShowDialog();
+        }
+
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmFindPatient frm = new frmFindPatient();
+            frm.ShowDialog();
+        }
+
+        private void btnAddPatient_Click(object sender, EventArgs e)
+        {
+            frmAddUpdatePatient frm = new frmAddUpdatePatient();
+            frm.DataBack += _DataBackToAdd;
+            frm.ShowDialog();
+        }
     }
 }

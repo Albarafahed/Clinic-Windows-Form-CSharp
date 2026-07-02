@@ -38,15 +38,18 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.addAppointmentTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deletAppointmentTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvAppointmentType = new System.Windows.Forms.DataGridView();
             this.pbApplicationTypesmage = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.addAppointmentTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deletAppointmentTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsApplicationTypes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointmentType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbApplicationTypesmage)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblRecordsCount
@@ -80,7 +83,7 @@
             this.addAppointmentTypeToolStripMenuItem,
             this.deletAppointmentTypeToolStripMenuItem});
             this.cmsApplicationTypes.Name = "contextMenuStrip1";
-            this.cmsApplicationTypes.Size = new System.Drawing.Size(258, 158);
+            this.cmsApplicationTypes.Size = new System.Drawing.Size(258, 130);
             // 
             // toolStripSeparator2
             // 
@@ -100,6 +103,24 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(254, 6);
+            // 
+            // addAppointmentTypeToolStripMenuItem
+            // 
+            this.addAppointmentTypeToolStripMenuItem.Image = global::Clinic.Properties.Resources.add_32;
+            this.addAppointmentTypeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.addAppointmentTypeToolStripMenuItem.Name = "addAppointmentTypeToolStripMenuItem";
+            this.addAppointmentTypeToolStripMenuItem.Size = new System.Drawing.Size(257, 38);
+            this.addAppointmentTypeToolStripMenuItem.Text = "&Add Appointment Type";
+            this.addAppointmentTypeToolStripMenuItem.Click += new System.EventHandler(this.addAppointmentTypeToolStripMenuItem_Click);
+            // 
+            // deletAppointmentTypeToolStripMenuItem
+            // 
+            this.deletAppointmentTypeToolStripMenuItem.Image = global::Clinic.Properties.Resources.Delete_32;
+            this.deletAppointmentTypeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.deletAppointmentTypeToolStripMenuItem.Name = "deletAppointmentTypeToolStripMenuItem";
+            this.deletAppointmentTypeToolStripMenuItem.Size = new System.Drawing.Size(257, 38);
+            this.deletAppointmentTypeToolStripMenuItem.Text = "&Delet Appointment Type";
+            this.deletAppointmentTypeToolStripMenuItem.Click += new System.EventHandler(this.deletAppointmentTypeToolStripMenuItem_Click);
             // 
             // dgvAppointmentType
             // 
@@ -135,7 +156,7 @@
             this.dgvAppointmentType.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvAppointmentType.EnableHeadersVisualStyles = false;
             this.dgvAppointmentType.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
-            this.dgvAppointmentType.Location = new System.Drawing.Point(29, 207);
+            this.dgvAppointmentType.Location = new System.Drawing.Point(29, 187);
             this.dgvAppointmentType.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.dgvAppointmentType.MultiSelect = false;
             this.dgvAppointmentType.Name = "dgvAppointmentType";
@@ -153,10 +174,10 @@
             this.pbApplicationTypesmage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbApplicationTypesmage.Image = global::Clinic.Properties.Resources.appointment_type_512;
             this.pbApplicationTypesmage.InitialImage = null;
-            this.pbApplicationTypesmage.Location = new System.Drawing.Point(242, 10);
+            this.pbApplicationTypesmage.Location = new System.Drawing.Point(271, 77);
             this.pbApplicationTypesmage.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.pbApplicationTypesmage.Name = "pbApplicationTypesmage";
-            this.pbApplicationTypesmage.Size = new System.Drawing.Size(163, 123);
+            this.pbApplicationTypesmage.Size = new System.Drawing.Size(145, 100);
             this.pbApplicationTypesmage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbApplicationTypesmage.TabIndex = 122;
             this.pbApplicationTypesmage.TabStop = false;
@@ -180,51 +201,63 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.panel2.Controls.Add(this.btnExit);
+            this.panel2.Controls.Add(this.lblTitle);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(722, 68);
+            this.panel2.TabIndex = 173;
+            // 
+            // btnExit
+            // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.BackColor = System.Drawing.Color.Transparent;
+            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
+            this.btnExit.ForeColor = System.Drawing.Color.White;
+            this.btnExit.Image = global::Clinic.Properties.Resources.sign_out_32__2;
+            this.btnExit.Location = new System.Drawing.Point(622, 9);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(88, 42);
+            this.btnExit.TabIndex = 256;
+            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // lblTitle
             // 
-            this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.lblTitle.Location = new System.Drawing.Point(111, 139);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.lblTitle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(79, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(457, 62);
-            this.lblTitle.TabIndex = 126;
+            this.lblTitle.Size = new System.Drawing.Size(414, 45);
+            this.lblTitle.TabIndex = 6;
             this.lblTitle.Text = "Mange Appointment Type";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // addAppointmentTypeToolStripMenuItem
-            // 
-            this.addAppointmentTypeToolStripMenuItem.Image = global::Clinic.Properties.Resources.add_32;
-            this.addAppointmentTypeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.addAppointmentTypeToolStripMenuItem.Name = "addAppointmentTypeToolStripMenuItem";
-            this.addAppointmentTypeToolStripMenuItem.Size = new System.Drawing.Size(257, 38);
-            this.addAppointmentTypeToolStripMenuItem.Text = "&Add Appointment Type";
-            this.addAppointmentTypeToolStripMenuItem.Click += new System.EventHandler(this.addAppointmentTypeToolStripMenuItem_Click);
-            // 
-            // deletAppointmentTypeToolStripMenuItem
-            // 
-            this.deletAppointmentTypeToolStripMenuItem.Image = global::Clinic.Properties.Resources.Delete_32;
-            this.deletAppointmentTypeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.deletAppointmentTypeToolStripMenuItem.Name = "deletAppointmentTypeToolStripMenuItem";
-            this.deletAppointmentTypeToolStripMenuItem.Size = new System.Drawing.Size(257, 38);
-            this.deletAppointmentTypeToolStripMenuItem.Text = "&Delet Appointment Type";
-            this.deletAppointmentTypeToolStripMenuItem.Click += new System.EventHandler(this.deletAppointmentTypeToolStripMenuItem_Click);
             // 
             // frmListAppointmentType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(722, 663);
-            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.dgvAppointmentType);
             this.Controls.Add(this.lblRecordsCount);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pbApplicationTypesmage);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.Name = "frmListAppointmentType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -233,6 +266,8 @@
             this.cmsApplicationTypes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAppointmentType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbApplicationTypesmage)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,8 +283,10 @@
         private System.Windows.Forms.PictureBox pbApplicationTypesmage;
         private System.Windows.Forms.DataGridView dgvAppointmentType;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.ToolStripMenuItem addAppointmentTypeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deletAppointmentTypeToolStripMenuItem;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label lblTitle;
     }
 }

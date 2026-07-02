@@ -17,11 +17,7 @@ namespace Clinic.Doctor
             InitializeComponent();
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
+       
         private void frmFindDoctor_Activated(object sender, EventArgs e)
         {
             ctrDoctorCardInfoWithFilter1.FilterFocus();
@@ -31,6 +27,11 @@ namespace Clinic.Doctor
         {
             MessageBox.Show($"Doctor ID {e.ID} PersonID {e.PersonID}");
 
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

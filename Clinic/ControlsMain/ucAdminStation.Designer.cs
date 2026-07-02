@@ -94,7 +94,7 @@
             // 
             // treeSystemManagement
             // 
-            this.treeSystemManagement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(96)))), ((int)(((byte)(115)))));
+            this.treeSystemManagement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.treeSystemManagement.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeSystemManagement.Cursor = System.Windows.Forms.Cursors.Hand;
             this.treeSystemManagement.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -147,7 +147,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(96)))), ((int)(((byte)(115)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.panel2.Controls.Add(this.label3);
             this.panel2.Location = new System.Drawing.Point(14, 6);
             this.panel2.Name = "panel2";
@@ -157,11 +157,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(96)))), ((int)(((byte)(115)))));
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(41, 9);
+            this.label3.Location = new System.Drawing.Point(19, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(234, 45);
             this.label3.TabIndex = 6;
@@ -169,7 +169,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(96)))), ((int)(((byte)(115)))));
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = global::Clinic.Properties.Resources.role2_32;
             this.pictureBox1.Location = new System.Drawing.Point(26, 274);
@@ -183,7 +183,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(96)))), ((int)(((byte)(115)))));
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
@@ -196,7 +196,7 @@
             // 
             // btnRoleMangement
             // 
-            this.btnRoleMangement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(96)))), ((int)(((byte)(115)))));
+            this.btnRoleMangement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.btnRoleMangement.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRoleMangement.Location = new System.Drawing.Point(9, 264);
             this.btnRoleMangement.Margin = new System.Windows.Forms.Padding(5);
@@ -207,7 +207,7 @@
             // 
             // treeAccountSettings
             // 
-            this.treeAccountSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(96)))), ((int)(((byte)(115)))));
+            this.treeAccountSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.treeAccountSettings.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeAccountSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.treeAccountSettings.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

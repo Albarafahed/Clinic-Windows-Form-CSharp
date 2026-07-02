@@ -110,7 +110,7 @@ namespace Clinic.Medical_Services.Appointment
             // 
             // frmReschedule
             // 
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(600, 150);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.btnClose);

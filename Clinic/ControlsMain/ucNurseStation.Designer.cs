@@ -78,7 +78,7 @@
             this.btnNurse.Location = new System.Drawing.Point(0, 68);
             this.btnNurse.Margin = new System.Windows.Forms.Padding(5);
             this.btnNurse.Name = "btnNurse";
-            this.btnNurse.Size = new System.Drawing.Size(301, 171);
+            this.btnNurse.Size = new System.Drawing.Size(269, 171);
             this.btnNurse.TabIndex = 7;
             this.btnNurse.UseVisualStyleBackColor = false;
             this.btnNurse.Click += new System.EventHandler(this.btnNurse_Click);
@@ -106,7 +106,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(301, 58);
+            this.panel1.Size = new System.Drawing.Size(274, 58);
             this.panel1.TabIndex = 6;
             // 
             // pictureBox1
@@ -136,7 +136,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "ucNurseStation";
-            this.Size = new System.Drawing.Size(301, 239);
+            this.Size = new System.Drawing.Size(274, 239);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

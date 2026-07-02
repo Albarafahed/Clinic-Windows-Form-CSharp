@@ -137,5 +137,10 @@ namespace Clinic.Appointment.AppointmentsType
         {
             e.Handled=!char.IsDigit(e.KeyChar) &&!char.IsControl(e.KeyChar);
         }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

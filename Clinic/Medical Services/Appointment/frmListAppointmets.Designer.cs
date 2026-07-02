@@ -47,7 +47,6 @@ namespace Clinic.Medical_Services.Appointment
             this.showPatientDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showDoctorDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VisitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rescheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -217,7 +216,7 @@ namespace Clinic.Medical_Services.Appointment
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cmsAppointmentRecption.Name = "contextMenuStrip1";
-            this.cmsAppointmentRecption.Size = new System.Drawing.Size(273, 238);
+            this.cmsAppointmentRecption.Size = new System.Drawing.Size(273, 266);
             // 
             // toolStripMenuItem2
             // 
@@ -250,22 +249,11 @@ namespace Clinic.Medical_Services.Appointment
             // 
             // VisitToolStripMenuItem
             // 
-            this.VisitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CancelToolStripMenuItem});
-            this.VisitToolStripMenuItem.Image = global::Clinic.Properties.Resources.start_visit_32;
-            this.VisitToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.VisitToolStripMenuItem.Image = global::Clinic.Properties.Resources.patient;
             this.VisitToolStripMenuItem.Name = "VisitToolStripMenuItem";
             this.VisitToolStripMenuItem.Size = new System.Drawing.Size(272, 38);
-            this.VisitToolStripMenuItem.Text = "&Visit";
-            // 
-            // CancelToolStripMenuItem
-            // 
-            this.CancelToolStripMenuItem.Image = global::Clinic.Properties.Resources.edit2_32;
-            this.CancelToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.CancelToolStripMenuItem.Name = "CancelToolStripMenuItem";
-            this.CancelToolStripMenuItem.Size = new System.Drawing.Size(157, 38);
-            this.CancelToolStripMenuItem.Text = "Cancel";
-            this.CancelToolStripMenuItem.Click += new System.EventHandler(this.CancelToolStripMenuItem_Click);
+            this.VisitToolStripMenuItem.Text = "&List Patient";
+            this.VisitToolStripMenuItem.Click += new System.EventHandler(this.VisitToolStripMenuItem_Click);
             // 
             // rescheduleToolStripMenuItem
             // 
@@ -500,7 +488,6 @@ namespace Clinic.Medical_Services.Appointment
         private System.Windows.Forms.DataGridView dgvAppointments;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.ToolStripMenuItem CancelToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip cmsAppointmentCasher;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem checkINToolStripMenuItem;

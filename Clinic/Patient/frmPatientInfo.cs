@@ -19,11 +19,10 @@ namespace Clinic.Patient
             ctrlPatienCardtInfo1.LoadPatientInfo(PatientID);
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+
+        private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-       
     }
 }

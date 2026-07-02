@@ -26,7 +26,7 @@ namespace Clinic.Doctor
         public delegate void frmAddUpdateDoctorEventHandler(object sender, int DoctorID);
 
         public event frmAddUpdateDoctorEventHandler DataBack;
-
+        
         public frmAddUpdateDoctor()
         {
             InitializeComponent();
@@ -412,6 +412,11 @@ namespace Clinic.Doctor
             {
                 errorProvider1.SetError(dtpEndTime, ""); // مسح التنبيه
             }
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

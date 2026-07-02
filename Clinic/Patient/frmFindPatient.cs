@@ -17,11 +17,7 @@ namespace Clinic.Patient
             InitializeComponent();
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
+      
        
 
         private void frmFindPatient_Activated(object sender, EventArgs e)
@@ -33,6 +29,11 @@ namespace Clinic.Patient
         {
             MessageBox.Show($"Patient ID {e.ID} PersonID {e.PersonID}");
 
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

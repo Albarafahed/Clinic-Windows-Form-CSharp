@@ -115,5 +115,11 @@ namespace Clinic.Serveces.ServecesType
                 MessageBox.Show("An error occurred while saving the service. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

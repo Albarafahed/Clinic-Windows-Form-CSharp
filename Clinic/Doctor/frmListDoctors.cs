@@ -258,5 +258,9 @@ namespace Clinic.Doctor
             lblRecordsCount.Text = _dtAllDoctors.Rows.Count.ToString();
         }
 
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

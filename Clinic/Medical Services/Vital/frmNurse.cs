@@ -222,6 +222,7 @@ namespace Clinic.Medical_Services.Vital
 
         private void btnWaiting_For_Vitals_Click(object sender, EventArgs e)
         {
+            if(dgvNurseQueue.Rows.Count==0) return;
             bool IsWaiting_For_Vitals = dgvNurseQueue.CurrentRow.Cells["StatusText"].ToString() == "Waiting_For_Vitals" ? true : false;
             if (IsWaiting_For_Vitals)
                 return;

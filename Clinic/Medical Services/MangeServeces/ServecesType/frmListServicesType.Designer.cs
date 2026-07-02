@@ -39,14 +39,17 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addServicesTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteServicesTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvServicesType = new System.Windows.Forms.DataGridView();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.pbApplicationTypesmage = new System.Windows.Forms.PictureBox();
-            this.deleteServicesTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.cmsServicesTypes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvServicesType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbApplicationTypesmage)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblRecordsCount
@@ -80,7 +83,7 @@
             this.addServicesTypeToolStripMenuItem,
             this.deleteServicesTypeToolStripMenuItem});
             this.cmsServicesTypes.Name = "contextMenuStrip1";
-            this.cmsServicesTypes.Size = new System.Drawing.Size(231, 158);
+            this.cmsServicesTypes.Size = new System.Drawing.Size(231, 130);
             // 
             // toolStripSeparator2
             // 
@@ -110,6 +113,15 @@
             this.addServicesTypeToolStripMenuItem.Size = new System.Drawing.Size(230, 38);
             this.addServicesTypeToolStripMenuItem.Text = "Add Services Type";
             this.addServicesTypeToolStripMenuItem.Click += new System.EventHandler(this.addServicesTypeToolStripMenuItem_Click);
+            // 
+            // deleteServicesTypeToolStripMenuItem
+            // 
+            this.deleteServicesTypeToolStripMenuItem.Image = global::Clinic.Properties.Resources.Delete_32;
+            this.deleteServicesTypeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.deleteServicesTypeToolStripMenuItem.Name = "deleteServicesTypeToolStripMenuItem";
+            this.deleteServicesTypeToolStripMenuItem.Size = new System.Drawing.Size(230, 38);
+            this.deleteServicesTypeToolStripMenuItem.Text = "Delete Services Type";
+            this.deleteServicesTypeToolStripMenuItem.Click += new System.EventHandler(this.deleteServicesTypeToolStripMenuItem_Click);
             // 
             // dgvServicesType
             // 
@@ -158,19 +170,6 @@
             this.dgvServicesType.TabIndex = 124;
             this.dgvServicesType.TabStop = false;
             // 
-            // lblTitle
-            // 
-            this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.lblTitle.Location = new System.Drawing.Point(158, 139);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(492, 62);
-            this.lblTitle.TabIndex = 126;
-            this.lblTitle.Text = "Mange Services Type";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // btnClose
             // 
             this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
@@ -195,37 +194,71 @@
             this.pbApplicationTypesmage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbApplicationTypesmage.Image = global::Clinic.Properties.Resources.Mange_Services_64;
             this.pbApplicationTypesmage.InitialImage = null;
-            this.pbApplicationTypesmage.Location = new System.Drawing.Point(308, 10);
+            this.pbApplicationTypesmage.Location = new System.Drawing.Point(318, 77);
             this.pbApplicationTypesmage.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.pbApplicationTypesmage.Name = "pbApplicationTypesmage";
-            this.pbApplicationTypesmage.Size = new System.Drawing.Size(163, 123);
+            this.pbApplicationTypesmage.Size = new System.Drawing.Size(137, 91);
             this.pbApplicationTypesmage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbApplicationTypesmage.TabIndex = 122;
             this.pbApplicationTypesmage.TabStop = false;
             // 
-            // deleteServicesTypeToolStripMenuItem
+            // panel2
             // 
-            this.deleteServicesTypeToolStripMenuItem.Image = global::Clinic.Properties.Resources.Delete_32;
-            this.deleteServicesTypeToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.deleteServicesTypeToolStripMenuItem.Name = "deleteServicesTypeToolStripMenuItem";
-            this.deleteServicesTypeToolStripMenuItem.Size = new System.Drawing.Size(230, 38);
-            this.deleteServicesTypeToolStripMenuItem.Text = "Delete Services Type";
-            this.deleteServicesTypeToolStripMenuItem.Click += new System.EventHandler(this.deleteServicesTypeToolStripMenuItem_Click);
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.panel2.Controls.Add(this.btnExit);
+            this.panel2.Controls.Add(this.lblTitle);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(816, 68);
+            this.panel2.TabIndex = 174;
+            // 
+            // btnExit
+            // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.BackColor = System.Drawing.Color.Transparent;
+            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
+            this.btnExit.ForeColor = System.Drawing.Color.White;
+            this.btnExit.Image = global::Clinic.Properties.Resources.sign_out_32__2;
+            this.btnExit.Location = new System.Drawing.Point(716, 9);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(88, 42);
+            this.btnExit.TabIndex = 256;
+            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.lblTitle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(237, 9);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(337, 45);
+            this.lblTitle.TabIndex = 6;
+            this.lblTitle.Text = "Mange Services Type";
             // 
             // frmListServicesType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(816, 663);
-            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.dgvServicesType);
             this.Controls.Add(this.lblRecordsCount);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pbApplicationTypesmage);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.Name = "frmListServicesType";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -234,6 +267,8 @@
             this.cmsServicesTypes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvServicesType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbApplicationTypesmage)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,8 +284,10 @@
         private System.Windows.Forms.PictureBox pbApplicationTypesmage;
         private System.Windows.Forms.DataGridView dgvServicesType;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.ToolStripMenuItem addServicesTypeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteServicesTypeToolStripMenuItem;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label lblTitle;
     }
 }

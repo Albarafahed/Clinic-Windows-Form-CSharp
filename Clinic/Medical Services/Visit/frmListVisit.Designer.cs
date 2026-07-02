@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmsPeople = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.showPatientDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,18 +43,30 @@
             this.ShowAppointmentListtoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblRecordsCount = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.cbFilterBy = new System.Windows.Forms.ComboBox();
             this.txtFilterValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
             this.pbPersonImage = new System.Windows.Forms.PictureBox();
+            this.panelHeaderContainer = new System.Windows.Forms.Panel();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.panelFilterCard = new System.Windows.Forms.Panel();
+            this.panelGridContainer = new System.Windows.Forms.Panel();
             this.dgvVisit = new System.Windows.Forms.DataGridView();
+            this.panelGridHeader = new System.Windows.Forms.Panel();
+            this.lblGridTitle = new System.Windows.Forms.Label();
+            this.panelFooterBar = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblRecordsCount = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
             this.cmsPeople.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).BeginInit();
+            this.panelHeaderContainer.SuspendLayout();
+            this.panelFilterCard.SuspendLayout();
+            this.panelGridContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVisit)).BeginInit();
+            this.panelGridHeader.SuspendLayout();
+            this.panelFooterBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmsPeople
@@ -147,25 +162,6 @@
             this.deleteToolStripMenuItem.Text = "&Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
-            // lblRecordsCount
-            // 
-            this.lblRecordsCount.AutoSize = true;
-            this.lblRecordsCount.Location = new System.Drawing.Point(119, 767);
-            this.lblRecordsCount.Name = "lblRecordsCount";
-            this.lblRecordsCount.Size = new System.Drawing.Size(30, 28);
-            this.lblRecordsCount.TabIndex = 121;
-            this.lblRecordsCount.Text = "??";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(26, 767);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 25);
-            this.label2.TabIndex = 120;
-            this.label2.Text = "# Records:";
-            // 
             // cbFilterBy
             // 
             this.cbFilterBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -178,7 +174,7 @@
             "Doctor Name",
             "Diagnosis",
             "CreatedByUserID"});
-            this.cbFilterBy.Location = new System.Drawing.Point(89, 302);
+            this.cbFilterBy.Location = new System.Drawing.Point(87, 18);
             this.cbFilterBy.Name = "cbFilterBy";
             this.cbFilterBy.Size = new System.Drawing.Size(193, 36);
             this.cbFilterBy.TabIndex = 119;
@@ -187,7 +183,7 @@
             // txtFilterValue
             // 
             this.txtFilterValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFilterValue.Location = new System.Drawing.Point(289, 303);
+            this.txtFilterValue.Location = new System.Drawing.Point(287, 19);
             this.txtFilterValue.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtFilterValue.Name = "txtFilterValue";
             this.txtFilterValue.Size = new System.Drawing.Size(235, 34);
@@ -199,90 +195,216 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 306);
+            this.label1.Location = new System.Drawing.Point(15, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 25);
             this.label1.TabIndex = 117;
             this.label1.Text = "Filter By:";
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(80)))));
-            this.lblTitle.Location = new System.Drawing.Point(446, 244);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(422, 44);
-            this.lblTitle.TabIndex = 123;
-            this.lblTitle.Text = "Manage Visits";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnClose
-            // 
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(1173, 767);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(124, 40);
-            this.btnClose.TabIndex = 125;
-            this.btnClose.Text = "Close";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // pbPersonImage
             // 
             this.pbPersonImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbPersonImage.Image = global::Clinic.Properties.Resources.Visits_512;
             this.pbPersonImage.InitialImage = null;
-            this.pbPersonImage.Location = new System.Drawing.Point(558, 22);
+            this.pbPersonImage.Location = new System.Drawing.Point(331, 15);
             this.pbPersonImage.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.pbPersonImage.Name = "pbPersonImage";
-            this.pbPersonImage.Size = new System.Drawing.Size(202, 212);
+            this.pbPersonImage.Size = new System.Drawing.Size(149, 78);
             this.pbPersonImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbPersonImage.TabIndex = 122;
             this.pbPersonImage.TabStop = false;
+            // 
+            // panelHeaderContainer
+            // 
+            this.panelHeaderContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(59)))), ((int)(((byte)(62)))));
+            this.panelHeaderContainer.Controls.Add(this.btnExit);
+            this.panelHeaderContainer.Controls.Add(this.lblTitle);
+            this.panelHeaderContainer.Controls.Add(this.pbPersonImage);
+            this.panelHeaderContainer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelHeaderContainer.Location = new System.Drawing.Point(0, 0);
+            this.panelHeaderContainer.Name = "panelHeaderContainer";
+            this.panelHeaderContainer.Size = new System.Drawing.Size(1378, 110);
+            this.panelHeaderContainer.TabIndex = 246;
+            // 
+            // btnExit
+            // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.BackColor = System.Drawing.Color.Transparent;
+            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
+            this.btnExit.ForeColor = System.Drawing.Color.White;
+            this.btnExit.Image = global::Clinic.Properties.Resources.sign_out_32__2;
+            this.btnExit.Location = new System.Drawing.Point(1253, 32);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(97, 42);
+            this.btnExit.TabIndex = 255;
+            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(504, 32);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(265, 50);
+            this.lblTitle.TabIndex = 117;
+            this.lblTitle.Text = "Manage Visits";
+            // 
+            // panelFilterCard
+            // 
+            this.panelFilterCard.BackColor = System.Drawing.Color.White;
+            this.panelFilterCard.Controls.Add(this.cbFilterBy);
+            this.panelFilterCard.Controls.Add(this.label1);
+            this.panelFilterCard.Controls.Add(this.txtFilterValue);
+            this.panelFilterCard.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelFilterCard.Location = new System.Drawing.Point(0, 110);
+            this.panelFilterCard.Name = "panelFilterCard";
+            this.panelFilterCard.Size = new System.Drawing.Size(1378, 75);
+            this.panelFilterCard.TabIndex = 247;
+            // 
+            // panelGridContainer
+            // 
+            this.panelGridContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.panelGridContainer.Controls.Add(this.dgvVisit);
+            this.panelGridContainer.Controls.Add(this.panelGridHeader);
+            this.panelGridContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGridContainer.Location = new System.Drawing.Point(0, 185);
+            this.panelGridContainer.Name = "panelGridContainer";
+            this.panelGridContainer.Padding = new System.Windows.Forms.Padding(25, 20, 25, 20);
+            this.panelGridContainer.Size = new System.Drawing.Size(1378, 569);
+            this.panelGridContainer.TabIndex = 248;
             // 
             // dgvVisit
             // 
             this.dgvVisit.AllowUserToAddRows = false;
             this.dgvVisit.AllowUserToDeleteRows = false;
             this.dgvVisit.AllowUserToResizeRows = false;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.dgvVisit.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvVisit.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvVisit.BackgroundColor = System.Drawing.Color.White;
             this.dgvVisit.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvVisit.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvVisit.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvVisit.ColumnHeadersHeight = 40;
+            this.dgvVisit.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(188)))), ((int)(((byte)(156)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(188)))), ((int)(((byte)(156)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvVisit.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvVisit.ColumnHeadersHeight = 45;
             this.dgvVisit.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvVisit.ContextMenuStrip = this.cmsPeople;
             this.dgvVisit.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvVisit.EnableHeadersVisualStyles = false;
-            this.dgvVisit.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.dgvVisit.Location = new System.Drawing.Point(13, 365);
-            this.dgvVisit.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.dgvVisit.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(232)))), ((int)(((byte)(240)))));
+            this.dgvVisit.Location = new System.Drawing.Point(25, 90);
             this.dgvVisit.MultiSelect = false;
             this.dgvVisit.Name = "dgvVisit";
             this.dgvVisit.ReadOnly = true;
-            this.dgvVisit.RowHeadersWidth = 30;
-            this.dgvVisit.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dgvVisit.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
-            this.dgvVisit.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.dgvVisit.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.dgvVisit.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
-            this.dgvVisit.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
-            this.dgvVisit.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvVisit.RowTemplate.Height = 38;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(188)))), ((int)(((byte)(156)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvVisit.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvVisit.RowHeadersVisible = false;
+            this.dgvVisit.RowHeadersWidth = 51;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(56)))), ((int)(((byte)(202)))));
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvVisit.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            this.dgvVisit.RowTemplate.Height = 40;
             this.dgvVisit.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVisit.Size = new System.Drawing.Size(1334, 396);
-            this.dgvVisit.TabIndex = 245;
+            this.dgvVisit.Size = new System.Drawing.Size(1325, 405);
+            this.dgvVisit.TabIndex = 116;
             this.dgvVisit.TabStop = false;
+            // 
+            // panelGridHeader
+            // 
+            this.panelGridHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(188)))), ((int)(((byte)(156)))));
+            this.panelGridHeader.Controls.Add(this.lblGridTitle);
+            this.panelGridHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelGridHeader.Location = new System.Drawing.Point(25, 20);
+            this.panelGridHeader.Name = "panelGridHeader";
+            this.panelGridHeader.Size = new System.Drawing.Size(1328, 64);
+            this.panelGridHeader.TabIndex = 0;
+            // 
+            // lblGridTitle
+            // 
+            this.lblGridTitle.AutoSize = true;
+            this.lblGridTitle.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGridTitle.ForeColor = System.Drawing.Color.White;
+            this.lblGridTitle.Location = new System.Drawing.Point(15, 15);
+            this.lblGridTitle.Name = "lblGridTitle";
+            this.lblGridTitle.Size = new System.Drawing.Size(262, 31);
+            this.lblGridTitle.TabIndex = 0;
+            this.lblGridTitle.Text = "Appointments Registry";
+            // 
+            // panelFooterBar
+            // 
+            this.panelFooterBar.BackColor = System.Drawing.Color.White;
+            this.panelFooterBar.Controls.Add(this.label2);
+            this.panelFooterBar.Controls.Add(this.lblRecordsCount);
+            this.panelFooterBar.Controls.Add(this.btnClose);
+            this.panelFooterBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelFooterBar.Location = new System.Drawing.Point(0, 754);
+            this.panelFooterBar.Name = "panelFooterBar";
+            this.panelFooterBar.Size = new System.Drawing.Size(1378, 75);
+            this.panelFooterBar.TabIndex = 249;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.label2.Location = new System.Drawing.Point(25, 27);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 28);
+            this.label2.TabIndex = 108;
+            this.label2.Text = "# Records:";
+            // 
+            // lblRecordsCount
+            // 
+            this.lblRecordsCount.AutoSize = true;
+            this.lblRecordsCount.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            this.lblRecordsCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(70)))), ((int)(((byte)(229)))));
+            this.lblRecordsCount.Location = new System.Drawing.Point(115, 24);
+            this.lblRecordsCount.Name = "lblRecordsCount";
+            this.lblRecordsCount.Size = new System.Drawing.Size(36, 32);
+            this.lblRecordsCount.TabIndex = 109;
+            this.lblRecordsCount.Text = "??";
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(232)))), ((int)(((byte)(240)))));
+            this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btnClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
+            this.btnClose.Image = global::Clinic.Properties.Resources.Close_32;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(1218, 18);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(135, 40);
+            this.btnClose.TabIndex = 118;
+            this.btnClose.Text = "   Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // frmListVisits
             // 
@@ -290,17 +412,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(247)))), ((int)(((byte)(251)))));
             this.ClientSize = new System.Drawing.Size(1378, 829);
-            this.Controls.Add(this.dgvVisit);
-            this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.pbPersonImage);
-            this.Controls.Add(this.lblRecordsCount);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.cbFilterBy);
-            this.Controls.Add(this.txtFilterValue);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.panelGridContainer);
+            this.Controls.Add(this.panelFooterBar);
+            this.Controls.Add(this.panelFilterCard);
+            this.Controls.Add(this.panelHeaderContainer);
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.Name = "frmListVisits";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -308,14 +425,21 @@
             this.Load += new System.EventHandler(this.frmListVisits_Load);
             this.cmsPeople.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
+            this.panelHeaderContainer.ResumeLayout(false);
+            this.panelHeaderContainer.PerformLayout();
+            this.panelFilterCard.ResumeLayout(false);
+            this.panelFilterCard.PerformLayout();
+            this.panelGridContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVisit)).EndInit();
+            this.panelGridHeader.ResumeLayout(false);
+            this.panelGridHeader.PerformLayout();
+            this.panelFooterBar.ResumeLayout(false);
+            this.panelFooterBar.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.PictureBox pbPersonImage;
         private System.Windows.Forms.ContextMenuStrip cmsPeople;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
@@ -326,13 +450,21 @@
         private System.Windows.Forms.ToolStripMenuItem ShowAppointmentListtoolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.Label lblRecordsCount;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbFilterBy;
         private System.Windows.Forms.TextBox txtFilterValue;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.ToolStripMenuItem ShowVisitDetailstoolStripMenuItem1;
+        private System.Windows.Forms.Panel panelHeaderContainer;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Panel panelFilterCard;
+        private System.Windows.Forms.Panel panelGridContainer;
         private System.Windows.Forms.DataGridView dgvVisit;
+        private System.Windows.Forms.Panel panelGridHeader;
+        private System.Windows.Forms.Label lblGridTitle;
+        private System.Windows.Forms.Panel panelFooterBar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblRecordsCount;
+        private System.Windows.Forms.Button btnClose;
     }
 }
