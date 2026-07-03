@@ -501,7 +501,7 @@ The system provides multiple security mechanisms:
 ## 1. Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/Clinic-Management-System.git
+git clone https://github.com/Albarafahed/Clinic_System.git
 ```
 
 ---
