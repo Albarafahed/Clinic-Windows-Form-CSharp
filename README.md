@@ -11,6 +11,12 @@
 > A complete Desktop Clinic Management System built with **C# WinForms**, **SQL Server**, and **3-Tier Architecture**, covering the entire patient journey from registration to diagnosis, pharmacy, billing, and administration.
 
 ![Dashboard](Image/frmMain1.png)
+---
+# 🎥 Project Workflow Demo
+
+> This video demonstrates the complete clinical workflow, showcasing how the system manages the patient journey from registration to final billing.
+
+![Dashboard](Video/Clinic%20System.wmv)
 
 ---
 
