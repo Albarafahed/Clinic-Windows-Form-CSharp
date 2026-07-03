@@ -156,22 +156,7 @@ namespace Clinic.Doctor
             // ربط القائمة بالجدول
             dgvShifts.DataSource = _Doctor.dtWorkDays;
         }
-        //private void _LoadShiftsIntoGrid(DataTable dtDoctorShifts)
-        //{
-        //    _Doctor.dtWorkDays.Clear(); // تفريغ القائمة
-
-        //    foreach (DataRow row in dtDoctorShifts.Rows)
-        //    {
-        //        _ShiftsList.Add(new clsDoctorShift
-        //        {
-        //            DayID = Convert.ToInt32(row["DayID"]),
-        //            DayName = row["DayName"].ToString(),
-        //            StartTime = (TimeSpan)row["StartTime"],
-        //            EndTime = (TimeSpan)row["EndTime"]
-        //        });
-        //    }
-        //}
-
+       
         private void frmAddUpdateDoctor_Load(object sender, EventArgs e)
         {
             _ResetDefaultValues();
@@ -213,8 +198,6 @@ namespace Clinic.Doctor
 
             _Doctor.IsActive = chkIsActive.Checked;
            
-            //_Doctor.dtWorkDays =(DataTable)dgvShifts.DataSource;
-
             _Doctor.SelectedSpecialtyIDs = clbSpesalizations.GetCheckedIDs("SpecializationID");
 
             if (_Doctor.SaveDoctor())

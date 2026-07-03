@@ -149,6 +149,7 @@ namespace Clinic.Person
             {
                 if (string.IsNullOrWhiteSpace(textBox.Text))
                 {
+                    e.Cancel = true;
                     errorProvider1.SetError(textBox, "This field is required.");
                 }
                 else
@@ -276,6 +277,13 @@ namespace Clinic.Person
                 MessageBox.Show("Some fileds are not valide!, put the mouse over the red icon(s) to see the erro", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
+            }
+
+            if (!this.ValidateChildren())
+            {
+                MessageBox.Show("Some fields are not valid!, put the mouse over the red icon(s) to see the error",
+                    "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             if (!_HandlePersonImage())

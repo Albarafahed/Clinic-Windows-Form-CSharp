@@ -101,7 +101,7 @@ namespace Clinic.Medical_Services.Appointment
             // 3. تعبئة البيانات (Mapping)
             lblAppointmentID.Text = _Appointment.AppointmentID.ToString();
             cbStatus.SelectedIndex = _Appointment.AppointmentStatus - 1;
-            cbAppointmentType.SelectedIndex = _Appointment.AppointmentTypeID - 1;
+            cbAppointmentType.SelectedValue = _Appointment.AppointmentTypeID;
 
             lblPatientID.Text = _Appointment.PatientID.ToString();
             lblDoctorID.Text = _Appointment.DoctorID.ToString();
