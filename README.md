@@ -662,10 +662,10 @@ If you have ideas, bug fixes, or improvements, feel free to fork the repository 
 Software Developer
 
 GitHub:
-> https://github.com/yourusername
+> https://github.com/Albarafahed
 
 LinkedIn:
-> https://linkedin.com/in/yourprofile
+> https://www.linkedin.com/in/albara-csharp-developer/
 
 ---
 
