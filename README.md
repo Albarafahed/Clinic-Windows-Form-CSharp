@@ -16,7 +16,7 @@
 
 > This video demonstrates the complete clinical workflow, showcasing how the system manages the patient journey from registration to final billing.
 
-![Dashboard](https://www.linkedin.com/posts/albara-csharp-developer_csharp-dotnet-winforms-activity-7478922263476535297-cvEz?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEg18ckBt8Jbzf2EvEClFMDowMWNZqcEbkA)
+[![Watch the project workflow on LinkedIn](https://img.shields.io/badge/Watch%20on-LinkedIn-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/posts/albara-csharp-developer_csharp-dotnet-winforms-activity-7478922263476535297-cvEz)
 
 ---
 
