@@ -66,7 +66,7 @@ namespace Clinic.User
             }
             ;
 
-            if (_User.Password != txtCurrentPassword.Text.Trim())
+            if (_User.Password != clsGlobal.ComputeHash(txtCurrentPassword.Text.Trim()))
             {
                 e.Cancel = true;
                 errorProvider1.SetError(txtCurrentPassword, "Current password is wrong!");
@@ -120,7 +120,7 @@ namespace Clinic.User
                 return;
             }
 
-            _User.Password = txtNewPassword.Text;
+            _User.Password =clsGlobal.ComputeHash(txtNewPassword.Text.Trim());
 
             if (_User.Save())
             {

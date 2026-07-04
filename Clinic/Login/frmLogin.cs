@@ -28,7 +28,8 @@ namespace Clinic.Login
 
             string username = txtUserName.Text.Trim();
             string password = txtPassword.Text.Trim();
-            clsUser user = clsUser.FindByUsernameAndPassword(username, password);
+            string hashedPassword = clsGlobal.ComputeHash(password);
+            clsUser user = clsUser.FindByUsernameAndPassword(username, hashedPassword);
 
             // 1. التحقق من وجود المستخدم (Guard Clause)
             if (user == null)
