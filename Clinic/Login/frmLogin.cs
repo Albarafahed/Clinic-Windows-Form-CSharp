@@ -38,7 +38,7 @@ namespace Clinic.Login
             }
 
             // 2. إدارة التذكر (Remember Me)
-            clsGlobal.RememberUsernameAndPassword(chkRememberMe.Checked ? username : "", chkRememberMe.Checked ? password : "");
+            clsGlobal.SaveUserCredentialsToRegistry(chkRememberMe.Checked ? username : "", chkRememberMe.Checked ? password : "");
 
             // 3. التحقق من حالة التنشيط
             if (!user.IsActive)
@@ -69,7 +69,7 @@ namespace Clinic.Login
             
            string Username = string.Empty;
             string Password = string.Empty;
-            if(clsGlobal.GetStoredCredential(ref Username, ref Password))
+            if(clsGlobal.GetStoredCredentialFromRegistry(ref Username, ref Password))
             {
                 txtUserName.Text = Username;
                 txtPassword.Text = Password;
