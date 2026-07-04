@@ -441,22 +441,24 @@ The central dashboard used by administrators to access every module.
 
 # ⚙ Technical Highlights
 
-The project implements several software engineering concepts:
+The project leverages professional software engineering principles and patterns to ensure scalability, maintainability, and security:
 
-- 3-Tier Architecture
-- Object-Oriented Programming (OOP)
-- Encapsulation
-- Inheritance
-- Polymorphism
-- Separation of Concerns
-- Reusable User Controls
-- SQL Transactions
-- SQL Bulk Copy
-- Stored Procedures
-- Validation Layer
-- Generic Helper Classes
-- Logging System
-- Role-Based Navigation
+*   **Architectural Patterns**
+    *   **3-Tier Architecture:** Complete separation of concerns between Presentation, Business Logic, and Data Access layers.
+    *   **Object-Oriented Programming (OOP):** Effective application of Encapsulation, Inheritance, and Polymorphism.
+    *   **Reusable User Controls:** Modular UI components for consistent look and feel.
+    *   **Role-Based Navigation:** Dynamic access control to ensure user-appropriate workflows.
+
+*   **Data & Database Management**
+    *   **SQL Transactions & Bulk Copy:** Ensuring atomic operations and high-performance data handling.
+    *   **Stored Procedures:** Centralized data access logic for improved security and performance.
+    *   **Generic Helper Classes:** Reusable code for common tasks to minimize redundancy.
+    *   **Validation Layer:** Robust input sanitization and duplicate prevention at both application and database levels.
+
+*   **Security & Configuration**
+    *   **Security Engineering:** Implementation of **SHA-256 Hashing** for passwords and secure local credential storage via the **Windows Registry**.
+    *   **Configuration Management:** Secure database connection string management via `App.config` to decouple settings from source code.
+    *   **Exception Logging:** Systematic error tracking for improved auditability and debugging.
 
 ---
 
@@ -486,21 +488,30 @@ The database was designed using relational modeling with foreign keys and transa
 
 ---
 
-# 🔒 Security Features
+# 🔐 Security Features
 
-The system provides multiple security mechanisms:
+The system is designed with a multi-layered security approach to protect sensitive data and ensure reliable operations:
 
-- Login Authentication
-- Password Management
-- User Permissions
-- Role-Based Access
-- Input Validation
-- SQL Transactions
-- Exception Logging
-- Duplicate Prevention
-- Data Integrity Validation
+*   **Authentication & Access Control**
+    *   **Secure Login Workflow:** Standardized authentication process with encrypted credential verification.
+    *   **Role-Based Access Control (RBAC):** Granular permissions ensuring users only access modules relevant to their roles.
+    *   **Password Management:** Dedicated interface for secure password updates.
+
+*   **Data Protection & Integrity**
+    *   **SHA-256 Hashing:** Implements industry-standard **SHA-256 Hashing** for all user passwords, ensuring data sensitivity and integrity.
+    *   **Windows Registry Storage:** Securely manages and stores user credentials locally in the **Windows Registry**, eliminating the risks associated with plain-text storage.
+    *   **Data Integrity Validation:** Strict validation rules implemented at both the application and database levels.
+
+*   **System Robustness**
+    *   **Secure Configuration:** Moves database connection strings to a secure **App.config** file to decouple environment settings from the source code.
+    *   **SQL Transactions:** Ensures data consistency and atomicity during complex operations.
+    *   **Exception Logging:** Comprehensive logging system to track errors and support auditing.
+    *   **Duplicate Prevention:** Database-level checks to prevent redundant or conflicting data entries.
+    *   **Input Validation:** Robust sanitization to prevent malicious or invalid input.
 
 ---
+
+
 
 # 🚀 Installation
 
