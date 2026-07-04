@@ -1,4 +1,5 @@
 ﻿using Clinic_Business;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,6 +56,40 @@ namespace Clinic
 
         }
 
+        public static bool SaveUserCredentialsToRegistry(string username, string password)
+        {
+            // المسار الخاص بتطبيقك في سجل النظام
+            string keyPath = @"HKEY_CURRENT_USER\SOFTWARE\ClinicSystem";
+
+            try
+            {
+                // 1. منطق الحذف (إذا كان اسم المستخدم فارغاً، نحذف البيانات)
+                if (string.IsNullOrEmpty(username))
+                {
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\ClinicSystem", true))
+                    {
+                        if (key != null)
+                        {
+                            if (key.GetValue("StoredUsername") != null) key.DeleteValue("StoredUsername");
+                            if (key.GetValue("StoredPassword") != null) key.DeleteValue("StoredPassword");
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                // 2. منطق الحفظ (نخزن اسم المستخدم وكلمة المرور)
+                Registry.SetValue(keyPath, "StoredUsername", username, RegistryValueKind.String);
+                Registry.SetValue(keyPath, "StoredPassword", password, RegistryValueKind.String);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"حدث خطأ أثناء حفظ البيانات: {ex.Message}");
+                return false;
+            }
+        }
         public static bool GetStoredCredential(ref string Username, ref string Password)
         {
             //this will get the stored username and password and will return true if found and false if not found.
