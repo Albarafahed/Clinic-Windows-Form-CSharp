@@ -1,16 +1,64 @@
-## Ignore Visual Studio Temporary Files
+# ==============================
+# Visual Studio / .NET
+# ==============================
+
 .vs/
-*.suo
+.vscode/
+
+**/bin/
+**/obj/
+
 *.user
+*.suo
 *.userosscache
 *.sln.docstates
 
-## Ignore Build Outputs
-[Bb]in/
-[Oo]bj/
+*.pdb
+*.cache
+*.log
 
-## Ignore OS generated files
+# Build output
+Debug/
+Release/
+
+
+# ==============================
+# Database Files
+# لا ترفع قواعد البيانات والنسخ الاحتياطية
+# ==============================
+
+*.bak
+*.mdf
+*.ldf
+*.ndf
+
+
+# ==============================
+# Temporary Files
+# ==============================
+
+*.tmp
+*.temp
+*.swp
+
+
+# ==============================
+# OS Files
+# ==============================
+
 Thumbs.db
-ehthumbs.db
 Desktop.ini
 
+
+# ==============================
+# Rider / JetBrains (اختياري)
+# ==============================
+
+.idea/
+
+
+# ==============================
+# User Settings
+# ==============================
+
+*.csproj.user
