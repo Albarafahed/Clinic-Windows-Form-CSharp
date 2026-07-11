@@ -531,9 +531,19 @@ Open the solution using **Visual Studio 2022**.
 
 ## 3. Restore Database
 
-- Open SQL Server Management Studio.
-- Restore the provided ClinicDB database.
-- Or execute the SQL scripts included with the project.
+Follow these steps to set up the database:
+
+1. Open **SQL Server Management Studio (SSMS)**.
+2. Execute the SQL script file:
+
+   Database/ClinicDB.sql
+
+3. The script will create the **ClinicDB** database, including:
+   - Tables
+   - Relationships
+   - Required initial data
+
+After creating the database, ensure that the connection string in the application configuration file matches your SQL Server instance settings.
 
 ---
 
